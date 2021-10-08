@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+header, .intro-section, footer {
+    background-color: #1F2937;;
+}
+
+header, footer {
+    height: 45px;
+    width: auto;
+
+
+}
