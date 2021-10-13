@@ -42,11 +42,17 @@ footer, footer a {
     text-align: center;
 }
 
-.cubes {
+.inner-cubes {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     justify-content: space-evenly;
+}
+
+.inner-cubes,
+.inner-quote {
+    box-sizing: border-box;
+    padding: 30px;
 }
 
 .header, .hero, footer {
@@ -75,11 +81,16 @@ footer, footer a {
     margin-right: auto;
 }
 
-.cubes,
+.inner-cubes,
+.inner-quote {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
 .inner-header,
 .inner-hero,
-.inner-sign-up,
-.inner-quote {
+.inner-sign-up {
     display: flex;
     margin: 0 auto;
     max-width: 1510px;
@@ -144,14 +155,17 @@ footer, footer a {
     display: flex;
 }
 
-.quote {
+.inner-quote {
     display: flex;
     flex-flow: column nowrap;
-    background-color: #E5E7EB;
     font-size: 36px;
     font-weight: lighter;
     font-style: italic;
     color: #1F2937;
+}
+
+.quote {
+    background-color: #E5E7EB;
 }
 
 .quote-author {
