@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        <div id="test"></div>
+
+        <script>
+            let myNumber = 2;
+            let txt = "";
+
+            txt = txt + myNumber + "<br>";
+
+            while(myNumber != Infinity) 
+            {
+                myNumber = myNumber * 2;
+                txt = txt + myNumber + "<br>";
+            }
+
+            document.getElementById("test").innerHTML= txt;
+        </script>
+    </body>
+</html>
