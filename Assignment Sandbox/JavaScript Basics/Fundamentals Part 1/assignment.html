@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="EN">
+    <head>
+
+    </head>
+
+    <body>
+        <h1>Assignment</h1>
+        <div class="answers"></div>
+    </body>
+
+    <script>
+        // #1
+        let num1 = 23 + 97;
+
+        // #2
+        let num2 = 1 + 2 + 3 + 4 + 5;
+
+        // #3
+        let num3 = (4 + 6 + 9) / 77;
+        
+        // #4
+        let a = 10;
+        console.log(a);
+        let num4 = 9 * a;
+
+        // #5
+        const max = 57;
+        let actual = max - 13;
+        let percentage = actual / max;
+        num5 = percentage.toFixed(4);
+
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        let p3 = document.createElement('p');
+        let p4 = document.createElement('p');
+        let p5 = document.createElement('p');
+
+        p1.textContent = num1;
+        p2.textContent = num2;
+        p3.textContent = num3.toFixed(5);
+        p4.textContent = num4;
+        p5.textContent = num5;
+
+        let answers = document.querySelector('.answers');
+
+        answers.appendChild(p1);
+        answers.appendChild(p2);
+        answers.appendChild(p3);
+        answers.appendChild(p4);
+        answers.appendChild(p5);
+    </script>
+</html>
