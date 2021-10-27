@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+    <head>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const select = document.querySelector('select');
+                const result = document.querySelector('p');
+
+                select.addEventListener('change', updateMessage);
+
+                function updateMessage() {
+                    let val = select.value;
+
+                    switch(val) {
+                        case 'A':
+                            result.textContent = 'Well done, you have an A!';
+                            break;
+                        case 'B':
+                            result.textContent = 'Nice, you have a B!';
+                            break;
+                        case 'C':
+                            result.textContent = 'Good, you have a C!';
+                            break;
+                        case 'D':
+                            result.textContent = 'Oof, you have a D!';
+                            break;
+                        case 'F':
+                            result.textContent = 'Better luck next time, you have a F!';
+                            break;
+                        default:
+                            result.textContent = '';
+                            break;
+                    }
+                }
+            })
+        </script>
+    </head>
+
+    <body>
+        <label for='grade'>Select your final grade:</label>
+
+        <select id='grade'>
+            <option value='' select='selected'>-- Make a choice --</option>
+            <option value='A'>90-100+</option>
+            <option value='B'>80-89</option>
+            <option value='C'>70-79</option>
+            <option value='D'>60-69</option>
+            <option value='F'>59-</option>
+        </select>
+
+        <p></p>
+    </body>
+</html>
