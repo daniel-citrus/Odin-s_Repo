@@ -1,14 +1,28 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+button,
+.call-action {
+    background-color: #3882F6;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: #F9FAF8;
+}
+
+img,
+.hero-right {
+    background-color: #6c737c;
+}
+
 .card {
     display: flex;
     flex-flow: column nowrap;
-    width: 170px;
     justify-content: center;
     align-items: center;
-}
 
-.cards {
-    display: flex;
-    flex-flow: row nowrap
+    width: 165px;
 }
 
 .card-img {
@@ -26,36 +40,31 @@
     text-align: center;
 }
 
+.cards {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    flex: 0 1 auto;
+}
+
+.cards,
+.info-header {
+    width: 800px;
+}
+
 .header {
     display: flex;
+    justify-content: center;
     align-items: center;
-}
-
-.header-logo {
-    margin-right: auto;
-}
-
-.header-links {
-    margin-left: auto;
+    padding-top: 10px;
 }
 
 .header,
 .hero,
 footer {
     background-color: #1F2937;
-    padding-left: 250px;
-    padding-right: 250px;
-}
-
-.header-links {
-    display: flex;
-    gap: 30px;
-}
-
-.hero-left,
-.hero-right {
-    width: 50%;
-    height: auto;
+    padding-left: 300px;
+    padding-right: 300px;
 }
 
 .header-links a,
@@ -65,15 +74,35 @@ footer {
     text-decoration: none;
 }
 
+.header-links {
+    display: flex;
+    gap: 30px;
+    margin-left: auto;
+}
+
 .header-logo {
     font-size: 24px;
     color: #F9FAF8;
+    margin-right: auto;
+}
+
+.hero * {
+    flex: 0 0 auto;
 }
 
 .hero {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.hero-left,
+.hero-right {
+    width: 650px;
+    flex: 0 1 auto;
 }
 
 .hero-main {
@@ -89,37 +118,24 @@ footer {
     align-items: center;
 }
 
-.information {
-    display: flex;
-    flex-flow: column nowrap;
-
-    align-items: center;
-}
-
 .info-header {
     font-size: 36px;
     font-weight: bolder;
     color: #1F2937;
+
+    padding: 40px 0;
+
+    text-align: center;
+}
+
+.information {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 100px;
 }
 
 .no-border {
     border: 0px;
-}
-
-body {
-    margin: 0;
-    font-family: sans-serif;
-}
-
-button,
-.call-action {
-    background-color: #3882F6;
-    border-radius: 4px;
-    padding: 5px 10px;
-    color: #F9FAF8;
-}
-
-img,
-.hero-right {
-    background-color: #6c737c;
 }
