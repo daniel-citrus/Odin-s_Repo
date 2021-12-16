@@ -3,17 +3,69 @@ body {
     font-family: sans-serif;
 }
 
+button {
+    padding: 5px 20px;
+}
+
 button,
-.call-action {
+.action {
     background-color: #3882F6;
     border-radius: 4px;
-    padding: 5px 10px;
     color: #F9FAF8;
+}
+
+footer {
+    color: #E5E7EB;
+    text-align: center;
+
+    padding: 35px 0;
+    background-color: #1F2937;
 }
 
 img,
 .hero-right {
     background-color: #6c737c;
+}
+
+.action-button {
+    border: 2px #E5E7EB solid;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.action-container {
+    padding: 100px 5px;
+}
+
+.action-content {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 50px 5px;
+    width: 855px;
+}
+
+.action-container,
+.header,
+.hero,
+.information {
+    max-width: 1550px;
+    margin: auto;
+}
+
+.action-header {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.action-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card {
@@ -42,29 +94,25 @@ img,
 
 .cards {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
     flex: 0 1 auto;
+    gap: 50px;
+    padding: 0 5px;
+    margin: 0 auto 100px auto;
 }
 
-.cards,
-.info-header {
-    width: 800px;
+.dark-blue-background {
+    background-color: #1F2937;
 }
 
 .header {
     display: flex;
-    justify-content: center;
+    flex-flow: row wrap;
+    justify-content: space-between;
     align-items: center;
-    padding-top: 10px;
-}
-
-.header,
-.hero,
-footer {
-    background-color: #1F2937;
-    padding-left: 300px;
-    padding-right: 300px;
+    padding: 10px 5px;
 }
 
 .header-links a,
@@ -76,6 +124,7 @@ footer {
 
 .header-links {
     display: flex;
+    flex-flow: row wrap;
     gap: 30px;
     margin-left: auto;
 }
@@ -86,17 +135,12 @@ footer {
     margin-right: auto;
 }
 
-.hero * {
-    flex: 0 0 auto;
-}
-
 .hero {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-between;
 
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding: 100px 5px;
 }
 
 .hero-left,
@@ -123,8 +167,7 @@ footer {
     font-weight: bolder;
     color: #1F2937;
 
-    padding: 40px 0;
-
+    margin: 40px auto;
     text-align: center;
 }
 
@@ -133,9 +176,34 @@ footer {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding-bottom: 100px;
 }
 
 .no-border {
     border: 0px;
+}
+
+.quote {
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 740px;
+    margin: auto;
+    padding: 120px 5px 100px 5px;
+}
+
+.quote-background {
+    background-color: #E5E7EB;
+}
+
+.quote-sig {
+    font-size: 20px;
+    color: #1F2937;
+    font-weight: bolder;
+    align-self: flex-end;
+}
+
+.quote-text {
+    font-size: 28px;
+    font-weight: lighter;
+    font-style: italic;
+    color: #1F2937;
 }
