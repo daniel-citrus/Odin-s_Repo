@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+    <header>
+        <title>Conditionals #4</title>
+    </header>
+    <body>
+        <label for="weather">Select today's weather:</label>
+        <select id="weather">
+            <option value = '' selected disabled hidden>Select an option</option>
+            <option value = "sunny">Sunny</option>
+            <option value = "rainy">Rainy</option>
+            <option value = "snowing">Snowing</option>
+            <option value = "overcast">Overcast</option>
+        </select>
+
+        <p></p>
+
+        <script>
+            let select = document.querySelector('select');
+            let message = document.querySelector('p');
+    
+            select.addEventListener('change', forecast);
+            
+            function forecast() {
+                const choice = select.value;
+                
+                if (choice != '') {
+                    message.textContent = `It is ${choice} today!`;
+                }
+                else {
+                    message.textContent = '';
+                }
+            }
+        </script> 
+    </body>
+</html>
