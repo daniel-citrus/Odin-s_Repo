@@ -2,7 +2,7 @@
 function computerPlay() {
     let guess = Math.ceil(Math.random() * 3);
 
-    switch(guess) {
+    switch (guess) {
         case 1: return 'rock';
         case 2: return 'paper';
         case 3: return 'scissors';
@@ -12,35 +12,32 @@ function computerPlay() {
 // Simulate 1 round of rock, paper, scissors 
 function playRound() {
 
-    let playerSelection = undefined;
-
-    while (playerSelection != 'rock' && playerSelection != 'paper' && playerSelection != 'scissors') {
-        try {
-            playerSelection = window.prompt('Rock, Paper, or Scissors? ').toLowerCase();
+    let playerSelection = computerPlay();
+    /*
+        while (playerSelection != 'rock' && playerSelection != 'paper' && playerSelection != 'scissors') {
+            try {
+                playerSelection = window.prompt('Rock, Paper, or Scissors? ').toLowerCase();
+            }
+            catch(e) {
+                return;
+            }
         }
-        catch(e) {
-            return;
-        }
-    }
-
+    */
     let computerSelection = computerPlay();
-    let win = 'You WIN';
-    let lose = 'You LOSE';
 
     if (playerSelection === 'rock' && computerSelection === 'scissors' ||
         playerSelection === 'paper' && computerSelection === 'rock' ||
         playerSelection === 'scissors' && computerSelection === 'paper') {
-            return win + `, ${playerSelection} beats ${computerSelection}!`;
-        }
+        return 'player';
+    }
     else if (playerSelection === 'rock' && computerSelection === 'paper' ||
         playerSelection === 'paper' && computerSelection === 'scissors' ||
         playerSelection === 'scissors' && computerSelection === 'rock') {
-            return lose + `, ${playerSelection} loses to ${computerSelection}!`;
-        }
-    else {
-        return `It's a TIE!`
+        return 'computer';
     }
-    
+    else {
+        return 'tie';
+    }
 }
 
 // Play a game of rock, paper, scissors
@@ -49,6 +46,23 @@ function game() {
     let computerScore = 0;
 
     for (let i = 0; i < 5; i++) {
+        switch (playRound()) {
+            case 'player': playerScore++;
+                break;
+            case 'computer': computerScore++;
+                break;
+        }
+    }
 
+    if (playerScore > computerScore) {
+        console.log('You WIN!');
+    }
+    else if (playerScore < computerScore) {
+        console.log('You LOSE!');
+    }
+    else {
+        console.log(`It's a TIE!`);
     }
 }
+
+game();
