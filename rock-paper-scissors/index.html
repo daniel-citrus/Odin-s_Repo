@@ -3,19 +3,24 @@
 <html lang="en">
 
     <head>
-        <script defer src="script.js"></script>
+        <script defer src="/js/gameLogic.js"></script>
+        <script defer src="/js/controls.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
         <title>Rock, Paper, Scissors!</title>
     </head>
 
     <body>
-        <div class="welcome prompt">Welcome, Edgar Garcia. Today, we find out if you are awesome enough to beat a state of the art AI in Rock,
-            Paper, Scissors!</div>
-        <button class="welcome">Start</button>
-        <div class="controls">
-            <img src="/media/rock.png" alt="rock">
-            <img src="/media/paper.png" alt="paper">
-            <img src="/media/scissors.png" alt="scissors">
+        <div class="welcome">
+            <div class="entrance prompt">Welcome, Edgar Garcia. Today, we find out if you are awesome enough to beat a state of the art AI in Rock,
+                Paper, Scissors!</div>
+            <button class="entrance">Start</button>
+        </div>
+        <div class="game hidden">
+            <div class="controls">
+                <img src="/media/rock.png" alt="rock">
+                <img src="/media/paper.png" alt="paper">
+                <img src="/media/scissors.png" alt="scissors">
+            </div>
         </div>
     </body>
 

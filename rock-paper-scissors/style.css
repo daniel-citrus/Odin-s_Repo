@@ -10,13 +10,22 @@ button {
 }
 
 .controls {
-    display: none;
+    display: block;
     margin: 400px 0 0 0;
 
-    display: none;
     flex-flow: row nowrap;
     justify-content: center;
     gap: 100px;
+}
+
+.entrance {
+    opacity: 0;
+    animation: fading ease-in 3s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    -webkit-animation: fading ease-in 3s;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-fill-mode: forwards;
 }
 
 .prompt {
@@ -25,34 +34,28 @@ button {
     margin: 0 auto;
 }
 
-button.welcome {
+.hidden {
+    display: none;
+}
+
+.welcome button {
     display: block;
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
-
-    animation-delay: 2s;
-
+/*
+    animation-delay: 1.4s;
+*/
     height: 80px;
     width: 350px;
     margin: 40px auto;
 }
 
-button.welcome:hover,
-button.welcome:focus {
+.welcome button:hover,
+.welcome button:focus {
     background-color: black;
     border: 2px solid black;
     color: white;
-}
-
-.welcome {
-    opacity: 0;
-    animation: fading ease-in 3s;
-    animation-duration: 3s;
-    animation-fill-mode: forwards;
-    -webkit-animation: fading ease-in 3s;
-    -webkit-animation-duration: 3s;
-    -webkit-animation-fill-mode: forwards;
 }
 
 @keyframes fading {
