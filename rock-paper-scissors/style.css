@@ -30,11 +30,6 @@ button.scissors {
     width: 100px;
 }
 
-.commentary {
-    text-align: center;
-    margin: 30px auto;
-}
-
 .controls {
     display: flex;
     flex-flow: row nowrap;
@@ -42,7 +37,7 @@ button.scissors {
     gap: 100px;
     box-sizing: content-box;
 
-    margin: 200px 0 100px 0;
+    margin: 80px 0;
 }
 
 .controls button {
@@ -56,7 +51,11 @@ button.scissors {
     border-radius: 10px;
 }
 
-.entrance {
+.end .prompt {
+    content: '\200b';
+}
+
+.fadeIn {
     opacity: 0;
     animation: fading ease-in 2.5s;
     animation-duration: 2.5s;
@@ -74,7 +73,10 @@ button.scissors {
     text-align: center;
     font-size: 28px;
     margin: 30px 0;
-    box-sizing: content-box;
+}
+
+.game .status::after {
+    content: '\200b';
 }
 
 .game .player,
@@ -95,7 +97,20 @@ button.scissors {
 }
 
 .score-board {
+    margin: 50px 0;
     font-family: sans-serif;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 200px;
+    font-size: 33px;
+}
+
+.score-board .player,
+.score-board .ai {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
 }
 
 .title {
@@ -105,7 +120,8 @@ button.scissors {
     margin: 20px auto;
 }
 
-.welcome button {
+.welcome button,
+.end button {
     display: block;
     background-color: white;
     border: 1px solid black;
@@ -119,7 +135,9 @@ button.scissors {
 }
 
 .welcome button:hover,
-.welcome button:focus-visible {
+.welcome button:focus-visible,
+.end button:hover,
+.end button:focus-visible {
     background-color: black;
     border: 2px solid black;
     color: white;

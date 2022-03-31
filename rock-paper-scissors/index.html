@@ -9,40 +9,34 @@
     </head>
 
     <body>
-        <div class="title entrance">Edgar vs. AI</div>
-        <div class="hidden welcome">
-            <div class="prompt entrance">Welcome, Edgar Garcia. Today, we find out if you are awesome enough to beat a
-                state-of-the-art AI in Rock, Paper, Scissors!</div>
-            <button class="entrance">Start</button>
+        <div class="title fadeIn">Edgar vs. AI</div>
+        <div class="welcome">
+            <div class="prompt fadeIn">Welcome, Edgar Garcia. Today, we find out if you are awesome enough to beat a
+                state of the art AI in a game of Rock, Paper, Scissors! First to 5 wins.</div>
+            <button class="fadeIn">Start</button>
         </div>
-        <div class="game">
-            <div class="prompt entrance">Choose your weapon:</div>
-            <div class="status"></div>
-            <div class="controls entrance">
+        <div class="game hidden">
+            <div class="prompt fadeIn">Choose your weapon:</div>
+            <div class="controls fadeIn">
                 <button class="rock"></button>
                 <button class="paper"></button>
                 <button class="scissors"></button>
             </div>
-            <div class="commentary"></div>
+            <div class="status"></div>
             <div class="score-board">
-                <div class="player entrance">
+                <div class="player fadeIn">
                     <div class="name">You</div>
                     <div class="score">0</div>
                 </div>
-                <div class="ai entrance">
+                <div class="ai fadeIn">
                     <div class="name">AI</div>
                     <div class="score">0</div>
                 </div>
             </div>
         </div>
-        <div class="end">
-            <div class="win entrance hidden">
-                Woohoo you won, Edgar!
-            </div>
-            <div class="lose entrance hidden">
-                Wahh wahhhh, you lost, Edgar.
-            </div>
-            <button class="again entrance hidden">Play Again</button>
+        <div class="end hidden">
+            <div class="prompt fadeIn"></div>
+            <button class="again fadeIn">Play Again</button>
         </div>
     </body>
 
