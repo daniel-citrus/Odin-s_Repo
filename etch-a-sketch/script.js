@@ -7,30 +7,39 @@ const slider = document.getElementById('rowCount');
 clear.addEventListener('click', clearSketchpad);
 
 window.addEventListener('DOMContentLoaded', () => {
-    createCanvas(20);
+    drawPad(20);
+    updateCanvasValues(20);
 })
 
 // Generate sketchpad
 function drawPad(count) {
     for (let i = 0; i < count; i++) {
-        const cellRow = document.createElement('div');
-        cellRow.classList.add('cell-row');
+        const cellRow = createRow();
 
         for (let j = 0; j < count; j++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.addEventListener('mouseover', e => drawOn(e));
-            cellRow.appendChild(cell);
+            cellRow.appendChild(createCell());
         }
 
         pad.appendChild(cellRow);
     }
 }
 
+function createRow() {
+    const cellRow = document.createElement('div');
+    cellRow.classList.add('cell-row');
+    return cellRow;
+}
+
+function createCell() {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.addEventListener('mouseover', e => drawOn(e));
+    return cell;
+}
+
 // Redraw sketchpad and update CSS values
-function createCanvas(count) {
+function updateCanvasValues(count) {
     root.style.setProperty(`--cell-row-count`, count);
-    drawPad(count);
     output.textContent = `Dimensions: ${count} x ${count}`;
 }
 
@@ -50,10 +59,65 @@ function clearSketchpad() {
     })
 }
 
+/*
 slider.addEventListener('input', () => {
-    while(pad.firstChild) {
-        pad.removeChild(pad.firstChild);
+    while (pad.firstChild) {
+        pad.removeChild(pad.firstElementChild);
+    }
+    drawPad(slider.value);
+    updateCanvasValues(slider.value);
+})
+*/
+
+slider.addEventListener('input', () => {
+    let newCount = slider.value;
+    let difference = Math.abs(pad.childElementCount - newCount);
+
+    console.log(`newCount: ${newCount}, current:${pad.childElementCount}, differece: ${difference}`);
+    if (newCount < pad.childElementCount) {
+        shrinkPad(difference);
+    }
+    else if (newCount > pad.childElementCount) {
+        growPad(difference, newCount);
     }
 
-    createCanvas(slider.value);
+    clearSketchpad();
+    updateCanvasValues(newCount);
 })
+
+// Shrink the height and width of the sketchpad
+function shrinkPad(increaseBy) {
+    //Remove rows
+    for (let i = 0; i < increaseBy; i++) {
+        pad.removeChild(pad.firstElementChild);
+    }
+
+    // Remove cells
+    const rows = pad.querySelectorAll('.sketchPad .cell-row');
+
+    for (let row of rows) {
+        for (let i = 0; i < increaseBy; i++) {
+            row.removeChild(row.firstElementChild);
+        }
+    }
+}
+
+// Grow the height and width of the sketchpad
+function growPad(increaseBy, newLength) {
+    const rows = document.querySelectorAll('.cell-row');
+    for (const row of rows) {
+        for (let i = 0; i < increaseBy; i++) {
+            row.appendChild(createCell());
+        }
+    }
+
+    for (let j = 0; j < increaseBy; j++) {
+        const newRow = createRow();
+
+        for (let k = 0; k < newLength; k++) {
+            newRow.appendChild(createCell());
+        }
+
+        pad.appendChild(newRow);
+    }
+}

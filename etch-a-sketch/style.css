@@ -1,10 +1,9 @@
 :root {
     --sketchpad-height: 600px;
     --sketchpad-width: 600px;
-    --cell-row-count: 50;
+    --cell-row-count: 0; /* Number of cells per row */
     --cell-height: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
     --cell-width: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
-    /* Number of cells per row */
 }
 
 body {
@@ -71,7 +70,8 @@ body {
 #sizeSelector {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content:space-between;
     align-items: center;
-    gap: 30px;
+    width: 550px;
+    margin: 0 auto;
 }
