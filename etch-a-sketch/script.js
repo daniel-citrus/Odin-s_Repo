@@ -1,12 +1,13 @@
 const pad = document.querySelector('.sketchPad');
 const clear = document.querySelector('.clear');
 const root = document.documentElement; // For editing CSS root variables
+const output = document.getElementById('output');
+const slider = document.getElementById('rowCount');
 
 clear.addEventListener('click', clearSketchpad);
 
 window.addEventListener('DOMContentLoaded', () => {
-    root.style.setProperty(`--cell-row-count`, 20);
-    drawPad(20);
+    createCanvas(20);
 })
 
 // Generate sketchpad
@@ -26,6 +27,13 @@ function drawPad(count) {
     }
 }
 
+// Redraw sketchpad and update CSS values
+function createCanvas(count) {
+    root.style.setProperty(`--cell-row-count`, count);
+    drawPad(count);
+    output.textContent = `Dimensions: ${count} x ${count}`;
+}
+
 function drawOn(e) {
     e.target.classList.add('drawed');
 }
@@ -41,3 +49,11 @@ function clearSketchpad() {
         cell.classList.remove('drawed');
     })
 }
+
+slider.addEventListener('input', () => {
+    while(pad.firstChild) {
+        pad.removeChild(pad.firstChild);
+    }
+
+    createCanvas(slider.value);
+})

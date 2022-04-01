@@ -64,6 +64,10 @@ body {
     align-items: center;
 }
 
+#rowCount {
+    width: 337px;
+}
+
 #sizeSelector {
     display: flex;
     flex-flow: row wrap;
