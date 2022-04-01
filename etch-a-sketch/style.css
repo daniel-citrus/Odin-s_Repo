@@ -1,3 +1,12 @@
+:root {
+    --sketchpad-height: 600px;
+    --sketchpad-width: 600px;
+    --cell-row-count: 50;
+    --cell-height: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
+    --cell-width: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
+    /* Number of cells per row */
+}
+
 body {
     max-width: 1300px;
     margin: 0 auto;
@@ -6,8 +15,8 @@ body {
 }
 
 .cell {
-    height: 15px;
-    width: 15px;
+    height: var(--cell-height);
+    width: var(--cell-width);
     border: 1px solid rgba(0, 0, 0, 0.425);
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -43,13 +52,22 @@ body {
 
 .drawed {
     background-color: black;
+    border: 1px solid black;
 }
 
-.sketch-pad {
+.sketchPad {
     display: flex;
-    width: 960px;
-    height: auto;
+    width: var(--sketchpad-width);
+    height: var(--sketchpad-height);
     flex-flow: column nowrap;
-    margin: 60px auto 0 auto;
+    margin: 20px auto;
     align-items: center;
+}
+
+#sizeSelector {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }

@@ -1,23 +1,29 @@
-const pad = document.querySelector('.sketch-pad');
+const pad = document.querySelector('.sketchPad');
 const clear = document.querySelector('.clear');
+const root = document.documentElement; // For editing CSS root variables
 
 clear.addEventListener('click', clearSketchpad);
 
+window.addEventListener('DOMContentLoaded', () => {
+    root.style.setProperty(`--cell-row-count`, 20);
+    drawPad(20);
+})
+
 // Generate sketchpad
-for (let i = 0; i < 100; i++) {
-    const cellRow = document.createElement('div');
-    cellRow.classList.add('cell-row');
+function drawPad(count) {
+    for (let i = 0; i < count; i++) {
+        const cellRow = document.createElement('div');
+        cellRow.classList.add('cell-row');
 
-    for (let j = 0; j < 100; j++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.addEventListener('mouseover', (e) => {
-            drawOn(e);
-        })
-        cellRow.appendChild(cell);
+        for (let j = 0; j < count; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.addEventListener('mouseover', e => drawOn(e));
+            cellRow.appendChild(cell);
+        }
+
+        pad.appendChild(cellRow);
     }
-
-    pad.appendChild(cellRow);
 }
 
 function drawOn(e) {
@@ -32,6 +38,6 @@ function clearSketchpad() {
     }
 
     cells.forEach(cell => {
-        cell.style['background-color'] = 'white';
+        cell.classList.remove('drawed');
     })
 }
