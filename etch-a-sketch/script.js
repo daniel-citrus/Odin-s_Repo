@@ -12,7 +12,7 @@ for (let i = 0; i < 100; i++) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
         cell.addEventListener('mouseover', (e) => {
-            cellDraw(e);
+            drawOn(e);
         })
         cellRow.appendChild(cell);
     }
@@ -20,9 +20,8 @@ for (let i = 0; i < 100; i++) {
     pad.appendChild(cellRow);
 }
 
-//Changes cell background color when hovering with mouse down
-function cellDraw(e) {
-    e.target.style['background-color'] = 'black';
+function drawOn(e) {
+    e.target.classList.add('drawed');
 }
 
 function clearSketchpad() {

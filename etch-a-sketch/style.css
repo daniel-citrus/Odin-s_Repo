@@ -41,8 +41,14 @@ body {
     color: white;
 }
 
+.drawed {
+    background-color: black;
+}
+
 .sketch-pad {
     display: flex;
+    width: 960px;
+    height: auto;
     flex-flow: column nowrap;
     margin: 60px auto 0 auto;
     align-items: center;
