@@ -1,0 +1,48 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.card {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    width: 200px;
+}
+
+.card .text {
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 60px;
+
+    margin: 40px 0;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  text-align: center    ;
+}
+
+/* do not edit this footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;;
+  justify-content: center;
+  background: #eee;
+}
