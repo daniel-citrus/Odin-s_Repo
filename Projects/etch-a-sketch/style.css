@@ -4,6 +4,10 @@
     --cell-row-count: 0; /* Number of cells per row */
     --cell-height: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
     --cell-width: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
+    --color-primary: #FFA500;
+    --background-color: #181818;
+    --background-color-secondary: #202020;
+    --border-radius: 5px;
 }
 
 body {
@@ -11,12 +15,15 @@ body {
     margin: 0 auto;
     font-family: sans-serif;
     text-align: center;
+    color: #FFA500;
+    background-color: #181818;
 }
 
 .cell {
     height: var(--cell-height);
     width: var(--cell-width);
-    border: 1px solid rgba(0, 0, 0, 0.425);
+    background-color: white;
+    border: 1px solid rgb(156, 156, 156);
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -36,11 +43,11 @@ body {
 .clear {
     display: block;
     margin: 30px auto;
-    padding: 5px 10px;
+    padding: 2px 25px;
     font-size: 30px;
     background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
+    border: 1px solid #FFA500;
+    border-radius: var(--border-radius);
 }
 
 .clear:hover {
@@ -54,6 +61,29 @@ body {
     border: 1px solid black;
 }
 
+.gridWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 650px;
+    width: 650px;
+    border-radius: var(--border-radius);
+    background-color: var(--background-color-secondary);
+}
+
+.main {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.optionControls {
+    background-color: var(--background-color-secondary);
+    padding: 50px;
+    border-radius: var(--border-radius);
+}
+
 .sketchPad {
     display: flex;
     width: var(--sketchpad-width);
@@ -61,17 +91,9 @@ body {
     flex-flow: column nowrap;
     margin: 20px auto;
     align-items: center;
+    border: 1px solid rgb(156, 156, 156);
 }
 
 #rowCount {
-    width: 337px;
-}
-
-#sizeSelector {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content:space-between;
-    align-items: center;
-    width: 550px;
-    margin: 0 auto;
+    width: 160px;
 }

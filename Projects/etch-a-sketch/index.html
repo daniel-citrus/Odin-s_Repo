@@ -10,12 +10,18 @@
 
     <body>
         <h1>Etch-a-Sketch</h1>
-        <div class="sketchPad"></div>
-        <div id="sizeSelector">
-            <div id="output"></div>
-            <input type="range" id="rowCount" name="row count" min="2" max="100" value="20" step="1">
+        <div class="main">
+            <div class="optionControls">
+                <div id="sizeSelector">
+                    <div id="output"></div>
+                    <input type="range" id="rowCount" name="row count" min="2" max="100" value="20" step="1">
+                </div>
+                <button class="clear">Clear</button>
+            </div>
+            <div class="gridWrapper">
+                <div class="sketchPad"></div>
+            </div>
         </div>
-        <button class="clear">Clear Sketchpad</button>
     </body>
 
 </html>
