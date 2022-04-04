@@ -31,28 +31,15 @@ img,
     border: 2px #E5E7EB solid;
 }
 
-.action {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    border-radius: 10px;
-}
-
-.action-container {
-    padding: 100px 5px;
-}
-
 .action-content {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 50px 5px;
-    width: 855px;
+    padding: 30px 5px;
 }
 
 .action-container,
 .header,
-.hero,
 footer {
     background-color: #1F2937;
     padding-left: 800px;
@@ -168,6 +155,7 @@ footer {
     font-size: 36px;
     font-weight: bolder;
     color: #1F2937;
+}
 
 button {
     background-color: #3882F6;
