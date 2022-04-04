@@ -1,9 +1,16 @@
 const pad = document.querySelector('.sketchPad');
-const clear = document.querySelector('.clear');
 const root = document.documentElement; // For editing CSS root variables
 const output = document.getElementById('output');
+const rainbowBtn = document.getElementById('rainbow');
+const clear = document.querySelector('.clear');
 const slider = document.getElementById('rowCount');
+const colorPicker = document.getElementById('colorPicker');
 
+let defaultColor = `rgba(0, 0, 0, 1)`;
+let rainbow = false; // Random color drawing
+
+colorPicker.addEventListener('change', () => updateColor());
+rainbowBtn.addEventListener('click', toggleRainbow);
 clear.addEventListener('click', clearSketchpad);
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -33,7 +40,8 @@ function createRow() {
 function createCell() {
     const cell = document.createElement('div');
     cell.classList.add('cell');
-    cell.addEventListener('mouseover', e => drawOn(e));
+    cell.addEventListener('mousedown', e => draw(e));
+    cell.addEventListener('mouseenter', e => draw(e));
     return cell;
 }
 
@@ -43,8 +51,49 @@ function updateCanvasValues(count) {
     output.textContent = `Dimensions: ${count} x ${count}`;
 }
 
-function drawOn(e) {
-    e.target.classList.add('drawed');
+function draw(e) {
+    if (e.buttons > 0) {
+        let hsl = randomColor();
+        
+        if (rainbow) {
+            e.target.style['background-color'] = `${hsl}`;
+            e.target.style['border'] = `1px solid ${hsl}`;
+        }
+        else {
+            e.target.style['background-color'] = `${defaultColor}`;
+            e.target.style['border'] = `1px solid ${defaultColor}`;
+        }
+    }
+}
+
+// Update pen color when color picker is changed
+function updateColor() {
+    let value = colorPicker.value;
+    
+    let r = value.slice(1,3);
+    let g = value.slice(3,5);
+    let b = value.slice(5,7);
+
+    // convert each value using base 16 number system
+
+    defaultColor = `rgba(${r}, ${g}, ${b}, 1)`;
+    console.log(`rgba(${r}, ${g}, ${b}, 1)`);
+}
+
+// Returns a randon color in HSL form
+function randomColor() {
+    return `hsl(${Math.ceil(Math.random() * 359)}, 100%, 51%)`;
+}
+
+function toggleRainbow() {
+    if (rainbowBtn.classList.contains('active')) {
+        rainbowBtn.classList.remove('active');
+        rainbow = false;
+    }
+    else {
+        rainbowBtn.classList.add('active');
+        rainbow = true;
+    }
 }
 
 function clearSketchpad() {
@@ -55,25 +104,15 @@ function clearSketchpad() {
     }
 
     cells.forEach(cell => {
-        cell.classList.remove('drawed');
+        cell.style['background-color'] = null;
+        cell.style['border'] = null;
     })
 }
-
-/*
-slider.addEventListener('input', () => {
-    while (pad.firstChild) {
-        pad.removeChild(pad.firstElementChild);
-    }
-    drawPad(slider.value);
-    updateCanvasValues(slider.value);
-})
-*/
 
 slider.addEventListener('input', () => {
     let newCount = slider.value;
     let difference = Math.abs(pad.childElementCount - newCount);
 
-    console.log(`newCount: ${newCount}, current:${pad.childElementCount}, differece: ${difference}`);
     if (newCount < pad.childElementCount) {
         shrinkPad(difference);
     }

@@ -9,12 +9,19 @@
     </head>
 
     <body>
-        <h1>Etch-a-Sketch</h1>
+        <div class="header">Etch-a-Sketch</div>
         <div class="main">
             <div class="optionControls">
+                <div class="optionCard">
+                    <div class="colorWindow">
+                        <input type="color" id="colorPicker" value="#000000">
+                    </div>
+                    <div>Pen Color</div>
+                </div>
+                <button id="rainbow">Toggle Rainbow</button>
                 <div id="sizeSelector">
                     <div id="output"></div>
-                    <input type="range" id="rowCount" name="row count" min="2" max="100" value="20" step="1">
+                    <input type="range" id="rowCount" name="row count" min="2" max="60" value="20" step="1">
                 </div>
                 <button class="clear">Clear</button>
             </div>

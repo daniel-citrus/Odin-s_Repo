@@ -1,22 +1,49 @@
 :root {
     --sketchpad-height: 600px;
     --sketchpad-width: 600px;
-    --cell-row-count: 0; /* Number of cells per row */
+    --cell-row-count: 0;
+    /* Number of cells per row */
     --cell-height: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
     --cell-width: calc(calc(var(--sketchpad-height) / var(--cell-row-count)) - 2px);
     --color-primary: #FFA500;
     --background-color: #181818;
     --background-color-secondary: #202020;
-    --border-radius: 5px;
+    --border-radius: 2px;
 }
 
 body {
     max-width: 1300px;
     margin: 0 auto;
-    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
-    color: #FFA500;
+    color: var(--color-primary);
     background-color: #181818;
+}
+
+button {
+    display: block;
+    margin: 30px auto;
+    padding: 9px 15px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary);
+    background-color: var(--background-color);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+}
+
+button.active {
+    background-color: var(--color-primary);
+    color: var(--background-color);
+}
+
+button:hover {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: black;
 }
 
 .cell {
@@ -40,25 +67,14 @@ body {
     flex-flow: row nowrap;
 }
 
-.clear {
-    display: block;
-    margin: 30px auto;
-    padding: 2px 25px;
-    font-size: 30px;
-    background-color: white;
-    border: 1px solid #FFA500;
-    border-radius: var(--border-radius);
-}
-
-.clear:hover {
-    background-color: black;
-    border: 1px solid white;
-    color: white;
-}
-
-.drawed {
-    background-color: black;
-    border: 1px solid black;
+.colorWindow {
+    height: 36px;
+    width: 100px;
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid var(--color-primary);
+    margin-bottom: 10px;
+    transform: translateY(-10px);
 }
 
 .gridWrapper {
@@ -71,6 +87,12 @@ body {
     background-color: var(--background-color-secondary);
 }
 
+.header {
+    font-size: 40px;
+    font-weight: 600;
+    margin: 30px 0;
+}
+
 .main {
     display: flex;
     flex-flow: row nowrap;
@@ -78,9 +100,15 @@ body {
     gap: 30px;
 }
 
+.optionCard {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+}
+
 .optionControls {
     background-color: var(--background-color-secondary);
-    padding: 50px;
+    padding: 30px;
     border-radius: var(--border-radius);
 }
 
@@ -94,6 +122,25 @@ body {
     border: 1px solid rgb(156, 156, 156);
 }
 
+#colorPicker {
+    display: block;
+    outline: none;
+    border: none;
+    border: 1px solid rgb(62, 166, 255);
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 2px;
+    width: 200%;
+    padding: 4px 8px;
+    height: 200%;
+    transform: translateX(-10px) translateY(-10px);
+}
+
 #rowCount {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 2px;
+    border: none;
+    border-radius: 10px;
     width: 160px;
+    background: var(--color-primary);
 }
