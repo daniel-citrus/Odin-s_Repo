@@ -2,15 +2,21 @@ const pad = document.querySelector('.sketchPad');
 const root = document.documentElement; // For editing CSS root variables
 const output = document.getElementById('output');
 const rainbowBtn = document.getElementById('rainbow');
+const shadeBtn = document.getElementById('shade');
+const lightBtn = document.getElementById('lightener');
 const clear = document.querySelector('.clear');
 const slider = document.getElementById('rowCount');
 const colorPicker = document.getElementById('colorPicker');
 
-let defaultColor = `rgba(0, 0, 0, 1)`;
-let rainbow = false; // Random color drawing
+let defaultColor = `rgb(0, 0, 0)`;
+let rainbow = false;
+let shade = false;
+let lighten = false;
 
 colorPicker.addEventListener('change', () => updateColor());
 rainbowBtn.addEventListener('click', toggleRainbow);
+shadeBtn.addEventListener('click', toggleShade);
+lightBtn.addEventListener('click', toggleLightener);
 clear.addEventListener('click', clearSketchpad);
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -53,20 +59,53 @@ function updateCanvasValues(count) {
 
 function draw(e) {
     if (e.buttons > 0) {
-        let hsl = randomColor();
-
         if (rainbow) {
+            let hsl = randomColor();
             e.target.style['background-color'] = `${hsl}`;
-            e.target.style['border'] = `1px solid ${hsl}`;
+        }
+        else if (shade) {
+            e.target.style['background-color'] = addShade(e.target.style['background-color']);
+        }
+        else if (lighten) {
+            e.target.style['background-color'] = addLight(e.target.style['background-color']);
         }
         else {
             e.target.style['background-color'] = `${defaultColor}`;
-            e.target.style['border'] = `1px solid ${defaultColor}`;
         }
+
+        e.target.style['border'] = `1px solid ${e.target.style['background-color']}`;
     }
 }
 
-// Update pen color when color picker is changed
+function addShade(color) {
+    if (!color) {
+        return `rgb(245,245,245)`;
+    }
+
+    color = color.slice(color.indexOf('(') + 1, color.indexOf(')')).split(',');
+
+    let r = +(color[0].trim()) - 10;
+    let g = +(color[1].trim()) - 10;
+    let b = +(color[2].trim()) - 10;
+
+    return `rgb(${r},${g},${b})`;
+}
+
+function addLight(color) {
+    if (!color) {
+        return `rgb(255,255,255)`;
+    }
+
+    color = color.slice(color.indexOf('(') + 1, color.indexOf(')')).split(',');
+
+    let r = +(color[0].trim()) + 10;
+    let g = +(color[1].trim()) + 10;
+    let b = +(color[2].trim()) + 10;
+
+    return `rgb(${r},${g},${b})`;
+}
+
+// Update pen color to the current color on the color picker
 function updateColor() {
     let value = colorPicker.value;
 
@@ -79,7 +118,7 @@ function updateColor() {
     b = hexToDecimal(b);
 
     // convert each value using base 16 number system
-    defaultColor = `rgba(${r}, ${g}, ${b}, 1)`;
+    defaultColor = `rgb(${r}, ${g}, ${b})`;
 }
 
 // Convert a 2 digit hexadecimal to a decimal
@@ -140,14 +179,48 @@ function randomColor() {
     return `hsl(${Math.ceil(Math.random() * 359)}, 100%, 51%)`;
 }
 
-function toggleRainbow() {
-    if (rainbowBtn.classList.contains('active')) {
-        rainbowBtn.classList.remove('active');
-        rainbow = false;
+function toggleShade() {
+    if (shadeBtn.classList.contains('active')) {
+        shade = false;
+        shadeBtn.classList.remove('active');
     }
     else {
-        rainbowBtn.classList.add('active');
+        shade = true;
+        shadeBtn.classList.add('active');
+        rainbow = false;
+        rainbowBtn.classList.remove('active');
+        lighten = false;
+        lightBtn.classList.remove('active');
+    }
+}
+
+function toggleLightener() {
+    if (lightBtn.classList.contains('active')) {
+        lighten = false;
+        lightBtn.classList.remove('active');
+    }
+    else {
+        lighten = true;
+        lightBtn.classList.add('active');
+        rainbow = false;
+        rainbowBtn.classList.remove('active');
+        shade = false;
+        shadeBtn.classList.remove('active');
+    }
+}
+
+function toggleRainbow() {
+    if (rainbowBtn.classList.contains('active')) {
+        rainbow = false;
+        rainbowBtn.classList.remove('active');
+    }
+    else {
         rainbow = true;
+        rainbowBtn.classList.add('active');
+        shade = false;
+        shadeBtn.classList.remove('active');
+        lighten = false;
+        lightBtn.classList.remove('active');
     }
 }
 
