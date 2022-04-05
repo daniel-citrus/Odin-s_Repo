@@ -54,7 +54,7 @@ function updateCanvasValues(count) {
 function draw(e) {
     if (e.buttons > 0) {
         let hsl = randomColor();
-        
+
         if (rainbow) {
             e.target.style['background-color'] = `${hsl}`;
             e.target.style['border'] = `1px solid ${hsl}`;
@@ -69,15 +69,70 @@ function draw(e) {
 // Update pen color when color picker is changed
 function updateColor() {
     let value = colorPicker.value;
-    
-    let r = value.slice(1,3);
-    let g = value.slice(3,5);
-    let b = value.slice(5,7);
+
+    let r = value.slice(1, 3);
+    let g = value.slice(3, 5);
+    let b = value.slice(5, 7);
+
+    r = hexToDecimal(r);
+    g = hexToDecimal(g);
+    b = hexToDecimal(b);
 
     // convert each value using base 16 number system
-
     defaultColor = `rgba(${r}, ${g}, ${b}, 1)`;
-    console.log(`rgba(${r}, ${g}, ${b}, 1)`);
+}
+
+// Convert a 2 digit hexadecimal to a decimal
+function hexToDecimal(hex) {
+    hex = String(hex);
+    let first = 0;
+    let second = 0;
+
+    switch (hex[0].toUpperCase()) {
+        case 'A':
+            first = 10;
+            break;
+        case 'B':
+            first = 11;
+            break;
+        case 'C':
+            first = 12;
+            break;
+        case 'D':
+            first = 13;
+            break;
+        case 'E':
+            first = 14;
+            break;
+        case 'F':
+            first = 15;
+            break;
+        default: first = +hex[0];
+    }
+
+    switch (hex[1].toUpperCase()) {
+        case 'A':
+            second = 10;
+            break;
+        case 'B':
+            second = 11;
+            break;
+        case 'C':
+            second = 12;
+            break;
+        case 'D':
+            second = 13;
+            break;
+        case 'E':
+            second = 14;
+            break;
+        case 'F':
+            second = 15;
+            break;
+        default: second = +hex[1];
+    }
+
+    return (first * 16) + second;
 }
 
 // Returns a randon color in HSL form
