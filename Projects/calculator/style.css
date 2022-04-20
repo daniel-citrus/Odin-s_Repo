@@ -1,0 +1,73 @@
+:root {
+    --primary-background-color: #121212;
+    --secondary-background-color: #1a1a1a;
+    --font: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+    --color: #ffffffde;
+}
+
+body {
+    margin-top: 50px;
+    font-family: var(--font);
+    color: var(--color);
+    background-color: var(--primary-background-color);
+}
+
+button {
+    height: 100%;
+    width: 100%;
+
+    border-radius: 1px;
+
+    border: 0px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+
+    justify-items: center;
+    align-items: center;
+
+    gap: 2px;
+}
+
+.calculator {
+    display: grid;
+    flex: 1 1 0;
+
+    grid-template-rows: 1.5fr 3fr;
+
+    height: 500px;
+    max-width: 325px;
+    min-width: 300px;
+    border-radius: 1px;
+    background-color: orange;
+
+    gap: 2px;
+    padding: 3px;
+}
+
+.display {
+    display: grid;
+    grid-template-rows: 1fr 1.5fr;
+}
+
+.entry, .log {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.entry {
+    background-color: green;
+}
+
+.log {
+    background-color: red;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
