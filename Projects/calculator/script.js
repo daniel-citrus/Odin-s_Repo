@@ -30,6 +30,10 @@ clearEntry.addEventListener('click', () => {
 
 for (let button of numberButtons) {
     button.addEventListener('click', () => {
+        if (entry.textContent == '0') {
+            entry.textContent = '';
+        }
+        
         entry.textContent = entry.textContent + button.id;
     })
 }

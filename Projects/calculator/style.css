@@ -1,12 +1,12 @@
 :root {
     --primary-background-color: #121212;
     --secondary-background-color: #272727;
-    --font:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --color: #ffffffde;
 }
 
 body {
-    margin-top: 50px;
+    margin-top: 70px;
     font-family: var(--font);
     color: var(--color);
     background-color: var(--primary-background-color);
@@ -15,24 +15,28 @@ body {
 button {
     height: 100%;
     width: 100%;
-    font-size: 17px;
+    font-size: 15px;
     color: white;
-    background-color: #181818;
+    background-color: rgb(19, 19, 19);
     border-radius: 1px;
 
     border: 0px;
 }
 
 button:hover {
-    background-color: #525252;
+    background-color: rgb(52, 52, 52);
 }
 
 #equals {
-    background-color: rgba(189, 91, 26, 0.863);
+    background-color: rgb(117, 58, 23);
 }
 
 #equals:hover {
-    background-color: rgb(240, 95, 11);
+    background-color: rgb(225, 92, 13);
+}
+
+#decimal:hover, #change-sign:hover {
+    background-color: rgb(52, 52, 52);
 }
 
 .buttons {
@@ -56,10 +60,10 @@ button:hover {
     max-width: 325px;
     min-width: 300px;
     border-radius: 1px;
-    background-color: var(--secondary-background-color);
+    background-color: rgb(31, 31, 31);
 
     gap: 2px;
-    padding: 3px;
+    padding: 4px;
 }
 
 .display {
@@ -68,7 +72,7 @@ button:hover {
 }
 
 .entry {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 .entry, .log {
@@ -83,6 +87,8 @@ button:hover {
     justify-content: center;
 }
 
-.number {
-    background-color: #0f0f0f;
+.number, #decimal, #change-sign {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: rgb(6, 6, 6);
 }
