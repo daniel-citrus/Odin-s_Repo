@@ -1,0 +1,7 @@
+Pseudocode
+
+-left operand is initially null
+-user enters loperand
+-user selects operator (+, -, *, /)
+-loperand and operator are stored in memory
+-clear entry container (0)
