@@ -23,7 +23,7 @@ button {
 
 .buttons {
     display: grid;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(4, 1fr);
 
     justify-items: center;
