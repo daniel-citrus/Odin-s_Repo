@@ -1,7 +1,7 @@
 :root {
     --primary-background-color: #121212;
-    --secondary-background-color: #1a1a1a;
-    --font: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+    --secondary-background-color: #272727;
+    --font:  'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --color: #ffffffde;
 }
 
@@ -15,10 +15,24 @@ body {
 button {
     height: 100%;
     width: 100%;
-
+    font-size: 17px;
+    color: white;
+    background-color: #181818;
     border-radius: 1px;
 
     border: 0px;
+}
+
+button:hover {
+    background-color: #525252;
+}
+
+#equals {
+    background-color: rgba(189, 91, 26, 0.863);
+}
+
+#equals:hover {
+    background-color: rgb(240, 95, 11);
 }
 
 .buttons {
@@ -42,7 +56,7 @@ button {
     max-width: 325px;
     min-width: 300px;
     border-radius: 1px;
-    background-color: orange;
+    background-color: var(--secondary-background-color);
 
     gap: 2px;
     padding: 3px;
@@ -53,21 +67,22 @@ button {
     grid-template-rows: 1fr 1.5fr;
 }
 
+.entry {
+    font-size: 40px;
+}
+
 .entry, .log {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-}
-
-.entry {
-    background-color: green;
-}
-
-.log {
-    background-color: red;
+    padding: 0 10px;
 }
 
 .main {
     display: flex;
     justify-content: center;
+}
+
+.number {
+    background-color: #0f0f0f;
 }
