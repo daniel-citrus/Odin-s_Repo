@@ -7,11 +7,11 @@ const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
 
 let left_operand = null;
-let left_operand_ready = false;
+let left_operand_ready = false; // True when operator is selected
 let operator = null;
 let right_operand = null;
 
-const body = document.querySelector('body'); 
+const body = document.querySelector('body');
 body.addEventListener('click', () => {
     console.clear();
     console.log(`left_operand: ${left_operand}\noperator: ${operator}\nright_operand: ${right_operand}\n\nleft_operand_ready:${left_operand_ready}`);
@@ -30,7 +30,7 @@ backspace.addEventListener('click', () => {
 })
 
 clearAll.addEventListener('click', () => {
-    entry.textContent = '0';
+    clearEntryBox();
     log.textContent = '';
 
     left_operand = null;
@@ -40,7 +40,7 @@ clearAll.addEventListener('click', () => {
 })
 
 clearEntry.addEventListener('click', () => {
-    entry.textContent = '0';
+    clearEntryBox()
 
     right_operand = null;
 })
@@ -50,6 +50,10 @@ for (let button of numberButtons) {
     button.addEventListener('click', () => {
         if (entry.textContent == '0') {
             entry.textContent = '';
+        }
+        else if (left_operand_ready) {
+            entry.textContent = '';
+            left_operand_ready = false;
         }
 
         entry.textContent = entry.textContent + button.id;
@@ -82,6 +86,10 @@ for (let button of operatorButtons) {
 
         log.innerHTML = `${left_operand} ${sign}`;
     })
+}
+
+function clearEntryBox() {
+    entry.textContent = '0';
 }
 
 function add(a, b) {

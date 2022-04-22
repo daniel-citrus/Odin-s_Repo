@@ -10,6 +10,7 @@ Pseudocode
 -user enters number
     -if left operand is ready
         -clear entry box
+        -set left operand is ready to false
     -enter number
 
 -user enters operand
