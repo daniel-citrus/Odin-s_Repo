@@ -2,22 +2,27 @@ const backspace = document.getElementById('backspace');
 const clearAll = document.getElementById('clear');
 const clearEntry = document.getElementById('clear-entry');
 const entry = document.querySelector('.entry');
+const equals = document.getElementById('equals');
 const log = document.querySelector('.log');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
 
-let left_operand = null;
-let left_operand_ready = false; // True when operator is selected
+let number = null;
 let operator = null;
-let right_operand = null;
+let clearOnce = false;
+entry.textContent = '0';
+
 
 const body = document.querySelector('body');
+
 body.addEventListener('click', () => {
     console.clear();
-    console.log(`left_operand: ${left_operand}\noperator: ${operator}\nright_operand: ${right_operand}\n\nleft_operand_ready:${left_operand_ready}`);
+    console.log(`
+    number: ${number}\n
+    operator: ${operator}\n
+    clearOnce: ${clearOnce}\n
+    `)
 })
-
-entry.textContent = '0';
 
 backspace.addEventListener('click', () => {
     let content = entry.textContent;
@@ -31,65 +36,67 @@ backspace.addEventListener('click', () => {
 
 clearAll.addEventListener('click', () => {
     clearEntryBox();
-    log.textContent = '';
 
-    left_operand = null;
-    left_operand_ready = false;
+    number = null;
     operator = null;
-    right_operand = null;
+    clearOnce = false;
+
+    log.textContent = '';
 })
 
 clearEntry.addEventListener('click', () => {
     clearEntryBox()
+})
 
-    right_operand = null;
+equals.addEventListener('click', () => {
+    if (operator === null) {
+        displayToLog(entry.textContent, '=');
+    }
+    else {
+        let solution = solve(number, +entry.textContent, operator);
+        displayToLog(number, getOperationSign(operator), entry.textContent, '=');
+        entry.textContent = solution;
+    }
 })
 
 // Numbers
 for (let button of numberButtons) {
-    button.addEventListener('click', () => {
-        if (entry.textContent == '0') {
-            entry.textContent = '';
-        }
-        else if (left_operand_ready) {
-            entry.textContent = '';
-            left_operand_ready = false;
-        }
-
-        entry.textContent = entry.textContent + button.id;
+    button.addEventListener('click', (e) => {
+        addToEntry(e.target.id);
     })
 }
 
 // Operators
 for (let button of operatorButtons) {
     button.addEventListener('click', (e) => {
-        let sign = '';
-
-        switch (e.target.id) {
-            case 'add':
-                sign = '+';
-                break;
-            case 'subtract':
-                sign = '-';
-                break;
-            case 'multiply':
-                sign = '&times;';
-                break;
-            case 'divide':
-                sign = '&#xF7;';
-                break;
-        }
-
-        left_operand = +entry.textContent;
+        let sign = getOperationSign(e.target.id);
         operator = e.target.id;
-        left_operand_ready = true;
+        number = +entry.textContent;
+        clearOnce = true;
 
-        log.innerHTML = `${left_operand} ${sign}`;
+        displayToLog(number, sign);
     })
+}
+
+// Insert numbers to the entry box
+function addToEntry(digit) {
+    if (clearOnce === true) {
+        clearOnce = false;
+        entry.textContent = '';
+    }
+    else if (entry.textContent === '0') {
+        entry.textContent = '';
+    }
+
+    entry.textContent += digit;
 }
 
 function clearEntryBox() {
     entry.textContent = '0';
+}
+
+function displayToLog(number, operator, anotherNumber = '', equalSign = '') {
+    log.innerHTML = `${number} ${operator} ${anotherNumber} ${equalSign}`.trim();
 }
 
 function add(a, b) {
@@ -108,8 +115,23 @@ function divide(a, b) {
     return a / b;
 }
 
-function operate(a, b, operator) {
+// Converts operation keywords to signs (add -> +)
+function getOperationSign(sign) {
+    switch (sign) {
+        case 'add':
+            return '+';
+        case 'subtract':
+            return '-';
+        case 'multiply':
+            return '&times;';
+        case 'divide':
+            return '&#xF7;';
+        default:
+            console.log('No sign available.');
+    }
+}
 
+function solve(a, b, operator) {
     let result = 0;
 
     switch (operator) {
