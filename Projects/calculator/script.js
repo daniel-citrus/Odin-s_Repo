@@ -7,8 +7,9 @@ const log = document.querySelector('.log');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
 
-let number = null;
+let leftOperand = null;
 let operator = null;
+let rightOperand = null;
 let clearOnce = false;
 entry.textContent = '0';
 
@@ -18,8 +19,9 @@ const body = document.querySelector('body');
 body.addEventListener('click', () => {
     console.clear();
     console.log(`
-    number: ${number}\n
+    leftOperand: ${leftOperand}\n
     operator: ${operator}\n
+    rightOperand: ${rightOperand}\n
     clearOnce: ${clearOnce}\n
     `)
 })
@@ -37,7 +39,7 @@ backspace.addEventListener('click', () => {
 clearAll.addEventListener('click', () => {
     clearEntryBox();
 
-    number = null;
+    leftOperand = null;
     operator = null;
     clearOnce = false;
 
@@ -49,14 +51,24 @@ clearEntry.addEventListener('click', () => {
 })
 
 equals.addEventListener('click', () => {
-    if (operator === null) {
-        displayToLog(entry.textContent, '=');
-    }
-    else {
-        let solution = solve(number, +entry.textContent, operator);
-        displayToLog(number, getOperationSign(operator), entry.textContent, '=');
+    let solution = 0;
+
+    if (clearOnce === true && operator !== null) {
+        leftOperand = +entry.textContent;
+        solution = solve(leftOperand, rightOperand, operator);
         entry.textContent = solution;
     }
+    else if (operator === null) {
+        displayToLog(rightOperand, '=');
+    }
+    else {
+        rightOperand = +entry.textContent;
+        solution = solve(leftOperand, rightOperand, operator);
+        displayToLog(leftOperand, getOperationSign(operator), rightOperand, '=');
+        entry.textContent = solution;
+    }
+
+    clearOnce = true;
 })
 
 // Numbers
@@ -71,10 +83,10 @@ for (let button of operatorButtons) {
     button.addEventListener('click', (e) => {
         let sign = getOperationSign(e.target.id);
         operator = e.target.id;
-        number = +entry.textContent;
+        leftOperand = +entry.textContent;
         clearOnce = true;
 
-        displayToLog(number, sign);
+        displayToLog(leftOperand, sign);
     })
 }
 

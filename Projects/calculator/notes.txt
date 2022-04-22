@@ -1,4 +1,0 @@
--if operator === null
-    -log entry [=]
--else
-    -solve(expression)
