@@ -1,7 +1,26 @@
 Pseudocode
 
--left operand is initially null
--user enters loperand
+-left and right operands are initially null
+-user enters number
 -user selects operator (+, -, *, /)
--loperand and operator are stored in memory
--clear entry container (0)
+    -left operand is stored in memory
+    -operator is stored in memory
+    -left operand is ready (next number entry clears entry box)
+    -log displays: [left operand] [operator]
+-user enters number
+    -if left operand is ready
+        -clear entry box
+    -enter number
+
+-user enters operand
+    -if left operand is ready AND entry is not empty
+        -store entry to right operand
+        -solve the expression
+        -set right operand to null
+
+-user enters =
+    -if left operand is ready
+        -if right operand is null
+            -change log to display [left operand] [=]
+        -else
+            -solve expression
