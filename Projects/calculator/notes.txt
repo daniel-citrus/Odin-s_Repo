@@ -28,7 +28,13 @@ Single operation (e.g. 3 + 4 = 7):
             -output result
 
 String of operations (e.g. 3 + 4 - 1 * 2, entered in that order = 16):
-    ~[first] number is inputted
+    ~operator is pressed [instead of equals]
+        -solve expression
+        -display in log and entry
+        -store result in leftOperand
+        -set clearEntry to true
+
+    ~[third] number is inputted
     
     ~operator is pressed
         -if leftOperand is not null (this means that a new number was entered)

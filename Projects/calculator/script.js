@@ -62,7 +62,7 @@ clearEntryButton.addEventListener('click', () => {
 // =
 equals.addEventListener('click', () => {
     if (leftOperand === null) {
-        displayToLog('0','=');
+        displayToLog('0', '=');
     }
     else if (clearEntry) {
         displayToLog(leftOperand, '=');
@@ -97,17 +97,28 @@ for (let button of numberButtons) {
 // Operators
 for (let button of operatorButtons) {
     button.addEventListener('click', (e) => {
-        /* let sign = getOperationSign(e.target.id);
-        operator = e.target.id; // for display
-        leftOperand = +entry.textContent;
-        clearEntry = true;
+        let symbol = getOperationSign(e.target.id);
+        operator = e.target.id;
 
-        displayToLog(leftOperand, sign); */
         if (leftOperand === null) {
             leftOperand = +entry.textContent;
-            operator = e.target.id;
-            clearEntry = true;
+
+            if (leftOperand === 0) {
+                displayToLog('0', symbol);
+            }
+            else {
+                displayToLog(leftOperand, symbol);
+            }
         }
+        else if (!clearEntry) {
+            rightOperand = +entry.textContent;
+            let solution = solve(leftOperand, rightOperand, operator);
+
+            displayToLog(leftOperand, symbol, rightOperand, '=');
+            updateEntryBox(solution);
+        }
+
+        clearEntry = true;
     })
 }
 
@@ -126,6 +137,11 @@ function addToEntry(digit) {
 
 function clearEntryBox() {
     entry.textContent = '0';
+}
+
+function updateEntryBox(input) {
+    clearEntryBox();
+    entry.textContent = input;
 }
 
 function displayToLog(number, operator, anotherNumber = '', equalSign = '') {
