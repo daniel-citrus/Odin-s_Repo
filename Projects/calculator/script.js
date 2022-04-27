@@ -1,6 +1,6 @@
 const backspace = document.getElementById('backspace');
-const clearAll = document.getElementById('clear');
-const clearEntry = document.getElementById('clear-entry');
+const clearAllButton = document.getElementById('clear');
+const clearEntryButton = document.getElementById('clear-entry');
 const entry = document.querySelector('.entry');
 const equals = document.getElementById('equals');
 const log = document.querySelector('.log');
@@ -10,7 +10,9 @@ const operatorButtons = document.querySelectorAll('.operator');
 let leftOperand = null;
 let operator = null;
 let rightOperand = null;
-let clearOnce = false;
+let previousResult = null;
+let clearEntry = false;  // Clear entry box once during number input
+let clearAllBoxes = false;
 entry.textContent = '0';
 
 
@@ -22,10 +24,12 @@ body.addEventListener('click', () => {
     leftOperand: ${leftOperand}\n
     operator: ${operator}\n
     rightOperand: ${rightOperand}\n
-    clearOnce: ${clearOnce}\n
-    `)
+    previousResult: ${previousResult}\n
+    clearEntry: ${clearEntry}\n
+    clearAll: ${clearAllBoxes}\n`)
 })
 
+// ⌫
 backspace.addEventListener('click', () => {
     let content = entry.textContent;
 
@@ -36,44 +40,56 @@ backspace.addEventListener('click', () => {
     }
 })
 
-clearAll.addEventListener('click', () => {
+// C
+clearAllButton.addEventListener('click', () => {
     clearEntryBox();
 
     leftOperand = null;
     operator = null;
-    clearOnce = false;
+    rightOperand = null;
+    clearEntry = false;
+    clearAllBoxes = false;
+    previousResult = null;
 
     log.textContent = '';
 })
 
-clearEntry.addEventListener('click', () => {
-    clearEntryBox()
+// CE
+clearEntryButton.addEventListener('click', () => {
+    clearEntryBox();
 })
 
+// =
 equals.addEventListener('click', () => {
-    let solution = 0;
-
-    if (clearOnce === true && operator !== null) {
-        leftOperand = +entry.textContent;
-        solution = solve(leftOperand, rightOperand, operator);
-        entry.textContent = solution;
+    if (leftOperand === null) {
+        displayToLog('0','=');
     }
-    else if (operator === null) {
-        displayToLog(rightOperand, '=');
+    else if (clearEntry) {
+        displayToLog(leftOperand, '=');
+        clearEntry = false;
     }
     else {
         rightOperand = +entry.textContent;
-        solution = solve(leftOperand, rightOperand, operator);
-        displayToLog(leftOperand, getOperationSign(operator), rightOperand, '=');
-        entry.textContent = solution;
+        previousResult = solve(leftOperand, rightOperand, operator);
+
+        let symbol = getOperationSign(operator);
+
+        displayToLog(leftOperand, symbol, rightOperand, '=');
+        clearEntryBox();
+        addToEntry(previousResult);
     }
 
-    clearOnce = true;
+    clearAllBoxes = true;
 })
 
 // Numbers
 for (let button of numberButtons) {
     button.addEventListener('click', (e) => {
+        if (clearEntry) {
+            clearEntryBox();
+            clearEntry = false;
+        }
+
         addToEntry(e.target.id);
     })
 }
@@ -81,19 +97,24 @@ for (let button of numberButtons) {
 // Operators
 for (let button of operatorButtons) {
     button.addEventListener('click', (e) => {
-        let sign = getOperationSign(e.target.id);
-        operator = e.target.id;
+        /* let sign = getOperationSign(e.target.id);
+        operator = e.target.id; // for display
         leftOperand = +entry.textContent;
-        clearOnce = true;
+        clearEntry = true;
 
-        displayToLog(leftOperand, sign);
+        displayToLog(leftOperand, sign); */
+        if (leftOperand === null) {
+            leftOperand = +entry.textContent;
+            operator = e.target.id;
+            clearEntry = true;
+        }
     })
 }
 
 // Insert numbers to the entry box
 function addToEntry(digit) {
-    if (clearOnce === true) {
-        clearOnce = false;
+    if (clearEntry === true) {
+        clearEntry = false;
         entry.textContent = '';
     }
     else if (entry.textContent === '0') {

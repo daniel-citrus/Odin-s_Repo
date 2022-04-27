@@ -1,0 +1,35 @@
+Pseudocode
+(~ -> Action item)
+
+Single operation (e.g. 3 + 4 = 7):
+    ~[first] number is inputted
+
+    ~operator is pressed
+        -if leftOperand is null
+            -number is stored as leftOperand
+            -operator is stored
+            -clearEntry set to true
+
+    ~[next] number is entered
+        -if clearEntry is true
+            -clearEntry
+            -set clearEntry false
+        -number is entered
+
+    ~equals is pressed
+        -if clearEntry is true (this means no new number was entered prior to presseing the = button)
+            -display leftOperand
+            -set clearEntry to false
+        -else (this means a number was entered into the input box)
+            -clearAllBoxes set to true
+            -store number to right operand
+            -solve expression
+            -store result to previousResult
+            -output result
+
+String of operations (e.g. 3 + 4 - 1 * 2, entered in that order = 16):
+    ~[first] number is inputted
+    
+    ~operator is pressed
+        -if leftOperand is not null (this means that a new number was entered)
+            -
