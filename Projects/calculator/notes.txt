@@ -26,10 +26,16 @@ Single operation (e.g. 3 + 4 = 7):
                 -solve expression
                 -store result to previousResult
                 -output result
+        -else
+            -if right operand is not null
+                -store entry to left operand
+                -solve expression
+                -display expression to log
+                -display result to entry
             -else
                 -store entry to leftOperand
-                -display leftOperand and = to log
-                -set clearEntry to true
+                -display leftOperand to log
+        -clearAllBoxes is set to true
 
 String of operations (e.g. 3 + 4 - 1 * 2, entered in that order = 16):
     ~operator is pressed [instead of equals]

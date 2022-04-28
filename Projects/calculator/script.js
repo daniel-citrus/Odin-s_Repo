@@ -58,22 +58,32 @@ clearEntryButton.addEventListener('click', () => {
 
 // =
 equals.addEventListener('click', () => {
+    let symbol = getOperationSign(operator);
+
     if (!clearEntry) {
         if (leftOperand != null) {
             rightOperand = +entry.textContent;
             let result = solve(leftOperand, rightOperand, operator);
 
-            let symbol = getOperationSign(operator);
-
             displayToLog(leftOperand, symbol, rightOperand, '=');
             clearEntryBox();
             addToEntry(result);
         }
+    }
+    else {
+        if (rightOperand != null) {
+            leftOperand = +entry.textContent;
+            let result = solve(leftOperand, rightOperand, operator);
+            displayToLog(leftOperand, symbol, rightOperand, '=')
+            updateEntryBox(result);
+        }
         else {
             leftOperand = +entry.textContent;
+
             displayToLog(leftOperand, '=');
         }
     }
+
     clearEntry = true;
     clearAllBoxes = true;
 })
