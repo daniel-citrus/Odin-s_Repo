@@ -5,7 +5,10 @@ Single operation (e.g. 3 + 4 = 7):
     ~[first] number is inputted
 
     ~operator is pressed
-        -if leftOperand is null
+        -if clearEntry is true (means that the user hasn't entered a new number)
+            -update operator
+            -store operator
+        -else
             -number is stored as leftOperand
             -operator is stored
             -clearEntry set to true
@@ -14,28 +17,29 @@ Single operation (e.g. 3 + 4 = 7):
         -if clearEntry is true
             -clearEntry
             -set clearEntry false
-        -number is entered
 
     ~equals is pressed
-        -if clearEntry is true (this means no new number was entered prior to presseing the = button)
-            -display leftOperand
-            -set clearEntry to false
-        -else (this means a number was entered into the input box)
-            -clearAllBoxes set to true
-            -store number to right operand
-            -solve expression
-            -store result to previousResult
-            -output result
+        -if clearEntry is false
+            -if leftOperand != null
+                -clearAllBoxes set to true
+                -store number to right operand
+                -solve expression
+                -store result to previousResult
+                -output result
+            -else
+                -store entry to leftOperand
+                -display leftOperand and = to log
+                -set clearEntry to true
 
 String of operations (e.g. 3 + 4 - 1 * 2, entered in that order = 16):
     ~operator is pressed [instead of equals]
-        -solve expression
-        -display in log and entry
-        -store result in leftOperand
-        -set clearEntry to true
+        -if leftOperand is not null
+            -solve expression
+            -display in log and entry
+            -store result in leftOperand
+            -store operator
+            -set clearEntry to true
 
     ~[third] number is inputted
     
     ~operator is pressed
-        -if leftOperand is not null (this means that a new number was entered)
-            -

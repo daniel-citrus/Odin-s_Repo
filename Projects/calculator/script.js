@@ -10,7 +10,6 @@ const operatorButtons = document.querySelectorAll('.operator');
 let leftOperand = null;
 let operator = null;
 let rightOperand = null;
-let previousResult = null;
 let clearEntry = false;  // Clear entry box once during number input
 let clearAllBoxes = false;
 entry.textContent = '0';
@@ -24,7 +23,6 @@ body.addEventListener('click', () => {
     leftOperand: ${leftOperand}\n
     operator: ${operator}\n
     rightOperand: ${rightOperand}\n
-    previousResult: ${previousResult}\n
     clearEntry: ${clearEntry}\n
     clearAll: ${clearAllBoxes}\n`)
 })
@@ -49,7 +47,6 @@ clearAllButton.addEventListener('click', () => {
     rightOperand = null;
     clearEntry = false;
     clearAllBoxes = false;
-    previousResult = null;
 
     log.textContent = '';
 })
@@ -61,24 +58,23 @@ clearEntryButton.addEventListener('click', () => {
 
 // =
 equals.addEventListener('click', () => {
-    if (leftOperand === null) {
-        displayToLog('0', '=');
-    }
-    else if (clearEntry) {
-        displayToLog(leftOperand, '=');
-        clearEntry = false;
-    }
-    else {
-        rightOperand = +entry.textContent;
-        previousResult = solve(leftOperand, rightOperand, operator);
+    if (!clearEntry) {
+        if (leftOperand != null) {
+            rightOperand = +entry.textContent;
+            let result = solve(leftOperand, rightOperand, operator);
 
-        let symbol = getOperationSign(operator);
+            let symbol = getOperationSign(operator);
 
-        displayToLog(leftOperand, symbol, rightOperand, '=');
-        clearEntryBox();
-        addToEntry(previousResult);
+            displayToLog(leftOperand, symbol, rightOperand, '=');
+            clearEntryBox();
+            addToEntry(result);
+        }
+        else {
+            leftOperand = +entry.textContent;
+            displayToLog(leftOperand, '=');
+        }
     }
-
+    clearEntry = true;
     clearAllBoxes = true;
 })
 
@@ -100,22 +96,13 @@ for (let button of operatorButtons) {
         let symbol = getOperationSign(e.target.id);
         operator = e.target.id;
 
-        if (leftOperand === null) {
+        if (clearEntry) {
+            displayToLog(leftOperand, symbol);
+        }
+        else {
             leftOperand = +entry.textContent;
 
-            if (leftOperand === 0) {
-                displayToLog('0', symbol);
-            }
-            else {
-                displayToLog(leftOperand, symbol);
-            }
-        }
-        else if (!clearEntry) {
-            rightOperand = +entry.textContent;
-            let solution = solve(leftOperand, rightOperand, operator);
-
-            displayToLog(leftOperand, symbol, rightOperand, '=');
-            updateEntryBox(solution);
+            displayToLog(leftOperand, symbol);
         }
 
         clearEntry = true;
