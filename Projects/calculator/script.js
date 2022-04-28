@@ -40,32 +40,28 @@ backspace.addEventListener('click', () => {
 
 // C
 clearAllButton.addEventListener('click', () => {
-    clearEntryBox();
-
-    leftOperand = null;
-    operator = null;
-    rightOperand = null;
-    clearEntry = false;
-    clearAllBoxes = false;
-
-    log.textContent = '';
+    clearMemory();
 })
 
 // CE
 clearEntryButton.addEventListener('click', () => {
-    clearEntryBox();
+    if (clearAllBoxes) {
+        clearMemory();
+        clearAllBoxes = false;
+    }
+    else {
+        clearEntryBox();
+    }
 })
 
 // =
 equals.addEventListener('click', () => {
-    let symbol = getOperationSign(operator);
-
     if (!clearEntry) {
         if (leftOperand != null) {
             rightOperand = +entry.textContent;
             let result = solve(leftOperand, rightOperand, operator);
 
-            displayToLog(leftOperand, symbol, rightOperand, '=');
+            displayToLog(leftOperand, operator, rightOperand, '=');
             clearEntryBox();
             addToEntry(result);
         }
@@ -74,7 +70,7 @@ equals.addEventListener('click', () => {
         if (rightOperand != null) {
             leftOperand = +entry.textContent;
             let result = solve(leftOperand, rightOperand, operator);
-            displayToLog(leftOperand, symbol, rightOperand, '=')
+            displayToLog(leftOperand, operator, rightOperand, '=')
             updateEntryBox(result);
         }
         else {
@@ -91,6 +87,11 @@ equals.addEventListener('click', () => {
 // Numbers
 for (let button of numberButtons) {
     button.addEventListener('click', (e) => {
+
+        if (clearAllBoxes) {
+            clearMemory();
+        }
+
         if (clearEntry) {
             clearEntryBox();
             clearEntry = false;
@@ -103,16 +104,28 @@ for (let button of numberButtons) {
 // Operators
 for (let button of operatorButtons) {
     button.addEventListener('click', (e) => {
-        let symbol = getOperationSign(e.target.id);
+        let oldOperator = operator;
         operator = e.target.id;
 
+
         if (clearEntry) {
-            displayToLog(leftOperand, symbol);
+            displayToLog(leftOperand, operator);
         }
         else {
-            leftOperand = +entry.textContent;
+            if (leftOperand !== null) {
+                rightOperand = +entry.textContent;
 
-            displayToLog(leftOperand, symbol);
+                let result = solve(leftOperand, rightOperand, oldOperator);
+
+                displayToLog(result, operator);
+                updateEntryBox(result);
+                leftOperand = result;
+            }
+            else {
+                leftOperand = +entry.textContent;
+
+                displayToLog(leftOperand, operator);
+            }
         }
 
         clearEntry = true;
@@ -132,17 +145,33 @@ function addToEntry(digit) {
     entry.textContent += digit;
 }
 
+// Clear all expression data and display data
+function clearMemory() {
+    leftOperand = null;
+    operator = null;
+    rightOperand = null;
+    clearEntry = false;  // Clear entry box once during number input
+    clearAllBoxes = false;
+    clearEntry = false;
+    clearLog();
+    clearEntryBox();
+}
+
 function clearEntryBox() {
     entry.textContent = '0';
+}
+
+function clearLog() {
+    log.textContent = '';
+}
+
+function displayToLog(number, operator, anotherNumber = '', equalSign = '') {
+    log.innerHTML = `${number} ${getOperationSign(operator)} ${anotherNumber} ${equalSign}`.trim();
 }
 
 function updateEntryBox(input) {
     clearEntryBox();
     entry.textContent = input;
-}
-
-function displayToLog(number, operator, anotherNumber = '', equalSign = '') {
-    log.innerHTML = `${number} ${operator} ${anotherNumber} ${equalSign}`.trim();
 }
 
 function add(a, b) {
