@@ -113,6 +113,10 @@ for (let button of operatorButtons) {
         operator = e.target.id;
 
         if (clearEntry) {
+            if (clearAllBoxes) {
+                leftOperand = +entry.textContent;
+                updateEntryBox(leftOperand);
+            }
             displayToLog(leftOperand, operator);
         }
         else {
@@ -138,7 +142,7 @@ for (let button of operatorButtons) {
 }
 
 // Insert numbers to the entry box
-function addToEntry(digit) {
+function addToEntry(number) {
     if (clearEntry === true) {
         clearEntry = false;
         entry.textContent = '';
@@ -147,7 +151,7 @@ function addToEntry(digit) {
         entry.textContent = '';
     }
 
-    entry.textContent += digit;
+    entry.textContent += number;
 }
 
 // Clear all expression data and display data
@@ -170,12 +174,12 @@ function clearLog() {
     log.textContent = '';
 }
 
-function displayToLog(number, operator, anotherNumber = '', equalSign = '') {
+function displayToLog(leftNumber, operator, rightNumber = '', equalSign = '') {
     if (operator === '=') {
-        log.innerHTML = `${number} =`;
+        log.innerHTML = `${leftNumber} =`;
     }
     else {
-        log.innerHTML = `${number} ${getOperationSign(operator)} ${anotherNumber} ${equalSign}`.trim();
+        log.innerHTML = `${leftNumber} ${getOperationSign(operator)} ${rightNumber} ${equalSign}`.trim();
     }
 }
 
