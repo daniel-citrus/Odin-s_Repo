@@ -56,7 +56,12 @@ clearEntryButton.addEventListener('click', () => {
 
 // =
 equals.addEventListener('click', () => {
-    if (!clearEntry) {
+    if (leftOperand === null) {
+        leftOperand = 0;
+        displayToLog(leftOperand, '=');
+        updateEntryBox(leftOperand);
+    }
+    else if (!clearEntry) {
         if (leftOperand != null) {
             rightOperand = +entry.textContent;
             let result = solve(leftOperand, rightOperand, operator);
@@ -107,7 +112,6 @@ for (let button of operatorButtons) {
         let oldOperator = operator;
         operator = e.target.id;
 
-
         if (clearEntry) {
             displayToLog(leftOperand, operator);
         }
@@ -129,6 +133,7 @@ for (let button of operatorButtons) {
         }
 
         clearEntry = true;
+        clearAllBoxes = false;
     })
 }
 
@@ -166,7 +171,12 @@ function clearLog() {
 }
 
 function displayToLog(number, operator, anotherNumber = '', equalSign = '') {
-    log.innerHTML = `${number} ${getOperationSign(operator)} ${anotherNumber} ${equalSign}`.trim();
+    if (operator === '=') {
+        log.innerHTML = `${number} =`;
+    }
+    else {
+        log.innerHTML = `${number} ${getOperationSign(operator)} ${anotherNumber} ${equalSign}`.trim();
+    }
 }
 
 function updateEntryBox(input) {
