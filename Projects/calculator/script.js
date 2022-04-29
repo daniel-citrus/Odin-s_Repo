@@ -89,21 +89,21 @@ equals.addEventListener('click', () => {
         }
     }
 
+    isDecimal = false;
     clearEntry = true;
     clearAllBoxes = true;
 })
-/* 
+
 // .
 decimalButton.addEventListener('click', () => {
-
     if (isDecimal) {
         return;
     }
 
     isDecimal = true;
-
+    clearAllBoxes = false;
     addToEntry('.');
-}) */
+})
 
 // Numbers
 for (let button of numberButtons) {
@@ -111,11 +111,6 @@ for (let button of numberButtons) {
 
         if (clearAllBoxes) {
             clearMemory();
-        }
-
-        if (clearEntry) {
-            clearEntryBox();
-            clearEntry = false;
         }
 
         addToEntry(e.target.id);
@@ -152,22 +147,35 @@ for (let button of operatorButtons) {
             }
         }
 
+        isDecimal = false;
         clearEntry = true;
         clearAllBoxes = false;
     })
 }
 
 // Insert numbers to the entry box
-function addToEntry(number) {
+function addToEntry(input) {
     if (clearEntry === true) {
+        if (input === '.') {
+            entry.textContent = '0';
+        }
+        else {
+            entry.textContent = '';
+        }
         clearEntry = false;
-        entry.textContent = '';
     }
-    else if (entry.textContent === '0') {
-        entry.textContent = '';
+    else {
+        if (entry.textContent === '0') {
+            if (input === '.') {
+                entry.textContent = '0';
+            }
+            else {
+                entry.textContent = '';
+            }
+        }
     }
 
-    entry.textContent += number;
+    entry.textContent += input;
 }
 
 // Clear all expression data and display data

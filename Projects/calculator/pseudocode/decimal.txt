@@ -9,3 +9,7 @@ Decimal Logic
     -else
         -set isDecimal to true
         -append a decimal to the entry
+
+
+Check bug:
+Replicate: =, .5, = (shows: 0 undefined 0.5)
