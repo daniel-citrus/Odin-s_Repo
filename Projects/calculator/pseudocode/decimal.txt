@@ -1,0 +1,11 @@
+(~ -> Action item)
+
+Decimal Logic
+
+~User arrives at calculator (default entry value is 0)
+~Decimal button is pressed
+    -if isDecimal is true
+        -don't do anything/return
+    -else
+        -set isDecimal to true
+        -append a decimal to the entry

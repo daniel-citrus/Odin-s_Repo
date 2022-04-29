@@ -1,6 +1,7 @@
 const backspace = document.getElementById('backspace');
 const clearAllButton = document.getElementById('clear');
 const clearEntryButton = document.getElementById('clear-entry');
+const decimalButton = document.getElementById('decimal');
 const entry = document.querySelector('.entry');
 const equals = document.getElementById('equals');
 const log = document.querySelector('.log');
@@ -10,8 +11,9 @@ const operatorButtons = document.querySelectorAll('.operator');
 let leftOperand = null;
 let operator = null;
 let rightOperand = null;
-let clearEntry = false;  // Clear entry box once during number input
 let clearAllBoxes = false;
+let clearEntry = false;     // Clear entry box once during number input
+let isDecimal = false;
 entry.textContent = '0';
 
 
@@ -23,8 +25,10 @@ body.addEventListener('click', () => {
     leftOperand: ${leftOperand}\n
     operator: ${operator}\n
     rightOperand: ${rightOperand}\n
+    clearAll: ${clearAllBoxes}\n
     clearEntry: ${clearEntry}\n
-    clearAll: ${clearAllBoxes}\n`)
+    isDecimal: ${isDecimal}\n
+    `)
 })
 
 // ⌫
@@ -57,7 +61,7 @@ clearEntryButton.addEventListener('click', () => {
 // =
 equals.addEventListener('click', () => {
     if (leftOperand === null) {
-        leftOperand = 0;
+        leftOperand = +entry.textContent;
         displayToLog(leftOperand, '=');
         updateEntryBox(leftOperand);
     }
@@ -88,6 +92,18 @@ equals.addEventListener('click', () => {
     clearEntry = true;
     clearAllBoxes = true;
 })
+/* 
+// .
+decimalButton.addEventListener('click', () => {
+
+    if (isDecimal) {
+        return;
+    }
+
+    isDecimal = true;
+
+    addToEntry('.');
+}) */
 
 // Numbers
 for (let button of numberButtons) {
@@ -162,12 +178,14 @@ function clearMemory() {
     clearEntry = false;  // Clear entry box once during number input
     clearAllBoxes = false;
     clearEntry = false;
+    isDecimal = false;
     clearLog();
     clearEntryBox();
 }
 
 function clearEntryBox() {
     entry.textContent = '0';
+    isDecimal = false;
 }
 
 function clearLog() {
