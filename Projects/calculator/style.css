@@ -82,8 +82,10 @@ button:hover {
     padding: 0 10px;
 }
 
-.function {
-    background-color: red;
+.function.disabled,
+.operator.disabled {
+    color: var(--secondary-background-color);
+    pointer-events: none;
 }
 
 .main {

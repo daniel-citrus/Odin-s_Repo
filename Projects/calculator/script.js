@@ -303,12 +303,27 @@ function toggleCalculatorFunctions(toggle) {
     switch (toggle) {
         case 'enable':
             functionDisabled = false;
-            // add disabled class
+            
+            for (let item of functionButtons) {
+                item.classList.remove('disabled');
+            }
+
+            for (let item of operatorButtons) {
+                item.classList.remove('disabled');
+            }
 
             break;
         case 'disable':
             functionDisabled = true;
-            // remove disabled class
+            
+            for (let item of functionButtons) {
+                item.classList.add('disabled');
+            }
+
+            for (let item of operatorButtons) {
+                item.classList.add('disabled');
+            }
+
             break;
     }
 }
