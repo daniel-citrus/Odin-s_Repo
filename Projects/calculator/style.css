@@ -57,7 +57,7 @@ button:hover {
     grid-template-rows: 1.5fr 3fr;
 
     height: 500px;
-    max-width: 325px;
+    max-width: 330px;
     min-width: 300px;
     border-radius: 1px;
     background-color: rgb(31, 31, 31);

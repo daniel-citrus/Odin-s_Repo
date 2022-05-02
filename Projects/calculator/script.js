@@ -17,6 +17,7 @@ let clearEntry = false;     // Clear entry box once during number input
 let isDecimal = false;
 let isError = false;
 let functionDisabled = false;
+let key = '';
 entry.textContent = '0';
 
 
@@ -33,6 +34,7 @@ body.addEventListener('click', () => {
     Is a Decimal: ${isDecimal}\n
     Error Occurred: ${isError}\n
     Functions Disabled: ${functionDisabled}\n
+    Key Pressed: ${key}\n
     `)
 })
 
@@ -66,6 +68,100 @@ clearEntryButton.addEventListener('click', () => {
     else {
         clearEntryBox();
     }
+})
+
+// .
+decimalButton.addEventListener('click', () => {
+    if (isDecimal) {
+        return;
+    }
+
+    if (clearAllBoxes) {
+        clearMemory();
+        clearAllBoxes = false;
+    }
+
+    isDecimal = true;
+    addToEntry('.');
+})
+
+window.addEventListener('keydown', e => {
+    let id = '';
+
+    switch (e.code) {
+        case 'Backspace':
+            id = 'backspace';
+            break;
+        case 'Digit0':
+        case 'Numpad0':
+            id = '0';
+            break;
+        case 'Digit1':
+        case 'Numpad1':
+            id = '1';
+            break;
+        case 'Digit2':
+        case 'Numpad2':
+            id = '2';
+            break;
+        case 'Digit3':
+        case 'Numpad3':
+            id = '3';
+            break;
+        case 'Digit4':
+        case 'Numpad4':
+            id = '4';
+            break;
+        case 'Digit5':
+        case 'Numpad5':
+            id = '5';
+            break;
+        case 'Digit6':
+        case 'Numpad6':
+            id = '6';
+            break;
+        case 'Digit7':
+        case 'Numpad7':
+            id = '7';
+            break;
+        case 'Digit8':
+        case 'Numpad8':
+            if (e.shiftKey) {
+                id = 'multiply';
+            }
+            else {
+                id = '8';
+            }
+            break;
+        case 'Digit9':
+        case 'Numpad9':
+            id = '9';
+            break;
+        case 'Escape':
+            id = 'clear';
+            break;
+        case 'Equal':
+            if (e.shiftKey) {
+                id = 'add';
+            }
+            else {
+                id = 'equals';
+            }
+            break;
+        case 'Minus':
+            id = 'subtract';
+            break;
+        case 'NumpadEnter':
+            id = 'equals';
+            break;
+        case 'Slash':
+        case 'NumpadDivide':
+            id = 'divide';
+            break;
+    }
+    key = e.code;
+
+    document.getElementById(id).click();
 })
 
 // =
@@ -107,21 +203,6 @@ equals.addEventListener('click', () => {
     isDecimal = false;
     clearEntry = true;
     clearAllBoxes = true;
-})
-
-// .
-decimalButton.addEventListener('click', () => {
-    if (isDecimal) {
-        return;
-    }
-
-    if (clearAllBoxes) {
-        clearMemory();
-        clearAllBoxes = false;
-    }
-
-    isDecimal = true;
-    addToEntry('.');
 })
 
 // Numbers
@@ -308,7 +389,7 @@ function toggleCalculatorFunctions(toggle) {
     switch (toggle) {
         case 'enable':
             functionDisabled = false;
-            
+
             for (let item of functionButtons) {
                 item.classList.remove('disabled');
             }
@@ -320,7 +401,7 @@ function toggleCalculatorFunctions(toggle) {
             break;
         case 'disable':
             functionDisabled = true;
-            
+
             for (let item of functionButtons) {
                 item.classList.add('disabled');
             }
