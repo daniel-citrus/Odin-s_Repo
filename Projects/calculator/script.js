@@ -141,6 +141,10 @@ window.addEventListener('keydown', e => {
         case 'Numpad9':
             id = '9';
             break;
+        case 'Enter':
+        case 'NumpadEnter':
+            id = 'equals';
+            break;
         case 'Escape':
             id = 'clear';
             break;
@@ -153,19 +157,25 @@ window.addEventListener('keydown', e => {
             }
             break;
         case 'Minus':
+        case 'NumpadSubtract':
             id = 'subtract';
             break;
         case 'NumpadAdd':
-            id ='add';
+            id = 'add';
             break;
-        case 'NumpadEnter':
-            id = 'equals';
+        case 'NumpadMultiply':
+            id = 'multiply';
+            break;
+        case 'Period':
+        case 'NumpadDecimal':
+            id = 'decimal';
             break;
         case 'Slash':
         case 'NumpadDivide':
             id = 'divide';
             break;
     }
+
     key = e.code;
 
     document.getElementById(id).click();
