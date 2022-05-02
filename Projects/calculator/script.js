@@ -70,6 +70,11 @@ clearEntryButton.addEventListener('click', () => {
 
 // =
 equals.addEventListener('click', () => {
+    if (isError) {
+        clearMemory();
+        return;
+    }
+
     if (leftOperand === null) {
         leftOperand = +entry.textContent;
         displayToLog(leftOperand, '=');
