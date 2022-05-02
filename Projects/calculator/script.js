@@ -46,6 +46,10 @@ backspace.addEventListener('click', () => {
     else {
         let content = entry.textContent;
 
+        if (entry.textContent[content.length - 1] === '.') {
+            isDecimal = false;
+        }
+
         entry.textContent = content.slice(0, content.length - 1);
 
         if (entry.textContent === '') {
@@ -150,6 +154,9 @@ window.addEventListener('keydown', e => {
             break;
         case 'Minus':
             id = 'subtract';
+            break;
+        case 'NumpadAdd':
+            id ='add';
             break;
         case 'NumpadEnter':
             id = 'equals';
