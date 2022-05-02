@@ -22,23 +22,28 @@ const body = document.querySelector('body');
 body.addEventListener('click', () => {
     console.clear();
     console.log(`
-    leftOperand: ${leftOperand}\n
-    operator: ${operator}\n
-    rightOperand: ${rightOperand}\n
-    clearAll: ${clearAllBoxes}\n
-    clearEntry: ${clearEntry}\n
-    isDecimal: ${isDecimal}\n
+    Left Operand: ${leftOperand}\n
+    Operator: ${operator}\n
+    Right Operand: ${rightOperand}\n
+    Clear All: ${clearAllBoxes}\n
+    Clear Entry: ${clearEntry}\n
+    Is a Decimal: ${isDecimal}\n
     `)
 })
 
 // ⌫
 backspace.addEventListener('click', () => {
-    let content = entry.textContent;
+    if (clearAllBoxes) {
+        clearLog();
+    }
+    else {
+        let content = entry.textContent;
 
-    entry.textContent = content.slice(0, content.length - 1);
+        entry.textContent = content.slice(0, content.length - 1);
 
-    if (entry.textContent === '') {
-        entry.textContent = '0';
+        if (entry.textContent === '') {
+            entry.textContent = '0';
+        }
     }
 })
 
