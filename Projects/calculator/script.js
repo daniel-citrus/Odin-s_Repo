@@ -4,6 +4,7 @@ const clearEntryButton = document.getElementById('clear-entry');
 const decimalButton = document.getElementById('decimal');
 const entry = document.querySelector('.entry');
 const equals = document.getElementById('equals');
+const functionButtons = document.querySelectorAll('.function');
 const log = document.querySelector('.log');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
@@ -14,6 +15,8 @@ let rightOperand = null;
 let clearAllBoxes = false;
 let clearEntry = false;     // Clear entry box once during number input
 let isDecimal = false;
+let isError = false;
+let functionDisabled = false;
 entry.textContent = '0';
 
 
@@ -28,6 +31,8 @@ body.addEventListener('click', () => {
     Clear All: ${clearAllBoxes}\n
     Clear Entry: ${clearEntry}\n
     Is a Decimal: ${isDecimal}\n
+    Error Occurred: ${isError}\n
+    Functions Disabled: ${functionDisabled}\n
     `)
 })
 
@@ -138,6 +143,7 @@ for (let button of operatorButtons) {
                 updateEntryBox(leftOperand);
             }
             displayToLog(leftOperand, operator);
+            clearAllBoxes = false;
         }
         else {
             if (leftOperand !== null) {
@@ -145,20 +151,27 @@ for (let button of operatorButtons) {
 
                 let result = solve(leftOperand, rightOperand, oldOperator);
 
-                displayToLog(result, operator);
+                if (!isNaN(result)) { // Is a number
+                    displayToLog(result, operator);
+                    leftOperand = result;
+                    clearAllBoxes = false;
+                }
+                else {
+                    toggleCalculatorFunctions('disable');
+                    clearAllBoxes = true;
+                }
+
                 updateEntryBox(result);
-                leftOperand = result;
             }
             else {
                 leftOperand = +entry.textContent;
-
                 displayToLog(leftOperand, operator);
+                clearAllBoxes = false;
             }
         }
 
         isDecimal = false;
         clearEntry = true;
-        clearAllBoxes = false;
     })
 }
 
@@ -196,6 +209,8 @@ function clearMemory() {
     clearAllBoxes = false;
     clearEntry = false;
     isDecimal = false;
+    isError = false;
+    toggleCalculatorFunctions('enable');
     clearLog();
     clearEntryBox();
 }
@@ -236,7 +251,15 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (b === 0) {
+        isError = true;
+        toggleCalculatorFunctions('disable');
+
+        return 'yeet';
+    }
+    else {
+        return a / b;
+    }
 }
 
 // Converts operation keywords to signs (add -> +)
@@ -274,4 +297,18 @@ function solve(a, b, operator) {
     }
 
     return result;
+}
+
+function toggleCalculatorFunctions(toggle) {
+    switch (toggle) {
+        case 'enable':
+            functionDisabled = false;
+            // add disabled class
+
+            break;
+        case 'disable':
+            functionDisabled = true;
+            // remove disabled class
+            break;
+    }
 }
