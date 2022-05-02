@@ -100,8 +100,12 @@ decimalButton.addEventListener('click', () => {
         return;
     }
 
+    if (clearAllBoxes) {
+        clearMemory();
+        clearAllBoxes = false;
+    }
+
     isDecimal = true;
-    clearAllBoxes = false;
     addToEntry('.');
 })
 
