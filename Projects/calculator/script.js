@@ -177,7 +177,7 @@ window.addEventListener('keydown', e => {
     }
 
     key = e.code;
-
+    // try catch
     document.getElementById(id).click();
 })
 
@@ -327,6 +327,17 @@ function clearLog() {
     log.textContent = '';
 }
 
+function countWholeNumbers(input) {
+    let str = input.toString();
+
+    if (str.includes('.')) {
+        return str.split('.')[0].length;
+    }
+    else {
+        return str.length;
+    }
+}
+
 function displayToLog(leftNumber, operator, rightNumber = '', equalSign = '') {
     if (operator === '=') {
         log.innerHTML = `${leftNumber} =`;
@@ -338,7 +349,25 @@ function displayToLog(leftNumber, operator, rightNumber = '', equalSign = '') {
 
 function updateEntryBox(input) {
     clearEntryBox();
-    entry.textContent = input;
+    let holder = input.toString();
+
+    if (holder.length > 10) {
+        if (holder.includes('.')) {
+            let wholeNumbers = countWholeNumbers(holder);
+
+            if (wholeNumbers > 10) {
+                holder = (+holder).toExponential(2);
+            }
+            else {
+                holder = (+holder).toFixed(10 - wholeNumbers);
+            }
+        }
+        else {
+            holder = (+holder).toExponential(2);
+        }
+    }
+
+    entry.textContent = holder;
 }
 
 function add(a, b) {
