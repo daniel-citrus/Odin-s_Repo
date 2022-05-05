@@ -200,7 +200,8 @@ equals.addEventListener('click', () => {
 
             displayToLog(leftOperand, operator, rightOperand, '=');
             clearEntryBox();
-            addToEntry(result);
+            //addToEntry(result);
+            updateEntryBox(result);
         }
     }
     else {
@@ -352,19 +353,7 @@ function updateEntryBox(input) {
     let holder = input.toString();
 
     if (holder.length > 10) {
-        if (holder.includes('.')) {
-            let wholeNumbers = countWholeNumbers(holder);
-
-            if (wholeNumbers > 10) {
-                holder = (+holder).toExponential(2);
-            }
-            else {
-                holder = (+holder).toFixed(10 - wholeNumbers);
-            }
-        }
-        else {
-            holder = (+holder).toExponential(2);
-        }
+        holder = (+holder).toPrecision(2);
     }
 
     entry.textContent = holder;
