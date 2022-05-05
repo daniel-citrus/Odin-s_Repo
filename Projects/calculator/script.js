@@ -58,7 +58,7 @@ body.addEventListener('keydown', () => {
 // ⌫
 backspace.addEventListener('click', () => {
     if (clearAllBoxes) {
-        clearLog();
+        clearMemory();
     }
     else {
         let content = entry.textContent;
@@ -345,7 +345,7 @@ function clearMemory() {
     isDecimal = false;
     isError = false;
     toggleCalculatorFunctions('enable');
-    clearLog();
+    clearLogBox();
     clearEntryBox();
 }
 
@@ -354,7 +354,7 @@ function clearEntryBox() {
     isDecimal = false;
 }
 
-function clearLog() {
+function clearLogBox() {
     log.textContent = '';
 }
 
@@ -405,6 +405,7 @@ function divide(a, b) {
     if (b === 0) {
         isError = true;
         toggleCalculatorFunctions('disable');
+        clearAllBoxes = true;
 
         return 'yeet';
     }
@@ -434,6 +435,7 @@ function getOperationSign(sign) {
 function reciprocal() {
     displayToLog(`1/(${entry.textContent})`, '');
 
+    updateEntryBox(solve(1, +entry.textContent, 'divide'));
     clearEntry = true;
 }
 
