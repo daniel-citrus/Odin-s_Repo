@@ -59,6 +59,11 @@ body.addEventListener('keydown', () => {
 backspace.addEventListener('click', () => {
     if (clearAllBoxes) {
         clearMemory();
+        clearAllBoxes = false;
+    }
+    else if (clearEntry) {
+        clearEntryBox();
+        clearEntry = false;
     }
     else {
         let content = entry.textContent;
@@ -124,7 +129,12 @@ equals.addEventListener('click', () => {
         updateEntryBox(leftOperand);
     }
     else if (!clearEntry) {
-        if (leftOperand != null) {
+        if (operator === null) {
+            leftOperand = +entry.textContent;
+            displayToLog(leftOperand, '=');
+            updateEntryBox(leftOperand);
+        }
+        else if (leftOperand != null) {
             rightOperand = +entry.textContent;
             let result = solve(leftOperand, rightOperand, operator);
 
@@ -139,6 +149,9 @@ equals.addEventListener('click', () => {
             let result = solve(leftOperand, rightOperand, operator);
             displayToLog(leftOperand, operator, rightOperand, '=')
             updateEntryBox(result);
+        }
+        else if (operator === null) {
+
         }
         else {
             leftOperand = +entry.textContent;
@@ -433,9 +446,30 @@ function getOperationSign(sign) {
 }
 
 function reciprocal() {
-    displayToLog(`1/(${entry.textContent})`, '');
+    let result = null;
 
-    updateEntryBox(solve(1, +entry.textContent, 'divide'));
+    if (leftOperand === null) {
+        leftOperand = solve(1, +entry.textContent, 'divide');
+        displayToLog(`1/(${entry.textContent})`, '');
+        updateEntryBox(leftOperand);
+    }
+    else if (operator !== null) {
+        displayToLog(leftOperand, 'divide', `1/(${entry.textContent})`);
+        result = solve(1, +entry.textContent, 'divide');
+        updateEntryBox(result);
+        rightOperand = result;
+    }
+    else {
+        if (!clearEntry) {
+            displayToLog(`1/(${entry.textContent})`, '');
+            leftOperand = +entry.textContent
+        }
+        else {
+            displayToLog(`1/(${log.textContent})`, '');
+        }
+        leftOperand = solve(1, leftOperand, 'divide');
+        updateEntryBox(leftOperand);
+    }
     clearEntry = true;
 }
 
