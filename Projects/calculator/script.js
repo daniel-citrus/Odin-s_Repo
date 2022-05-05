@@ -177,8 +177,13 @@ window.addEventListener('keydown', e => {
     }
 
     key = e.code;
-    // try catch
-    document.getElementById(id).click();
+
+    try {
+        document.getElementById(id).click();
+    }
+    catch (error) {
+        console.error(`${error.name}: Invalid key press.`);
+    }
 })
 
 // =
