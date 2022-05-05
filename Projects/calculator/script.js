@@ -8,6 +8,7 @@ const functionButtons = document.querySelectorAll('.function');
 const log = document.querySelector('.log');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
+const reciprocalButton = document.getElementById('reciprocal');
 
 let leftOperand = null;
 let operator = null;
@@ -24,6 +25,21 @@ entry.textContent = '0';
 const body = document.querySelector('body');
 
 body.addEventListener('click', () => {
+    console.clear();
+    console.log(`
+    Left Operand: ${leftOperand}\n
+    Operator: ${operator}\n
+    Right Operand: ${rightOperand}\n
+    Clear All: ${clearAllBoxes}\n
+    Clear Entry: ${clearEntry}\n
+    Is a Decimal: ${isDecimal}\n
+    Error Occurred: ${isError}\n
+    Functions Disabled: ${functionDisabled}\n
+    Key Pressed: ${key}\n
+    `)
+})
+
+body.addEventListener('keydown', () => {
     console.clear();
     console.log(`
     Left Operand: ${leftOperand}\n
@@ -87,6 +103,51 @@ decimalButton.addEventListener('click', () => {
 
     isDecimal = true;
     addToEntry('.');
+})
+
+// =
+equals.addEventListener('click', () => {
+    if (isError) {
+        clearMemory();
+        return;
+    }
+
+    if (leftOperand === null) {
+        leftOperand = +entry.textContent;
+        displayToLog(leftOperand, '=');
+        updateEntryBox(leftOperand);
+    }
+    else if (!clearEntry) {
+        if (leftOperand != null) {
+            rightOperand = +entry.textContent;
+            let result = solve(leftOperand, rightOperand, operator);
+
+            displayToLog(leftOperand, operator, rightOperand, '=');
+            clearEntryBox();
+            updateEntryBox(result);
+        }
+    }
+    else {
+        if (rightOperand != null) {
+            leftOperand = +entry.textContent;
+            let result = solve(leftOperand, rightOperand, operator);
+            displayToLog(leftOperand, operator, rightOperand, '=')
+            updateEntryBox(result);
+        }
+        else {
+            leftOperand = +entry.textContent;
+
+            displayToLog(leftOperand, '=');
+        }
+    }
+
+    isDecimal = false;
+    clearEntry = true;
+    clearAllBoxes = true;
+})
+
+reciprocalButton.addEventListener('click', () => {
+    reciprocal();
 })
 
 window.addEventListener('keydown', e => {
@@ -184,48 +245,6 @@ window.addEventListener('keydown', e => {
     catch (error) {
         console.error(`${error.name}: Invalid key press.`);
     }
-})
-
-// =
-equals.addEventListener('click', () => {
-    if (isError) {
-        clearMemory();
-        return;
-    }
-
-    if (leftOperand === null) {
-        leftOperand = +entry.textContent;
-        displayToLog(leftOperand, '=');
-        updateEntryBox(leftOperand);
-    }
-    else if (!clearEntry) {
-        if (leftOperand != null) {
-            rightOperand = +entry.textContent;
-            let result = solve(leftOperand, rightOperand, operator);
-
-            displayToLog(leftOperand, operator, rightOperand, '=');
-            clearEntryBox();
-            //addToEntry(result);
-            updateEntryBox(result);
-        }
-    }
-    else {
-        if (rightOperand != null) {
-            leftOperand = +entry.textContent;
-            let result = solve(leftOperand, rightOperand, operator);
-            displayToLog(leftOperand, operator, rightOperand, '=')
-            updateEntryBox(result);
-        }
-        else {
-            leftOperand = +entry.textContent;
-
-            displayToLog(leftOperand, '=');
-        }
-    }
-
-    isDecimal = false;
-    clearEntry = true;
-    clearAllBoxes = true;
 })
 
 // Numbers
@@ -399,9 +418,17 @@ function getOperationSign(sign) {
             return '&times;';
         case 'divide':
             return '&#xF7;';
+        case '':
+            return '';
         default:
-            console.log('No sign available.');
+            console.error('No sign available.');
     }
+}
+
+function reciprocal() {
+    displayToLog(`1/(${entry.textContent})`, '');
+
+    clearEntry = true;
 }
 
 function solve(a, b, operator) {
@@ -430,9 +457,9 @@ function toggleCalculatorFunctions(toggle) {
         case 'enable':
             functionDisabled = false;
 
-            for (let item of functionButtons) {
+            /* for (let item of functionButtons) {
                 item.classList.remove('disabled');
-            }
+            } */
 
             for (let item of operatorButtons) {
                 item.classList.remove('disabled');
@@ -442,9 +469,9 @@ function toggleCalculatorFunctions(toggle) {
         case 'disable':
             functionDisabled = true;
 
-            for (let item of functionButtons) {
+            /* for (let item of functionButtons) {
                 item.classList.add('disabled');
-            }
+            } */
 
             for (let item of operatorButtons) {
                 item.classList.add('disabled');
