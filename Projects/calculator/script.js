@@ -1,4 +1,5 @@
 const backspace = document.getElementById('backspace');
+const changeSignButton = document.getElementById('change-sign');
 const clearAllButton = document.getElementById('clear');
 const clearEntryButton = document.getElementById('clear-entry');
 const decimalButton = document.getElementById('decimal');
@@ -73,6 +74,11 @@ backspace.addEventListener('click', () => {
         }
     }
 })
+
+/* // +-
+changeSignButton.addEventListener('click', () => {
+    
+}) */
 
 // C
 clearAllButton.addEventListener('click', () => {
