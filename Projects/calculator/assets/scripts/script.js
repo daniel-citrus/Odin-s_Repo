@@ -162,20 +162,40 @@ equals.addEventListener('click', () => {
 
 window.addEventListener('keydown', e => {
     let id = translateKeyCode(e);
+    let currentKey = null;
 
     key = e.code;
 
     try {
-        document.getElementById(id).click();
-        
+        currentKey = document.getElementById(id);
     }
     catch (error) {
         console.error(`${error.name}: Invalid key press.`);
     }
+
+    currentKey.click();
+
+    if (e.code === 'Slash' || e.code === 'NumpadDivide') {
+    }
+    else {
+        currentKey.classList.add('clicked');
+    }
 })
 
 window.addEventListener('keyup', (e) => {
+    let id = translateKeyCode(e);
+    let currentKey = null;
 
+    key = e.code;
+
+    try {
+        currentKey = document.getElementById(id);
+    }
+    catch (error) {
+        console.error(`${error.name}: Invalid key press.`);
+    }
+
+    currentKey.classList.remove('clicked');
 })
 
 // Numbers

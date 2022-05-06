@@ -98,3 +98,9 @@ button:hover {
     font-weight: bold;
     background-color: rgb(6, 6, 6);
 }
+
+.number.clicked,
+.operator.clicked,
+#decimal.clicked {
+    background-color: rgb(83, 83, 83);
+}
