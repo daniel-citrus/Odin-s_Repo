@@ -9,7 +9,6 @@ const functionButtons = document.querySelectorAll('.function');
 const log = document.querySelector('.log');
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
-const reciprocalButton = document.getElementById('reciprocal');
 
 let leftOperand = null;
 let operator = null;
@@ -26,21 +25,14 @@ entry.textContent = '0';
 const body = document.querySelector('body');
 
 body.addEventListener('click', () => {
-    console.clear();
-    console.log(`
-    Left Operand: ${leftOperand}\n
-    Operator: ${operator}\n
-    Right Operand: ${rightOperand}\n
-    Clear All: ${clearAllBoxes}\n
-    Clear Entry: ${clearEntry}\n
-    Is a Decimal: ${isDecimal}\n
-    Error Occurred: ${isError}\n
-    Functions Disabled: ${functionDisabled}\n
-    Key Pressed: ${key}\n
-    `)
+    displayBackend();
 })
 
 body.addEventListener('keydown', () => {
+    displayBackend();
+})
+
+function displayBackend() {
     console.clear();
     console.log(`
     Left Operand: ${leftOperand}\n
@@ -53,7 +45,7 @@ body.addEventListener('keydown', () => {
     Functions Disabled: ${functionDisabled}\n
     Key Pressed: ${key}\n
     `)
-})
+}
 
 // ⌫
 backspace.addEventListener('click', () => {
@@ -116,6 +108,11 @@ decimalButton.addEventListener('click', () => {
     addToEntry('.');
 })
 
+// Clear focus
+document.addEventListener('keydown', () => {
+    document.activeElement.blur();
+})
+
 // =
 equals.addEventListener('click', () => {
     if (isError) {
@@ -160,10 +157,6 @@ equals.addEventListener('click', () => {
     isDecimal = false;
     clearEntry = true;
     clearAllBoxes = true;
-})
-
-reciprocalButton.addEventListener('click', () => {
-    reciprocal();
 })
 
 window.addEventListener('keydown', e => {
@@ -301,7 +294,7 @@ for (let button of operatorButtons) {
                     clearAllBoxes = false;
                 }
                 else {
-                    toggleCalculatorFunctions('disable');
+                    toggleFunctionButtons('disable');
                     clearAllBoxes = true;
                 }
 
@@ -354,7 +347,7 @@ function clearMemory() {
     clearEntry = false;
     isDecimal = false;
     isError = false;
-    toggleCalculatorFunctions('enable');
+    toggleFunctionButtons('enable');
     clearLogBox();
     clearEntryBox();
 }
@@ -414,7 +407,7 @@ function multiply(a, b) {
 function divide(a, b) {
     if (b === 0) {
         isError = true;
-        toggleCalculatorFunctions('disable');
+        toggleFunctionButtons('disable');
         clearAllBoxes = true;
 
         return 'yeet';
@@ -442,34 +435,6 @@ function getOperationSign(sign) {
     }
 }
 
-function reciprocal() {
-    let result = null;
-
-    if (leftOperand === null) {
-        leftOperand = solve(1, +entry.textContent, 'divide');
-        displayToLog(`1/(${entry.textContent})`, '');
-        updateEntryBox(leftOperand);
-    }
-    else if (operator !== null) {
-        displayToLog(leftOperand, 'divide', `1/(${entry.textContent})`);
-        result = solve(1, +entry.textContent, 'divide');
-        updateEntryBox(result);
-        rightOperand = result;
-    }
-    else {
-        if (!clearEntry) {
-            displayToLog(`1/(${entry.textContent})`, '');
-            leftOperand = +entry.textContent
-        }
-        else {
-            displayToLog(`1/(${log.textContent})`, '');
-        }
-        leftOperand = solve(1, leftOperand, 'divide');
-        updateEntryBox(leftOperand);
-    }
-    clearEntry = true;
-}
-
 function solve(a, b, operator) {
     let result = 0;
 
@@ -491,14 +456,11 @@ function solve(a, b, operator) {
     return result;
 }
 
-function toggleCalculatorFunctions(toggle) {
+function toggleFunctionButtons(toggle) {
     switch (toggle) {
         case 'enable':
             functionDisabled = false;
 
-            /* for (let item of functionButtons) {
-                item.classList.remove('disabled');
-            } */
 
             for (let item of operatorButtons) {
                 item.classList.remove('disabled');
@@ -508,9 +470,6 @@ function toggleCalculatorFunctions(toggle) {
         case 'disable':
             functionDisabled = true;
 
-            /* for (let item of functionButtons) {
-                item.classList.add('disabled');
-            } */
 
             for (let item of operatorButtons) {
                 item.classList.add('disabled');

@@ -36,7 +36,7 @@ Decimal Logic
                 -toExponential(2)
             -else
                 10 - 1 = 9 (9 remaining characters allowed)
-                -toFixed(9)
+                -toPrecision(9)
         -else
             -toExponential(2)
     -else
