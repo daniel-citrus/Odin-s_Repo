@@ -150,9 +150,6 @@ equals.addEventListener('click', () => {
             displayToLog(leftOperand, operator, rightOperand, '=')
             updateEntryBox(result);
         }
-        else if (operator === null) {
-
-        }
         else {
             leftOperand = +entry.textContent;
 
