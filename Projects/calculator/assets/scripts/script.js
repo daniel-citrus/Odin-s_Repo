@@ -1,4 +1,5 @@
 const backspace = document.getElementById('backspace');
+const buttons = document.querySelectorAll('button');
 const changeSignButton = document.getElementById('change-sign');
 const clearAllButton = document.getElementById('clear');
 const clearEntryButton = document.getElementById('clear-entry');
@@ -160,100 +161,21 @@ equals.addEventListener('click', () => {
 })
 
 window.addEventListener('keydown', e => {
-    let id = '';
-
-    switch (e.code) {
-        case 'Backspace':
-            id = 'backspace';
-            break;
-        case 'Digit0':
-        case 'Numpad0':
-            id = '0';
-            break;
-        case 'Digit1':
-        case 'Numpad1':
-            id = '1';
-            break;
-        case 'Digit2':
-        case 'Numpad2':
-            id = '2';
-            break;
-        case 'Digit3':
-        case 'Numpad3':
-            id = '3';
-            break;
-        case 'Digit4':
-        case 'Numpad4':
-            id = '4';
-            break;
-        case 'Digit5':
-        case 'Numpad5':
-            id = '5';
-            break;
-        case 'Digit6':
-        case 'Numpad6':
-            id = '6';
-            break;
-        case 'Digit7':
-        case 'Numpad7':
-            id = '7';
-            break;
-        case 'Digit8':
-        case 'Numpad8':
-            if (e.shiftKey) {
-                id = 'multiply';
-            }
-            else {
-                id = '8';
-            }
-            break;
-        case 'Digit9':
-        case 'Numpad9':
-            id = '9';
-            break;
-        case 'Enter':
-        case 'NumpadEnter':
-            id = 'equals';
-            break;
-        case 'Escape':
-            id = 'clear';
-            break;
-        case 'Equal':
-            if (e.shiftKey) {
-                id = 'add';
-            }
-            else {
-                id = 'equals';
-            }
-            break;
-        case 'Minus':
-        case 'NumpadSubtract':
-            id = 'subtract';
-            break;
-        case 'NumpadAdd':
-            id = 'add';
-            break;
-        case 'NumpadMultiply':
-            id = 'multiply';
-            break;
-        case 'Period':
-        case 'NumpadDecimal':
-            id = 'decimal';
-            break;
-        case 'Slash':
-        case 'NumpadDivide':
-            id = 'divide';
-            break;
-    }
+    let id = translateKeyCode(e);
 
     key = e.code;
 
     try {
         document.getElementById(id).click();
+        
     }
     catch (error) {
         console.error(`${error.name}: Invalid key press.`);
     }
+})
+
+window.addEventListener('keyup', (e) => {
+
 })
 
 // Numbers
@@ -480,4 +402,96 @@ function toggleFunctionButtons(toggle) {
 
             break;
     }
+}
+
+// Translates keyboard presses (eg. 'NumpadAdd' -> 'add')
+
+function translateKeyCode(keyEvent) {
+    let result = null;
+
+    switch (keyEvent.code) {
+        case 'Backspace':
+            result = 'backspace';
+            break;
+        case 'Digit0':
+        case 'Numpad0':
+            result = '0';
+            break;
+        case 'Digit1':
+        case 'Numpad1':
+            result = '1';
+            break;
+        case 'Digit2':
+        case 'Numpad2':
+            result = '2';
+            break;
+        case 'Digit3':
+        case 'Numpad3':
+            result = '3';
+            break;
+        case 'Digit4':
+        case 'Numpad4':
+            result = '4';
+            break;
+        case 'Digit5':
+        case 'Numpad5':
+            result = '5';
+            break;
+        case 'Digit6':
+        case 'Numpad6':
+            result = '6';
+            break;
+        case 'Digit7':
+        case 'Numpad7':
+            result = '7';
+            break;
+        case 'Digit8':
+        case 'Numpad8':
+            if (keyEvent.shiftKey) {
+                result = 'multiply';
+            }
+            else {
+                result = '8';
+            }
+            break;
+        case 'Digit9':
+        case 'Numpad9':
+            result = '9';
+            break;
+        case 'Enter':
+        case 'NumpadEnter':
+            result = 'equals';
+            break;
+        case 'Escape':
+            result = 'clear';
+            break;
+        case 'Equal':
+            if (keyEvent.shiftKey) {
+                result = 'add';
+            }
+            else {
+                result = 'equals';
+            }
+            break;
+        case 'Minus':
+        case 'NumpadSubtract':
+            result = 'subtract';
+            break;
+        case 'NumpadAdd':
+            result = 'add';
+            break;
+        case 'NumpadMultiply':
+            result = 'multiply';
+            break;
+        case 'Period':
+        case 'NumpadDecimal':
+            result = 'decimal';
+            break;
+        case 'Slash':
+        case 'NumpadDivide':
+            result = 'divide';
+            break;
+    }
+
+    return result;
 }
