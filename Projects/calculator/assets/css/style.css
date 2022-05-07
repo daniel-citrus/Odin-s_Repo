@@ -101,6 +101,8 @@ button:hover {
 
 .number.clicked,
 .operator.clicked,
+#backspace.clicked,
+#clear.clicked,
 #decimal.clicked {
     background-color: rgb(83, 83, 83);
 }

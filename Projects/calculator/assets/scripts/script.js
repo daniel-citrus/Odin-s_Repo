@@ -168,17 +168,17 @@ window.addEventListener('keydown', e => {
 
     try {
         currentKey = document.getElementById(id);
+
+        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so it will not have a color change on keyboard press. 
+        if (e.code === 'Slash' || e.code === 'NumpadDivide') {
+        }
+        else {
+            currentKey.click();
+            currentKey.classList.add('clicked');
+        }
     }
     catch (error) {
         console.error(`${error.name}: Invalid key press.`);
-    }
-
-    currentKey.click();
-
-    if (e.code === 'Slash' || e.code === 'NumpadDivide') {
-    }
-    else {
-        currentKey.classList.add('clicked');
     }
 })
 
@@ -190,12 +190,12 @@ window.addEventListener('keyup', (e) => {
 
     try {
         currentKey = document.getElementById(id);
+        currentKey.classList.remove('clicked');
     }
     catch (error) {
-        console.error(`${error.name}: Invalid key press.`);
+        return;
     }
 
-    currentKey.classList.remove('clicked');
 })
 
 // Numbers
