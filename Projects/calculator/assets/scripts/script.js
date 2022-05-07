@@ -78,7 +78,7 @@ changeSignButton.addEventListener('click', () => {
     
 }) */
 
-// C
+// C - Clear
 clearAllButton.addEventListener('click', () => {
     clearMemory();
 })
@@ -160,7 +160,7 @@ equals.addEventListener('click', () => {
     clearAllBoxes = true;
 })
 
-window.addEventListener('keydown', e => {
+window.addEventListener('keydown', (e) => {
     buttonClick(e, true);
 })
 
@@ -168,23 +168,42 @@ window.addEventListener('keyup', (e) => {
     buttonClick(e, false);
 })
 
-// Adds 'clicked' class to buttons if click is true
-function buttonClick(event, click) {
-    let id = translateKeyCode(event);
+window.addEventListener('mousedown', (e) => {
+    buttonClick(e, true, false);
+})
+
+window.addEventListener('mouseup', (e) => {
+    buttonClick(e, false, false);
+})
+
+/*
+    Adds or removes 'clicked' class and acts different depending on keyboard or mouse press
+*/
+function buttonClick(event, click, keyboard = true) {
+    let id = null;
     let currentKey = null;
 
-    key = event.code;
+    if (keyboard) {
+        id = translateKeyCode(event);
+        key = event.code;
+    }
+    else {
+        id = event.target.id;
+        key = id;
+    }
 
     try {
         currentKey = document.getElementById(id);
 
-        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so the divide button will not have any clicking effects
-        if (key === 'Slash' || key === 'NumpadDivide') {
+        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so the divide button will not have any clicking effects when using the keyboard
+        if (keyboard && (key === 'Slash' || key === 'NumpadDivide')) {
             return;
         }
         else {
             if (click) {
-                currentKey.click();
+                if (keyboard) {
+                    currentKey.click();
+                }
                 currentKey.classList.add('clicked');
             }
             else {
