@@ -161,42 +161,46 @@ equals.addEventListener('click', () => {
 })
 
 window.addEventListener('keydown', e => {
-    let id = translateKeyCode(e);
-    let currentKey = null;
-
-    key = e.code;
-
-    try {
-        currentKey = document.getElementById(id);
-
-        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so it will not have a color change on keyboard press. 
-        if (e.code === 'Slash' || e.code === 'NumpadDivide') {
-        }
-        else {
-            currentKey.click();
-            currentKey.classList.add('clicked');
-        }
-    }
-    catch (error) {
-        console.error(`${error.name}: Invalid key press.`);
-    }
+    buttonClick(e, true);
 })
 
 window.addEventListener('keyup', (e) => {
-    let id = translateKeyCode(e);
+    buttonClick(e, false);
+})
+
+// Adds 'clicked' class to buttons if click is true
+function buttonClick(event, click) {
+    let id = translateKeyCode(event);
     let currentKey = null;
 
-    key = e.code;
+    key = event.code;
 
     try {
         currentKey = document.getElementById(id);
-        currentKey.classList.remove('clicked');
+
+        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so the divide button will not have any clicking effects
+        if (key === 'Slash' || key === 'NumpadDivide') {
+            return;
+        }
+        else {
+            if (click) {
+                currentKey.click();
+                currentKey.classList.add('clicked');
+            }
+            else {
+                currentKey.classList.remove('clicked');
+            }
+        }
     }
     catch (error) {
-        return;
+        if (click) {
+            console.error(`${error.name}: Invalid key press.`);
+        }
+        else {
+            return;
+        }
     }
-
-})
+}
 
 // Numbers
 for (let button of numberButtons) {

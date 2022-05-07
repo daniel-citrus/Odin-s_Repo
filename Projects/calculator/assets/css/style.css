@@ -31,6 +31,10 @@ button:hover {
     background-color: rgb(117, 58, 23);
 }
 
+#equals.clicked {
+    background-color: rgb(225, 115, 13);
+}
+
 #equals:hover {
     background-color: rgb(225, 92, 13);
 }
