@@ -305,7 +305,9 @@ function buttonClick(event, click, keyboard = true) {
     }
 }
 
-// Clear all expression data and display data
+/*
+    Clear all data and display data
+*/
 function clearMemory() {
     leftOperand = null;
     operator = null;
@@ -452,8 +454,9 @@ function toggleFunctionButtons(toggle) {
     }
 }
 
-// Translates keyboard presses (eg. 'NumpadAdd' -> 'add')
-
+/*
+    Translates keyboard presses (eg. 'NumpadAdd' -> 'add')
+*/
 function translateKeyCode(keyEvent) {
     let result = null;
 
