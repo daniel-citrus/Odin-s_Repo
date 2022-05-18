@@ -28,9 +28,13 @@
                 <label for="user_email">Email Address:</label>
                 <input type="email" id="user_email" name="email" placeholder="you@exmple.com">
                 <br />
-                <label for="user_password">Password:</label>
-                <input type="password" id="user_password" name="password">
+            </fieldset>
+            <fieldset>
+                <legend>Password</legend>
+                <input type="password" id="user_password" placeholder="Password" name="password">
                 <br />
+                <input type="password" id="user_password_confirm" placeholder="Confirm Password"
+                    name="password_confirm">
             </fieldset>
 
             <fieldset>
@@ -72,12 +76,12 @@
                             <input type="radio" id="child" name="ticket_type" value="child">
                             <label for="child">Child</label>
                         </div>
-                    
+
                         <div>
                             <input type="radio" id="adult" name="ticket_type" value="adult">
                             <label for="adult">Adult</label>
                         </div>
-                    
+
                         <div>
                             <input type="radio" id="senior" name="ticket_type" value="senior">
                             <label for="senior">Senior</label>
