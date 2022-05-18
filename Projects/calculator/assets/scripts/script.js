@@ -73,12 +73,12 @@ backspace.addEventListener('click', () => {
     }
 })
 
-/* // +-
+// +-
 changeSignButton.addEventListener('click', () => {
-    
-}) */
+    negate();
+})
 
-// C
+// C - Clear
 clearAllButton.addEventListener('click', () => {
     clearMemory();
 })
@@ -160,42 +160,20 @@ equals.addEventListener('click', () => {
     clearAllBoxes = true;
 })
 
-window.addEventListener('keydown', e => {
-    let id = translateKeyCode(e);
-    let currentKey = null;
-
-    key = e.code;
-
-    try {
-        currentKey = document.getElementById(id);
-
-        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so it will not have a color change on keyboard press. 
-        if (e.code === 'Slash' || e.code === 'NumpadDivide') {
-        }
-        else {
-            currentKey.click();
-            currentKey.classList.add('clicked');
-        }
-    }
-    catch (error) {
-        console.error(`${error.name}: Invalid key press.`);
-    }
+window.addEventListener('keydown', (e) => {
+    buttonClick(e, true);
 })
 
 window.addEventListener('keyup', (e) => {
-    let id = translateKeyCode(e);
-    let currentKey = null;
+    buttonClick(e, false);
+})
 
-    key = e.code;
+window.addEventListener('mousedown', (e) => {
+    buttonClick(e, true, false);
+})
 
-    try {
-        currentKey = document.getElementById(id);
-        currentKey.classList.remove('clicked');
-    }
-    catch (error) {
-        return;
-    }
-
+window.addEventListener('mouseup', (e) => {
+    buttonClick(e, false, false);
 })
 
 // Numbers
@@ -282,7 +260,54 @@ function addToEntry(input) {
     entry.textContent += input;
 }
 
-// Clear all expression data and display data
+/*
+    Adds or removes 'clicked' class and acts different depending on keyboard or mouse press
+*/
+function buttonClick(event, click, keyboard = true) {
+    let id = null;
+    let currentKey = null;
+
+    if (keyboard) {
+        id = translateKeyCode(event);
+        key = event.code;
+    }
+    else {
+        id = event.target.id;
+        key = id;
+    }
+
+    try {
+        currentKey = document.getElementById(id);
+
+        // Firefox Developer Edition binds the Slash and Numpad buttons to Quick Find, so the divide button will not have any clicking effects when using the keyboard
+        if (keyboard && (key === 'Slash' || key === 'NumpadDivide')) {
+            return;
+        }
+        else {
+            if (click) {
+                if (keyboard) {
+                    currentKey.click();
+                }
+                currentKey.classList.add('clicked');
+            }
+            else {
+                currentKey.classList.remove('clicked');
+            }
+        }
+    }
+    catch (error) {
+        if (click) {
+            console.error(`${error.name}: Invalid key press.`);
+        }
+        else {
+            return;
+        }
+    }
+}
+
+/*
+    Clear all data and display data
+*/
 function clearMemory() {
     leftOperand = null;
     operator = null;
@@ -380,6 +405,11 @@ function getOperationSign(sign) {
     }
 }
 
+// Negates current entry
+function negate() {
+    entry.textContent = -(+entry.textContent);
+}
+
 function solve(a, b, operator) {
     let result = 0;
 
@@ -424,8 +454,9 @@ function toggleFunctionButtons(toggle) {
     }
 }
 
-// Translates keyboard presses (eg. 'NumpadAdd' -> 'add')
-
+/*
+    Translates keyboard presses (eg. 'NumpadAdd' -> 'add')
+*/
 function translateKeyCode(keyEvent) {
     let result = null;
 

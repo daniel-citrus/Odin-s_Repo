@@ -23,7 +23,9 @@ button {
     border: 0px;
 }
 
-button:hover {
+button:hover,
+#decimal:hover,
+#change-sign:hover {
     background-color: rgb(52, 52, 52);
 }
 
@@ -31,12 +33,13 @@ button:hover {
     background-color: rgb(117, 58, 23);
 }
 
-#equals:hover {
-    background-color: rgb(225, 92, 13);
+#equals.clicked,
+#equals.clicked:hover {
+    background-color: rgb(225, 115, 13);
 }
 
-#decimal:hover, #change-sign:hover {
-    background-color: rgb(52, 52, 52);
+#equals:hover {
+    background-color: rgb(225, 92, 13);
 }
 
 .buttons {
@@ -94,15 +97,15 @@ button:hover {
     justify-content: center;
 }
 
-.number, #decimal, #change-sign {
+.number,
+#decimal,
+#change-sign {
     font-weight: bold;
     background-color: rgb(6, 6, 6);
 }
 
-.number.clicked,
-.operator.clicked,
-#backspace.clicked,
-#clear.clicked,
-#decimal.clicked {
+button.clicked,
+#decimal.clicked,
+#change-sign.clicked {
     background-color: rgb(83, 83, 83);
 }
