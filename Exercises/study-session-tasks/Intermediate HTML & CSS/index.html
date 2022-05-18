@@ -11,6 +11,7 @@
     <body>
         <form action="http://httpbin.org/post" method="POST">
             <fieldset>
+                <legend>Personal Information</legend>
                 <label for="first_name">First Name:</label>
                 <input type="text" id="first_name" name="first_name" placeholder="First Name">
                 <br />
@@ -23,6 +24,7 @@
             </fieldset>
 
             <fieldset>
+                <legend>Contact Information</legend>
                 <label for="user_email">Email Address:</label>
                 <input type="email" id="user_email" name="email" placeholder="you@exmple.com">
                 <br />
@@ -32,12 +34,14 @@
             </fieldset>
 
             <fieldset>
+                <legend>Message</legend>
                 <textarea rows="20" cols="35" placeholder="Message">Hello!</textarea>
                 <br /><br />
             </fieldset>
 
             <fieldset>
-                <label for="car">Car Dropdown:</label>
+                <legend>Other Information</legend>
+                <label for="car">Dropdown:</label>
                 <select name="Car" id="car">
                     <option value="mercedes">Mercedes</option>
                     <option value="tesla">Tesla</option>
@@ -47,7 +51,7 @@
                     <option value="ford">Ford</option>
                 </select>
                 <br /><br />
-                <label for="fashion">Fashion Grouped Dropdown:</label>
+                <label for="fashion">Grouped Dropdown:</label>
                 <select name="Fashion" id="fashion">
                     <optgroup label="Clothing">
                         <option value="t_shirt">T-Shirts</option>
@@ -61,43 +65,47 @@
                     </optgroup>
                 </select>
                 <br /><br />
-                <label for="tickets">Radio Button Ticket Type:</label>
-                <div id="tickets">
-                    <div>
-                        <input type="radio" id="child" name="ticket_type" value="child">
-                        <label for="child">Child</label>
+                <fieldset>
+                    <legend>Radio Button</legend>
+                    <div id="tickets">
+                        <div>
+                            <input type="radio" id="child" name="ticket_type" value="child">
+                            <label for="child">Child</label>
+                        </div>
+                    
+                        <div>
+                            <input type="radio" id="adult" name="ticket_type" value="adult">
+                            <label for="adult">Adult</label>
+                        </div>
+                    
+                        <div>
+                            <input type="radio" id="senior" name="ticket_type" value="senior">
+                            <label for="senior">Senior</label>
+                        </div>
                     </div>
-                
-                    <div>
-                        <input type="radio" id="adult" name="ticket_type" value="adult">
-                        <label for="adult">Adult</label>
-                    </div>
-                
-                    <div>
-                        <input type="radio" id="senior" name="ticket_type" value="senior">
-                        <label for="senior">Senior</label>
-                    </div>
-                </div>
+                </fieldset>
                 <br />
-                <label for="toppings">Checkbox Pizza Toppings:</label>
-                <div id="toppings">
-                    <div>
-                        <input type="checkbox" id="sausage" name="topping" value="sausage">
-                        <label for="sausage">Sausage</label>
+                <fieldset>
+                    <legend>Checkboxes</legend>
+                    <div id="toppings">
+                        <div>
+                            <input type="checkbox" id="sausage" name="topping" value="sausage">
+                            <label for="sausage">Sausage</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="onions" name="topping" value="onions">
+                            <label for="onions">Onions</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="pepperoni" name="topping" value="pepperoni">
+                            <label for="pepperoni">Pepperoni</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="mushrooms" name="topping" value="mushrooms">
+                            <label for="mushrooms">Mushrooms</label>
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" id="onions" name="topping" value="onions">
-                        <label for="onions">Onions</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="pepperoni" name="topping" value="pepperoni">
-                        <label for="pepperoni">Pepperoni</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="mushrooms" name="topping" value="mushrooms">
-                        <label for="mushrooms">Mushrooms</label>
-                    </div>
-                </div>
+                </fieldset>
             </fieldset>
 
             <button type="submit">Submit</button>
