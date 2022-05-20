@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <style>
+            form {
+                width: 40%;
+                margin: 0 auto;
+            }
+
+            label {
+                display: block;
+            }
+
+            input,
+            textarea {
+                width: 60%;
+            }
+
+            p {
+                margin: 0 auto;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form action="https://httpbin.org/post" method="post">
+                <fieldset>
+                    <legend>Personal Details</legend>
+                    <ul>
+                        <li>
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name">
+                        </li>
+                        <li>
+                            <label for="age">Age:</label>
+                            <input type="text" id="age" name="age">
+                        </li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <legend>Comment Information</legend>
+                    <ul>
+                        <li>
+                            <label for="comment">Comment:</label>
+                            <textarea id="comment" name="comment"></textarea>
+                        </li>
+                        <li>
+                            <label for="email">E-Mail:</label>
+                            <input type="email" placeholder="you@example.com" id="email" name="email">
+                        </li>
+                    </ul>
+                    <button type="submit">Submit</button>
+                </fieldset>
+        </form>
+    </body>
+
+</html>
