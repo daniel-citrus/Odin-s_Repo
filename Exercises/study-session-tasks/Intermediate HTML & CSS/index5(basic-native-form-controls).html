@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <form action="https://httpbin.org/post" method="post">
+            <fieldset>
+                <ul>
+                    <li>
+                        <label for="user_id">User ID</label>
+                        <input type="text" id="user_id" name="user_id">
+                    </li>
+                    <li>
+                        <label for="pwd">Password</label>
+                        <input type="password" id="pwd" name="password">
+                    </li>
+                    <li>
+                        <label for="submit"></label>
+                        <input type="submit" value="Log in" id="submit">
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+
+        <fieldset>
+            <form action="https://httpbin.org/post" method="post">
+                <fieldset>
+                    <legend>Who is your favorite pony?</legend>
+                    <ul>
+                        <li>
+                            <input type="radio" name="fav_pony" id="pony_1" value="pinkie">
+                            <label for="pony_1">Pinkie Pie</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="fav_pony" id="pony_2" value="rainbow">
+                            <label for="pony_2">Rainbow Dash</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="fav_pony" id="pony_3" value="twilight">
+                            <label for="pony_3">Twilight Sparkle</label>
+                        </li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <legend>Hotdog preferences</legend>
+                    <ul>
+                        <li>
+                            <input type="checkbox" name="hotdog_pref" id="hotdog_1" value="">
+                            <label for="hotdog_1">Vegan</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" name="hotdog_pref" id="hotdog_2" value="">
+                            <label for="hotdog_2">Onions</label>
+                        </li>
+                    </ul>
+                </fieldset>
+                <button type="submit">Submit</button>
+            </form>
+        </fieldset>
+        <fieldset>
+            <form action="https://httpbin.org/post" method="post">
+                <input type="file" id="file" name="user_file" accept="image/png, image/jpg" multiple>
+                <button>Submit</button>
+            </form>
+        </fieldset>
+    </body>
+
+</html>
