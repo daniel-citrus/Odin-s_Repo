@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit your preferences</title>
+
+        <style>
+            ul {
+                list-style-type: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form action="http://httpbin.org/post" method="post">
+            <fieldset>
+                <legend>Edit your preferences</legend>
+
+                <ul>
+                    <li>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email">
+                    </li>
+                    <li>
+                        <label for="website">Website:</label>
+                        <input type="url" id="website" name="website">
+                    </li>
+                    <li>
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone">
+                    </li>
+                    <li>
+                        <label for="color">Color:</label>
+                        <input type="color" id="color" name="color">
+                    </li>
+                    <li>
+                        <button type="submit">Update preferences</button>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+
+        <form action="http://httpbin.org/post" method="post">
+            <fieldset>
+                <legend>Invitations</legend>
+                <ul>
+                    <li>
+                        <label for="max-invite">Select maximum number of invitations</label>
+                        <input type="range" min="1" max="30" value="10" id="max-invite" name="max_invite">
+                        <output for="max-invite" class="invite-output"></output>
+                    </li>
+                    <li>
+                        <button>Submit</button>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </body>
+
+    <script>
+        const invite = document.querySelector('#max-invite');
+        const output = document.querySelector('.invite-output');
+
+        output.textContent = invite.value;
+
+        invite.addEventListener('input', () => {
+            output.textContent = invite.value;
+        });
+    </script>
+
+</html>
