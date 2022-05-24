@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <form action="https://httpbin.org/post" method="post">
+            <ul>
+                <li>
+                    <label for="food">Enter your favorite food:</label>
+                    <input type="text" list="food_list" id="food" name="food">
+                    <datalist id="food_list">
+                        <option value="Salad">Salad</option>
+                        <option value="Curry">Curry</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Fajitas">Fajitas</option>
+                        <option value="Biscuits">Biscuits</option>
+                        <option value="Crisps">Crisps</option>
+                        <option value="Fruit">Fruit</option>
+                        <option value="Breadsticks">Breadsticks</option>
+                    </datalist>
+                </li>
+                <li>
+                    <button type="submit">Submit choice</button>
+                </li>
+            </ul>
+        </form>
+    </body>
+
+</html>

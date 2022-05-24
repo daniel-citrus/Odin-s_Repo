@@ -10,10 +10,11 @@
 
     <body>
         <form action="http://httpbin.org/post" method="post">
-            <label for="message">Message:</label>
-            <textarea name="msg" id="message" cols="30" rows="10" placeholder="Enter your message"></textarea>
+            <label for="message">Message:</label> <br />
+            <textarea name="msg" id="message" cols="30" rows="10" placeholder="Enter your message"></textarea> <br />
+            <br />
 
-            <label for="nyFruit">Autocomplete Box:</label>
+            <label for="myFruit">Autocomplete Box:</label> <br />
             <input type="text" name="myFruit" id="myFruit" list="mySuggestion">
             <datalist id="mySuggestion">
                 <option>Apple</option>
@@ -25,9 +26,67 @@
                 <option>Peach</option>
                 <option>Pear</option>
             </datalist>
+            <br /> <br />
+            <fieldset>
+                <input type="radio" id="letter-a" value="A" name="radio_buttons">
+                <label for="letter-a">A</label>
+                <input type="radio" id="letter-b" value="B" name="radio_buttons">
+                <label for="letter-b">B</label>
+                <input type="radio" id="letter-c" value="C" name="radio_buttons">
+                <label for="letter-c">C</label>
+                <input type="radio" id="letter-d" value="D" name="radio_buttons">
+                <label for="letter-d">D</label>
+            </fieldset>
 
-            </datalist>
+            <fieldset>
+                <select id="simple" name="simple">
+                    <option value="banana">Big, beautiful yellow banana</option>
+                    <option value="cherry">Succulent, juicy cherry</option>
+                    <option value="lemon">Sharp, powerful lemon</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <input type="range" id="rangeBar" name="rangeVal" min="0" max="30" step="5">
+                <output id="rangeOutput" for="rangeBar"></output>
+            </fieldset>
+
+            <progress id="progbar" max="30" value="0">0/30</progress> <br />
+            <meter class="mete one" min="0" max="30" value="0" low="10" high="20" optimum="5">0</meter>
+            <meter class="mete two" min="0" max="30" value="0" low="10" high="20" optimum="15">0</meter>
+            <meter class="mete three" min="0" max="30" value="0" low="10" high="20" optimum="25">0</meter>
+            <br />
+            <button type="submit">Submit</button>
+
         </form>
     </body>
+    <script>
+        const range = document.querySelector("#rangeBar");
+        const output = document.querySelector("#rangeOutput");
+        const prog = document.querySelector("#progbar");
+        const meter1 = document.querySelector(".mete.one");
+        const meter2 = document.querySelector(".mete.two");
+        const meter3 = document.querySelector(".mete.three");
+
+        function update() {
+            output.textContent = range.value;
+            prog.value = range.value;
+            prog.textContent = `${range.value}/30`;
+
+            meter1.value = range.value;
+            meter2.value = range.value;
+            meter3.value = range.value;
+
+            meter1.textContent = range.value;
+            meter2.textContent = range.value;
+            meter3.textContent = range.value;
+        }
+
+        update();
+
+        range.addEventListener('input', () => {
+            update();
+        })
+    </script>
 
 </html>

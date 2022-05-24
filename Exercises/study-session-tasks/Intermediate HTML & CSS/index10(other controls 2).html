@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <form action="https://httpbin.org/post" method="post">
+            <ul>
+                <li>
+                    <label for="food">Pick your favorite food:</label>
+                    <select name="favorite_food" id="food">
+                        <optgroup label="Main">
+                            <option>Salad</option>
+                            <option>Curry</option>
+                            <option>Pizza</option>
+                            <option>Fajitas</option>
+                        </optgroup>
+    
+                        <optgroup label="Snack">
+                            <option>Biscuits</option>
+                            <option>Crisps</option>
+                            <option>Fruit</option>
+                            <option>Breadsticks</option>
+                        </optgroup>
+                    </select>
+                </li>
+            </ul>
+
+            <button type="submit">Submit choice</button>
+        </form>
+    </body>
+
+</html>
