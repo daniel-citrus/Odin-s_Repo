@@ -42,6 +42,27 @@
                 background: #ddd;
                 color: gray;
             }
+
+            input[type="file"] {
+                color: red;
+                height: 0;
+                padding: 0;
+                opacity: 0;
+            }
+
+            label[for="fileInput"] {
+                box-shadow: 1px 1px 3px #ccc;
+                background: linear-gradient(to bottom, #eee, #ccc);
+                border: 1px solid rgb(169, 169, 169);
+                border-radius: 5px;
+                text-align: center;
+                line-height: 1.5;
+            }
+
+            input[type="file"] {
+                -webkit-appearance: none;
+                appearance: none;
+            }
         </style>
     </head>
 
@@ -67,6 +88,10 @@
                         <input type="checkbox" name="fruit-3" value="strawberry">
                         I like strawberry
                     </label>
+                </p>
+                <p>
+                    <label for="fileInput">Upload Files</label>
+                    <input type="file" id="fileInput" multiple="multiple">
                 </p>
             </fieldset>
         </form>
