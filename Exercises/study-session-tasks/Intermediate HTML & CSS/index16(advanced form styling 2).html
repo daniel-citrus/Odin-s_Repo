@@ -28,23 +28,33 @@
                 margin: 0;
             }
 
-            input[type='radio'] {
+            ul {
+                list-style-type: none;
+            }
+
+            input[type="radio"] {
                 -webkit-appearance: none;
                 appearance: none;
 
-                width: 18px;
                 height: 18px;
-                border: 1px solid black;
-                border-radius: 10px;
+                width: 18px;
+
+                border: 1px solid rgba(107, 107, 107, 0.404);
+                border-radius: 25px;
+                background-color: rgba(233, 233, 233, 0.219);
             }
 
-            input[type='radio']:checked {
-
+            input[type="radio"]:checked {
+                border: 1px solid rgba(0, 0, 0, 0.918);
+                background: url('/media/check.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 10px;
             }
 
-            ul {
-                list-style-type: none;
-                padding: 0;
+            input {
+                vertical-align: middle;
+                margin: -1px 0 0 0;
             }
         </style>
     </head>
@@ -69,6 +79,7 @@
                 </ul>
             </fieldset>
         </form>
+
     </body>
 
 </html>
