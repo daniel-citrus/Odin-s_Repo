@@ -44,7 +44,6 @@
             }
 
             button,
-            label,
             input {
                 display: block;
                 font-family: inherit;
@@ -58,6 +57,7 @@
             }
 
             input {
+                position: relative;
                 box-shadow: inset 1px 1px 3px #ccc;
                 border-radius: 5px;
             }
@@ -67,26 +67,48 @@
                 background-color: #eee;
             }
 
-            input:empty:required {
-                border: 2px solid rgba(95, 95, 95, 0.555);
+            span {
+                position: relative;
             }
-            
+
+            input:required+span::before {
+                content: 'Required';
+                position: absolute;
+                color: white;
+                
+                font-size: 0.7rem;
+                background-color: black;
+                padding: 1px 4px;
+                top: -20px;
+                left: -69px;
+            }
+
+            input+span::after {
+                position: absolute;
+                left: 3px;
+                top: 3px;
+            }
+
+            input:out-of-range+span::before {
+                position: absolute;
+                width: 163px;
+                left: -186px;
+                content: "Outside of allowable value range";
+                background-color: red;
+            }
+
+            input:valid+span::after {
+                content: '✓';
+                color: green;
+            }
 
             input:invalid {
-                border: 2px solid rgba(255, 53, 53, 0.685);
+                border: 2px solid red;
             }
 
-            input:valid, input:required:valid {
-                border: 2px solid green;
-            }
-
-            button {
-                width: 60%;
-                margin: 0 auto;
-            }
-
-            .req {
-                font-style: italic;
+            input:invalid+span::after {
+                content: '✖';
+                color: red;
             }
         </style>
     </head>
@@ -100,16 +122,22 @@
                 <div>
                     <label for="fname">First name: </label>
                     <input id="fname" name="fname" type="text" type="" required>
-                    <span class='req'>*required</span>
+                    <span></span>
                 </div>
                 <div>
                     <label for="lname">Last name: </label>
                     <input id="lname" name="lname" type="text" required>
-                    <span class='req'>*required</span>
+                    <span></span>
                 </div>
                 <div>
-                    <label for="email">Email address: </label>
+                    <label for="age">Age (12+): </label>
+                    <input type="number" min="12" max="120" id="age" name='age' required>
+                    <span></span>
+                </div>
+                <div>
+                    <label for="email">Email address (include if you want a response):</label>
                     <input id="email" name="email" type="email">
+                    <span></span>
                 </div>
                 <div><button>Submit</button></div>
             </fieldset>
