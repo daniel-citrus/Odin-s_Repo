@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inquiry Form</title>
+
+        <style>
+            * {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                display: flex;
+                flex-flow: column nowrap;
+            }
+
+            form {
+                padding: 35px;
+                background-color: rgb(252, 228, 197);
+                border-radius: 3px;
+
+                box-shadow: 0px 0px 5px rgb(109, 109, 109);
+            }
+
+            textarea {
+                resize: none;
+                height: 200px;
+            }
+
+            .form-row {
+                margin: 20px 0;
+            }
+
+            .form-row {
+                display: flex;
+                flex-flow: column wrap;
+            }
+
+            .form-row input[type="text"],
+            .form-row input[type="email"],
+            .form-row input[type="phone"] {
+                height: 30px;
+            }
+
+            .form-row input[type="submit"] {
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            .title {
+                font-size: 2rem;
+                font-weight: bold;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form action="https://httpbin.org/post" method="post">
+            <div class="title">
+                Service Inquiry
+            </div>
+            <div class="form-row">
+                <label for="name">Name:</label>
+                <input id="name" type="text">
+            </div>
+            <div class="form-row">
+                <label for="email">Email:</label>
+                <input id="email" type="email">
+            </div>
+            <div class="form-row">
+                <label for="">Phone:</label>
+                <input type="phone">
+            </div>
+            <div class="form-row">
+                <label for="msg">Inquiry Message:</label>
+                <textarea name="msg" id="msg"></textarea>
+            </div>
+
+            <div class="form-row">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </body>
+
+</html>
