@@ -1,10 +1,16 @@
+:root {
+    --background-color: #8d99ae;
+    --secondary-background-color: #edf2f4;
+    --border-color: #8d99ae;
+}
+
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
 }
 
 body {
-    background-color: #8D99AE;
+    background-color: var(--background-color);
 }
 
 button[type="submit"] {
@@ -24,13 +30,24 @@ button[type="submit"] {
 
 form {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     justify-content: center;
     margin: 10px 25px;
     padding: 40px;
-    background-color: #edf2f4;
+    background-color: var(--secondary-background-color);
     border-radius: 3px;
     box-shadow: 0px 0px 5px rgb(109, 109, 109);
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+
+    height: 20px;
+    width: 22px;
+    margin: auto 0;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
 }
 
 textarea {
@@ -39,11 +56,11 @@ textarea {
     width: 100%;
 
     border-radius: 4px;
-    border: 1px solid #8D99AE;
+    border: 1px solid var(--border-color);
 }
 
 .form-row {
-    margin: 20px 0;
+    margin: 15px 0;
     display: flex;
     flex-flow: column wrap;
 }
@@ -58,6 +75,19 @@ textarea {
     padding: 0 5px;
 }
 
+.form-row.check {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.form-row.check input[type='checkbox']+label {
+    font-style: italic;
+    color: rgb(66, 66, 66);
+}
+
 .form-row input[type="submit"] {
     -webkit-appearance: none;
     appearance: none;
@@ -69,7 +99,7 @@ textarea {
     text-align: center;
 }
 
-@media screen and (min-width: 810px) {
+/* @media screen and (min-width: 810px) {
     .form-row {
         flex-flow: row wrap;
         align-items: flex-start;
@@ -98,4 +128,4 @@ textarea {
         width: 679px;
         margin: 10px auto;
     }
-}
+} */
