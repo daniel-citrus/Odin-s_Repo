@@ -14,35 +14,62 @@
             <div class="title">
                 Service Inquiry
             </div>
-            <div class="form-row">
-                <label for="fname">First Name</label>
-                <input id="fname" type="text" placeholder="Bob">
+            <div class="required">
+                Required fields are marked by <abbr title="required field" aria-label="required"
+                    class="requirement">*</abbr>
             </div>
             <div class="form-row">
-                <label for="name">Last Name</label>
-                <input type="text" id="lname" placeholder="Ross">
+                <label for="fname">First Name<abbr title="required field" aria-label="required"
+                        class="requirement">*</abbr></label>
+                <input id="fname" name="firstName" title="First name" type="text" placeholder="Bob" required>
             </div>
             <div class="form-row">
-                <label for="email">Email</label>
-                <input id="email" type="email" placeholder="info@bobross.com">
+                <label for="lname">Last Name<abbr title="required field" aria-label="required"
+                        class="requirement">*</abbr></label>
+                <input type="text" name="lastName" title="Last name" id="lname" placeholder="Ross" required>
             </div>
             <div class="form-row">
-                <label for="">Phone</label>
-                <input type="phone" placeholder="(510) 444-4444">
+                <label for="email">Email<abbr title="required field" aria-label="required"
+                        class="requirement">*</abbr></label>
+                <input id="email" name="email" title="Email" type="email" placeholder="info@bobross.com" required>
             </div>
             <div class="form-row">
-                <label for="msg">Inquiry Message</label>
-                <textarea name="msg" id="msg"></textarea>
+                <label for="phoneNumber">Phone</label>
+                <input type="phone" id="phoneNumber" name="phoneNumber" title="Phone number" placeholder="(510) 444-4444">
             </div>
-                <div class="form-row check">
-                    <input type="checkbox" id="opt-newsletter" checked>
-                    <label for="opt-newsletter">Subscribe to our monthly newsletter to be among the first to receive offers and promotions!</label>
-                </div>
+            <div class="form-row">
+                <label for="msg">Inquiry Message<abbr title="required field" aria-label="required"
+                        class="requirement">*</abbr></label>
+                <textarea id="msg" name="userMessage" label="Inquiry message" id="msg" required></textarea>
+            </div>
+            <div class="form-row check">
+                <input type="checkbox" name="newsletterOptIn" id="opt-newsletter" checked>
+                <label for="opt-newsletter">Subscribe to our monthly newsletter to be among the first to receive offers
+                    and promotions!</label>
+            </div>
 
             <div class="form-row button">
                 <button type="submit">Submit</button>
             </div>
         </form>
+
+        <div class="toolTip">
+            <div class="title0">Mobile-first approach</div>
+            <div class="description">
+                Want to test it out?
+                <ol>
+                    Firefox
+                    <li>Ctrl + Shift + M</li>
+                    <li>Use the virtual window to change the width of the screen.</li>
+                </ol>
+                <ol>
+                    Edge & Chrome
+                    <li>Ctrl + Shift + I</li>
+                    <li>Ctrl + Shift + M</li>
+                    <li>Use the virtual window to change the width of the screen.</li>
+                </ol>
+            </div>
+        </div>
     </body>
 
 </html>
