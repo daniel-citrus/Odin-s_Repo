@@ -11,9 +11,9 @@
 
     <body>
         <form action="https://httpbin.org/post" method="post">
-            <div class="title">
-                Service Inquiry
-            </div>
+            <h1>
+                Business Inquiry
+            </h1>
             <div class="required">
                 Required fields are marked by <abbr title="required field" aria-label="required"
                     class="requirement">*</abbr>
@@ -35,7 +35,8 @@
             </div>
             <div class="form-row">
                 <label for="phoneNumber">Phone</label>
-                <input type="phone" id="phoneNumber" name="phoneNumber" title="Phone number" placeholder="(510) 444-4444">
+                <input type="phone" id="phoneNumber" name="phoneNumber" title="Phone number"
+                    placeholder="(510) 444-4444">
             </div>
             <div class="form-row">
                 <label for="msg">Inquiry Message<abbr title="required field" aria-label="required"
@@ -54,21 +55,27 @@
         </form>
 
         <div class="toolTip">
-            <div class="title0">Mobile-first approach</div>
-            <div class="description">
-                Want to test it out?
-                <ol>
-                    Firefox
-                    <li>Ctrl + Shift + M</li>
-                    <li>Use the virtual window to change the width of the screen.</li>
-                </ol>
-                <ol>
-                    Edge & Chrome
-                    <li>Ctrl + Shift + I</li>
-                    <li>Ctrl + Shift + M</li>
-                    <li>Use the virtual window to change the width of the screen.</li>
-                </ol>
+            <h2>Mobile-first approach</h2>
+            <div>Want to test it out?</div>
+            <div class="toolBody">
+                <div>
+                    <h3>Firefox</h3>
+                    <ol>
+                        <li>Ctrl + Shift + M</li>
+                        <li>Use the virtual window to change the width of the screen.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <h3>Edge & Chrome</h3>
+                    <ol>
+                        <li>Ctrl + Shift + I</li>
+                        <li>Ctrl + Shift + M</li>
+                        <li>Use the virtual window to change the width of the screen.</li>
+                    </ol>
+                </div>
             </div>
+        </div>
         </div>
     </body>
 

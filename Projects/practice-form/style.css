@@ -3,6 +3,7 @@
     --secondary-background-color: #edf2f4;
     --border-color: #8d99ae;
     --border-hover-color: #474d57;
+    --main-padding: 40px;
 }
 
 @font-face {
@@ -29,7 +30,7 @@ body {
     background-color: var(--background-color);
 }
 
-body > * {
+body>* {
     margin: 10px 25px;
 }
 
@@ -51,14 +52,36 @@ button[type="submit"] {
     height: 45px;
 }
 
-form {
+form, .toolTip {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    padding: 40px;
+    padding: var(--main-padding);
     background-color: var(--secondary-background-color);
     border-radius: 3px;
     box-shadow: 0px 0px 5px rgb(109, 109, 109);
+}
+
+h1 {
+    font-family: 'sourceSerifProBlack900Italic';
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'sourceSerifProBlack900Italic';
+    font-size: 1.3rem;
+    margin: 0 auto 10px auto;
+}
+
+h3 {
+    margin: 0 0 5px auto;
+    font-family: 'nunitoSemiBold600';
+}
+
+ol {
+    padding: 0 0 0 20px;
+    margin: 0;
 }
 
 textarea {
@@ -143,16 +166,20 @@ textarea:hover {
     text-decoration: none;
 }
 
-.title {
-    font-family: 'sourceSerifProBlack900Italic';
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
+.toolBody {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
 
-.tooltip {
-    width: 
+.toolBody div {
+    width: 145px;
 }
+
+.toolTip {
+    max-width: 365px;
+}
+
 
 /* @media screen and (min-width: 810px) {
     .form-row {
