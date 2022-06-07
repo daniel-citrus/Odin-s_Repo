@@ -52,6 +52,17 @@ button[type="submit"] {
     height: 45px;
 }
 
+button[type="submit"]:focus-visible {
+    outline: none;
+    border: 1px solid var(--border-color);
+    background-color: #476392f4;
+}
+
+button[type="submit"]:hover {
+    border: 1px solid var(--border-hover-color);
+    background-color: #2969d8f4;
+}
+
 form, .toolTip {
     display: flex;
     flex-flow: column nowrap;
@@ -71,7 +82,7 @@ h1 {
 h2 {
     font-family: 'sourceSerifProBlack900Italic';
     font-size: 1.3rem;
-    margin: 0 auto 10px auto;
+    margin: 0 auto;
 }
 
 h3 {
@@ -114,8 +125,6 @@ textarea {
     font-family: 'nunitoRegular';
 }
 
-
-
 .form-row input[type="text"]:focus-visible,
 .form-row input[type="email"]:focus-visible,
 .form-row input[type="phone"]:focus-visible,
@@ -155,6 +164,12 @@ textarea:hover {
     font-family: 'nunitoSemiBold600';
 }
 
+.prompt {
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-family: 'nunitoRegular';
+}
+
 .required {
     font-style: italic;
     font-size: 13px;
@@ -170,6 +185,7 @@ textarea:hover {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+    gap: 20px;
 }
 
 .toolBody div {
@@ -177,11 +193,26 @@ textarea:hover {
 }
 
 .toolTip {
-    max-width: 365px;
+    display: none;
+    max-width: 310px;
+    margin: 20px auto;
+}
+
+.toolTip li {
+    font-family: 'nunitoRegular';
+}
+
+.toolTitle {
+    text-align: center;
 }
 
 
-/* @media screen and (min-width: 810px) {
+@media screen and (min-width: 810px) {
+    form {
+        width: 679px;
+        margin: 20px auto;
+    }
+
     .form-row {
         flex-flow: row wrap;
         align-items: flex-start;
@@ -189,25 +220,41 @@ textarea:hover {
     }
 
     .form-row button {
-        width: 200px;
+        width: 250px;
     }
 
     .form-row label {
         display: inline-block;
         text-align: right;
-        width: 116px;
+        width: 127px;
         padding: 6px 10px 0 0;
+    }
+
+    .form-row.check {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-row.check label {
+        width: 575px;
+        text-align: left;
+        padding: 0;
     }
 
     .form-row input[type="text"],
     .form-row input[type="email"],
     .form-row input[type="phone"],
     textarea {
-        width: 275px;
+        width: 400px;
     }
 
-    form {
-        width: 679px;
-        margin: 10px auto;
+    .required {
+        padding: 0 67px 0 0;
     }
-} */
+
+    .toolTip {
+        display: block;
+    }
+}
