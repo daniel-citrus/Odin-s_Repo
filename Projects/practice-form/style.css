@@ -55,12 +55,12 @@ button[type="submit"] {
 button[type="submit"]:focus-visible {
     outline: none;
     border: 1px solid var(--border-color);
-    background-color: #476392f4;
+    background-color: #2969d8f4;
 }
 
 button[type="submit"]:hover {
     border: 1px solid var(--border-hover-color);
-    background-color: #2969d8f4;
+    background-color: #4f7fd3f4;
 }
 
 form, .toolTip {
