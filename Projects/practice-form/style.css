@@ -110,6 +110,23 @@ textarea {
     margin: 15px 0;
     display: flex;
     flex-flow: column wrap;
+    position: relative;
+}
+
+.form-row input:not(:placeholder-shown):valid+span::before,
+.form-row textarea:not(:placeholder-shown):valid+span::before {
+    display: inline;
+    position: absolute;
+    content: "✔";
+    color: rgb(0, 163, 0);
+
+    top: 0px;
+    left: 570px;
+}
+
+.form-row input:not(:placeholder-shown):invalid {
+    color: red;
+    border: 1px solid red;
 }
 
 .form-row input[type="text"],

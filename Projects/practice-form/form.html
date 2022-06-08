@@ -22,16 +22,19 @@
                 <label for="fname">First Name<abbr title="required field" aria-label="required"
                         class="requirement">*</abbr></label>
                 <input id="fname" name="firstName" title="First name" type="text" placeholder="Bob" required>
+                <span></span>
             </div>
             <div class="form-row">
                 <label for="lname">Last Name<abbr title="required field" aria-label="required"
                         class="requirement">*</abbr></label>
                 <input type="text" name="lastName" title="Last name" id="lname" placeholder="Ross" required>
+                <span></span>
             </div>
             <div class="form-row">
                 <label for="email">Email<abbr title="required field" aria-label="required"
                         class="requirement">*</abbr></label>
                 <input id="email" name="email" title="Email" type="email" placeholder="info@bobross.com" required>
+                <span></span>
             </div>
             <div class="form-row">
                 <label for="phoneNumber">Phone</label>
@@ -41,7 +44,9 @@
             <div class="form-row">
                 <label for="msg">Inquiry Message<abbr title="required field" aria-label="required"
                         class="requirement">*</abbr></label>
-                <textarea id="msg" name="userMessage" label="Inquiry message" id="msg" required></textarea>
+                <textarea id="msg" name="userMessage" label="Inquiry message" id="msg" maxlength="1000"
+                    required></textarea>
+                <span></span>
             </div>
             <div class="form-row check">
                 <input type="checkbox" name="newsletterOptIn" id="opt-newsletter" checked>
