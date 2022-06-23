@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Form validation: Task 1</title>
+        <style>
+            body {
+                background-color: #fff;
+                color: #333;
+                font: 1em / 1.4 Helvetica Neue, Helvetica, Arial, sans-serif;
+                padding: 1em;
+                margin: 0;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            button {
+                margin: 0 auto;
+                padding: 5px 20px;
+                font-size: 20px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            textarea {
+                width: 100%;
+                line-height: 2.5em;
+                font-size: 15px;
+                padding: 0 0 0 3px;
+
+                border-radius: 5px;
+                border: 2px solid rgb(145, 145, 145)
+            }
+
+            input:invalid {
+                border: 2px solid rgb(255, 132, 132);
+            }
+
+            input[type="email"] {
+                padding: 0 100px 0 3px;
+            }
+
+            label {
+                text-align: left;
+            }
+
+            li {
+                margin: 10px 0 0 0;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .requirements {
+                color: rgb(31, 31, 31);
+                font-size: .85em;
+                font-style:italic;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form method="post" action="https://httpbin.org/post">
+            <h2>Enter your support query</h2>
+            <ul>
+                <li>
+                    <label for="uname">User name:</label>
+                    <input type="text" min="5" maxlength="20" name="uname" placeholder="b.ross4" id="uname"
+                        pattern="^[a-zA-Z]{1}[.]{1}[a-z0-9]{3,}$" required>
+                    <div class="requirements">Single letter, followed by a dot, followed by three or more letters or
+                        numbers. All letters should be lowercase.</div>
+                </li>
+                <li>
+                    <label for="email">Email address:</label>
+                    <input type="email" pattern="[a-zA-Z0-9]{4,64}@bigcorp.eu$" name="email" id="email"
+                        placeholder="bobross@bigcorp.eu" required>
+                    <div class="requirements">Enter 4 or more characters. Must use "<span style="font-weight: bold;">@bigcorp.eu</span>" as a domain.</div>
+                </li>
+                <li>
+                    <label for="phone">Phone number:</label>
+                    <input type="tel" name="phone" pattern="[0-9]{3}[ \-\.]{0,1}[0-9]{3}[ \-\.]{0,1}[0-9]{4}"
+                        placeholder="543-432-9876" id="phone" required novalidate>
+                </li>
+                <li>
+                    <label for="comment">Comment:</label>
+                    <textarea name="comment" id="comment" maxlength="200" rows="6" required>I am interested in receiving your monthly newsletter!</textarea>
+                </li>
+                <li>
+                    <button>Submit comment</button>
+                </li>
+            </ul>
+        </form>
+    </body>
+
+</html>
