@@ -13,7 +13,7 @@
                 margin: 0;
             }
 
-            label + input[type='email']:invalid {
+            label+input[type='email']:invalid {
                 border: 1px solid rgba(255, 0, 0, 0.589);
                 box-shadow: 0px 0px .3em .1em rgba(255, 0, 0, 0.589)
             }
@@ -38,7 +38,7 @@
         email.addEventListener('input', (event) => {
             updateError();
         })
-        
+
         submit.addEventListener('click', (e) => {
             if (!email.checkValidity()) {
                 updateError();
@@ -58,9 +58,6 @@
 
             email.setCustomValidity(msg);
         }
-
-
-
     </script>
 
 </html>
