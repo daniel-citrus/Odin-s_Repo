@@ -28,10 +28,33 @@
     </body>
     <script>
         const email = document.getElementById("mail");
+        const submit = document.querySelector('button');
 
         email.addEventListener('input', (event) => {
-            console.log(email.validity);
+            updateError();
         })
+        
+        submit.addEventListener('click', (e) => {
+            if (!email.checkValidity()) {
+                updateError();
+                return false;
+            }
+        })
+
+        function updateError() {
+            let msg = '';
+
+            if (email.validity.typeMismatch) {
+                msg = 'Enter an email address';
+            }
+            else if (email.validity.tooShort) {
+                msg = 'This email address is too short';
+            }
+
+            email.setCustomValidity(msg);
+        }
+
+
 
     </script>
 
