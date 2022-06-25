@@ -50,16 +50,19 @@ button[type="submit"] {
     font-weight: bold;
 
     height: 45px;
+
+    transition: 100ms ease-out;
+    border: 1px solid var(#2B2D42);
 }
 
 button[type="submit"]:focus-visible {
     outline: none;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(#2969d8f4);
     background-color: #2969d8f4;
 }
 
 button[type="submit"]:hover {
-    border: 1px solid var(--border-hover-color);
+    border: 1px solid var(#4f7fd3f4);
     background-color: #4f7fd3f4;
 }
 
