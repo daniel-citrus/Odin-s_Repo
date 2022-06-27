@@ -102,7 +102,7 @@ textarea {
     resize: none;
     height: 200px;
     width: 100%;
-
+    padding: 0 5px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
 
@@ -116,19 +116,23 @@ textarea {
     position: relative;
 }
 
-.form-row input:not(:placeholder-shown):valid+span::before,
-.form-row textarea:not(:placeholder-shown):valid+span::before {
-    display: inline;
+.form-row input:not(:placeholder-shown):valid+span::before {
     position: absolute;
     content: "✔";
     color: rgb(0, 163, 0);
+    right: -6px;
+    top: 27px;
+}
 
-    top: 0px;
-    left: 570px;
+.form-row textarea:not(:placeholder-shown):valid+span::before {
+    position: absolute;
+    content: "✔";
+    color: rgb(0, 163, 0);
+    right: -5px;
+    top: 25px;
 }
 
 .form-row input:not(:placeholder-shown):invalid {
-    color: red;
     border: 1px solid red;
 }
 
@@ -268,6 +272,16 @@ textarea:hover {
     .form-row input[type="phone"],
     textarea {
         width: 400px;
+    }
+
+    .form-row input:not(:placeholder-shown):valid+span::before {
+        right: 70px;
+        top: 5px;
+    }
+    
+    .form-row textarea:not(:placeholder-shown):valid+span::before {
+        right: 70px;
+        top: 0px;
     }
 
     .required {
