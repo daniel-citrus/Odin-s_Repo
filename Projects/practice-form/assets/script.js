@@ -7,7 +7,15 @@ fname.addEventListener('change', () => {
     validateName(fname);
 });
 
+fname.addEventListener('keyup', () => {
+    validateName(fname);
+});
+
 lname.addEventListener('change', () => {
+    validateName(lname);
+});
+
+lname.addEventListener('keyup', () => {
     validateName(lname);
 });
 
@@ -15,7 +23,15 @@ email.addEventListener('change', () => {
     validateEmail(email);
 });
 
+email.addEventListener('keyup', () => {
+    validateEmail(email);
+});
+
 phone.addEventListener('change', () => {
+    validatePhone(phone);
+})
+
+phone.addEventListener('keyup', () => {
     validatePhone(phone);
 })
 
@@ -53,15 +69,6 @@ function validateEmail(obj) {
     updateValidity(obj, message);
 }
 
-function validatePhone(obj) {
-    if(/[\(]?\d{3}[\)]?\d{3}[\-]?\d{4}/.test(obj)) {
-        updateValidity(obj, '');
-    }
-    else {
-        updateValidity(obj, 'Please enter a valid phone number');
-    }
-}
-
 function hasInvalidSymbol(v, isEmail = false) {
     if (isEmail) {
         return /[`!#$%^&*()_+\=\[\]{};:"\\|,<>\/?~]/.test(v);
@@ -73,6 +80,20 @@ function hasInvalidSymbol(v, isEmail = false) {
 
 function hasNumber(v) {
     return /[0-9]/.test(v);
+}
+
+function validatePhone(obj) {
+    let value = obj.value;
+    let message = '';
+
+    if (/^[\(]?\d{3}[\)]?[ ]?\d{3}[\-]?\d{4}$/.test(value) || value === '') {
+        message = '';
+    }
+    else {
+        message = 'Please enter a valid phone number';
+    }
+
+    updateValidity(obj, message);
 }
 
 function updateValidity(element, message) {

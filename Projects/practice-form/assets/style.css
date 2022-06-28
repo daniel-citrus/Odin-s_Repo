@@ -155,6 +155,15 @@ textarea {
     font-family: 'nunitoRegular';
 }
 
+.form-row input[type="text"]:not(:placeholder-shown):invalid:hover,
+.form-row input[type="email"]:not(:placeholder-shown):invalid:hover,
+.form-row input[type="phone"]:not(:placeholder-shown):invalid:hover,
+.form-row input[type="text"]:not(:placeholder-shown):invalid:focus-visible,
+.form-row input[type="email"]:not(:placeholder-shown):invalid:focus-visible,
+.form-row input[type="phone"]:not(:placeholder-shown):invalid:focus-visible {
+    border: 1px solid rgba(255, 40, 40, 0.87);
+}
+
 .form-row input[type="text"]:focus-visible,
 .form-row input[type="email"]:focus-visible,
 .form-row input[type="phone"]:focus-visible,
@@ -284,7 +293,7 @@ textarea:hover {
         right: 45px;
         top: 5px;
     }
-    
+
     .form-row textarea:not(:placeholder-shown):invalid+span::before {
         right: 70px;
         top: 0px;
