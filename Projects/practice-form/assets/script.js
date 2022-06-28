@@ -3,43 +3,62 @@ const lname = document.getElementById('lname');
 const email = document.getElementById('email');
 const phone = document.getElementById('phoneNumber');
 
-fname.addEventListener('keyup', () => {
+fname.addEventListener('change', () => {
     validateName(fname);
 });
 
-lname.addEventListener('keyup', () => {
+lname.addEventListener('change', () => {
     validateName(lname);
 });
 
-email.addEventListener('keyup', () => {
+email.addEventListener('change', () => {
     validateEmail(email);
 });
 
+phone.addEventListener('change', () => {
+    validatePhone(phone);
+})
+
 function validateName(obj) {
     let value = obj.value;
+    let message = '';
 
     if (hasNumber(value)) {
-        updateValidity(obj, 'Contains a number');
+        message = 'Contains a number';
     }
     else if (hasInvalidSymbol(value)) {
-        updateValidity(obj, 'Contains an invalid character');
+        message = 'Contains an invalid character';
     }
     else {
-        updateValidity(obj, '');
+        message = '';
     }
+
+    updateValidity(obj, message);
 }
 
 function validateEmail(obj) {
     let value = obj.value;
+    let message = '';
 
     if (obj.validity.typeMismatch) {
-        updateValidity(obj, 'Please enter an email address');
+        message = 'Please enter an email address';
     }
     else if (hasInvalidSymbol(value, true)) {
-        updateValidity(obj, 'Contains an invalid character');
+        message = 'Contains an invalid character';
     }
     else {
+        message = '';
+    }
+
+    updateValidity(obj, message);
+}
+
+function validatePhone(obj) {
+    if(/[\(]?\d{3}[\)]?\d{3}[\-]?\d{4}/.test(obj)) {
         updateValidity(obj, '');
+    }
+    else {
+        updateValidity(obj, 'Please enter a valid phone number');
     }
 }
 

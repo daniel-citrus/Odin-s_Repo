@@ -132,6 +132,12 @@ textarea {
     top: 25px;
 }
 
+.form-row input:invalid+span,
+.form-row textarea:invalid+span {
+    color: red;
+    font-size: .9em;
+}
+
 .form-row input:not(:placeholder-shown):invalid {
     border: 1px solid red;
 }
@@ -271,15 +277,15 @@ textarea:hover {
     .form-row input[type="email"],
     .form-row input[type="phone"],
     textarea {
-        width: 400px;
+        width: 450px;
     }
 
-    .form-row input:not(:placeholder-shown):valid+span::before {
-        right: 70px;
+    .form-row input:not(:placeholder-shown):invalid+span::before {
+        right: 45px;
         top: 5px;
     }
     
-    .form-row textarea:not(:placeholder-shown):valid+span::before {
+    .form-row textarea:not(:placeholder-shown):invalid+span::before {
         right: 70px;
         top: 0px;
     }
