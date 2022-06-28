@@ -8,17 +8,17 @@
 
 @font-face {
     font-family: 'nunitoRegular';
-    src: url('/media/Fonts/Nunito/static/Nunito-Regular.ttf');
+    src: url('/assets/media/Fonts/Nunito/static/Nunito-Regular.ttf');
 }
 
 @font-face {
     font-family: 'sourceSerifProBlack900Italic';
-    src: url('/media/Fonts/Source_Serif_Pro/SourceSerifPro-BlackItalic.ttf');
+    src: url('/assets/media/Fonts/Source_Serif_Pro/SourceSerifPro-BlackItalic.ttf');
 }
 
 @font-face {
     font-family: 'nunitoSemiBold600';
-    src: url('/media/Fonts/Nunito/static/Nunito-SemiBold.ttf');
+    src: url('/assets/media/Fonts/Nunito/static/Nunito-SemiBold.ttf');
 }
 
 * {
