@@ -116,17 +116,17 @@ textarea {
     position: relative;
 }
 
-.form-row input:not(:placeholder-shown):valid+span::before {
+.form-row input:not(:placeholder-shown):invalid+span::before {
     position: absolute;
-    content: "✔";
-    color: rgb(0, 163, 0);
+    content: "✕";
+    color: red;
     right: -6px;
     top: 27px;
 }
 
-.form-row textarea:not(:placeholder-shown):valid+span::before {
+.form-row textarea:not(:placeholder-shown):invalid+span::before {
     position: absolute;
-    content: "✔";
+    content: "✕";
     color: rgb(0, 163, 0);
     right: -5px;
     top: 25px;
