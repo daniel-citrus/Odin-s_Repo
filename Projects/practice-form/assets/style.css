@@ -127,7 +127,7 @@ textarea {
 .form-row textarea:not(:placeholder-shown):invalid+span::before {
     position: absolute;
     content: "✕";
-    color: rgb(0, 163, 0);
+    color: red;
     right: -5px;
     top: 25px;
 }
