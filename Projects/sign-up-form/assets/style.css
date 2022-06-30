@@ -1,1 +1,42 @@
+body {
+    margin: 0;
+}
 
+label[for="woodlands"] {
+    position: absolute;
+    width: 301px;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    margin-left: auto;
+    margin-right: auto;
+
+    color: white;
+}
+
+label[for="woodlands"] a,
+label[for="woodlands"] a:visited,
+label[for="woodlands"] a:active {
+    color: white;
+}
+
+#logo {
+    display: inline;
+    position: absolute;
+}
+
+#woodlands {
+    position: relative;
+    height: 900px;
+    width: 100%;
+    background-image: url('/assets/media/nature-small.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+@media only screen and (min-width: 640px) {
+    #woodlands {
+        background-image: url('/assets/media/nature-medium.jpg');
+    }
+}

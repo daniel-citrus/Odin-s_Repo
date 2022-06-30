@@ -8,12 +8,17 @@
         <link rel="stylesheet" type="text/css" href="/assets/style.css">
         <script src="/assets/script.js" defer></script>
         <title>Woodland Pines</title>
-        <!-- Photo by <a href="https://unsplash.com/@thkelley?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Thomas Kelley</a> on <a href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
-
     </head>
 
     <body>
-        <img class="banner" src="/assets/media/nature-small.jpg">
+        <div id="woodlands">
+            <div id="logo">test</div>
+            <label for="woodlands">Photo by <a
+                    href="https://unsplash.com/@thkelley?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Thomas
+                    Kelley</a> on <a
+                    href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></label>
+        </div>
+
         <div class="sign-up">
             <div class="form-header">
                 All you can dream of. And then some. Live like royalty at The Woodland Pines Resort. A true stand-out
@@ -21,26 +26,28 @@
                 decorated rooms opening onto a deck with breathtaking mountainous forest views all round.
             </div>
 
-            <form action="">
+            <form action="POST" method="https://httpbin.org/post">
                 <div class="action">Become a member!</div>
                 <label for="fname">FIRST NAME</label>
                 <input type="text" id="fname">
                 <span></span>
-                <label for="">LAST NAME</label>
-                <input type="text" id="">
+                <label for="lname">LAST NAME</label>
+                <input type="text" id="lname">
                 <span></span>
-                <label for="">EMAIL</label>
-                <input type="email" id="">
+                <label for="email">EMAIL</label>
+                <input type="email" id="email">
                 <span></span>
-                <label for="">PHONE NUMBER</label>
-                <input type="" id="">
+                <label for="phone">PHONE NUMBER</label>
+                <input type="tel" id="phone">
                 <span></span>
-                <label for="">PASSWORD</label>
-                <input type="" id="">
+                <label for="pwd">PASSWORD</label>
+                <input type="password" id="pwd">
                 <span></span>
-                <label for="">CONFIRM PASSWORD</label>
-                <input type="" id="">
+                <label for="pwdconfirm">CONFIRM PASSWORD</label>
+                <input type="password" id="pwdconfirm">
                 <span></span>
+
+                <button type="submit">Create Account</button>
             </form>
         </div>
     </body>
