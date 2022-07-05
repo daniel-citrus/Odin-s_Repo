@@ -2,14 +2,19 @@ body {
     margin: 0;
 }
 
+form {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
 label[for="woodlands"] {
     position: absolute;
-    width: 301px;
     left: 0;
     right: 0;
     bottom: 5%;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+
+    font-size: 15px;
 
     color: white;
 }
@@ -20,9 +25,39 @@ label[for="woodlands"] a:active {
     color: white;
 }
 
-#logo {
-    display: inline;
+.application {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+
     position: absolute;
+    top: 200px;
+    left: 0;
+    right: 0;
+
+    padding: 10px 0;
+
+    background-color: rgba(29, 29, 29, 0.24);;
+}
+
+.logo img {
+    width: 24vw;
+}
+
+.logo-text {
+    font-family: ubuntuCondensed;
+    font-size: 9vw;
+    color: white;
+}
+
+.sign-up {
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 #woodlands {
@@ -30,9 +65,13 @@ label[for="woodlands"] a:active {
     height: 900px;
     width: 100%;
     background-image: url('/assets/media/nature-small.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-size: cover;
     background-attachment: fixed;
+}
+
+@font-face {
+    font-family: ubuntuCondensed;
+    src: url('/assets/fonts/Ubuntu_Condensed/UbuntuCondensed-Regular.ttf');
 }
 
 @media only screen and (min-width: 640px) {
