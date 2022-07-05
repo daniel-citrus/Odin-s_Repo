@@ -5,6 +5,14 @@ body {
 form {
     display: flex;
     flex-flow: column nowrap;
+    background-color: white;
+}
+
+form label {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: .8em;
+    
 }
 
 label[for="woodlands"] {
@@ -30,6 +38,10 @@ label[for="woodlands"] a:active {
     flex-flow: column nowrap;
 }
 
+.form-header {
+    font-family:'Open Sans', sans-serif;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -39,10 +51,8 @@ label[for="woodlands"] a:active {
     top: 200px;
     left: 0;
     right: 0;
-
     padding: 10px 0;
-
-    background-color: rgba(29, 29, 29, 0.24);;
+    background-color: rgba(29, 29, 29, 0.24);
 }
 
 .logo img {
@@ -58,6 +68,7 @@ label[for="woodlands"] a:active {
 .sign-up {
     display: flex;
     flex-flow: column nowrap;
+    background-color: rgba(249, 250, 251, 0.651);
 }
 
 #woodlands {
@@ -72,6 +83,21 @@ label[for="woodlands"] a:active {
 @font-face {
     font-family: ubuntuCondensed;
     src: url('/assets/fonts/Ubuntu_Condensed/UbuntuCondensed-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/assets/fonts/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf');
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('/assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('/assets/fonts/Roboto/Roboto-Regular.ttf');
 }
 
 @media only screen and (min-width: 640px) {
