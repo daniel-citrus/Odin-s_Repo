@@ -8,12 +8,54 @@ form {
 }
 
 form button {
-    margin: 5px 15px;
+    appearance: none;
+    -moz-appearance: none;
+    margin: 20px 0;
+    margin: transparent;
+    height: 45px;
+
+    border: transparent;
+    border-radius: 5px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(59, 83, 117);
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+form button:hover,
+form button:focus-visible {
+    background-color: rgb(42, 59, 83);
 }
 
 form label {
-    font-family: sans-serif;
-    font-size: .75em;
+    font-family: roboto, sans-serif;
+    font-size: .84em;
+}
+
+form label+input[type=text],
+form label+input[type=email],
+form label+input[type=tel],
+form label+input[type=password] {
+    outline: none;
+    border-radius: 3px;
+    height: 22px;
+    font-size: .9em;
+    border: 1px solid rgb(227, 227, 227);
+    background-color: rgba(244, 244, 244, 0.27);
+}
+
+form label+input[type=text]:hover,
+form label+input[type=email]:hover,
+form label+input[type=tel]:hover,
+form label+input[type=password]:hover,
+form label+input[type=text]:focus-visible,
+form label+input[type=email]:focus-visible,
+form label+input[type=tel]:focus-visible,
+form label+input[type=password]:focus-visible {
+    border: 1px solid rgb(49, 49, 49);
+    background-color: white;
+
 }
 
 label[for="woodlands"] {
@@ -22,9 +64,7 @@ label[for="woodlands"] {
     right: 0;
     bottom: 5%;
     text-align: center;
-
     font-size: 3vw;
-
     color: white;
 }
 
@@ -36,8 +76,10 @@ label[for="woodlands"] a:active {
 
 .action {
     font-weight: bold;
-    font-size: 1em;
-    font-family:'Open Sans', sans-serif;
+    font-size: 1.15em;
+    font-family: 'Open Sans', sans-serif;
+    margin: 7px 0;
+    color: rgb(42, 59, 83);
 }
 
 .application {
@@ -46,15 +88,22 @@ label[for="woodlands"] a:active {
 }
 
 .form-header {
-    font-family:'Open Sans', sans-serif;
-    padding: 5px 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.input-line {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 10px;
 }
 
 .inputs {
     display: flex;
     flex-flow: column nowrap;
-    background-color: white;
-    padding: 5px 15px;
+    color: rgb(77, 77, 77);
+    border-radius: 4px;
 }
 
 .logo {
@@ -63,7 +112,7 @@ label[for="woodlands"] a:active {
     flex-flow: column nowrap;
 
     position: absolute;
-    top: 140px;
+    top: 20vh;
     left: 0;
     right: 0;
     padding: 10px 0;
@@ -83,7 +132,8 @@ label[for="woodlands"] a:active {
 .sign-up {
     display: flex;
     flex-flow: column nowrap;
-    background-color: rgba(249, 250, 251, 0.651);
+    color: rgb(49, 49, 49);
+    padding: 15px 20px;
 }
 
 #woodlands {
