@@ -18,7 +18,7 @@ form button {
   background-color: rgb(59, 83, 117);
   color: white;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 21px;
   transition: 0.2s;
 }
 form button:focus-visible {
@@ -37,6 +37,7 @@ form label {
 }
 form label + input[type=text], form label + input[type=email], form label + input[type=tel], form label + input[type=password] {
   outline: none;
+  padding-left: 7px;
   border-radius: 3px;
   height: 2.7rem;
   font-size: 16px;
@@ -85,6 +86,7 @@ label[for=woodlands] a:active {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  margin: 10px 0;
 }
 .check-line input[type=checkbox] {
   position: relative;
@@ -98,8 +100,8 @@ label[for=woodlands] a:active {
   border: 1px solid rgb(227, 227, 227);
   background-color: rgba(244, 244, 244, 0.27);
   border-radius: 3px;
-  height: 19px;
-  width: 23px;
+  height: 20px;
+  width: 20px;
   transition: 0.2s;
 }
 .check-line input[type=checkbox]:checked::before {
@@ -107,6 +109,7 @@ label[for=woodlands] a:active {
   content: "✓";
   color: black;
   top: -8px;
+  left: 1px;
 }
 .check-line input[type=checkbox]:focus-visible {
   border: 1px solid rgb(31, 31, 31);
