@@ -100,6 +100,7 @@ label[for="woodlands"] {
 .check-line {
     display: flex;
     flex-flow: row nowrap;
+    justify-content: flex-start;
     align-items: center;
 
     margin: 10px 0;
@@ -116,8 +117,8 @@ label[for="woodlands"] {
         border: 1px solid rgb(227, 227, 227);
         background-color: rgba(244, 244, 244, 0.27);
         border-radius: 3px;
-        height: 20px;
-        width: 20px;
+        min-height: 19px;
+        min-width: 19px;
         transition: $hover_length;
 
         &:checked {
@@ -126,7 +127,7 @@ label[for="woodlands"] {
                 content: '✓';
                 color: black;
                 top: -8px;
-                left: 1px;
+                left: 0px;
             }
         }
 
