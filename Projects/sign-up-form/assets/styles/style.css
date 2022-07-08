@@ -36,7 +36,9 @@ form label {
   font-size: 16px;
 }
 form label + input[type=text], form label + input[type=email], form label + input[type=tel], form label + input[type=password] {
+  position: relative;
   outline: none;
+  content: " ";
   padding-left: 7px;
   border-radius: 3px;
   height: 2.7rem;
@@ -52,6 +54,15 @@ form label + input[type=text]:focus-visible, form label + input[type=email]:focu
 form label + input[type=text]:hover, form label + input[type=email]:hover, form label + input[type=tel]:hover, form label + input[type=password]:hover {
   border: 1px solid rgb(121, 121, 121);
   background-color: white;
+}
+form label + input[type=text]:not(:placeholder-shown):invalid, form label + input[type=email]:not(:placeholder-shown):invalid, form label + input[type=tel]:not(:placeholder-shown):invalid, form label + input[type=password]:not(:placeholder-shown):invalid {
+  border: 1px solid red;
+}
+form label + input[type=text]:not(:placeholder-shown):invalid::before, form label + input[type=email]:not(:placeholder-shown):invalid::before, form label + input[type=tel]:not(:placeholder-shown):invalid::before, form label + input[type=password]:not(:placeholder-shown):invalid::before {
+  position: absolute;
+  content: "✕";
+  font-size: 10px;
+  color: red;
 }
 
 label[for=woodlands] {
