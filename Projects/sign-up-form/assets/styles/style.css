@@ -1,223 +1,268 @@
 @charset "UTF-8";
+
 body {
-  margin: 0;
+    margin: 0;
 }
 
 form {
-  display: flex;
-  flex-flow: column nowrap;
+    display: flex;
+    flex-flow: column nowrap;
 }
+
 form button {
-  appearance: none;
-  -moz-appearance: none;
-  margin: 20px 0;
-  height: 60px;
-  border: transparent;
-  border-radius: 5px;
-  font-family: "Open Sans", sans-serif;
-  background-color: rgb(59, 83, 117);
-  color: white;
-  font-weight: bold;
-  font-size: 21px;
-  transition: 0.2s;
+    appearance: none;
+    -moz-appearance: none;
+    margin: 20px 0;
+    height: 60px;
+    border: transparent;
+    border-radius: 5px;
+    font-family: "Open Sans", sans-serif;
+    background-color: rgb(59, 83, 117);
+    color: white;
+    font-weight: bold;
+    font-size: 21px;
+    transition: 0.2s;
 }
+
 form button:focus-visible {
-  background-color: rgb(37, 51, 73);
+    background-color: rgb(37, 51, 73);
 }
-form button:focus-visible, form button:hover {
-  outline: none;
-}
+
+form button:focus-visible,
 form button:hover {
-  cursor: pointer;
-  background-color: rgb(52, 70, 100);
+    outline: none;
 }
+
+form button:hover {
+    cursor: pointer;
+    background-color: rgb(52, 70, 100);
+}
+
 form label {
-  font-family: roboto, sans-serif;
-  font-size: 16px;
+    font-family: roboto, sans-serif;
+    font-size: 16px;
 }
-form label + input[type=text], form label + input[type=email], form label + input[type=tel], form label + input[type=password] {
-  position: relative;
-  outline: none;
-  content: " ";
-  padding-left: 7px;
-  border-radius: 3px;
-  height: 2.7rem;
-  font-size: 16px;
-  border: 1px solid rgb(227, 227, 227);
-  background-color: rgba(244, 244, 244, 0.27);
-  transition: 0.2s;
+
+form label+input[type=text],
+form label+input[type=email],
+form label+input[type=tel],
+form label+input[type=password] {
+    position: relative;
+    outline: none;
+    content: " ";
+    padding: 0 30px 0 7px;
+    border-radius: 3px;
+    height: 3rem;
+    font-size: 18px;
+    border: 1px solid rgb(227, 227, 227);
+    background-color: rgba(244, 244, 244, 0.27);
+    transition: 0.2s;
 }
-form label + input[type=text]:focus-visible, form label + input[type=email]:focus-visible, form label + input[type=tel]:focus-visible, form label + input[type=password]:focus-visible {
-  border: 1px solid rgb(31, 31, 31);
-  background-color: white;
+
+form label+input[type=text]:focus-visible,
+form label+input[type=email]:focus-visible,
+form label+input[type=tel]:focus-visible,
+form label+input[type=password]:focus-visible {
+    border: 1px solid rgb(31, 31, 31);
+    background-color: white;
 }
-form label + input[type=text]:hover, form label + input[type=email]:hover, form label + input[type=tel]:hover, form label + input[type=password]:hover {
-  border: 1px solid rgb(121, 121, 121);
-  background-color: white;
+
+form label+input[type=text]:hover,
+form label+input[type=email]:hover,
+form label+input[type=tel]:hover,
+form label+input[type=password]:hover {
+    border: 1px solid rgb(121, 121, 121);
+    background-color: white;
 }
-form label + input[type=text]:not(:placeholder-shown):invalid, form label + input[type=email]:not(:placeholder-shown):invalid, form label + input[type=tel]:not(:placeholder-shown):invalid, form label + input[type=password]:not(:placeholder-shown):invalid {
-  border: 1px solid red;
+
+form label+input[type=email]:not(:placeholder-shown):invalid,
+form label+input[type=tel]:not(:placeholder-shown):invalid,
+form label+input[type=password]:not(:placeholder-shown):invalid {
+    border: 1px solid rgb(255, 92, 92);
 }
-form label + input[type=text]:not(:placeholder-shown):invalid::before, form label + input[type=email]:not(:placeholder-shown):invalid::before, form label + input[type=tel]:not(:placeholder-shown):invalid::before, form label + input[type=password]:not(:placeholder-shown):invalid::before {
-  position: absolute;
-  content: "✕";
-  font-size: 10px;
-  color: red;
+
+form label+input[type=email]:not(:placeholder-shown):invalid:hover,
+form label+input[type=tel]:not(:placeholder-shown):invalid:hover,
+form label+input[type=password]:not(:placeholder-shown):invalid:hover {
+    border: 1px solid red;
+}
+
+form label+input[type=email]:not(:placeholder-shown):invalid+span::before,
+form label+input[type=tel]:not(:placeholder-shown):invalid+span::before,
+form label+input[type=password]:not(:placeholder-shown):invalid+span::before {
+    position: relative;
+    content: "⨉";
+    font-size: 16px;
+    color: red;
+    position: absolute;
+    top: 35px;
+    right: 12px;
 }
 
 label[for=woodlands] {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 5%;
-  text-align: center;
-  font-size: 3vw;
-  color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    text-align: center;
+    font-size: 3vw;
+    color: white;
 }
+
 label[for=woodlands] a,
 label[for=woodlands] a:visited,
 label[for=woodlands] a:active {
-  color: white;
+    color: white;
 }
 
 .action {
-  font-weight: bold;
-  font-size: 24px;
-  font-family: "Open Sans", sans-serif;
-  margin: 7px 0;
-  color: rgb(42, 59, 83);
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Open Sans", sans-serif;
+    margin: 7px 0;
+    color: rgb(42, 59, 83);
 }
 
 .application {
-  display: flex;
-  flex-flow: column nowrap;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .check-line {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 10px 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
 }
+
 .check-line input[type=checkbox] {
-  position: relative;
-  content: " ";
-  cursor: pointer;
-  font-size: 22px;
-  appearance: none;
-  -webkit-appearance: none;
-  outline: none;
-  margin: 0 10px 0 0;
-  border: 1px solid rgb(227, 227, 227);
-  background-color: rgba(244, 244, 244, 0.27);
-  border-radius: 3px;
-  min-height: 19px;
-  min-width: 19px;
-  transition: 0.2s;
+    position: relative;
+    content: " ";
+    cursor: pointer;
+    font-size: 22px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    margin: 0 10px 0 0;
+    border: 1px solid rgb(227, 227, 227);
+    background-color: rgba(244, 244, 244, 0.27);
+    border-radius: 3px;
+    min-height: 19px;
+    min-width: 19px;
+    transition: 0.2s;
 }
+
 .check-line input[type=checkbox]:checked::before {
-  position: absolute;
-  content: "✓";
-  color: black;
-  top: -8px;
-  left: 0px;
+    position: absolute;
+    content: "✓";
+    color: black;
+    top: -5px;
+    left: 0px;
 }
+
 .check-line input[type=checkbox]:focus-visible {
-  border: 1px solid rgb(31, 31, 31);
-  background-color: white;
+    border: 1px solid rgb(31, 31, 31);
+    background-color: white;
 }
+
 .check-line input[type=checkbox]:hover {
-  border: 1px solid rgb(121, 121, 121);
-  background-color: white;
+    border: 1px solid rgb(121, 121, 121);
+    background-color: white;
 }
+
 .check-line label {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .form-header {
-  font-family: "Open Sans", sans-serif;
-  font-size: 19px;
-  margin: 10px 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 19px;
+    margin: 10px 0;
 }
 
 .input-line {
-  display: flex;
-  flex-flow: column nowrap;
-  margin-bottom: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .inputs {
-  display: flex;
-  flex-flow: column nowrap;
-  color: rgb(77, 77, 77);
-  border-radius: 4px;
+    display: flex;
+    flex-flow: column nowrap;
+    color: rgb(77, 77, 77);
+    border-radius: 4px;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  flex-flow: column nowrap;
-  position: absolute;
-  top: 20vh;
-  left: 0;
-  right: 0;
-  padding: 10px 0;
-  background-color: rgba(29, 29, 29, 0.24);
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    position: absolute;
+    top: 20vh;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    background-color: rgba(29, 29, 29, 0.24);
 }
+
 .logo img {
-  width: 24vw;
+    width: 24vw;
 }
 
 .logo-text {
-  font-family: ubuntuCondensed;
-  font-size: 9vw;
-  color: white;
+    font-family: ubuntuCondensed;
+    font-size: 9vw;
+    color: white;
 }
 
 .sign-up {
-  display: flex;
-  flex-flow: column nowrap;
-  color: rgb(49, 49, 49);
-  padding: 0px 20px;
-  height: 100vh;
-  overflow: initial;
+    display: flex;
+    flex-flow: column nowrap;
+    color: rgb(49, 49, 49);
+    padding: 0px 20px;
+    height: 100vh;
+    overflow: initial;
 }
 
 #woodlands {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  background-image: url("/assets/media/nature-small.jpg");
-  background-size: cover;
-  background-attachment: fixed;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/assets/media/nature-small.jpg");
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 @font-face {
-  font-family: ubuntuCondensed;
-  src: url("/assets/fonts/Ubuntu_Condensed/UbuntuCondensed-Regular.ttf");
+    font-family: ubuntuCondensed;
+    src: url("/assets/fonts/Ubuntu_Condensed/UbuntuCondensed-Regular.ttf");
 }
+
 @font-face {
-  font-family: "Open Sans";
-  src: url("/assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf");
+    font-family: "Open Sans";
+    src: url("/assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf");
 }
+
 @font-face {
-  font-family: "Press Start 2P";
-  src: url("/assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf");
+    font-family: "Press Start 2P";
+    src: url("/assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf");
 }
+
 @font-face {
-  font-family: "roboto";
-  src: url("/assets/fonts/Roboto/Roboto-Regular.ttf");
+    font-family: "roboto";
+    src: url("/assets/fonts/Roboto/Roboto-Regular.ttf");
 }
+
 @media only screen and (min-width: 640px) {
-  #woodlands {
-    background-image: url("/assets/media/nature-medium.jpg");
-  }
-}
-@media only screen and (min-width: 1920px) {
-  #woodlands {
-    background-image: url("/assets/media/nature-large.jpg");
-  }
+    #woodlands {
+        background-image: url("/assets/media/nature-medium.jpg");
+    }
 }
 
-/*# sourceMappingURL=style.css.map */
+@media only screen and (min-width: 1920px) {
+    #woodlands {
+        background-image: url("/assets/media/nature-large.jpg");
+    }
+}
