@@ -78,7 +78,13 @@ form label+input[type=password]:hover {
 form label+input[type=email]:not(:placeholder-shown):invalid,
 form label+input[type=tel]:not(:placeholder-shown):invalid,
 form label+input[type=password]:not(:placeholder-shown):invalid {
-    border: 1px solid rgb(255, 92, 92);
+    border: 1px solid rgb(255, 122, 122);
+}
+
+form label+input[type=email]:not(:placeholder-shown):invalid:focus-visible,
+form label+input[type=tel]:not(:placeholder-shown):invalid:focus-visible,
+form label+input[type=password]:not(:placeholder-shown):invalid:focus-visible {
+    border: 1px solid rgb(255, 64, 64);
 }
 
 form label+input[type=email]:not(:placeholder-shown):invalid:hover,

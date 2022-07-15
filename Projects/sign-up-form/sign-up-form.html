@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/assets/style.css">
+        <link rel="stylesheet" type="text/css" href="/assets/styles/style.css">
         <script src="/assets/script.js" defer></script>
         <title>Woodland Pines</title>
     </head>
@@ -37,36 +37,37 @@
                         <div class="action">Become an exclusive member!</div>
                         <div class="input-line">
                             <label for="fname">FIRST NAME</label>
-                            <input type="text" id="fname">
+                            <input type="text" placeholder="" id="fname">
                             <span></span>
                         </div>
                         <div class="input-line">
                             <label for="lname">LAST NAME</label>
-                            <input type="text" id="lname">
+                            <input type="text" placeholder="" id="lname">
                             <span></span>
                         </div>
                         <div class="input-line">
                             <label for="email">EMAIL</label>
-                            <input type="email" id="email">
+                            <input type="email" placeholder="" id="email">
                             <span></span>
                         </div>
                         <div class="input-line">
                             <label for="phone">PHONE NUMBER</label>
-                            <input type="tel" id="phone">
+                            <input type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="" id="phone">
                             <span></span>
                         </div>
                         <div class="input-line">
                             <label for="pwd">PASSWORD</label>
-                            <input type="password" id="pwd">
+                            <input type="password" placeholder=""
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" id="pwd">
                             <span></span>
                         </div>
                         <div class="input-line">
                             <label for="pwdconfirm">CONFIRM PASSWORD</label>
-                            <input type="password" id="pwdconfirm">
+                            <input type="password" placeholder="" id="pwdconfirm">
                             <span></span>
                         </div>
                         <div class="check-line">
-                            <input type="checkbox" id="newsletter">
+                            <input type="checkbox" placeholder="" id="newsletter">
                             <label for="newsletter">Subscribe to our newsletter for exclusive deals and
                                 promotions.</label>
                         </div>
