@@ -1,4 +1,8 @@
 @charset "UTF-8";
+:root {
+    --primary-color: rgb(49, 49, 49);
+    --secondary-color: rgb(42, 59, 83);
+}
 
 body {
     margin: 0;
@@ -35,11 +39,10 @@ form button:hover {
 
 form button:hover {
     cursor: pointer;
-    background-color: rgb(52, 70, 100);
+    background-color: var(--secondary-color);
 }
 
 form label {
-    font-family: roboto, sans-serif;
     font-size: 16px;
 }
 
@@ -110,7 +113,6 @@ form label+input[type=password]:not(:placeholder-shown):invalid+span::before {
 form span {
     padding: 3px 0 0 10px;
     font-size: 14px;
-    font-family: roboto, sans-serif;
 }
 
 form span ul {
@@ -166,7 +168,7 @@ label[for=woodlands] a:active {
     font-size: 24px;
     font-family: "Open Sans", sans-serif;
     margin: 7px 0;
-    color: rgb(42, 59, 83);
+    color: var(--secondary-color);
 }
 
 .application {
@@ -179,7 +181,6 @@ label[for=woodlands] a:active {
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
-    margin: 10px 0;
 }
 
 .check-line input[type=checkbox] {
@@ -221,6 +222,11 @@ label[for=woodlands] a:active {
     cursor: pointer;
 }
 
+.existing a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
 .form-header {
     font-family: "Open Sans", sans-serif;
     font-size: 22px;
@@ -235,10 +241,13 @@ label[for=woodlands] a:active {
 }
 
 .inputs {
-    display: flex;
-    flex-flow: column nowrap;
     color: rgb(77, 77, 77);
     border-radius: 4px;
+}
+
+.input-container {
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .logo {
@@ -270,10 +279,11 @@ label[for=woodlands] a:active {
 .sign-up {
     display: flex;
     flex-flow: column nowrap;
-    color: rgb(49, 49, 49);
-    padding: 0px 20px;
+    color: var(--primary-color);
     height: 100vh;
     overflow: initial;
+    padding: 0 20px;
+    font-family: roboto, sans-serif;
 }
 
 #woodlands {
@@ -311,9 +321,10 @@ label[for=woodlands] a:active {
     }
 }
 
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 990px) {
     .action {
         width: 100%;
+        margin: 0 0 20px 0;
     }
 
     .application {
@@ -321,10 +332,14 @@ label[for=woodlands] a:active {
     }
 
     .inputs {
-        flex-flow: row wrap;
         width: 100%;
         box-shadow: 0 3px 10px #00000036;
         border-radius: 0;
+    }
+
+    .input-container {
+        flex-flow: row wrap;
+        max-width: 900px;
     }
 
     .input-line {
@@ -340,8 +355,18 @@ label[for=woodlands] a:active {
     }
 
     .sign-up {
-        padding: 0;
         background-color: #9dae9f0f;
+        padding: 0;
+    }
+
+    .form-header {
+        margin: 0;
+    }
+
+    .form-header,
+    .inputs,
+    .existing {
+        padding: 20px 45px 30px 45px;
     }
 
     #woodlands {
@@ -349,7 +374,8 @@ label[for=woodlands] a:active {
         width: 55vw;
         background-size: contain;
         background-position-x: -43px;
-        min-width: 360px;
+        min-width: 380px;
+        max-width: 750px;
     }
 
     form {
@@ -358,10 +384,11 @@ label[for=woodlands] a:active {
 
     form button {
         padding: 0px 40px;
+        margin: 30px 40px 10px 40px;
     }
 
     label[for="woodlands"] {
-        font-size: 1vw;
+        font-size: .7vw;
     }
 }
 

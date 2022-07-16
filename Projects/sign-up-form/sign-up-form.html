@@ -31,34 +31,34 @@
                     stand-out amongst all resorts in America. Step into your sprawling holiday home, with
                     tastefully decorated rooms opening onto a deck with breathtaking naturistic views all round.
                 </div>
-                
+
                 <form action="https://httpbin.org/post" method="post">
                     <div class="inputs">
                         <div class="action">Become an exclusive member!</div>
                         <div class="input-container">
                             <div class="input-line">
                                 <label for="fname">FIRST NAME</label>
-                                <input type="text" placeholder="" id="fname">
+                                <input type="text" name="fname" placeholder="" id="fname">
                                 <span></span>
                             </div>
                             <div class="input-line">
                                 <label for="lname">LAST NAME</label>
-                                <input type="text" placeholder="" id="lname">
+                                <input type="text" name="lname" placeholder="" id="lname">
                                 <span></span>
                             </div>
                             <div class="input-line">
                                 <label for="email">EMAIL</label>
-                                <input type="email" placeholder="" id="email">
+                                <input type="email" name="email" placeholder="" id="email">
                                 <span class="error"></span>
                             </div>
                             <div class="input-line">
                                 <label for="phone">PHONE NUMBER</label>
-                                <input type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="" id="phone">
+                                <input type="tel" name="phone" pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="" id="phone">
                                 <span class="error"></span>
                             </div>
                             <div class="input-line">
                                 <label for="pwd">PASSWORD</label>
-                                <input type="password" placeholder=""
+                                <input type="password" name="pwd" placeholder=""
                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%&*_])[A-Za-z\d~!@#$%&*_]{8,}$"
                                     id="pwd" required>
                                 <span>
@@ -74,11 +74,11 @@
                             </div>
                             <div class="input-line">
                                 <label for="pwdconfirm">CONFIRM PASSWORD</label>
-                                <input type="password" placeholder="" id="pwdconfirm" required>
+                                <input type="password" name="pwdConfirm" placeholder="" id="pwdconfirm" required>
                                 <span class="error"></span>
                             </div>
                             <div class="check-line">
-                                <input type="checkbox" placeholder="" id="newsletter" checked>
+                                <input type="checkbox" name="newsletter" placeholder="" id="newsletter" checked>
                                 <label for="newsletter">Subscribe to our newsletter for exclusive deals and
                                     promotions.</label>
                             </div>
@@ -86,6 +86,8 @@
                     </div>
 
                     <button type="submit">Create Account</button>
+
+                    <div class="existing">Already have an account? <a href="">Log in</a></div>
                 </form>
             </div>
         </div>
