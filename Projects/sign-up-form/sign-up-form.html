@@ -58,12 +58,22 @@
                         <div class="input-line">
                             <label for="pwd">PASSWORD</label>
                             <input type="password" placeholder=""
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" id="pwd">
-                            <span></span>
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%&*_])[A-Za-z\d~!@#$%&*_]{8,}$"
+                                id="pwd" required>
+                            <span>
+                                <div class="list-header">Password must contain contain atleast:</div>
+                                <ul class="pwd-requirements">
+                                    <li id="pwd-uppercase">1 uppercase letter</li>
+                                    <li id="pwd-lowercase">1 lowercase letter</li>
+                                    <li id="pwd-number">1 number</li>
+                                    <li id="pwd-symbol">1 symbol (~ ! @ # $ % & * _)</li>
+                                    <li id="pwd-length">8 characters in length</li>
+                                </ul>
+                            </span>
                         </div>
                         <div class="input-line">
                             <label for="pwdconfirm">CONFIRM PASSWORD</label>
-                            <input type="password" placeholder="" id="pwdconfirm">
+                            <input type="password" placeholder="" id="pwdconfirm" required>
                             <span></span>
                         </div>
                         <div class="check-line">

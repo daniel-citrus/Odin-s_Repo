@@ -1,31 +1,28 @@
+let password = document.getElementById('pwd');
+let passwordConfirm = document.getElementById('pwdconfirm');
+let passwordSpan = password.nextElementSibling;
 let phone = document.getElementById('phone');
-let phoneSpan = phone.nextSibling;
+let phoneSpan = phone.nextElementSibling;
+let pwdReqUppercase = document.getElementById('pwd-uppercase');
+let pwdReqLowercase = document.getElementById('pwd-lowercase');
+let pwdReqNumber = document.getElementById('pwd-number');
+let pwdReqSymbol = document.getElementById('pwd-symbol');
+let pwdReqLength = document.getElementById('pwd-length');
 
-
-phone.addEventListener('keydown', (e) => {
-    let key = e.key;
-
-    if (key == 0 ||
-        key == 1 ||
-        key == 2 ||
-        key == 3 ||
-        key == 4 ||
-        key == 5 ||
-        key == 6 ||
-        key == 7 ||
-        key == 8 ||
-        key == 9 ||
-        key) {
-        console.log(key);
-    }
-    else {
-        e.preventDefault();
-        return false;
-    }
+password.addEventListener('keyup', (e) => {
+    checkPassword();
 });
 
-phone.addEventListener('keyup', () => {
+passwordConfirm.addEventListener('keyup', () => {
+    checkPasswordMatch();
+});
+
+phone.addEventListener('keydown', (e) => {
     errorCheckPhone();
+
+    if (e.key !== 'Backspace') {
+        formatPhone();
+    }
 });
 
 function errorCheckPhone() {
@@ -42,9 +39,67 @@ function errorCheckPhone() {
 }
 
 function formatPhone() {
-    let text = phone.textContent;
-    console.log('hi');
-    if (text.length === 3) {
+    let length = phone.value.length;
 
+    if (length === 3 || length === 7) {
+        phone.value += '-';
+    }
+}
+
+/* Check for each requirement and add class 'valid' to <li> if requirement is met */
+function checkPassword() {
+    let value = password.value;
+    let uppcaseTest = /[A-Z]/;
+    let lowercaseTest = /[a-z]/;
+    let numberTest = /[0-9]/;
+    let symbolsTest = /[~!@#$%&*_]/;
+    let minLength = 8;
+
+    /* Uppercase */
+    if (uppcaseTest.test(value)) {
+        pwdReqUppercase.classList.add('valid');
+    }
+    else {
+        pwdReqUppercase.classList.remove('valid');
+    }
+
+    /* Lowercase */
+    if(lowercaseTest.test(value)) {
+        pwdReqLowercase.classList.add('valid');
+    }
+    else {
+        pwdReqLowercase.classList.remove('valid');
+    }
+
+    /* Number */
+    if (numberTest.test(value)) {
+        pwdReqNumber.classList.add('valid');
+    }
+    else {
+        pwdReqNumber.classList.remove('valid');
+    }
+
+    /* Symbol */
+    if (symbolsTest.test(value)) {
+        pwdReqSymbol.classList.add('valid');
+    }
+    else {
+        pwdReqSymbol.classList.remove('valid');
+    }
+
+    if (value.length >= minLength) {
+        pwdReqLength.classList.add('valid');
+    }
+    else {
+        pwdReqLength.classList.remove('valid');
+    }
+}
+
+function checkPasswordMatch() {
+    if (password.value === passwordConfirm.value) {
+        passwordConfirm.setCustomValidity('');
+    }
+    else {
+        passwordConfirm.setCustomValidity('The passwords do not match.');
     }
 }
