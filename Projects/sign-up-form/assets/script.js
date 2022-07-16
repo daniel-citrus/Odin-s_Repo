@@ -1,6 +1,7 @@
 let password = document.getElementById('pwd');
 let passwordConfirm = document.getElementById('pwdconfirm');
 let passwordSpan = password.nextElementSibling;
+let passwordConfirmSpan = passwordConfirm.nextElementSibling;
 let phone = document.getElementById('phone');
 let phoneSpan = phone.nextElementSibling;
 let pwdReqUppercase = document.getElementById('pwd-uppercase');
@@ -11,6 +12,7 @@ let pwdReqLength = document.getElementById('pwd-length');
 
 password.addEventListener('keyup', (e) => {
     checkPassword();
+    checkPasswordMatch();
 });
 
 passwordConfirm.addEventListener('keyup', () => {
@@ -18,24 +20,24 @@ passwordConfirm.addEventListener('keyup', () => {
 });
 
 phone.addEventListener('keydown', (e) => {
-    errorCheckPhone();
-
     if (e.key !== 'Backspace') {
         formatPhone();
     }
 });
 
-function errorCheckPhone() {
-    let message = '';
+phone.addEventListener('keyup', (e) => {
+    errorCheckPhone();
+});
 
+function errorCheckPhone() {
     if (phone.validity.patternMismatch) {
-        message = 'Required phone format: 123-456-7890';
+        phoneSpan.textContent = '* Please enter a valid phone number';
+        phone.setCustomValidity('Please enter a valid phone number');
     }
     else {
-        message = '';
+        phoneSpan.textContent = '';
+        phone.setCustomValidity('');
     }
-
-    phoneSpan.textContent = message;
 }
 
 function formatPhone() {
@@ -64,7 +66,7 @@ function checkPassword() {
     }
 
     /* Lowercase */
-    if(lowercaseTest.test(value)) {
+    if (lowercaseTest.test(value)) {
         pwdReqLowercase.classList.add('valid');
     }
     else {
@@ -98,8 +100,10 @@ function checkPassword() {
 function checkPasswordMatch() {
     if (password.value === passwordConfirm.value) {
         passwordConfirm.setCustomValidity('');
+        passwordConfirmSpan.textContent = ('');
     }
     else {
-        passwordConfirm.setCustomValidity('The passwords do not match.');
+        passwordConfirm.setCustomValidity('Passwords do not match');
+        passwordConfirmSpan.textContent = ('* Passwords do not match');
     }
 }

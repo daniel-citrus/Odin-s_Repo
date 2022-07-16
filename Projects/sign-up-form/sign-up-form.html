@@ -31,55 +31,57 @@
                     stand-out amongst all resorts in America. Step into your sprawling holiday home, with
                     tastefully decorated rooms opening onto a deck with breathtaking naturistic views all round.
                 </div>
-
+                
                 <form action="https://httpbin.org/post" method="post">
                     <div class="inputs">
                         <div class="action">Become an exclusive member!</div>
-                        <div class="input-line">
-                            <label for="fname">FIRST NAME</label>
-                            <input type="text" placeholder="" id="fname">
-                            <span></span>
-                        </div>
-                        <div class="input-line">
-                            <label for="lname">LAST NAME</label>
-                            <input type="text" placeholder="" id="lname">
-                            <span></span>
-                        </div>
-                        <div class="input-line">
-                            <label for="email">EMAIL</label>
-                            <input type="email" placeholder="" id="email">
-                            <span></span>
-                        </div>
-                        <div class="input-line">
-                            <label for="phone">PHONE NUMBER</label>
-                            <input type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="" id="phone">
-                            <span></span>
-                        </div>
-                        <div class="input-line">
-                            <label for="pwd">PASSWORD</label>
-                            <input type="password" placeholder=""
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%&*_])[A-Za-z\d~!@#$%&*_]{8,}$"
-                                id="pwd" required>
-                            <span>
-                                <div class="list-header">Password must contain contain atleast:</div>
-                                <ul class="pwd-requirements">
-                                    <li id="pwd-uppercase">1 uppercase letter</li>
-                                    <li id="pwd-lowercase">1 lowercase letter</li>
-                                    <li id="pwd-number">1 number</li>
-                                    <li id="pwd-symbol">1 symbol (~ ! @ # $ % & * _)</li>
-                                    <li id="pwd-length">8 characters in length</li>
-                                </ul>
-                            </span>
-                        </div>
-                        <div class="input-line">
-                            <label for="pwdconfirm">CONFIRM PASSWORD</label>
-                            <input type="password" placeholder="" id="pwdconfirm" required>
-                            <span></span>
-                        </div>
-                        <div class="check-line">
-                            <input type="checkbox" placeholder="" id="newsletter">
-                            <label for="newsletter">Subscribe to our newsletter for exclusive deals and
-                                promotions.</label>
+                        <div class="input-container">
+                            <div class="input-line">
+                                <label for="fname">FIRST NAME</label>
+                                <input type="text" placeholder="" id="fname">
+                                <span></span>
+                            </div>
+                            <div class="input-line">
+                                <label for="lname">LAST NAME</label>
+                                <input type="text" placeholder="" id="lname">
+                                <span></span>
+                            </div>
+                            <div class="input-line">
+                                <label for="email">EMAIL</label>
+                                <input type="email" placeholder="" id="email">
+                                <span class="error"></span>
+                            </div>
+                            <div class="input-line">
+                                <label for="phone">PHONE NUMBER</label>
+                                <input type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="" id="phone">
+                                <span class="error"></span>
+                            </div>
+                            <div class="input-line">
+                                <label for="pwd">PASSWORD</label>
+                                <input type="password" placeholder=""
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%&*_])[A-Za-z\d~!@#$%&*_]{8,}$"
+                                    id="pwd" required>
+                                <span>
+                                    <div class="list-header">Password must contain contain atleast:</div>
+                                    <ul class="pwd-requirements">
+                                        <li id="pwd-uppercase">1 uppercase letter</li>
+                                        <li id="pwd-lowercase">1 lowercase letter</li>
+                                        <li id="pwd-number">1 number</li>
+                                        <li id="pwd-symbol">1 symbol (~ ! @ # $ % & * _)</li>
+                                        <li id="pwd-length">8 characters in length</li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <div class="input-line">
+                                <label for="pwdconfirm">CONFIRM PASSWORD</label>
+                                <input type="password" placeholder="" id="pwdconfirm" required>
+                                <span class="error"></span>
+                            </div>
+                            <div class="check-line">
+                                <input type="checkbox" placeholder="" id="newsletter" checked>
+                                <label for="newsletter">Subscribe to our newsletter for exclusive deals and
+                                    promotions.</label>
+                            </div>
                         </div>
                     </div>
 
