@@ -25,7 +25,7 @@
                 <h1>My spending record</h1>
 
                 <table>
-                    <caption>How I chose to spend my money</caption>
+                    <caption>How I choose to spend my money</caption>
                     <colgroup>
                         <col>
                         <col>
@@ -35,26 +35,26 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Purchase</th>
-                            <th>Location</th>
-                            <th>Date</th>
-                            <th>Evaluation</th>
-                            <th>Cost (€)</th>
+                            <th id="purchase" scope="col">Purchase</th>
+                            <th id="location" scope="col">Location</th>
+                            <th id="date"d scope="col">Date</th>
+                            <th id="evaluation" scope="col">Evaluation</th>
+                            <th id="cost" scope="col">Cost (€)</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <td colspan="4">SUM</td>
+                            <th id="sum" scope="row" colspan="4">SUM</th>
                             <td>118</td>
                         </tr>
                     </tfoot>
                     <tbody>
                         <tr>
-                            <td>Haircut</td>
-                            <td>Hairdresser</td>
-                            <td>12/09</td>
-                            <td>Great idea</td>
-                            <td>30</td>
+                            <th id="haircut" scope="row">Haircut</th>
+                            <td headers="location haircut">Hairdresser</td>
+                            <td headers="date haircut">12/09</td>
+                            <td headers="evaluation haircut">Great idea</td>
+                            <td headers="cost haircut">30</td>
                         </tr>
                         <tr>
                             <td>Lasagna</td>
