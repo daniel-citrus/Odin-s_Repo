@@ -1,0 +1,25 @@
+.hex {
+    background-color: #86DEFA;
+}
+
+.rgb {
+    background-color: rgb(133, 223, 250);
+}
+
+.hsl {
+    background-color: hsl(194, 92%, 75%);
+}
+
+.transparency {
+    background-color: rgba(133, 223, 250, 60%);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0 20px;
+}
+
+li {
+    padding: 10px;
+    margin-bottom: 15px;
+}
