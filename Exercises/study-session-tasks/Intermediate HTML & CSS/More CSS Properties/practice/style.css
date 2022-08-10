@@ -1,0 +1,28 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdan a, Geneva, Tahoma, sans-serif;
+}
+
+html {
+    height: calc(100vh * 3);
+}
+
+body {
+    margin-top: 300px;
+}
+
+.blue {
+    background-color: rgb(184, 235, 255);
+}
+
+.box {
+    height: 50vh;
+    font-size: 1rem;
+    line-height: 1.7rem;
+    overflow:auto;
+}
+
+.red {
+    background-color: rgb(255, 160, 160);
+}
