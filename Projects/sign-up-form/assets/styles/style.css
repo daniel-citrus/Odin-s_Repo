@@ -1,0 +1,430 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: rgb(49, 49, 49);
+    --secondary-color: rgb(42, 59, 83);
+}
+
+body {
+    margin: 0;
+}
+
+form {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+form button {
+    appearance: none;
+    -moz-appearance: none;
+    margin: 20px 0;
+    height: 60px;
+    border: transparent;
+    border-radius: 5px;
+    font-family: "Open Sans", sans-serif;
+    background-color: rgb(59, 83, 117);
+    color: white;
+    font-weight: bold;
+    font-size: 21px;
+    transition: 0.2s;
+}
+
+form button:focus-visible {
+    background-color: rgb(37, 51, 73);
+}
+
+form button:focus-visible,
+form button:hover {
+    outline: none;
+}
+
+form button:hover {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+form label {
+    font-size: 16px;
+}
+
+form label+input[type=text],
+form label+input[type=email],
+form label+input[type=tel],
+form label+input[type=password] {
+    position: relative;
+    outline: none;
+    content: " ";
+    padding: 0 30px 0 7px;
+    border-radius: 3px;
+    height: 3rem;
+    font-size: 18px;
+    border: 1px solid rgb(227, 227, 227);
+    background-color: rgba(244, 244, 244, 0.27);
+    transition: 0.2s;
+}
+
+form label+input[type=text]:focus-visible,
+form label+input[type=email]:focus-visible,
+form label+input[type=tel]:focus-visible,
+form label+input[type=password]:focus-visible {
+    border: 1px solid rgb(31, 31, 31);
+    background-color: white;
+}
+
+form label+input[type=text]:hover,
+form label+input[type=email]:hover,
+form label+input[type=tel]:hover,
+form label+input[type=password]:hover {
+    border: 1px solid rgb(121, 121, 121);
+    background-color: white;
+}
+
+form label+input[type=email]:not(:placeholder-shown):invalid,
+form label+input[type=tel]:not(:placeholder-shown):invalid,
+form label+input[type=password]:not(:placeholder-shown):invalid {
+    border: 1px solid rgb(255, 122, 122);
+    background-color: #fdcccc21;
+}
+
+form label+input[type=email]:not(:placeholder-shown):invalid:focus-visible,
+form label+input[type=tel]:not(:placeholder-shown):invalid:focus-visible,
+form label+input[type=password]:not(:placeholder-shown):invalid:focus-visible {
+    border: 1px solid rgb(255, 64, 64);
+}
+
+form label+input[type=email]:not(:placeholder-shown):invalid:hover,
+form label+input[type=tel]:not(:placeholder-shown):invalid:hover,
+form label+input[type=password]:not(:placeholder-shown):invalid:hover {
+    border: 1px solid red;
+}
+
+form label+input[type=email]:not(:placeholder-shown):invalid+span::before,
+form label+input[type=tel]:not(:placeholder-shown):invalid+span::before,
+form label+input[type=password]:not(:placeholder-shown):invalid+span::before {
+    position: relative;
+    content: "⨉";
+    font-size: 16px;
+    color: #b31010;
+    ;
+    position: absolute;
+    top: 35px;
+    right: 12px;
+}
+
+form span {
+    padding: 3px 0 0 10px;
+    font-size: 14px;
+}
+
+form span ul {
+    margin: 0;
+    padding: 0 0 0 14px;
+}
+
+form span li {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+form span li::before {
+    position: absolute;
+    content: '⨉';
+    top: -1px;
+    left: -14px;
+    color: #b31010;
+    font-size: 14px;
+}
+
+form span li.valid::before {
+    content: "✓";
+    color: green;
+    font-size: 18px;
+    top: -3px;
+    left: -15px;
+}
+
+form span.error {
+    color: #b31010;
+}
+
+label[for=woodlands] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    text-align: center;
+    font-size: 2vw;
+    color: white;
+}
+
+label[for=woodlands] a,
+label[for=woodlands] a:visited,
+label[for=woodlands] a:active {
+    color: white;
+}
+
+.action {
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Open Sans", sans-serif;
+    margin: 7px 0;
+    color: var(--secondary-color);
+}
+
+.application {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.check-line {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.check-line input[type=checkbox] {
+    position: relative;
+    content: " ";
+    cursor: pointer;
+    font-size: 22px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    margin: 0 10px 0 0;
+    border: 1px solid rgb(227, 227, 227);
+    background-color: rgba(244, 244, 244, 0.27);
+    border-radius: 3px;
+    min-height: 19px;
+    min-width: 19px;
+    transition: 0.2s;
+}
+
+.check-line input[type=checkbox]:checked::before {
+    position: absolute;
+    content: "✓";
+    color: black;
+    top: -7px;
+    left: 0px;
+}
+
+.check-line input[type=checkbox]:focus-visible {
+    border: 1px solid rgb(31, 31, 31);
+    background-color: white;
+}
+
+.check-line input[type=checkbox]:hover {
+    border: 1px solid rgb(121, 121, 121);
+    background-color: white;
+}
+
+.check-line label {
+    cursor: pointer;
+}
+
+.existing a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.form-header {
+    font-family: "Open Sans", sans-serif;
+    font-size: 22px;
+    margin: 60px 0 25px 0;
+}
+
+.input-line {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.inputs {
+    color: rgb(77, 77, 77);
+    border-radius: 4px;
+}
+
+.input-container {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    position: absolute;
+    top: 20vh;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    background-color: rgba(29, 29, 29, 0.24);
+}
+
+.logo img {
+    width: 24vw;
+}
+
+.logo-text {
+    font-family: ubuntuCondensed;
+    font-size: 8vw;
+    color: white;
+}
+
+.pwd-requirements {
+    list-style-type: none;
+}
+
+.return {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.sign-up {
+    display: flex;
+    flex-flow: column nowrap;
+    color: var(--primary-color);
+    padding: 0 20px;
+    font-family: roboto, sans-serif;
+}
+
+#backToProjects a {
+    text-decoration: none;
+}
+
+#backToProjects button {
+    margin: 0 auto;
+    padding: 9px 15px;
+    width: 180px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+    background-color: var(--primary-background-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#backToProjects button:hover {
+    color: white;
+    background-color: var(--secondary-color);
+}
+
+#woodlands {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/assets/media/nature-large.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@font-face {
+    font-family: ubuntuCondensed;
+    src: url("/assets/fonts/Ubuntu_Condensed/UbuntuCondensed-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("/assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf");
+}
+
+@font-face {
+    font-family: "Press Start 2P";
+    src: url("/assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf");
+}
+
+@font-face {
+    font-family: "roboto";
+    src: url("/assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@media only screen and (min-width: 640px) {
+    #woodlands {
+        background-image: url("/assets/media/nature-medium.jpg");
+    }
+}
+
+@media only screen and (min-width: 990px) {
+    .action {
+        width: 100%;
+        margin: 0 0 20px 0;
+    }
+
+    .application {
+        flex-flow: row nowrap;
+    }
+
+    .inputs {
+        box-shadow: 0 3px 10px #00000036;
+        border-radius: 0;
+        background-color: white;
+    }
+
+    .input-container {
+        flex-flow: row wrap;
+        max-width: 875px;
+        gap: 0 60px;
+    }
+
+    .input-container,
+    .form-header {
+        max-width: 800px;
+    }
+
+    .logo img {
+        width: 8.5vw;
+    }
+
+    .logo-text {
+        font-size: 2.4vw;
+    }
+
+    .sign-up {
+        background-color: #9dae9f05;
+        padding: 0;
+        width: 60vw;
+    }
+
+    .form-header {
+        margin: 0;
+    }
+
+    .form-header,
+    .inputs,
+    .existing {
+        padding: 20px 45px 30px 45px;
+    }
+
+    #woodlands {
+        width: 40vw;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: initial;
+    }
+
+    form button {
+        padding: 0px 40px;
+        margin: 30px 40px 10px 40px;
+        align-self: flex-start;
+    }
+
+    form label+input[type=text],
+    form label+input[type=email],
+    form label+input[type=tel],
+    form label+input[type=password] {
+        width: 250px;
+    }
+
+    label[for="woodlands"] {
+        font-size: .7vw;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    #woodlands {
+        background-image: url("/assets/media/nature-large.jpg");
+    }
+}
