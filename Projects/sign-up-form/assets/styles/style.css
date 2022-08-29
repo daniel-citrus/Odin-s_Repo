@@ -57,7 +57,7 @@ form label+input[type=password] {
     padding: 0 30px 0 7px;
     border-radius: 3px;
     height: 3rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border: 1px solid rgb(227, 227, 227);
     background-color: rgba(244, 244, 244, 0.27);
     transition: 0.2s;
@@ -103,7 +103,7 @@ form label+input[type=tel]:not(:placeholder-shown):invalid+span::before,
 form label+input[type=password]:not(:placeholder-shown):invalid+span::before {
     position: relative;
     content: "⨉";
-    font-size: 16px;
+    font-size: 1.3rem;
     color: #b31010;
     ;
     position: absolute;
@@ -165,7 +165,7 @@ label[for=woodlands] a:active {
 
 .action {
     font-weight: bold;
-    font-size: 24px;
+    font-size: 1.4rem;
     font-family: "Open Sans", sans-serif;
     margin: 7px 0;
     color: var(--secondary-color);
@@ -229,7 +229,7 @@ label[for=woodlands] a:active {
 
 .form-header {
     font-family: "Open Sans", sans-serif;
-    font-size: 22px;
+    font-size: 1.3rem;
     margin: 60px 0 25px 0;
 }
 
@@ -316,7 +316,7 @@ label[for=woodlands] a:active {
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-image: url("/assets/media/nature-small.jpg");
+    background-image: url("/assets/media/nature-large.jpg");
     background-size: cover;
     background-attachment: fixed;
 }
@@ -348,19 +348,14 @@ label[for=woodlands] a:active {
 }
 
 @media only screen and (min-width: 990px) {
-
-    html,
-    body,
-    .application {
-        height: 100%;
-    }
-
     .action {
         width: 100%;
         margin: 0 0 20px 0;
     }
 
     .application {
+        min-height: 100vh;
+        min-width: 100vw;
         flex-flow: row nowrap;
     }
 
@@ -407,7 +402,7 @@ label[for=woodlands] a:active {
 
     #woodlands {
         width: 40vw;
-        height: 100%;
+        height: initial;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: initial;
