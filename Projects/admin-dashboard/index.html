@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="/assets/style.css" type="text/css">
 
         <!-- Scripts -->
-        <script src="/assets/script.js" defer></script>
+        <script src="/assets/scripts/mobile-nav.js" defer></script>
         <title>Swiftly</title>
     </head>
 
@@ -25,7 +25,9 @@
             <img height="50px" class="logo" src="/assets/media/swift.jpg">
             <div class="company-name">Swiftly</div>
         </div>
-        <nav class="navigation">
+        <nav class="mobile-navigation">
+            <a id="nav-toggle" class="" aria-roledescription="Top navigation toggle button"><span>Toggle menu</span></a>
+
             <ul class="apps">
                 <a href="">
                     <li>Dashboard</li>
@@ -42,31 +44,39 @@
                 <a href="">
                     <li>Insight</li>
                 </a>
-            </ul>
-
-            <ul>
                 <a href="">
-                    <li class="exta-apps">Settings</li>
+                    <li>Settings</li>
                 </a>
                 <a href="">
-                    <li class="exta-apps">Support</li>
+                    <li>Support</li>
                 </a>
                 <a href="">
-                    <li class="exta-apps">Privacy</li>
+                    <li>Privacy</li>
                 </a>
             </ul>
         </nav>
 
         <div class="header">
-            <form action="">
+            <form class="search" action="">
                 <label hidden for="search-box">Search Input Box</label>
-                <input class="search=box" id="search-box" placeholder="Search" type="text">
+                <input class="search-box" id="search-box" type="text">
                 <button></button>
             </form>
 
             <div class="notifications"></div>
-            <div class=""
+            <div class="profile">
+                <img class="profile-picture" src="" alt="Profile picture">
+                <div class="user-name">Daniel the Land Lord</div>
+            </div>
         </div>
+
+        <div class="statistics">Insights</div>
+        <div class="rent-schedule">
+            <div class="upcoming-rent">Rent due in X days</div>
+            <div class="overdue">Rents overdue</div>
+        </div>
+        <div class="complaints">Complaints</div>
+
     </body>
 
 </html>
