@@ -61,7 +61,15 @@ table {
     --naples-yellow: #f7ce15;
     --mint-creme: #F4FFFD;
     --oxford-blue: #011936;
+    --oxford-blue-2: #093b77;
     --black-coral: #465362;
+
+    --logo-font-stack: satisfy, 'Brush Script MT', cursive;
+}
+
+@font-face {
+    font-family: satisfy;
+    src: url(/assets/media/fonts/Satisfy/Satisfy-Regular.ttf);
 }
 
 h1 {
@@ -90,8 +98,13 @@ hr {
     margin: 9px 0 5px 0;
 }
 
-.complaints > *,
-.rent > * {
+.apps a[class="active"] {
+    color: var(--naples-yellow);
+    background: var(--oxford-blue-2);
+}
+
+.complaints>*,
+.rent>* {
     font-size: 1.4rem;
 }
 
@@ -105,7 +118,7 @@ hr {
     padding: 20px;
     gap: 10px;
     position: relative;
-    box-shadow: 0px 2px 9px 0px #345275e8;
+    box-shadow: 0px 2px 9px 0px #6f7479e8;
 }
 
 .logo {
@@ -116,8 +129,9 @@ hr {
     align-items: center;
     gap: 5px;
     padding: 5px;
-    font-size: 3rem;
+    font-size: 2.5rem;
     border-radius: 8px;
+    font-family: var(--logo-font-stack);
 }
 
 .mobile-navigation {
@@ -163,11 +177,13 @@ hr {
     background: white;
     border-radius: 5px;
 
-    display: flex;
-    flex-flow: column nowrap;
+    display: grid;
+    grid-template: auto / auto;
     justify-content: center;
     align-items: center;
-    gap: 33px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 10px 0px #6f7479e8;
 }
 
 .module-header {
@@ -176,9 +192,9 @@ hr {
 
 .modules {
     background: #34527528;
-    
+
     display: grid;
-    grid-template: repeat(6, auto);
+    grid-template: repeat(6, auto) / auto;
     gap: 10px;
 
     padding: 20px 10px;
@@ -186,8 +202,8 @@ hr {
 
 .notifications img {
     margin-left: 10px;
-    height: 25px;
-    width: 25px;
+    height: 23px;
+    width: 23px;
 }
 
 .profile {
@@ -215,7 +231,11 @@ hr {
 
 .rent-overview {
     display: grid;
-    gap: 20px 0;
+    gap: 21px 0;
+}
+
+.rent-overview>*>span {
+    text-align: right;
 }
 
 .search {
@@ -232,7 +252,7 @@ hr {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url("/assets/media/loupe.png");
+    background-image: url("/assets/media/images/loupe.png");
     height: 23px;
     width: 23px;
 }
@@ -255,6 +275,16 @@ hr {
 
 #rent-due {
     color: var(--tropical-green);
+}
+
+.chart {
+    height: 100%;
+    width: 100%;
+}
+
+#myChart {
+    height: 100%;
+    min-width: 100%;
 }
 
 #nav-toggle {

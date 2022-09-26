@@ -17,19 +17,23 @@
 
         <!-- Scripts -->
         <script src="/assets/scripts/mobile-nav.js" defer></script>
+
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+        <script src="/assets/scripts/charts/income.js" defer></script>
         <title>Swiftly</title>
     </head>
 
     <body>
         <div class="logo">
-            <img height="50px" class="logo" src="/assets/media/swift.jpg">
+            <img height="50px" class="logo" src="/assets/media/images/swift.jpg">
             <div class="company-name">Swiftly</div>
         </div>
         <nav class="mobile-navigation">
             <a id="nav-toggle" class="" aria-roledescription="Top navigation toggle button"><span>Toggle menu</span></a>
 
             <ul class="apps">
-                <a href="">
+                <a href="" class="active">
                     <li>Dashboard</li>
                 </a>
                 <a href="">
@@ -63,13 +67,13 @@
                 <button></button>
             </form>
             <div class="profile">
-                <img class="profile-picture" src="/assets/media/small-foxy.png" alt="Profile picture">
+                <img class="profile-picture" src="/assets/media/images/foxy.png" alt="Profile picture">
                 <div class="greetings">
                     <div class="greet">Hi there,</div>
                     <div class="user-name">Daniel Calvo</div>
                 </div>
                 <a href="" class="notifications hvr-buzz-out">
-                    <img src="/assets/media/notification.png" alt="notification icon">
+                    <img src="/assets/media/images/notification.png" alt="notification icon">
                 </a>
             </div>
         </div>
@@ -79,9 +83,9 @@
                 Insights
             </div>
             <div class="module statistics">
-                <div class="chart">
-
-                </div>
+                    <div class="chart">
+                        <canvas id="myChart"></canvas>
+                    </div>
             </div>
             <div class="module-header">
                 Rent Overview
@@ -93,7 +97,7 @@
                         <div>days until rent day</div>
                     </div>
                     <div class="rent-overdue">
-                        <span id="rent-overdue">21</span>rent(s) overdue
+                        <span id="rent-overdue">1</span>overdue rent(s)
                     </div>
                 </div>
             </div>
