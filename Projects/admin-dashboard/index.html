@@ -66,7 +66,7 @@
                 <img class="profile-picture" src="/assets/media/small-foxy.png" alt="Profile picture">
                 <div class="greetings">
                     <div class="greet">Hi there,</div>
-                    <div id="user-name">Daniel Calvo</div>
+                    <div class="user-name">Daniel Calvo</div>
                 </div>
                 <a href="" class="notifications hvr-buzz-out">
                     <img src="/assets/media/notification.png" alt="notification icon">
@@ -75,25 +75,35 @@
         </div>
 
         <div class="modules">
-            <h1>
+            <div class="module-header">
                 Insights
-            </h1>
+            </div>
             <div class="module statistics">
                 <div class="chart">
 
                 </div>
             </div>
-            <h1>
+            <div class="module-header">
                 Rent Overview
-            </h1>
-            <div class="module rent-schedule">
-                <div class="upcoming-rent">Rent due in <span id="rent-due">X</span> days</div>
-                <div class="overdue">Rents overdue</div>
             </div>
-            <h1>
+            <div class="module rent">
+                <div class="rent-overview">
+                    <div class="rent-due">
+                        <span id="rent-due">10</span>
+                        <div>days until rent day</div>
+                    </div>
+                    <div class="rent-overdue">
+                        <span id="rent-overdue">21</span>rent(s) overdue
+                    </div>
+                </div>
+            </div>
+            <div class="module-header">
                 Complaints
-            </h1>
+            </div>
             <div class="module complaints">
+                <div class="complaint-count">
+                    You have <span id="complaints">2</span> complaints
+                </div>
             </div>
         </div>
 
