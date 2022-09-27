@@ -70,43 +70,96 @@
                 <img class="profile-picture" src="/assets/media/images/foxy.png" alt="Profile picture">
                 <div class="greetings">
                     <div class="greet">Hi there,</div>
-                    <div class="user-name">Daniel Calvo</div>
+                    <div class="user-name">Bob Ross</div>
                 </div>
                 <a href="" class="notifications hvr-buzz-out">
-                    <img src="/assets/media/images/notification.png" alt="notification icon">
+                    <button aria-label="toggle notifications"></button>
                 </a>
             </div>
         </div>
 
         <div class="modules">
-            <div class="module-header">
-                Insights
+            <div class="module">
+                <div class="module-header">
+                    Portfolio Value
+                </div>
+                <div class="content">
+                    <div id="portfolio-value">$499,834</div>
+                </div>
             </div>
-            <div class="module statistics">
+
+            <div class="module">
+                <div class="module-header">
+                    Debt
+                </div>
+                <div class="content">
+                    $374,932
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header">
+                    Net Equity
+                </div>
+                <div class="content">
+                    $129,902
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header">
+                    Properties and Units
+                </div>
+                <div class="content">
+                    2 Homes<br> 6 Units
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header">
+                    Occupancy
+                </div>
+                <div class="content">
+                    5/6 units 
+                    <br>
+                    83%
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header">
+                    Cash Flow
+                </div>
+                <div class="content statistics">
                     <div class="chart">
                         <canvas id="myChart"></canvas>
                     </div>
+                </div>
             </div>
-            <div class="module-header">
-                Rent Overview
-            </div>
-            <div class="module rent">
-                <div class="rent-overview">
-                    <div class="rent-due">
-                        <span id="rent-due">10</span>
-                        <div>days until rent day</div>
-                    </div>
-                    <div class="rent-overdue">
-                        <span id="rent-overdue">1</span>overdue rent(s)
+            <div class="module">
+                <div class="module-header">
+                    Rent Overview
+                </div>
+                <div class="content rent">
+                    <div class="rent-overview">
+                        <div class="rent-due">
+                            <span id="rent-due">10</span>
+                            <div>days until rent day</div>
+                        </div>
+                        <div class="rent-overdue">
+                            <span id="rent-overdue">1</span>overdue rent(s)
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="module-header">
-                Complaints
-            </div>
-            <div class="module complaints">
-                <div class="complaint-count">
-                    You have <span id="complaints">2</span> complaints
+            <div class="module">
+                <div class="module-header">
+                    Complaints
+                </div>
+                <div class="content complaints">
+                    <div class="complaint-count">
+                        You have <span id="complaints">2</span> complaints
+                    </div>
                 </div>
             </div>
         </div>
