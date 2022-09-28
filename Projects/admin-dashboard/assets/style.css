@@ -184,18 +184,13 @@ hr {
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-    box-shadow: 2px 2px 10px 0px var(--shadow);
+    box-shadow: 2px 2px 7px 0px var(--shadow);
 
     font-size: 1.2rem;
     font-family: var(--text-font-stack);
 }
 
-.module-header {
-    font-size: 1.4rem;
-    margin: 10px 0;
-}
-
-.modules {
+.module-groups {
     background: #34527528;
 
     display: grid;
@@ -203,6 +198,16 @@ hr {
     gap: 10px;
 
     padding: 20px 10px;
+}
+
+.module-group-header {
+    font-size: 1.55rem;
+    margin: 10px 0;
+}
+
+.modules {
+    display: grid;
+    gap: 10px;
 }
 
 .notifications button {
@@ -292,7 +297,7 @@ hr {
 
 #myChart {
     height: 100%;
-    min-width: 100%;
+    min-width: 200px;
 }
 
 #nav-toggle {
