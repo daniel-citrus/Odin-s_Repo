@@ -110,24 +110,6 @@ hr {
     background: var(--oxford-blue-2);
 }
 
-.content {
-    width: 100%;
-    min-height: 100px;
-    background: white;
-    border-radius: 5px;
-
-    display: grid;
-    grid-template: auto / auto;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 2px 2px 10px 0px var(--shadow);
-
-    font-size: 1.2rem;
-    font-family: var(--text-font-stack);
-}
-
 .greetings .user-name {
     font-size: 1.6rem;
 }
@@ -190,9 +172,27 @@ hr {
     background: #374a6170;
 }
 
+.module {
+    width: 100%;
+    min-height: 100px;
+    background: white;
+    border-radius: 5px;
+
+    display: grid;
+    grid-template: auto / auto;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 10px 0px var(--shadow);
+
+    font-size: 1.2rem;
+    font-family: var(--text-font-stack);
+}
+
 .module-header {
     font-size: 1.4rem;
-    margin: 20px 0 10px 0;
+    margin: 10px 0;
 }
 
 .modules {
