@@ -59,6 +59,7 @@ table {
     --coral-red: #fa3e3e;
     --tropical-green: #298834;
     --naples-yellow: #f7ce15;
+    --naples-yellow-active: #eed048;
     --mint-creme: #F4FFFD;
     --oxford-blue: #011936;
     --oxford-blue-2: #093b77;
@@ -106,8 +107,23 @@ hr {
 }
 
 .apps a[class="active"] {
-    color: var(--naples-yellow);
+    color: var(--naples-yellow-active);
     background: var(--oxford-blue-2);
+}
+
+.apps img {
+    height: 20px;
+    width: auto;
+
+    -webkit-filter: invert(100%); /* Safari/Chrome */
+    filter: invert(100%);
+}
+
+.apps li {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 15px;
 }
 
 .greetings .user-name {
@@ -146,6 +162,8 @@ hr {
 
 .mobile-navigation ul {
     display: none;
+    flex-flow: column nowrap;
+    gap: 10px;
 }
 
 .mobile-navigation ul a {
@@ -161,14 +179,13 @@ hr {
 
 .mobile-navigation.active ul {
     display: flex;
-    flex-flow: column nowrap;
-    gap: 5px;
 }
 
 .mobile-navigation a:hover,
 .mobile-navigation a:focus,
 .mobile-navigation a:focus-visible {
     outline: 0;
+    color: var(--naples-yellow);
     background: #374a6170;
 }
 
@@ -184,7 +201,7 @@ hr {
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-    box-shadow: 2px 2px 7px 0px var(--shadow);
+    box-shadow: 2px 2px 7px -2px var(--shadow);
 
     font-size: 1.2rem;
     font-family: var(--text-font-stack);
