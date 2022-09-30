@@ -158,14 +158,32 @@
                 </div>
 
                 <div class="modules">
-                    <div class="module">
+                    <div class="module occupancy">
                         <div class="module-header">
                             Occupancy
                         </div>
                         <div class="content">
-                            5/6 units
-                            <br>
-                            83%
+                            <div class="units-taken">5/6 units</div>
+
+                            <div class="meter">
+                                <meter value="5" min="0" low="3" max="6" high="4" optimum="6"></meter>
+                                <div class="percentage">83%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module rent">
+                        <div class="module-header">
+                            Rent
+                        </div>
+                        <div class="content">
+                            <div class="rent-due">
+                                <span id="rent-due">X</span>
+                                <div> days until rent day</div>
+                            </div>
+                            <div class="rent-overdue">
+                                <span id="rent-overdue">1</span>
+                                <div> rent(s) overdue</div>
+                            </div>
                         </div>
                     </div>
                     <div class="module">
