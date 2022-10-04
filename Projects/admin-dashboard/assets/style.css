@@ -481,6 +481,12 @@ hr {
 }
 
 @media screen and (min-width: 769px) {
+    footer {
+        grid-template: auto / repeat(2, auto);
+        justify-content: space-between;
+
+        padding: 30px 40px;
+    }
 }
 
 @media screen and (min-width: 1025px) {}
