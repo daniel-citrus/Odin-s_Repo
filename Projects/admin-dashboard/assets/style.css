@@ -369,7 +369,7 @@ hr {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
 }
 
 .search>button {
@@ -487,9 +487,21 @@ hr {
 
         padding: 30px 40px;
     }
+
+    .header {
+        flex-flow: row-reverse nowrap;
+        justify-content: space-between;
+        padding: 20px 30px;
+    }
+
+    .search {
+        width: 40%;
+    }
 }
 
-@media screen and (min-width: 1025px) {}
+@media screen and (min-width: 1025px) {
+
+}
 
 /* Buzz Out */
 @-webkit-keyframes hvr-buzz-out {
