@@ -33,8 +33,11 @@ let chart = new Chart(myChart, {
 
                 onHover: handleHover,
                 onLeave: handleLeave
-            }
-        }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+        },
+
     },
     plugins: [{
         id: 'text',
@@ -44,7 +47,7 @@ let chart = new Chart(myChart, {
                 ctx = chart.ctx;
 
             ctx.restore();
-            var fontSize = (height / 112)-1.6;
+            var fontSize = (height / 112) - 1.6;
             ctx.font = fontSize + "em Trebuchet MS";
             ctx.textBaseline = "middle";
 
