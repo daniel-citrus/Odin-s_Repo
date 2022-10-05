@@ -92,9 +92,6 @@ footer {
     align-items: center;
     padding: 30px 0;
     box-shadow: 0px -2px 9px -3px var(--shadow);
-}
-
-footer .copyright {
     font-size: .8rem;
 }
 
@@ -123,7 +120,6 @@ footer .right ul {
 
 footer .right a {
     text-decoration: none;
-    font-size: .8rem;
     color: var(--oxford-blue-2);
 }
 
@@ -186,6 +182,48 @@ hr {
 
 .desktop-navigation {
     display: none;
+}
+
+.desktop-navigation .apps a.active {
+    color: var(--naples-yellow-active);
+}
+
+.desktop-navigation .apps a:hover,
+.desktop-navigation .apps a:focus,
+.desktop-navigation .apps a:focus-visible {
+    outline: 0;
+    color: var(--naples-yellow);
+    background: #374a6170;
+}
+
+.desktop-navigation .apps {
+    display: grid;
+    grid-template: auto auto / auto;
+    gap: 70px;
+    margin: 70px 0 0 0;
+}
+
+.desktop-navigation .apps .top,
+.desktop-navigation .apps .bottom {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.desktop-navigation .apps a {
+    color: var(--mint-creme);
+    text-decoration: none;
+    font-size: 1.6rem;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.desktop-navigation .apps li {
+    gap: 17px;
+}
+
+.desktop-navigation .apps li img {
+    height: 25px;
 }
 
 .greetings .user-name {
@@ -277,7 +315,7 @@ hr {
     box-shadow: 2px 2px 7px -2px var(--shadow);
     font-size: 1.2rem;
     font-family: jura;
-    padding: 10px 10px 20px 10px;
+    padding: 20px;
 
     display: grid;
     grid-template: auto 1fr / auto;
@@ -305,7 +343,6 @@ hr {
 .module-header {
     color: rgb(89, 89, 89);
     justify-self: start;
-    margin: 10px 0 0 10px;
 }
 
 .modules {
@@ -519,6 +556,11 @@ hr {
         padding: 20px 40px;
         grid-row: -2 / -1;
         grid-column: -2 / -1;
+        font-size: 1rem;
+    }
+
+    footer .logo {
+        font-size: 1.9rem;
     }
 
     .company-name {
@@ -527,35 +569,6 @@ hr {
 
     .desktop-navigation {
         display: block;
-    }
-
-    .desktop-navigation .apps {
-        display: grid;
-        grid-template: auto auto / auto;
-        gap: 70px;
-        margin: 70px 0 0 0;
-    }
-
-    .desktop-navigation .apps .top,
-    .desktop-navigation .apps .bottom {
-        display: flex;
-        flex-flow: column nowrap;
-        gap: 10px;
-    }
-
-    .desktop-navigation .apps a {
-        color: var(--mint-creme);
-        text-decoration: none;
-        font-size: 1.6rem;
-        padding: 10px;
-    }
-
-    .desktop-navigation .apps li {
-        gap: 17px;
-    }
-
-    .desktop-navigation .apps li img {
-        height: 25px;
     }
 
     .header {
