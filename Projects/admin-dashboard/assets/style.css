@@ -65,6 +65,7 @@ table {
     --oxford-blue-2: #093b77;
     --black-coral: #465362;
     --shadow: #6f7479e8;
+    --focus-background: #5961703a;
 
     --logo-font-stack: satisfy, 'Brush Script MT', cursive;
     --everything-font-stack: jura, 'Futura', 'Trebuchet MS', Arial, sans-serif;
@@ -310,7 +311,7 @@ hr {
     grid-template: auto / repeat(auto-fit, minmax(180px, 1fr));
 }
 
-.notifications button {
+.notifications {
     background-image: url('/assets/media/icons/notification.svg');
     background-size: contain;
     background-repeat: no-repeat;
@@ -383,13 +384,31 @@ hr {
     width: 30px;
 }
 
+.search>button:hover,
+.search>button:focus,
+.search>button:focus-visible,
+.notifications:hover,
+.notifications:focus,
+.notifications:focus-visible {
+    outline: 0;
+}
+
+.notifications button {}
+
 .search-box {
     width: 80%;
     height: 35px;
     border: none;
     border-radius: 20px;
     padding: 0 10px;
-    background: #5961703a;
+    background: var(--focus-background);
+}
+
+.search-box:hover,
+.search-box:focus,
+.search-box:focus-visible {
+    background: rgb(207, 207, 207);
+    outline: 0;
 }
 
 #complaints,
@@ -673,6 +692,10 @@ hr {
     .nav-container .logo {
         justify-content: flex-start;
         padding: 0;
+    }
+
+    .nav-container .footer .logo {
+        justify-content: center;
     }
 }
 
