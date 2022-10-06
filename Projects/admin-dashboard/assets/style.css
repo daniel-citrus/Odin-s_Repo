@@ -184,48 +184,6 @@ hr {
     display: none;
 }
 
-.desktop-navigation .apps a.active {
-    color: var(--naples-yellow-active);
-}
-
-.desktop-navigation .apps a:hover,
-.desktop-navigation .apps a:focus,
-.desktop-navigation .apps a:focus-visible {
-    outline: 0;
-    color: var(--naples-yellow);
-    background: #374a6170;
-}
-
-.desktop-navigation .apps {
-    display: grid;
-    grid-template: auto auto / auto;
-    gap: 70px;
-    margin: 70px 0 0 0;
-}
-
-.desktop-navigation .apps .top,
-.desktop-navigation .apps .bottom {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 10px;
-}
-
-.desktop-navigation .apps a {
-    color: var(--mint-creme);
-    text-decoration: none;
-    font-size: 1.6rem;
-    padding: 10px;
-    border-radius: 4px;
-}
-
-.desktop-navigation .apps li {
-    gap: 17px;
-}
-
-.desktop-navigation .apps li img {
-    height: 25px;
-}
-
 .greetings .user-name {
     font-size: 1.6rem;
     font-weight: bold;
@@ -546,17 +504,18 @@ hr {
 }
 
 @media screen and (min-width: 1025px) {
+    html {
+        height: 100%;
+    }
     body {
-        height: 100vh;
+        height: 100%;
+        width: 100%;
         display: grid;
-        grid-template: 1fr 4fr 1fr / 1fr 5fr;
+        grid-template: auto 1fr / 1fr 5fr;
     }
 
     footer {
-        padding: 20px 40px;
-        grid-row: -2 / -1;
-        grid-column: -2 / -1;
-        font-size: 1rem;
+        display: none;
     }
 
     footer .logo {
@@ -564,11 +523,91 @@ hr {
     }
 
     .company-name {
+        font-size: 1.5rem;
         color: var(--mint-creme);
     }
 
     .desktop-navigation {
-        display: block;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        height: 100%;
+        margin: 50px 0 10px 0;
+    }
+
+    .desktop-navigation .apps a.active {
+        color: var(--naples-yellow-active);
+    }
+
+    .desktop-navigation .apps a:hover,
+    .desktop-navigation .apps a:focus,
+    .desktop-navigation .apps a:focus-visible {
+        outline: 0;
+        color: var(--naples-yellow);
+        background: #374a6170;
+    }
+
+    .desktop-navigation .apps {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 45px;
+        margin: 0;
+    }
+
+    .desktop-navigation .apps .top,
+    .desktop-navigation .apps .bottom {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 7px;
+    }
+
+    .desktop-navigation .apps a {
+        color: var(--mint-creme);
+        text-decoration: none;
+        font-size: 1.5rem;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .desktop-navigation .apps li {
+        gap: 17px;
+    }
+
+    .desktop-navigation .apps li img {
+        height: 23px;
+    }
+
+    .desktop-navigation .footer {
+        display: flex;
+        flex-flow: column nowrap;
+        text-align: center;
+        color: var(--mint-creme);
+        gap: 5px;
+    }
+
+    .desktop-navigation .footer a {
+        text-decoration: none;
+        color: var(--mint-creme);
+    }
+
+    .desktop-navigation .footer .left {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 8px;
+    }
+
+    .desktop-navigation .footer .right ul {
+        display: flex;
+        flex-flow: row wrap;
+        font-size: .9rem;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .desktop-navigation .right a:hover,
+    .desktop-navigation .right a:focus,
+    .desktop-navigation .right a:focus-visible {
+        color: var(--naples-yellow);
     }
 
     .header {
@@ -580,22 +619,31 @@ hr {
         display: none;
     }
 
+    .module {
+        min-height: initial;
+        padding: 15px 20px 20px 20px;
+    }
+
     .module-groups {
-        grid-row: 2 / -2;
         padding: 10px;
+
+        grid-row: 2 / -1;
+        grid-column: 2 / -1;
     }
 
     .nav-container {
-        grid-row: 1 / -1;
         background: var(--oxford-blue);
 
         display: flex;
         flex-flow: column nowrap;
         padding: 20px;
+
+        grid-row: 1 / -1;
+        grid-column: 1 / 2;
     }
 
     .nav-container .logo {
-        justify-content: start;
+        justify-content: center;
         padding: 0;
     }
 }

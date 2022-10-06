@@ -1,3 +1,5 @@
-let year = document.querySelector('#current-year');
+let year = document.querySelectorAll('.current-year');
 
-year.textContent = new Date().getUTCFullYear();
+for (let y of year) {
+    y.textContent = new Date().getUTCFullYear();
+}
