@@ -82,6 +82,7 @@ table {
 
 body {
     font-family: var(--everything-font-stack);
+    position: relative;
 }
 
 footer {
@@ -189,15 +190,6 @@ hr {
     font-weight: bold;
 }
 
-.header {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 20px 10px;
-    gap: 10px;
-    position: relative;
-    box-shadow: 0px 2px 10px -1px var(--shadow);
-}
-
 .logo {
     display: grid;
     grid-template: 1fr / repeat(2, auto);
@@ -227,6 +219,15 @@ hr {
     border-radius: 5px;
     height: 50px;
     width: auto;
+}
+
+.mobile-header {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 20px 10px;
+    gap: 10px;
+    position: relative;
+    box-shadow: 0px 2px 10px -1px var(--shadow);
 }
 
 .mobile-navigation {
@@ -271,7 +272,7 @@ hr {
     background: white;
     border-radius: 5px;
     box-shadow: 1px 2px 7px -2px var(--shadow);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-family: jura;
     padding: 20px;
 
@@ -491,7 +492,7 @@ hr {
         color: black;
     }
 
-    .header {
+    .mobile-header {
         flex-flow: row-reverse nowrap;
         justify-content: space-between;
         padding: 20px 30px;
@@ -504,14 +505,9 @@ hr {
 }
 
 @media screen and (min-width: 1025px) {
-    html {
-        height: 100%;
-    }
     body {
-        height: 100%;
-        width: 100%;
         display: grid;
-        grid-template: auto 1fr / 1fr 5fr;
+        grid-template: auto / 1fr 5fr;
     }
 
     footer {
@@ -523,16 +519,16 @@ hr {
     }
 
     .company-name {
-        font-size: 1.5rem;
+        font-size: 2.4rem;
         color: var(--mint-creme);
     }
 
     .desktop-navigation {
+        height: 100%;
         display: flex;
         flex-flow: column nowrap;
         justify-content: space-between;
-        height: 100%;
-        margin: 50px 0 10px 0;
+        margin: 35px 0 10px 0;
     }
 
     .desktop-navigation .apps a.active {
@@ -550,8 +546,11 @@ hr {
     .desktop-navigation .apps {
         display: flex;
         flex-flow: column nowrap;
-        gap: 45px;
         margin: 0;
+
+        gap: 40px;
+        justify-content: space-between;
+
     }
 
     .desktop-navigation .apps .top,
@@ -564,9 +563,10 @@ hr {
     .desktop-navigation .apps a {
         color: var(--mint-creme);
         text-decoration: none;
-        font-size: 1.5rem;
         padding: 10px;
         border-radius: 4px;
+
+        font-size: 1.3rem;
     }
 
     .desktop-navigation .apps li {
@@ -574,7 +574,7 @@ hr {
     }
 
     .desktop-navigation .apps li img {
-        height: 23px;
+        height: 21px;
     }
 
     .desktop-navigation .footer {
@@ -589,6 +589,10 @@ hr {
     .desktop-navigation .footer a {
         text-decoration: none;
         color: var(--mint-creme);
+    }
+
+    .desktop-navigation .footer .company-name {
+        font-size: 1.5rem;
     }
 
     .desktop-navigation .footer .left {
@@ -611,9 +615,14 @@ hr {
         outline: 0;
     }
 
-    .header {
+    .desktop-header {
         grid-row: 1 / 2;
         grid-column: 2 / -1;
+    }
+
+    .main-content {
+        display: grid;
+        grid-template: auto 1fr / 1fr;
     }
 
     .mobile-navigation {
@@ -626,9 +635,6 @@ hr {
 
     .module-groups {
         padding: 10px;
-
-        grid-row: 2 / -1;
-        grid-column: 2 / -1;
 
         display: grid;
         grid-template: auto auto / 1fr;
@@ -643,24 +649,37 @@ hr {
 
         display: flex;
         flex-flow: column nowrap;
-        padding: 20px;
+        padding: 25px 20px;
+        position: sticky;
+        top: 0;
+        height: 100vh;
 
-        grid-row: 1 / -1;
-        grid-column: 1 / 2;
+        box-sizing: border-box;
+
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Old versions of Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
     }
 
     .nav-container .logo {
-        justify-content: center;
+        justify-content: flex-start;
         padding: 0;
     }
+}
 
-    .portfolio {
-    }
-
-    .tenants {
-    }
-
-    .finances {
+@media screen and (max-height: 700px) {
+    .nav-container {
+        height: 100%;
+        position: static;
     }
 }
 
@@ -787,6 +806,7 @@ hr {
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
 }
+
 /* End Buzz Out */
 
 /* Rotate */
@@ -806,4 +826,5 @@ hr {
     -webkit-transform: rotate(44deg);
     transform: rotate(44deg);
 }
+
 /* End Rotate */
