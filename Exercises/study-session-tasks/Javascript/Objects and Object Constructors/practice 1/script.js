@@ -1,8 +1,4 @@
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+function Book() {
 }
 
 Book.prototype.info = function () {
@@ -12,22 +8,25 @@ Book.prototype.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${isRead}`;
 }
 
-Book.prototype.getTitle = function() {
+Book.prototype.getTitle = function () {
     return `This book is called ${this.title}.`;
 }
 
-Book.prototype.otherInfo = function () {
-    return "There is no other info.";
-}
-
-function Fantasy(title) {
+function Fantasy(title, author, pages, read) {
     this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 }
 
 Fantasy.prototype = Object.create(Book.prototype);
 
-let f = new Fantasy('Baki');
+Fantasy.prototype.otherInfo = function () {
+    return "There is no other info.";
+}
 
-document.write(f.getTitle()+ '<br>');
+let f = new Fantasy('Baki', 'Keisuke Itagaki', 1024, false);
+
+document.write(f.getTitle() + '<br>');
 document.write(f.info() + '<br>');
 document.write(f.otherInfo());
