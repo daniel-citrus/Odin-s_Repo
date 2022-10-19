@@ -1,0 +1,34 @@
+<!-- Where does it write? -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <script>
+            let animal = {
+                eat() {
+                    this.full = true;
+                }
+            }
+
+            let rabbit = {
+                __proto__: animal
+            }
+
+            rabbit.eat();
+
+            console.log(animal.full);
+            console.log(rabbit.full);
+            /* Rabbit will have the altered state and not animal. */
+        </script>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>

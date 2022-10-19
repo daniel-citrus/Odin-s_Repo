@@ -1,0 +1,42 @@
+<!-- Why are both hamsters full? -->
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <script>
+            let hamster = {
+                stomach: [],
+
+                eat(food) {
+                    this.stomach.push(food);
+                }
+            };
+
+            let speedy = {
+                stomach: [],
+                __proto__: hamster
+            };
+            
+            let lazy = {
+                stomach: [],
+                __proto__: hamster
+            };
+
+            speedy.eat("apple");
+            console.log(speedy.stomach); // apple
+            console.log(lazy.stomach); // blank
+
+            /* Each object should have all properties that describe its
+            state hard-coded.*/
+        </script>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>
