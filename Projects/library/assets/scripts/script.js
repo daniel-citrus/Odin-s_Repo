@@ -1,4 +1,10 @@
 let libraryElement = document.getElementById('library');
+let newBookButton = document.querySelector(`button[class='new-book']`);
+let newBookForm = document.querySelector(`.new-book-form`);
+
+newBookButton.addEventListener('click', () => {
+    newBookForm.style.display = 'block';
+});
 
 let library = [];
 

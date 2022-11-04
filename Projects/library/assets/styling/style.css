@@ -1,0 +1,6 @@
+.new-book-form {
+    /* display: none; */
+    position: sticky;
+    top: 10px;
+    border: 1px solid red;
+}
