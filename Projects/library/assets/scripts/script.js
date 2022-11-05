@@ -70,6 +70,17 @@ function createBook(bookDetails) {
     return book;
 }
 
+function createCardDeleteButton() {
+    let deleteButton = document.createElement('button');
+    deleteButton.classList.add('cardDelete');
+    
+    deleteButton.addEventListener('click', () => {
+        libraryElement.removeChild(deleteButton.parentElement);
+    });
+
+    return deleteButton;
+}
+
 function createDiv(divClass) {
     let div = document.createElement('div');
     div.classList.add(divClass);
@@ -101,8 +112,7 @@ function displayNewBook(libraryElement, book) {
     let read = createDiv('read');
 
     /* Button to delete card */
-    let cardDelete = document.createElement('button');
-    cardDelete.classList.add('cardDelete');
+    let cardDelete = createCardDeleteButton();
 
     title.textContent = book.title;
     author.textContent = 'by ' + book.author;
