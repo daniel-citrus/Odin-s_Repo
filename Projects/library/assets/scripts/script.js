@@ -1,6 +1,47 @@
+let addBookButton = document.querySelector(`form button.add`);
+/* let cancelBookForm = document.querySelector(`form button.cancel`); */
+let clearBookForm = document.querySelector(`form button.clear`);
 let libraryElement = document.getElementById('library');
 let newBookButton = document.querySelector(`button[class='new-book']`);
 let newBookForm = document.querySelector(`.new-book-form`);
+let populateBookForm = document.querySelector(`form button.populate`);
+
+addBookButton.addEventListener('click', (e) => {
+    if (!newBookForm.checkValidity()) {
+        return;
+    }
+
+    e.preventDefault();
+
+    let inputs = [...newBookForm.querySelectorAll(`form input`)];
+    let values = [];
+    
+    for (let i of inputs) {
+        values.push(i.value);
+    }
+
+    addBookToLibrary(createBook(values));
+    displayBooks();
+});
+
+/* cancelBookForm.addEventListener('click', () => {
+    newBookForm.style.display = 'none';
+    clearForm();
+}); */
+
+clearBookForm.addEventListener('click', () => {
+    clearForm();
+});
+
+populateBookForm.addEventListener('click', () => {
+    let inputs = newBookForm.querySelectorAll('input');
+
+    let data = ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 15, 1276];
+
+    for(let d in data) {
+        inputs[d].value = data[d];
+    }
+});
 
 newBookButton.addEventListener('click', () => {
     newBookForm.style.display = 'block';
@@ -21,11 +62,24 @@ function addBookToLibrary(book) {
     library.push(book);
 }
 
+function createBook(bookDetails) {
+    let book = new Book(...bookDetails);
+    return book;
+}
+
 function createDiv(divClass) {
     let div = document.createElement('div');
     div.classList.add(divClass);
 
     return div;
+}
+
+function clearForm() {
+    let inputs = newBookForm.querySelectorAll('input');
+
+    for (let i of inputs) {
+        i.value = '';
+    }
 }
 
 function displayBooks() {
@@ -54,6 +108,10 @@ function displayBooks() {
         card.appendChild(currentPage);
         card.appendChild(pages);
         card.appendChild(read);
+
+        /* Create data-attribute for book and save its index in the library */
+        card.setAttribute('library-index', library.indexOf(book));
+
         cardBoard.appendChild(card);
     }
 
@@ -67,13 +125,8 @@ let books = [
     ['To Kill a Mockingbird', 'Harper Lee', 1960, 100, 281]
 ]
 
-function createBook(bookDetails) {
-    let book = new Book(...bookDetails);
-    addBookToLibrary(book);
-}
-
 for (let b of books) {
-    createBook(b);
+    addBookToLibrary(createBook(b));
 }
 
 displayBooks();
