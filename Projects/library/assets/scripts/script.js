@@ -15,13 +15,16 @@ addBookButton.addEventListener('click', (e) => {
 
     let inputs = [...newBookForm.querySelectorAll(`form input`)];
     let values = [];
-    
+
     for (let i of inputs) {
         values.push(i.value);
     }
 
-    addBookToLibrary(createBook(values));
-    displayBooks();
+    let book = createBook(values);
+
+    addBookToLibrary(book);
+    displayNewBook(libraryElement, book);
+    clearForm();
 });
 
 /* cancelBookForm.addEventListener('click', () => {
@@ -38,7 +41,7 @@ populateBookForm.addEventListener('click', () => {
 
     let data = ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 15, 1276];
 
-    for(let d in data) {
+    for (let d in data) {
         inputs[d].value = data[d];
     }
 });
@@ -83,40 +86,43 @@ function clearForm() {
 }
 
 function displayBooks() {
-    let cardBoard = createDiv('card-board');
-    let card, title, author, published, currentPage, pages, read;
-
     for (let book of library) {
-        card = createDiv('card');
-        title = createDiv('title');
-        author = createDiv('author');
-        published = createDiv('published');
-        currentPage = createDiv('currentPage');
-        pages = createDiv('pages');
-        read = createDiv('read');
-
-        title.textContent = book.title;
-        author.textContent = 'by ' + book.author;
-        published.textContent = 'Published: ' + book.published;
-        currentPage.textContent = book.currentPage;
-        pages.textContent = book.pages;
-        read.textContent = book.read;
-
-        card.appendChild(title);
-        card.appendChild(author);
-        card.appendChild(published);
-        card.appendChild(currentPage);
-        card.appendChild(pages);
-        card.appendChild(read);
-
-        /* Create data-attribute for book and save its index in the library */
-        card.setAttribute('library-index', library.indexOf(book));
-
-        cardBoard.appendChild(card);
+        displayNewBook(libraryElement, book);
     }
+}
 
-    libraryElement.appendChild(cardBoard);
+function displayNewBook(libraryElement, book) {
+    let card = createDiv('card');
+    let title = createDiv('title');
+    let author = createDiv('author');
+    let published = createDiv('published');
+    let currentPage = createDiv('currentPage');
+    let pages = createDiv('pages');
+    let read = createDiv('read');
 
+    /* Button to delete card */
+    let cardDelete = document.createElement('button');
+    cardDelete.classList.add('cardDelete');
+
+    title.textContent = book.title;
+    author.textContent = 'by ' + book.author;
+    published.textContent = 'Published: ' + book.published;
+    currentPage.textContent = book.currentPage;
+    pages.textContent = book.pages;
+    read.textContent = book.read;
+
+    card.appendChild(title);
+    card.appendChild(author);
+    card.appendChild(published);
+    card.appendChild(currentPage);
+    card.appendChild(pages);
+    card.appendChild(read);
+    card.appendChild(cardDelete);
+
+    /* Create data-attribute for book and save its index in the library */
+    card.setAttribute('library-index', library.indexOf(book));
+
+    libraryElement.appendChild(card);
 }
 
 let books = [
