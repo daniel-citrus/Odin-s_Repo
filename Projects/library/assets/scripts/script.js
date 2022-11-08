@@ -58,7 +58,7 @@ function Book(title, author, published, currentPage, pages) {
     this.published = published;
     this.currentPage = currentPage;
     this.pages = pages;
-    this.read = (Boolean(currentPage === pages) ? true : false);
+    this.read = Boolean(currentPage === pages);
 }
 
 function addBookToLibrary(book) {
@@ -77,6 +77,7 @@ function createCardDeleteButton() {
 
     deleteButton.addEventListener('click', () => {
         libraryElement.removeChild(deleteButton.parentElement);
+        console.log(library);
     });
 
     return deleteButton;
@@ -100,9 +101,22 @@ function clearForm() {
 function createReadButton(isRead) {
     let readButton = document.createElement('button');
     readButton.setAttribute('book-completed', isRead);
+    readButton.textContent = 'R';
 
     readButton.addEventListener('click', () => {
-        readButton.parentElement.setAttribute('book-completed', !readButton.parent.getAttribute('book-completed'));
+        let result;
+        
+        if (readButton.getAttribute('book-completed') === 'true') {
+            result = false;
+        }
+        else {
+            result = true;
+        }
+
+        readButton.setAttribute('book-completed', result);
+
+        let bookTitle = readButton.parentElement.querySelector('.title').textContent;
+        library[bookTitle].read = !library[bookTitle].read;
     });
 
     return readButton;
@@ -134,7 +148,6 @@ function displayBook(book) {
     published.textContent = 'Published: ' + book['published'];
     currentPage.textContent = 'Current Page: ' + book['currentPage'];
     pages.textContent = 'Total Pages: ' + book['pages'];
-    read.textContent = 'Completed: ' + book['read'];
 
     card.appendChild(title);
     card.appendChild(author);
