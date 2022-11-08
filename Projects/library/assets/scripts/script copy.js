@@ -23,7 +23,7 @@ addBookButton.addEventListener('click', (e) => {
     let book = createBook(values);
 
     addBookToLibrary(book);
-    displayBook(libraryElement, book);
+    displayNewBook(libraryElement, book);
     clearForm();
 });
 
@@ -50,7 +50,7 @@ newBookButton.addEventListener('click', () => {
     newBookForm.style.display = 'block';
 });
 
-let library = {};
+let library = [];
 
 function Book(title, author, published, currentPage, pages) {
     this.title = title;
@@ -62,7 +62,7 @@ function Book(title, author, published, currentPage, pages) {
 }
 
 function addBookToLibrary(book) {
-    library[book.title] = book;
+    library.push(book);
 }
 
 function createBook(bookDetails) {
@@ -109,12 +109,12 @@ function createReadButton(isRead) {
 }
 
 function displayBooks() {
-    for (let l of Object.entries(library)) {
-        displayBook(l[1]);
+    for (let book of library) {
+        displayNewBook(libraryElement, book);
     }
 }
 
-function displayBook(book) {
+function displayNewBook(libraryElement, book) {
     let card = createDiv('card');
     let title = createDiv('title');
     let author = createDiv('author');
@@ -127,14 +127,14 @@ function displayBook(book) {
     let cardDelete = createCardDeleteButton();
 
     /* Button to update read status */
-    let cardRead = createReadButton(book['read']);
+    let cardRead = createReadButton(book.read);
 
-    title.textContent = book['title'];
-    author.textContent = 'Author: ' + book['author'];
-    published.textContent = 'Published: ' + book['published'];
-    currentPage.textContent = 'Current Page: ' + book['currentPage'];
-    pages.textContent = 'Total Pages: ' + book['pages'];
-    read.textContent = 'Completed: ' + book['read'];
+    title.textContent = book.title;
+    author.textContent = 'Author: ' + book.author;
+    published.textContent = 'Published: ' + book.published;
+    currentPage.textContent = 'Current Page: ' + book.currentPage;
+    pages.textContent = 'Total Pages: ' + book.pages;
+    read.textContent = 'Completed: ' + book.read;
 
     card.appendChild(title);
     card.appendChild(author);
@@ -144,6 +144,9 @@ function displayBook(book) {
     card.appendChild(read);
     card.appendChild(cardDelete);
     card.appendChild(cardRead);
+
+    /* Create data-attribute for book and save its index in the library */
+    card.setAttribute('library-index', library.indexOf(book));
 
     libraryElement.appendChild(card);
 }
