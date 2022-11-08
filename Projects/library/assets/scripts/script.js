@@ -13,7 +13,7 @@ addBookButton.addEventListener('click', (e) => {
 
     e.preventDefault();
 
-    let inputs = [...newBookForm.querySelectorAll(`form input`)];
+    let inputs = [...newBookForm.querySelectorAll(`input`)];
     let values = [];
 
     for (let i of inputs) {
@@ -23,7 +23,7 @@ addBookButton.addEventListener('click', (e) => {
     let book = createBook(values);
 
     addBookToLibrary(book);
-    displayBook(libraryElement, book);
+    displayBook(book);
     clearForm();
 });
 
@@ -117,6 +117,8 @@ function createReadButton(isRead) {
 
         let bookTitle = readButton.parentElement.querySelector('.title').textContent;
         library[bookTitle].read = !library[bookTitle].read;
+
+        console.log(library[readButton.parentElement.querySelector('.title').textContent].title + " - " + library[readButton.parentElement.querySelector('.title').textContent].read);
     });
 
     return readButton;
