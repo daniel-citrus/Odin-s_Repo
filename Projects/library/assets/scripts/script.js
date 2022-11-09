@@ -13,20 +13,7 @@ addBookButton.addEventListener('click', (e) => {
 
     e.preventDefault();
 
-
-    /* Create extract function that returns an array of values corresponding to book constructor */
-    let inputs = [...newBookForm.querySelectorAll(`input[type=text]`)];
-    
-    let values = [];
-    
-    for (let i of inputs) {
-        values.push(i.value);
-    }
-
-    values.push(newBookForm.querySelector(`input[type=number]`).value);
-    values.push(newBookForm.querySelector(`input[type=checkbox]`).checked);
-
-    let book = createBook(values);
+    let book = createBook(getNewBookFormInputs());
 
     addBookToLibrary(book);
     displayBook(book);
@@ -167,6 +154,25 @@ function displayBook(book) {
     card.appendChild(cardRead);
 
     libraryElement.appendChild(card);
+}
+
+/*
+    Returns an array of inputs from the 'new book form'
+    [title, author, published, pages, read]
+    */
+function getNewBookFormInputs() {
+    let inputs = [...newBookForm.querySelectorAll(`input[type=text]`)];
+
+    let values = [];
+
+    for (let i of inputs) {
+        values.push(i.value);
+    }
+
+    values.push(newBookForm.querySelector(`input[type=number]`).value);
+    values.push(newBookForm.querySelector(`input[type=checkbox]`).checked);
+
+    return values;
 }
 
 /*
