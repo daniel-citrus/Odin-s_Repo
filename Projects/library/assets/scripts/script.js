@@ -13,6 +13,8 @@ addBookButton.addEventListener('click', (e) => {
 
     e.preventDefault();
 
+
+    /* Create extract function that returns an array of values corresponding to book constructor */
     let inputs = [...newBookForm.querySelectorAll(`input[type=text]`)];
     
     let values = [];
