@@ -24,11 +24,12 @@ addBookButton.addEventListener('click', (e) => {
 
     addBookToLibrary(book);
     displayBook(book);
+    closeForm();
     clearForm();
 });
 
 cancelBookForm.addEventListener('click', () => {
-    newBookForm.style.display = 'none';
+    closeForm();
     clearForm();
 });
 
@@ -65,8 +66,21 @@ function addBookToLibrary(book) {
     library[book.title] = book;
 }
 
+function clearForm() {
+    let inputs = newBookForm.querySelectorAll('input');
+
+    for (let i of inputs) {
+        i.value = '';
+    }
+}
+
+function closeForm() {
+    newBookForm.style.display = 'none';
+}
+
 function createBook(bookDetails) {
     let book = new Book(...bookDetails);
+
     return book;
 }
 
@@ -76,7 +90,7 @@ function createCardDeleteButton() {
     deleteButton.classList.add('cardDelete');
 
     deleteButton.addEventListener('click', () => {
-        libraryElement.removeChild(deleteButton.parentElement);
+        deleteBook(deleteButton.parentElement);
         console.log(library);
     });
 
@@ -90,38 +104,28 @@ function createDiv(divClass) {
     return div;
 }
 
-function clearForm() {
-    let inputs = newBookForm.querySelectorAll('input');
-
-    for (let i of inputs) {
-        i.value = '';
-    }
-}
-
 function createReadButton(isRead) {
     let readButton = document.createElement('button');
     readButton.setAttribute('book-completed', isRead);
+    readButton.classList.add('read');
     readButton.textContent = 'R';
 
     readButton.addEventListener('click', () => {
-        let result;
-        
-        if (readButton.getAttribute('book-completed') === 'true') {
-            result = false;
-        }
-        else {
-            result = true;
-        }
-
-        readButton.setAttribute('book-completed', result);
-
-        let bookTitle = readButton.parentElement.querySelector('.title').textContent;
-        library[bookTitle].read = !library[bookTitle].read;
-
-        console.log(library[readButton.parentElement.querySelector('.title').textContent].title + " - " + library[readButton.parentElement.querySelector('.title').textContent].read);
+        toggleRead(readButton.parentElement);
     });
 
     return readButton;
+}
+
+function deleteBook(card) {
+    let title = card.querySelector('.title').textContent;
+
+    if (!library.hasOwnProperty(title)) {
+        return;
+    }
+
+    delete library[title];
+    libraryElement.removeChild(card);
 }
 
 function displayBooks() {
@@ -161,6 +165,23 @@ function displayBook(book) {
     card.appendChild(cardRead);
 
     libraryElement.appendChild(card);
+}
+
+/*
+    card - DOM node that represents a card for a book
+*/
+function toggleRead(card) {
+    let title = card.querySelector('.title').textContent;
+    let readButton = card.querySelector('button.read');
+
+    if (!library.hasOwnProperty(title)) {
+        return;
+    }
+
+    /* Toggle book-completed attribute between true and false */
+    library[title].read = !library[title].read;
+    readButton.setAttribute('book-completed', library[title].read);
+    console.log(library[title]);
 }
 
 let books = [
