@@ -1,7 +1,7 @@
 let addBookButton = document.querySelector(`form button.add`);
 let cancelBookForm = document.querySelector(`form button.cancel`);
 let clearBookForm = document.querySelector(`form button.clear`);
-let libraryElement = document.getElementById('library');
+let libraryElement = document.querySelector('.library');
 let newBookButton = document.querySelector(`button[class='new-book']`);
 let newBookForm = document.querySelector(`.new-book-form`);
 let populateBookForm = document.querySelector(`form button.populate`);
@@ -13,12 +13,16 @@ addBookButton.addEventListener('click', (e) => {
 
     e.preventDefault();
 
-    let inputs = [...newBookForm.querySelectorAll(`input`)];
+    let inputs = [...newBookForm.querySelectorAll(`input[type=text]`)];
+    
     let values = [];
-
+    
     for (let i of inputs) {
         values.push(i.value);
     }
+
+    values.push(newBookForm.querySelector(`input[type=number]`).value);
+    values.push(newBookForm.querySelector(`input[type=checkbox]`).checked);
 
     let book = createBook(values);
 
@@ -40,7 +44,7 @@ clearBookForm.addEventListener('click', () => {
 populateBookForm.addEventListener('click', () => {
     let inputs = newBookForm.querySelectorAll('input');
 
-    let data = ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 15, 1276];
+    let data = ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276];
 
     for (let d in data) {
         inputs[d].value = data[d];
@@ -53,13 +57,12 @@ newBookButton.addEventListener('click', () => {
 
 let library = {};
 
-function Book(title, author, published, currentPage, pages) {
+function Book(title, author, published, pages, read = false) {
     this.title = title;
     this.author = author;
     this.published = published;
-    this.currentPage = currentPage;
     this.pages = pages;
-    this.read = Boolean(currentPage === pages);
+    this.read = read;
 }
 
 function addBookToLibrary(book) {
@@ -139,7 +142,6 @@ function displayBook(book) {
     let title = createDiv('title');
     let author = createDiv('author');
     let published = createDiv('published');
-    let currentPage = createDiv('currentPage');
     let pages = createDiv('pages');
     let read = createDiv('read');
 
@@ -152,13 +154,11 @@ function displayBook(book) {
     title.textContent = book['title'];
     author.textContent = 'Author: ' + book['author'];
     published.textContent = 'Published: ' + book['published'];
-    currentPage.textContent = 'Current Page: ' + book['currentPage'];
     pages.textContent = 'Total Pages: ' + book['pages'];
 
     card.appendChild(title);
     card.appendChild(author);
     card.appendChild(published);
-    card.appendChild(currentPage);
     card.appendChild(pages);
     card.appendChild(read);
     card.appendChild(cardDelete);
@@ -185,9 +185,9 @@ function toggleRead(card) {
 }
 
 let books = [
-    ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 15, 1276],
-    ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, 328],
-    ['To Kill a Mockingbird', 'Harper Lee', 1960, 100, 281]
+    ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
+    ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
+    ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]
 ]
 
 for (let b of books) {

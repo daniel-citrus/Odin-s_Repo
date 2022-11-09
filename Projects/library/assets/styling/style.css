@@ -4,3 +4,16 @@
     top: 10px;
     border: 1px solid red;
 }
+
+.library button[book-completed] {
+}
+
+.library button[book-completed='true'] {
+    background: green;
+    border: 1px solid green;
+}
+
+.library button[book-completed='false'] {
+    background: red;
+    border: 1px solid red;
+}
