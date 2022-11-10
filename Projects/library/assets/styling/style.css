@@ -3,7 +3,7 @@
     position: sticky;
     top: 10px;
     border: 1px solid red;
-}
+}   
 
 .library button[book-completed] {
 }

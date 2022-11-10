@@ -1,3 +1,8 @@
+/*
+    Library application that stores books. The book title is used as
+    the unique identifier for each book.
+*/
+
 let addBookButton = document.querySelector(`form button.add`);
 let cancelBookForm = document.querySelector(`form button.cancel`);
 let clearBookForm = document.querySelector(`form button.clear`);
@@ -13,12 +18,20 @@ addBookButton.addEventListener('click', (e) => {
 
     e.preventDefault();
 
-    let book = createBook(getNewBookFormInputs());
 
-    addBookToLibrary(book);
-    displayBook(book);
-    closeForm();
-    clearForm();
+    let book = createBook(getNewBookFormInputs());
+    let titleInputBox = document.getElementById('title');
+    
+    if (bookExists(book.title)) {
+        console.log(`Book Exists: ${bookExists(book.title)}`);
+        titleInputBox.setCustomValidity('This book already exists in the library.');
+    }
+    else {
+        addBookToLibrary(book);
+        displayBook(book);
+        closeForm();
+        clearForm();
+    }
 });
 
 cancelBookForm.addEventListener('click', () => {
@@ -56,6 +69,12 @@ function Book(title, author, published, pages, read = false) {
 
 function addBookToLibrary(book) {
     library[book.title] = book;
+}
+
+
+/* Checks if a book (using the book title) exists in the library */
+function bookExists(title) {
+    return library.hasOwnProperty(title);
 }
 
 function clearForm() {
