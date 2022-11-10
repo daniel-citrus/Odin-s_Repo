@@ -22,9 +22,10 @@ addBookButton.addEventListener('click', (e) => {
     let book = createBook(getNewBookFormInputs());
     let titleInputBox = document.getElementById('title');
     
+    console.log(`Book Exists: ${bookExists(book.title)}`);
     if (bookExists(book.title)) {
-        console.log(`Book Exists: ${bookExists(book.title)}`);
         titleInputBox.setCustomValidity('This book already exists in the library.');
+        titleInputBox.reportValidity();
     }
     else {
         addBookToLibrary(book);
@@ -47,6 +48,10 @@ populateBookForm.addEventListener('click', () => {
     let inputs = newBookForm.querySelectorAll('input');
 
     let data = ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276];
+
+    let randomBooks = [
+
+    ];
 
     for (let d in data) {
         inputs[d].value = data[d];
@@ -139,12 +144,6 @@ function deleteBook(card) {
     libraryElement.removeChild(card);
 }
 
-function displayBooks() {
-    for (let l of Object.entries(library)) {
-        displayBook(l[1]);
-    }
-}
-
 function displayBook(book) {
     let card = createDiv('card');
     let title = createDiv('title');
@@ -173,6 +172,12 @@ function displayBook(book) {
     card.appendChild(cardRead);
 
     libraryElement.appendChild(card);
+}
+
+function displayBooks() {
+    for (let l of Object.entries(library)) {
+        displayBook(l[1]);
+    }
 }
 
 /*
