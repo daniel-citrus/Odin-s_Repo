@@ -10,6 +10,7 @@ let libraryElement = document.querySelector('.library');
 let newBookButton = document.querySelector(`button[class='new-book']`);
 let newBookForm = document.querySelector(`.new-book-form`);
 let populateBookForm = document.querySelector(`form button.populate`);
+let titleInputBox = document.getElementById('title');
 
 addBookButton.addEventListener('click', (e) => {
     if (!newBookForm.checkValidity()) {
@@ -18,21 +19,18 @@ addBookButton.addEventListener('click', (e) => {
 
     e.preventDefault();
 
-
     let book = createBook(getNewBookFormInputs());
-    let titleInputBox = document.getElementById('title');
-    
-    console.log(`Book Exists: ${bookExists(book.title)}`);
-    titleInputBox.onchange();
+
     if (bookExists(book.title)) {
         titleInputBox.setCustomValidity('This book already exists in the library.');
+        titleInputBox.reportValidity();
+        return;
     }
-    else {
-        addBookToLibrary(book);
-        displayBook(book);
-        closeForm();
-        clearForm();
-    }
+
+    addBookToLibrary(book);
+    displayBook(book);
+    closeForm();
+    clearForm();
 });
 
 cancelBookForm.addEventListener('click', () => {
@@ -44,24 +42,27 @@ clearBookForm.addEventListener('click', () => {
     clearForm();
 });
 
+let randomBooks = [
+    [`It's a Magical World (Calvin and Hobbes #11)`, `Bill Watterson`, 1996, 176, false],
+    [`Harry Potter Collection (Harry Potter #1-6)`, `J.K. Rowling`, 2005, 3342, true],
+    [`Homicidal Psycho Jungle Cat (Calvin and Hobbes #9)`, `Bill Watterson`, 1994, 176, false],
+    [`Calvin and Hobbes: Sunday Pages 1985-1995: An Exhibition Catalogue`, `Bill Watterson`, 2001, 96, false],
+    [`The Days Are Just Packed`, `Bill Watterson`, 1993, 176, true],
+    [`The Lord of the Rings: The Art of the Fellowship of the Ring`, `Gary Russell`, 2002, 192, false],
+    [`The Complete Maus`, `Art Spiegelman`, 2003, 296, true],
+    [`Herbert the Timid Dragon`, `Mercer Mayer`, 48, 1991, false],
+    [`100 Years of Lynchings`, `Ralph Ginzburg`, 270, 1996, false],
+    [`The Complete Novels`, `Jane Austen`, 1344, 1996, true],
+    [`The Power Broker: Robert Moses and the Fall of New York`, `Robert A. Caro`, 1344, 1975, false],
+    [`Herzog on Herzog`, `Paul Cronin`, 352, 2003, false]
+];
+
 populateBookForm.addEventListener('click', () => {
+    if (randomBooks.length == 0) {
+        return;
+    }
+
     let inputs = newBookForm.querySelectorAll('input');
-
-    let randomBooks = [
-        [`It's a Magical World (Calvin and Hobbes #11)`, `Bill Watterson`, 1996, 176, false],
-        [`Harry Potter Collection (Harry Potter #1-6)`, `J.K. Rowling`, 2005, 3342, false],
-        /* [`Homicidal Psycho Jungle Cat (Calvin and Hobbes #9)`, `Bill Watterson`, 1994, 176, false],
-        [`Calvin and Hobbes: Sunday Pages 1985-1995: An Exhibition Catalogue`, `Bill Watterson`, 2001, 96, false],
-        [`The Days Are Just Packed`, `Bill Watterson`, 1993, 176, true],
-        [`The Lord of the Rings: The Art of the Fellowship of the Ring`, `Gary Russell`, 2002, 192, false],
-        [`The Complete Maus`, `Art Spiegelman`, 2003, 296, true],
-        [`Herbert the Timid Dragon`, `Mercer Mayer`, 48, 1991, false],
-        [`100 Years of Lynchings`, `Ralph Ginzburg`, 270, 1996, false],
-        [`The Complete Novels`, `Jane Austen`, 1344, 1996, true],
-        [`The Power Broker: Robert Moses and the Fall of New York`, `Robert A. Caro`, 1344, 1975, false],
-        [`Herzog on Herzog`, `Paul Cronin`, 352, 2003, false] */
-    ];
-
     let bookIndex = getRandomNumber(0, randomBooks.length - 1);
 
     for (let b in randomBooks[bookIndex]) {
@@ -71,6 +72,12 @@ populateBookForm.addEventListener('click', () => {
         }
 
         inputs[b].value = randomBooks[bookIndex][b];
+    }
+
+    randomBooks.splice(bookIndex, 1);
+
+    if (randomBooks.length == 0) {
+        populateBookForm.classList.add('disabled');
     }
 });
 
