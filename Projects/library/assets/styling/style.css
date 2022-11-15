@@ -6,7 +6,6 @@
 body {
     margin: 0;
     padding: 0;
-    min-height: 200vh;
     font-family: var(--font-stack);
 }
 
@@ -18,6 +17,15 @@ button {
 @font-face {
     font-family: Abel;
     src: url(/assets/fonts/Abel/Abel-Regular.ttf);
+}
+
+.completed-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    margin: 15px 0;
 }
 
 .form-buttons {
@@ -41,14 +49,29 @@ button {
     font-size: 1.1rem;
 }
 
-.form-contents input[type=text],
-.form-contents input[type=number],
-.form-contents button {
+.form-contents button,
+.form-contents input {
     padding: 0 10px;
     height: 40px;
     border: 1px solid rgb(202, 202, 202);
     border-radius: var(--border-radius);
+    transition: all 0.1s ease-out;
 }
+
+.form-contents input[type='checkbox'] {
+    appearance: none;
+    height: 25px;
+    width: 25px;
+    background: #ffffff;
+    border-radius: var(--border-radius);
+}
+
+.form-contents input[type='checkbox']:checked {
+    background-image: url(/assets/media/icons/check.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 
 .form-row {
     display: flex;
@@ -93,6 +116,31 @@ button {
     display: flex;
 }
 
+.form-contents .form-buttons button:focus,
+.form-contents .form-buttons button:focus-visible {
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    outline: 0;
+}
+
+.form-contents .form-buttons button:hover {
+    border: 1px solid #8f8f8f;
+    background: #8f8f8f;
+}
+
+.form-contents input:focus,
+.form-contents input:focus-visible,
+.form-contents input[type='checkbox']:focus,
+.form-contents input[type='checkbox']:focus-visible {
+    border: 1px solid #8f8f8f;
+    outline: 0;
+}
+
+.form-contents input:hover,
+.form-contents input[type='checkbox']:hover {
+    border: 1px solid rgb(97, 97, 97);
+}
+
 .form-contents .cancel {
     align-self: flex-end;
     height: 33px;
@@ -101,14 +149,14 @@ button {
     border-top-right-radius: 0;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    background: rgb(202, 202, 202);
+    background: #e9e9ed;
     border: 0;
     transition: all 0.1s ease-out;
 
-    background-image: url(/assets/media/icons/close.png);
+    background-image: url(/assets/media/icons/close.svg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 15px;
+    background-size: 20px;
 }
 
 .new-book-form .cancel:hover,

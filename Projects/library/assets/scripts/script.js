@@ -176,6 +176,7 @@ function deleteBook(card) {
     libraryElement.removeChild(card);
 }
 
+/* Creates a new book node and inserts it into the library element */
 function displayBook(book) {
     let card = createDiv('card');
     let title = createDiv('title');
