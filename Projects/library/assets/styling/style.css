@@ -1,11 +1,11 @@
-.new-book-form {
-    /* display: none; */
-    position: sticky;
-    top: 10px;
-    border: 1px solid red;
-}   
+.form-row {
+    display: flex;
+    flex-flow: column nowrap;
+}
 
-.library button[book-completed] {
+.form-row {
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .library button[book-completed='true'] {
@@ -16,4 +16,47 @@
 .library button[book-completed='false'] {
     background: red;
     border: 1px solid red;
+}
+
+.main-window {
+    display: grid;
+    grid-template: repeat(3, 1fr);
+    height: 100%;
+}
+
+.new-book-form {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+
+    flex-flow: column nowrap;
+    justify-content: center;
+
+    background: rgba(228, 228, 228, 0.3);
+    backdrop-filter: blur(1.4px);
+}
+
+.new-book-form.active {
+    display: flex;
+}
+
+.new-book-form .completed-row {
+    flex-flow: row nowrap;
+}
+
+.new-book-form .form-contents {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 10px;
+    padding: 20px 30px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 15px rgb(165, 165, 165);
+    background: #f7f7f7;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 200vh;
 }

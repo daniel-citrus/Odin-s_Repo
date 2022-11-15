@@ -62,6 +62,8 @@ populateBookForm.addEventListener('click', () => {
         return;
     }
 
+    titleInputBox.setCustomValidity('');
+
     let inputs = newBookForm.querySelectorAll('input');
     let bookIndex = getRandomNumber(0, randomBooks.length - 1);
 
@@ -82,7 +84,7 @@ populateBookForm.addEventListener('click', () => {
 });
 
 newBookButton.addEventListener('click', () => {
-    newBookForm.style.display = 'block';
+    newBookForm.classList.add('active');
 });
 
 let library = {};
@@ -114,7 +116,7 @@ function clearForm() {
 }
 
 function closeForm() {
-    newBookForm.style.display = 'none';
+    newBookForm.classList.remove('active');
 }
 
 function createBook(bookDetails) {
@@ -238,21 +240,21 @@ function toggleRead(card) {
         return;
     }
 
-    /* Toggle book-completed attribute between true and false */
     library[title].read = !library[title].read;
     readButton.setAttribute('book-completed', library[title].read);
-    console.log(library[title]);
 }
 
-let books = [
-    ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
-    ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
-    ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]
-]
+/* Sample Books */
+document.addEventListener('DOMContentLoaded', () => {
+    let books = [
+        ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
+        ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
+        ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]
+    ]
 
-for (let b of books) {
-    addBookToLibrary(createBook(b));
-}
+    for (let b of books) {
+        addBookToLibrary(createBook(b));
+    }
 
-displayBooks();
-console.log(library);
+    displayBooks();
+})
