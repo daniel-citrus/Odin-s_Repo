@@ -85,6 +85,7 @@ populateBookForm.addEventListener('click', () => {
 
 newBookButton.addEventListener('click', () => {
     newBookForm.classList.add('active');
+    newBookForm.querySelector('input').focus();
 });
 
 let library = {};
@@ -112,6 +113,12 @@ function clearForm() {
 
     for (let i of inputs) {
         i.value = '';
+    }
+
+    let checkBoxes = newBookForm.querySelectorAll('input[type=checkbox]');
+
+    for (let c of checkBoxes) {
+        c.checked = false;
     }
 }
 
