@@ -173,7 +173,6 @@ html {
     align-items: center;
     gap: 5px;
     padding: 20px 0;
-    height: 100%;
 
     overflow: scroll;
 }
@@ -190,8 +189,8 @@ html {
 
 .main-window {
     display: grid;
-    grid-template: auto 1fr auto/auto;
-    height: 100%;
+    grid-template: auto 1fr auto / auto;
+    height:100%;
 }
 
 .new-book-form {
