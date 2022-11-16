@@ -3,20 +3,66 @@
     --border-radius: 3px;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-stack);
-}
-
 button {
     font-family: inherit;
     font-size: 1rem;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-stack);
+    position: relative;
+    height: 100%;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    
+    position: sticky;
+    bottom: 0;
+
+    padding: 8px 0;
+    background: white;
+    box-shadow: 0 0 10px rgba(184, 184, 184, 0.329);
+}
+
+header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    
+    position: sticky;
+    top: 0;
+    
+    padding: 8px 0;
+    background: white;
+    box-shadow: 0 0 10px rgba(184, 184, 184, 0.329);
+}
+
+header .title {
+    font-size: 2.4rem;
+}
+
+html {
+    height: 100%;
+}
+
 @font-face {
     font-family: Abel;
     src: url(/assets/fonts/Abel/Abel-Regular.ttf);
+}
+
+.card {
+    border: 1px solid red;
+    height: 150px;
+    width: 250px;
+
+    padding: 0px 10px 10px 10px;
+}
+
+.card .cardDelete {
 }
 
 .completed-row {
@@ -35,18 +81,34 @@ button {
     font-family: inherit;
 }
 
-.form-contents {
-    position: relative;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 4px;
-    margin: 8px;
-    padding: 0px 15px 25px 15px;
-    border-radius: var(--border-radius);
-    box-shadow: 0px 0px 15px rgb(165, 165, 165);
-    background: #f7f7f7;
+.form-contents .cancel {
+    align-self: flex-end;
+    height: 33px;
+    width: 55px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #e9e9ed;
+    border: 0;
+    transition: all 0.1s ease-out;
 
-    font-size: 1.1rem;
+    background-image: url(/assets/media/icons/close.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}
+
+.form-contents .form-buttons button:focus,
+.form-contents .form-buttons button:focus-visible {
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    outline: 0;
+}
+
+.form-contents .form-buttons button:hover {
+    border: 1px solid #8f8f8f;
+    background: #8f8f8f;
 }
 
 .form-contents button,
@@ -56,6 +118,19 @@ button {
     border: 1px solid rgb(202, 202, 202);
     border-radius: var(--border-radius);
     transition: all 0.1s ease-out;
+}
+
+.form-contents input:focus,
+.form-contents input:focus-visible,
+.form-contents input[type='checkbox']:focus,
+.form-contents input[type='checkbox']:focus-visible {
+    border: 1px solid #8f8f8f;
+    outline: 0;
+}
+
+.form-contents input:hover,
+.form-contents input[type='checkbox']:hover {
+    border: 1px solid rgb(97, 97, 97);
 }
 
 .form-contents input[type='checkbox'] {
@@ -73,9 +148,18 @@ button {
 }
 
 
-.form-row {
+.form-contents {
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
+    gap: 4px;
+    margin: 8px;
+    padding: 0px 15px 25px 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 15px rgb(165, 165, 165);
+    background: #f7f7f7;
+
+    font-size: 1.1rem;
 }
 
 .form-row {
@@ -83,9 +167,19 @@ button {
     flex-flow: column nowrap;
 }
 
-.library button[book-completed='true'] {
-    background: green;
-    border: 1px solid green;
+.form-row {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.library {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    padding: 20px 0;
+    height: 100%;
 }
 
 .library button[book-completed='false'] {
@@ -93,9 +187,14 @@ button {
     border: 1px solid red;
 }
 
+.library button[book-completed='true'] {
+    background: green;
+    border: 1px solid green;
+}
+
 .main-window {
     display: grid;
-    grid-template: repeat(3, 1fr);
+    grid-template: auto 1fr auto/auto;
     height: 100%;
 }
 
@@ -110,53 +209,11 @@ button {
 
     background: rgba(228, 228, 228, 0.3);
     backdrop-filter: blur(1.4px);
+    z-index: 100;
 }
 
 .new-book-form.active {
     display: flex;
-}
-
-.form-contents .form-buttons button:focus,
-.form-contents .form-buttons button:focus-visible {
-    background: #c0c0c0;
-    border: 1px solid #c0c0c0;
-    outline: 0;
-}
-
-.form-contents .form-buttons button:hover {
-    border: 1px solid #8f8f8f;
-    background: #8f8f8f;
-}
-
-.form-contents input:focus,
-.form-contents input:focus-visible,
-.form-contents input[type='checkbox']:focus,
-.form-contents input[type='checkbox']:focus-visible {
-    border: 1px solid #8f8f8f;
-    outline: 0;
-}
-
-.form-contents input:hover,
-.form-contents input[type='checkbox']:hover {
-    border: 1px solid rgb(97, 97, 97);
-}
-
-.form-contents .cancel {
-    align-self: flex-end;
-    height: 33px;
-    width: 55px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    background: #e9e9ed;
-    border: 0;
-    transition: all 0.1s ease-out;
-
-    background-image: url(/assets/media/icons/close.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 20px;
 }
 
 .new-book-form .cancel:hover,

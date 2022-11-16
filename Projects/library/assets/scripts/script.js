@@ -88,6 +88,10 @@ newBookButton.addEventListener('click', () => {
     newBookForm.querySelector('input').focus();
 });
 
+titleInputBox.addEventListener('change', ()=> {
+    titleInputBox.setCustomValidity('');
+})
+
 let library = {};
 
 function Book(title, author, published, pages, read = false) {
@@ -194,14 +198,14 @@ function displayBook(book) {
     title.textContent = book['title'];
     author.textContent = 'Author: ' + book['author'];
     published.textContent = 'Published: ' + book['published'];
-    pages.textContent = 'Total Pages: ' + book['pages'];
+    pages.textContent = 'Pages: ' + book['pages'];
 
+    card.appendChild(cardDelete);
     card.appendChild(title);
     card.appendChild(author);
     card.appendChild(published);
     card.appendChild(pages);
     card.appendChild(read);
-    card.appendChild(cardDelete);
     card.appendChild(cardRead);
 
     libraryElement.appendChild(card);
@@ -237,9 +241,7 @@ function getRandomNumber(a, b) {
     return Math.floor(Math.random() * (b - a + 1) + a);
 }
 
-/*
-    card - DOM node that represents a card for a book
-*/
+/* card - DOM node that represents a card for a book */
 function toggleRead(card) {
     let title = card.querySelector('.title').textContent;
     let readButton = card.querySelector('button.read');
