@@ -138,7 +138,6 @@ function createBook(bookDetails) {
 
 function createCardDeleteButton() {
     let deleteButton = document.createElement('button');
-    deleteButton.textContent = 'X';
     deleteButton.classList.add('cardDelete');
 
     deleteButton.addEventListener('click', () => {
@@ -187,7 +186,6 @@ function displayBook(book) {
     let author = createDiv('author');
     let published = createDiv('published');
     let pages = createDiv('pages');
-    let read = createDiv('read');
 
     /* Button to delete card */
     let cardDelete = createCardDeleteButton();
@@ -205,7 +203,6 @@ function displayBook(book) {
     card.appendChild(author);
     card.appendChild(published);
     card.appendChild(pages);
-    card.appendChild(read);
     card.appendChild(cardRead);
 
     libraryElement.appendChild(card);

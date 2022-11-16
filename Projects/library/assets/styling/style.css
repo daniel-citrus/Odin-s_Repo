@@ -6,6 +6,10 @@
 button {
     font-family: inherit;
     font-size: 1rem;
+
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
 
 body {
@@ -16,18 +20,18 @@ body {
     height: 100%;
 }
 
-header{
+header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    
+
     padding: 8px 0;
     background: white;
     box-shadow: 0 0 10px rgba(184, 184, 184, 0.329);
 }
 
 header .title {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
 }
 
 html {
@@ -40,14 +44,50 @@ html {
 }
 
 .card {
+    position: relative;
     border: 1px solid red;
-    height: 150px;
-    width: 250px;
+
+    display: flex;
+    flex-flow: column nowrap;
 
     padding: 0px 10px 10px 10px;
 }
 
-.card .cardDelete {
+.card button.read {
+    margin-top: auto;
+}
+
+.card button.cardDelete {
+    align-self: flex-end;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #e9e9ed;
+    border: 0;
+    transition: all 0.1s ease-out;
+    height: 25px;
+    width: 40px;
+
+    background-image: url(/assets/media/icons/close.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+}
+
+.form-contents .cancel {
+    align-self: flex-end;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #e9e9ed;
+    border: 0;
+    transition: all 0.1s ease-out;
+
+    background-image: url(/assets/media/icons/close.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .completed-row {
@@ -62,7 +102,7 @@ html {
 .footer {
     display: flex;
     justify-content: center;
-    
+
     padding: 8px 0;
     background: white;
     box-shadow: 0 0 10px rgba(184, 184, 184, 0.329);
@@ -167,12 +207,14 @@ html {
 }
 
 .library {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5px;
-    padding: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: minmax(min-content, max-content);
+
+    justify-content: center;
+
+    gap: 10px;
+    padding: 15px 5px;
 
     overflow: scroll;
 }
@@ -190,7 +232,7 @@ html {
 .main-window {
     display: grid;
     grid-template: auto 1fr auto / auto;
-    height:100%;
+    height: 100%;
 }
 
 .new-book-form {
@@ -211,6 +253,9 @@ html {
     display: flex;
 }
 
+.card .cardDelete:hover,
+.card .cardDelete:focus,
+.card .cardDelete:focus-visible,
 .new-book-form .cancel:hover,
 .new-book-form .cancel:focus,
 .new-book-form .cancel:focus-visible {
