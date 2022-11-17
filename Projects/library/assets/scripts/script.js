@@ -43,8 +43,14 @@ clearBookForm.addEventListener('click', () => {
 });
 
 let randomBooks = [
-    [`It's a Magical World (Calvin and Hobbes #11)`, `Bill Watterson`, 1996, 176, false],
-    [`Harry Potter Collection (Harry Potter #1-6)`, `J.K. Rowling`, 2005, 3342, true],
+    [`It's a Magical World`, `Bill Watterson`, 1996, 176, false],
+    [`Harry Potter and the Sorcerer's Stone`, `J.K. Rowling`, 1998, 321, true],
+    [`Harry Potter and the Chamber of Secrets`, `J.K. Rowling`, 2000, 352, true],
+    [`Harry Potter and the Prisoner of Azkaban`, `J.K. Rowling`, 2001, 448, true],
+    [`Harry Potter and the Goblet of Fire`, `J.K. Rowling`, 2002, 752, false],
+    [`Harry Potter and the Order of the Phoenix`, `J.K. Rowling`, 2004, 896, false],
+    [`Harry Potter and the Half-Blood Prince`, `J.K. Rowling`, 2006, 672, false],
+    [`Harry Potter and the Deathly Hallows`, `J.K. Rowling`, 2009, 784, false],
     [`Homicidal Psycho Jungle Cat (Calvin and Hobbes #9)`, `Bill Watterson`, 1994, 176, false],
     [`Calvin and Hobbes: Sunday Pages 1985-1995: An Exhibition Catalogue`, `Bill Watterson`, 2001, 96, false],
     [`The Days Are Just Packed`, `Bill Watterson`, 1993, 176, true],
@@ -56,6 +62,17 @@ let randomBooks = [
     [`The Power Broker: Robert Moses and the Fall of New York`, `Robert A. Caro`, 1344, 1975, false],
     [`Herzog on Herzog`, `Paul Cronin`, 352, 2003, false]
 ];
+
+newBookButton.addEventListener('click', () => {
+    newBookForm.classList.add('active');
+    newBookForm.querySelector('input').focus();
+});
+
+newBookForm.addEventListener('click', (e) => {
+    if (e.target === newBookForm) {
+        closeForm();
+    }
+});
 
 populateBookForm.addEventListener('click', () => {
     if (randomBooks.length == 0) {
@@ -83,12 +100,7 @@ populateBookForm.addEventListener('click', () => {
     }
 });
 
-newBookButton.addEventListener('click', () => {
-    newBookForm.classList.add('active');
-    newBookForm.querySelector('input').focus();
-});
-
-titleInputBox.addEventListener('change', ()=> {
+titleInputBox.addEventListener('change', () => {
     titleInputBox.setCustomValidity('');
 })
 
@@ -142,7 +154,6 @@ function createCardDeleteButton() {
 
     deleteButton.addEventListener('click', () => {
         deleteBook(deleteButton.parentElement);
-        console.log(library);
     });
 
     return deleteButton;
@@ -162,7 +173,7 @@ function createReadButton(isRead) {
     readButton.textContent = 'R';
 
     readButton.addEventListener('click', () => {
-        toggleRead(readButton.parentElement);
+        toggleRead(readButton.parentElement.parentElement);
     });
 
     return readButton;
@@ -179,17 +190,34 @@ function deleteBook(card) {
     libraryElement.removeChild(card);
 }
 
-/* Creates a new book node and inserts it into the library element */
+/*
+    Creates a new book node and inserts it into the library element
+    
+    Structure:
+
+    card {
+        cardDelete
+        cardContents {
+            title
+            author
+            published
+            pages
+        }
+        buttons {
+            cardRead
+        }
+    }
+*/
 function displayBook(book) {
     let card = createDiv('card');
+    let buttons = createDiv('buttons');
+    let cardContents = createDiv('cardContents');
     let title = createDiv('title');
     let author = createDiv('author');
     let published = createDiv('published');
     let pages = createDiv('pages');
-
     /* Button to delete card */
     let cardDelete = createCardDeleteButton();
-
     /* Button to update read status */
     let cardRead = createReadButton(book['read']);
 
@@ -199,11 +227,17 @@ function displayBook(book) {
     pages.textContent = 'Pages: ' + book['pages'];
 
     card.appendChild(cardDelete);
-    card.appendChild(title);
-    card.appendChild(author);
-    card.appendChild(published);
-    card.appendChild(pages);
-    card.appendChild(cardRead);
+
+    cardContents.appendChild(title);
+    cardContents.appendChild(author);
+    cardContents.appendChild(published);
+    cardContents.appendChild(pages);
+
+    card.appendChild(cardContents);
+
+    buttons.appendChild(cardRead);
+
+    card.appendChild(buttons);
 
     libraryElement.appendChild(card);
 }
@@ -257,6 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
         ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
         ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]
+
     ]
 
     for (let b of books) {
