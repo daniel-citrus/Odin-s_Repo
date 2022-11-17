@@ -170,7 +170,8 @@ function createReadButton(isRead) {
     let readButton = document.createElement('button');
     readButton.setAttribute('book-completed', isRead);
     readButton.classList.add('read');
-    readButton.textContent = 'R';
+
+    isRead ? readButton.textContent = 'Complete' : readButton.textContent = 'Incomplete';
 
     readButton.addEventListener('click', () => {
         toggleRead(readButton.parentElement.parentElement);
@@ -251,7 +252,7 @@ function displayBooks() {
 /*
     Returns an array of inputs from the 'new book form'
     [title, author, published, pages, read]
-    */
+*/
 function getNewBookFormInputs() {
     let inputs = [...newBookForm.querySelectorAll(`input[type=text]`)];
 
@@ -277,12 +278,16 @@ function toggleRead(card) {
     let title = card.querySelector('.title').textContent;
     let readButton = card.querySelector('button.read');
 
+    /* Ensures that the book exists in the library */
     if (!library.hasOwnProperty(title)) {
         return;
     }
 
-    library[title].read = !library[title].read;
-    readButton.setAttribute('book-completed', library[title].read);
+    let bookCompleted = !library[title].read;
+    library[title].read = bookCompleted;
+    readButton.setAttribute('book-completed', bookCompleted);
+
+    bookCompleted ? readButton.textContent = 'Complete' : readButton.textContent = 'Incomplete';
 }
 
 /* Sample Books */
@@ -290,8 +295,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let books = [
         ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
         ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
-        ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]
+        ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]/* ,
 
+        [`It's a Magical World`, `Bill Watterson`, 1996, 176, false],
+        [`Harry Potter and the Sorcerer's Stone`, `J.K. Rowling`, 1998, 321, true],
+        [`Harry Potter and the Chamber of Secrets`, `J.K. Rowling`, 2000, 352, true],
+        [`Harry Potter and the Prisoner of Azkaban`, `J.K. Rowling`, 2001, 448, true],
+        [`Harry Potter and the Goblet of Fire`, `J.K. Rowling`, 2002, 752, false],
+        [`Harry Potter and the Order of the Phoenix`, `J.K. Rowling`, 2004, 896, false],
+        [`Harry Potter and the Half-Blood Prince`, `J.K. Rowling`, 2006, 672, false],
+        [`Harry Potter and the Deathly Hallows`, `J.K. Rowling`, 2009, 784, false],
+        [`Homicidal Psycho Jungle Cat (Calvin and Hobbes #9)`, `Bill Watterson`, 1994, 176, false],
+        [`Calvin and Hobbes: Sunday Pages 1985-1995: An Exhibition Catalogue`, `Bill Watterson`, 2001, 96, false],
+        [`The Days Are Just Packed`, `Bill Watterson`, 1993, 176, true],
+        [`The Lord of the Rings: The Art of the Fellowship of the Ring`, `Gary Russell`, 2002, 192, false],
+        [`The Complete Maus`, `Art Spiegelman`, 2003, 296, true],
+        [`Herbert the Timid Dragon`, `Mercer Mayer`, 48, 1991, false],
+        [`100 Years of Lynchings`, `Ralph Ginzburg`, 270, 1996, false],
+        [`The Complete Novels`, `Jane Austen`, 1344, 1996, true],
+        [`The Power Broker: Robert Moses and the Fall of New York`, `Robert A. Caro`, 1344, 1975, false],
+        [`Herzog on Herzog`, `Paul Cronin`, 352, 2003, false] */
     ]
 
     for (let b of books) {

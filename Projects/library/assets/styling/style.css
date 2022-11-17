@@ -55,10 +55,17 @@ html {
 
 .card .buttons {
     margin-top: auto;
+
+    display: grid;
 }
 
-.card .buttons > * {
+.card .buttons>* {
     border-radius: var(--border-radius);
+}
+
+.card .buttons button {
+    height: 25px;
+    width: 100%;
 }
 
 .card .cardDelete {
@@ -221,9 +228,10 @@ html {
 
 .library {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
-    gap: 15px;
+    gap: 20px;
+    align-items: center;
 
     padding: 25px 20px;
 
@@ -231,19 +239,28 @@ html {
 }
 
 .library button[book-completed='false'] {
-    background: red;
-    border: 1px solid red;
+    background: rgb(235, 141, 141);
+    border: 1px solid rgb(235, 141, 141);
 }
 
 .library button[book-completed='true'] {
-    background: green;
-    border: 1px solid green;
+    background: rgb(131, 235, 131);
+    border: 1px solid rgb(131, 235, 131);
 }
 
 .main-window {
     display: grid;
     grid-template: auto 1fr auto / auto;
     height: 100%;
+}
+
+button.new-book {
+    justify-self: center;
+    order: 1;
+    height: 80px;
+    width: 80px;
+
+    border-radius: var(--border-radius);
 }
 
 .new-book-form {
