@@ -1,3 +1,58 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 :root {
     --font-stack: Abel, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;
     --border-radius: 3px;
@@ -7,9 +62,19 @@ button {
     font-family: inherit;
     font-size: 1rem;
 
+    transition: all 0.1s ease-out;
+
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
+}
+
+button:hover,
+button:focus,
+button:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 5px rgba(175, 175, 175, 0.493);
+    background-color: rgba(192, 192, 192, 0.603);
 }
 
 body {
@@ -23,15 +88,39 @@ body {
 header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 
-    padding: 8px 0;
+    padding: 8px 20px;
     background: white;
     box-shadow: 0 0 10px rgba(184, 184, 184, 0.329);
 }
 
+header button.new-book,
+.library button.new-book {
+    justify-self: center;
+    order: 1;
+    height: 70px;
+    width: 70px;
+
+    border-radius: var(--border-radius);
+    border: 0;
+    font-size: 1.7rem;
+    background-image: url(/assets/media/icons/plus.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30px;
+}
+
+header button.new-book {
+    height: 50px;
+    width: 50px;
+    background-size: 20px;
+}
+
 header .title {
     font-size: 2.2rem;
+    user-select: none;
 }
 
 html {
@@ -49,8 +138,9 @@ html {
     border-radius: var(--border-radius);
 
     display: grid;
+    min-height: 155px;
 
-    padding: 22px 12px 12px 12px;
+    padding: 25px 12px 12px 12px;
 }
 
 .card .buttons {
@@ -64,8 +154,9 @@ html {
 }
 
 .card .buttons button {
-    height: 25px;
+    height: 30px;
     width: 100%;
+    font-size: 1.2rem;
 }
 
 .card .cardDelete {
@@ -75,6 +166,7 @@ html {
 
 .card button.read {
     margin-top: auto;
+    font-size: 1.3rem;
 }
 
 .card button.cardDelete {
@@ -84,7 +176,6 @@ html {
     border-bottom-right-radius: 3px;
     background: #e9e9ed;
     border: 0;
-    transition: all 0.1s ease-out;
     height: 25px;
     width: 35px;
     margin: 0 auto;
@@ -95,6 +186,15 @@ html {
     background-size: 15px;
 }
 
+.cardContents {
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.cardContents .title {
+    font-weight: bold;
+}
+
 .completed-row {
     display: flex;
     flex-flow: row nowrap;
@@ -102,21 +202,6 @@ html {
     align-items: center;
     gap: 5px;
     margin: 15px 0;
-}
-
-.form-contents .cancel {
-    align-self: flex-end;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    background: #e9e9ed;
-    border: 0;
-    transition: all 0.1s ease-out;
-
-    background-image: url(/assets/media/icons/close.svg);
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .footer {
@@ -135,32 +220,14 @@ html {
     font-family: inherit;
 }
 
-.form-contents .cancel {
-    align-self: flex-end;
-    height: 33px;
-    width: 55px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    background: #e9e9ed;
-    border: 0;
-    transition: all 0.1s ease-out;
-
-    background-image: url(/assets/media/icons/close.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 20px;
-}
-
-.form-contents .form-buttons button:focus,
-.form-contents .form-buttons button:focus-visible {
+.form-buttons button:focus,
+.form-buttons button:focus-visible {
     background: #c0c0c0;
     border: 1px solid #c0c0c0;
     outline: 0;
 }
 
-.form-contents .form-buttons button:hover {
+.form-buttons button:hover {
     border: 1px solid #8f8f8f;
     background: #8f8f8f;
 }
@@ -199,6 +266,7 @@ html {
     background-image: url(/assets/media/icons/check.svg);
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 17px;
 }
 
 
@@ -216,9 +284,22 @@ html {
     font-size: 1.1rem;
 }
 
-.form-row {
-    display: flex;
-    flex-flow: column nowrap;
+.form-contents .cancel {
+    align-self: flex-end;
+    height: 33px;
+    width: 55px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #e9e9ed;
+    border: 0;
+    transition: all 0.1s ease-out;
+
+    background-image: url(/assets/media/icons/close.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
 }
 
 .form-row {
@@ -235,7 +316,7 @@ html {
 
     padding: 25px 20px;
 
-    overflow: scroll;
+    overflow: auto;
 }
 
 .library button[book-completed='false'] {
@@ -252,15 +333,6 @@ html {
     display: grid;
     grid-template: auto 1fr auto / auto;
     height: 100%;
-}
-
-button.new-book {
-    justify-self: center;
-    order: 1;
-    height: 80px;
-    width: 80px;
-
-    border-radius: var(--border-radius);
 }
 
 .new-book-form {
@@ -294,4 +366,70 @@ button.new-book {
 
 .new-book-form .completed-row {
     flex-flow: row nowrap;
+}
+
+@media screen and (min-width: 769px) {
+    header {
+        padding: 10px 25px;
+    }
+
+    header button.new-book {
+        height: 40px;
+        width: 40px;
+    }
+
+    header .title {
+        font-size: 2.5rem;
+    }
+
+    .form-row.form-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .form-contents {
+        padding: 0px 35px 25px 35px;
+        max-width: 530px;
+        width: 55%;
+    }
+
+    .form-contents .cancel {
+        height: 30px;
+        margin-bottom: 10px;
+        background-size: 16px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 86px auto;
+        gap: 10px;
+    }
+
+    .form-row label {
+        text-align: right;
+    }
+
+    .library {
+        padding: 25px 30px;
+    }
+
+    .new-book-form {
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    header {
+        padding: 18px 32px;
+    }
+
+    header button.new-book {
+        height: 35px;
+        width: 35px;
+        background-size: 20px;
+    }
+
+    header .title {
+        font-size: 2.9rem;
+    }
 }

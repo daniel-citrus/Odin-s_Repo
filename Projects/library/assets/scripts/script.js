@@ -2,15 +2,15 @@
     Library application that stores books. The book title is used as
     the unique identifier for each book.
 */
-
 let addBookButton = document.querySelector(`form button.add`);
 let cancelBookForm = document.querySelector(`form button.cancel`);
 let clearBookForm = document.querySelector(`form button.clear`);
 let libraryElement = document.querySelector('.library');
-let newBookButton = document.querySelector(`button[class='new-book']`);
+let newBookButtons = document.querySelectorAll(`button.new-book`);
 let newBookForm = document.querySelector(`.new-book-form`);
 let populateBookForm = document.querySelector(`form button.populate`);
 let titleInputBox = document.getElementById('title');
+let yearInputBox = document.getElementById('published');
 
 addBookButton.addEventListener('click', (e) => {
     if (!newBookForm.checkValidity()) {
@@ -63,11 +63,6 @@ let randomBooks = [
     [`Herzog on Herzog`, `Paul Cronin`, 352, 2003, false]
 ];
 
-newBookButton.addEventListener('click', () => {
-    newBookForm.classList.add('active');
-    newBookForm.querySelector('input').focus();
-});
-
 newBookForm.addEventListener('click', (e) => {
     if (e.target === newBookForm) {
         closeForm();
@@ -114,10 +109,29 @@ function Book(title, author, published, pages, read = false) {
     this.read = read;
 }
 
+function activateNewBookForm() {
+    newBookForm.classList.add('active');
+    newBookForm.querySelector('input').focus();
+}
+
 function addBookToLibrary(book) {
     library[book.title] = book;
 }
 
+/* Sample Books */
+function addSampleBooks() {
+    let books = [
+        ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
+        ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
+        ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]
+    ]
+
+    for (let b of books) {
+        addBookToLibrary(createBook(b));
+    }
+
+    displayBooks();
+}
 
 /* Checks if a book (using the book title) exists in the library */
 function bookExists(title) {
@@ -151,6 +165,8 @@ function createBook(bookDetails) {
 function createCardDeleteButton() {
     let deleteButton = document.createElement('button');
     deleteButton.classList.add('cardDelete');
+    deleteButton.title = 'Delete card';
+    deleteButton.ariaLabel = 'Delete card';
 
     deleteButton.addEventListener('click', () => {
         deleteBook(deleteButton.parentElement);
@@ -170,6 +186,9 @@ function createReadButton(isRead) {
     let readButton = document.createElement('button');
     readButton.setAttribute('book-completed', isRead);
     readButton.classList.add('read');
+    readButton.title = 'Toggle read';
+    readButton.ariaLabel = 'Toggle read';
+
 
     isRead ? readButton.textContent = 'Complete' : readButton.textContent = 'Incomplete';
 
@@ -290,36 +309,10 @@ function toggleRead(card) {
     bookCompleted ? readButton.textContent = 'Complete' : readButton.textContent = 'Incomplete';
 }
 
-/* Sample Books */
 document.addEventListener('DOMContentLoaded', () => {
-    let books = [
-        ['The Count of Monte Cristo', 'Alexandre Dumas', 1844, 1276, false],
-        ['Nineteen Eigthy-Four', 'George Orwell', 1949, 328, true],
-        ['To Kill a Mockingbird', 'Harper Lee', 1960, 281, false]/* ,
+    addSampleBooks();
 
-        [`It's a Magical World`, `Bill Watterson`, 1996, 176, false],
-        [`Harry Potter and the Sorcerer's Stone`, `J.K. Rowling`, 1998, 321, true],
-        [`Harry Potter and the Chamber of Secrets`, `J.K. Rowling`, 2000, 352, true],
-        [`Harry Potter and the Prisoner of Azkaban`, `J.K. Rowling`, 2001, 448, true],
-        [`Harry Potter and the Goblet of Fire`, `J.K. Rowling`, 2002, 752, false],
-        [`Harry Potter and the Order of the Phoenix`, `J.K. Rowling`, 2004, 896, false],
-        [`Harry Potter and the Half-Blood Prince`, `J.K. Rowling`, 2006, 672, false],
-        [`Harry Potter and the Deathly Hallows`, `J.K. Rowling`, 2009, 784, false],
-        [`Homicidal Psycho Jungle Cat (Calvin and Hobbes #9)`, `Bill Watterson`, 1994, 176, false],
-        [`Calvin and Hobbes: Sunday Pages 1985-1995: An Exhibition Catalogue`, `Bill Watterson`, 2001, 96, false],
-        [`The Days Are Just Packed`, `Bill Watterson`, 1993, 176, true],
-        [`The Lord of the Rings: The Art of the Fellowship of the Ring`, `Gary Russell`, 2002, 192, false],
-        [`The Complete Maus`, `Art Spiegelman`, 2003, 296, true],
-        [`Herbert the Timid Dragon`, `Mercer Mayer`, 48, 1991, false],
-        [`100 Years of Lynchings`, `Ralph Ginzburg`, 270, 1996, false],
-        [`The Complete Novels`, `Jane Austen`, 1344, 1996, true],
-        [`The Power Broker: Robert Moses and the Fall of New York`, `Robert A. Caro`, 1344, 1975, false],
-        [`Herzog on Herzog`, `Paul Cronin`, 352, 2003, false] */
-    ]
-
-    for (let b of books) {
-        addBookToLibrary(createBook(b));
+    for (let b of newBookButtons) {
+        b.addEventListener('click', () => { activateNewBookForm() });
     }
-
-    displayBooks();
-})
+});
