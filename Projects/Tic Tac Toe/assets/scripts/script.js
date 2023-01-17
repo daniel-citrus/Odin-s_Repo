@@ -1,8 +1,8 @@
+const gameBoard = document.querySelector('.game .board')
 const gameWindow = document.querySelector('.game');
 const mainWindow = document.querySelector('.main');
 const startWindow = document.querySelector('.starter')
 const startButton = document.querySelector('.starter button');
-
 
 const player = (name) => {
     let playerObj = {
@@ -18,24 +18,14 @@ const player = (name) => {
         return playerObj.score;
     }
 
-    function getSymbol() {
-        return playerObj.symbol;
-    }
-
     function incrementScore() {
         playerObj.score++;
-    }
-
-    function setSymbol(sym) {
-        playerObj.symbol = sym;
     }
 
     return {
         getName,
         getScore,
-        getSymbol,
         incrementScore,
-        setSymbol
     }
 }
 
@@ -44,11 +34,11 @@ const bot = () => {
     // pick a move
 }
 
-const gameBoard = (() => {
-    let board = newBoard();
+const board = (() => {
+    let gBoard = newBoard();
 
     function getBoard() {
-        return board;
+        return gBoard;
     }
 
     function newBoard() {
@@ -62,7 +52,7 @@ const gameBoard = (() => {
     }
 
     function updateBoard(x, y, symbol) {
-        board[x][y] = symbol;
+        gBoard[x][y] = symbol;
     }
 
     return {
@@ -101,12 +91,57 @@ const display = (() => {
         }
     }
 
-    // updateBoard
-    // updateMessage(player)
-    // updateScores
+    function drawBoard(dimensions) {
+        let xCoord = dimensions;
+        let yCoord = dimensions;
 
-    return {openMenu, closeMenu};
+        for (let x = 0; x < xCoord; x++) {
+            for (let y = 0; y < yCoord; y++) {
+                gameBoard.appendChild(newBoardCell(x, y));
+            }
+        }
+    }
+
+    function clearBoard() {
+        while (gameBoard.hasChildNodes()) {
+            gameBoard.removeChild(gameBoard.firstChild);
+        }
+    }
+
+    function getBoardCell(x, y) {
+        return gameBoard.querySelector(`[coordinates="${x},${y}"]`)
+    }
+
+    function newBoardCell(x, y) {
+        let cell = document.createElement(`div`);
+
+        cell.classList.add('cell');
+        cell.setAttribute('coordinates', `${x},${y}`);
+
+        return cell;
+    }
+
+    function updateCell(x, y, symbol) {
+        let cell = getBoardCell(x, y);
+        cell.textContent = symbol;
+    }
+
+    function updateMessage(message) {
+        const messageBox = document.querySelector('.game .message');
+
+        messageBox.textContent = message;
+    }
+
+    function updateScores(player) {
+        
+    }
+
+    return { openGame, closeGame, openMenu, closeMenu, drawBoard, getBoardCell, clearBoard, updateCell };
 })();
+
+display.openGame();
+display.drawBoard(3);
+
 
 const director = (() => {
     // start game

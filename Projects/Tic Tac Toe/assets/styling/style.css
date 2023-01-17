@@ -1,3 +1,18 @@
 .hidden {
     display: none;
 }
+
+.game .board {
+    display: grid;
+    grid-template: repeat(3, 60px) / repeat(3, 60px);
+    justify-items: center;
+    justify-content: center;
+    width: auto;
+}
+
+.game .board .cell {
+    border: 1px solid red;
+    height: 100%;
+    width: 100%;
+    background: pink;
+}
