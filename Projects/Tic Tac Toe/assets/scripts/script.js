@@ -1,8 +1,11 @@
 const gameBoard = document.querySelector('.game .board')
 const gameWindow = document.querySelector('.game');
 const mainWindow = document.querySelector('.main');
-const startWindow = document.querySelector('.starter')
+const scoreWindow = document.querySelector('.game .score')
 const startButton = document.querySelector('.starter button');
+const startGameButton = document.querySelector('.starter .startGame');
+const startSettings = document.querySelector('.starter form');
+const startWindow = document.querySelector('.starter')
 
 const player = (name) => {
     let playerObj = {
@@ -22,10 +25,20 @@ const player = (name) => {
         playerObj.score++;
     }
 
+    function setSymbol(symbol) {
+        playerObj.symbol = symbol;
+    }
+
+    function getSymbol() {
+        return playerObj.symbol;
+    }
+
     return {
         getName,
         getScore,
         incrementScore,
+        getSymbol,
+        setSymbol,
     }
 }
 
@@ -34,11 +47,11 @@ const bot = () => {
     // pick a move
 }
 
-const board = (() => {
-    let gBoard = newBoard();
+const boardBrain = (() => {
+    let board = newBoard();
 
     function getBoard() {
-        return gBoard;
+        return board;
     }
 
     function newBoard() {
@@ -52,7 +65,7 @@ const board = (() => {
     }
 
     function updateBoard(x, y, symbol) {
-        gBoard[x][y] = symbol;
+        board[x][y] = symbol;
     }
 
     return {
@@ -62,7 +75,21 @@ const board = (() => {
     }
 })();
 
-const display = (() => {
+/* Controls DOM content */
+const displayController = (() => {
+    const gamemode = startWindow.querySelector('.gamemode');
+
+    /* Disable difficulty option if the gamemode is 2-player */
+    gamemode.addEventListener('click', (e) => {
+        let difficultySetting = startWindow.querySelector('.difficulty');
+        if (e.target.id === 'two_player') {
+            difficultySetting.classList.add('disabled');
+        }
+        else {
+            difficultySetting.classList.remove('disabled');
+        }
+    });
+
     function openGame() {
         gameWindow.classList.remove('hidden');
     }
@@ -84,7 +111,7 @@ const display = (() => {
     function closeMenu() {
         startWindow.classList.add('hidden');
 
-        let radioButtons = startWindow.querySelectorAll('input[type="radio"');
+        let radioButtons = startWindow.querySelectorAll(`input[type="radio"]`);
 
         for (let r of radioButtons) {
             r.checked = false;
@@ -121,6 +148,10 @@ const display = (() => {
         return cell;
     }
 
+    function markCell(cell, symbol) {
+        cell.textContent = symbol;
+    }
+
     function updateCell(x, y, symbol) {
         let cell = getBoardCell(x, y);
         cell.textContent = symbol;
@@ -132,20 +163,47 @@ const display = (() => {
         messageBox.textContent = message;
     }
 
-    function updateScores(player) {
-        
+    function updateScore(player, score) {
+        if (player === 1) {
+            player = '.player1';
+        }
+        else {
+            player = '.player2';
+        }
+
+        gameWindow.querySelector(`${player} .score`).textContent = score;
     }
 
-    return { openGame, closeGame, openMenu, closeMenu, drawBoard, getBoardCell, clearBoard, updateCell };
+    return {
+        openGame,
+        closeGame,
+        openMenu,
+        closeMenu,
+        drawBoard,
+        getBoardCell,
+        clearBoard,
+        updateCell,
+        markCell,
+        updateMessage,
+        updateScore
+    };
 })();
 
-display.openGame();
-display.drawBoard(3);
-
-
 const director = (() => {
+    let players = [];
+
+    function gameReset() {
+        startSettings.reset();
+    }
+
+    // gameLoop
     // start game
+    // checkWinner
     // declareWinner(playeObj)
     // update player turn
     // isGameover return winner
+
+    return {
+        gameReset,
+    }
 })();

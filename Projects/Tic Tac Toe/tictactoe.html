@@ -13,26 +13,44 @@
 
     <body>
         <div class="main">
-            <div class="starter hidden">
+            <div class="starter">
                 <div class="message"></div>
-                <fieldset class="difficulty">
-                    <input type="radio" name="difficulty" id="difficulty" value="clueless">
-                    <input type="radio" name="difficulty" id="difficulty" value="unstoppable">
-                </fieldset>
-                <button type="button">Start</button>
+                <form>
+                    <fieldset class="gamemode">
+                        <div class="radio-option">
+                            <input type="radio" name="gamemode" id="two_player" value="two_player">
+                            <label for="two_player">Two Player</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="gamemode" id="computer" value="computer">
+                            <label for="computer">Computer</label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="difficulty">
+                        <div class="radio-option">
+                            <input type="radio" name="difficulty" id="easy" value="easy">
+                            <label for="easy">Clueless</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="difficulty" id="hard" value="hard">
+                            <label for="hard">Unstoppable</label>
+                        </div>
+                    </fieldset>
+                    <button type="button" id="startGame">Start</button>
+                </form>
             </div>
             <div class="game hidden">
                 <div class="score">
                     <div class="player1">
-                        <div class="info name"></div>
-                        <div class="info score"></div>
+                        <div class="info name">Player 1</div>
+                        <div class="info score">3</div>
                     </div>
                     <div class="player2">
-                        <div class="info name"></div>
-                        <div class="info score"></div>
+                        <div class="info name">Player 2</div>
+                        <div class="info score">1</div>
                     </div>
                 </div>
-                <div class="info message"></div>
+                <div class="info message">Player 2 has won!</div>
                 <div class="info board"></div>
             </div>
         </div>

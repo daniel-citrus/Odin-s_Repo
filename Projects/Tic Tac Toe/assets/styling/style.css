@@ -16,3 +16,27 @@
     width: 100%;
     background: pink;
 }
+
+.starter form .disabled {
+    background: rgb(223, 223, 223);
+    user-select: none;
+    pointer-events: none;
+}
+
+.starter form input[type='radio'] {
+    display: none;
+}
+
+.starter form label {
+    display: block;
+    width: 100px;
+    text-align: center;
+    border: 1px solid red;
+    padding: 3px 6px;
+}
+
+.starter form fieldset {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
