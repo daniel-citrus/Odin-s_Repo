@@ -1,11 +1,38 @@
+const difficultySetting = document.querySelector('.difficulty');
 const gameBoard = document.querySelector('.game .board')
+const gamemode = document.querySelector('.gamemode');
 const gameWindow = document.querySelector('.game');
 const mainWindow = document.querySelector('.main');
 const scoreWindow = document.querySelector('.game .score')
-const startButton = document.querySelector('.starter button');
+const startButton = document.querySelector('.starter form button');
 const startGameButton = document.querySelector('.starter .startGame');
 const startSettings = document.querySelector('.starter form');
 const startWindow = document.querySelector('.starter')
+const twoPlayerOption = document.getElementById('two_player');
+
+/* Disable difficulty option if the gamemode is 2-player */
+gamemode.addEventListener('click', (e) => {
+    if (twoPlayerOption.checked) {
+        difficultySetting.classList.add('disabled');
+    }
+    else {
+        difficultySetting.classList.remove('disabled');
+    }
+});
+
+/* Prevent refresh from enabling difficulty option */
+document.addEventListener('DOMContentLoaded', () => {
+    if (twoPlayerOption.checked) {
+        difficultySetting.classList.add('disabled');
+    }
+    else {
+        difficultySetting.classList.remove('disabled');
+    }
+})
+
+startButton.addEventListener('click', () => {
+    director.startGame();
+});
 
 const player = (name) => {
     let playerObj = {
@@ -79,20 +106,6 @@ const boardBrain = (() => {
 
 /* Controls DOM content */
 const displayController = (() => {
-    const gamemode = startWindow.querySelector('.gamemode');
-
-    /* Disable difficulty option if the gamemode is 2-player */
-    gamemode.addEventListener('click', (e) => {
-        let difficultySetting = startWindow.querySelector('.difficulty');
-        let twoPlayerOption = document.getElementById('two_player');
-        if (twoPlayerOption.checked) {
-            difficultySetting.classList.add('disabled');
-        }
-        else {
-            difficultySetting.classList.remove('disabled');
-        }
-    });
-
     function openGame() {
         gameWindow.classList.remove('hidden');
     }
@@ -203,6 +216,7 @@ const director = (() => {
     }
 
     function startGame() {
+        let mode = 
         // close starter window
         // open game window
         // store gamemode
@@ -217,5 +231,6 @@ const director = (() => {
 
     return {
         gameReset,
+        startGame,
     }
 })();
