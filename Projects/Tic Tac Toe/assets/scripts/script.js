@@ -48,7 +48,7 @@ const bot = () => {
 }
 
 const boardBrain = (() => {
-    let board = newBoard();
+    let board;
 
     function getBoard() {
         return board;
@@ -61,11 +61,13 @@ const boardBrain = (() => {
             arr[a] = Array(3).fill(null);
         }
 
-        return arr;
+        board = arr;
     }
 
     function updateBoard(x, y, symbol) {
-        board[x][y] = symbol;
+        if (board[x][y] === null) {
+            board[x][y] = symbol;
+        }
     }
 
     return {
@@ -82,7 +84,8 @@ const displayController = (() => {
     /* Disable difficulty option if the gamemode is 2-player */
     gamemode.addEventListener('click', (e) => {
         let difficultySetting = startWindow.querySelector('.difficulty');
-        if (e.target.id === 'two_player') {
+        let twoPlayerOption = document.getElementById('two_player');
+        if (twoPlayerOption.checked) {
             difficultySetting.classList.add('disabled');
         }
         else {
@@ -175,11 +178,11 @@ const displayController = (() => {
     }
 
     return {
+        drawBoard,
         openGame,
         closeGame,
         openMenu,
         closeMenu,
-        drawBoard,
         getBoardCell,
         clearBoard,
         updateCell,
@@ -194,10 +197,19 @@ const director = (() => {
 
     function gameReset() {
         startSettings.reset();
+        // close game window
+        // open starter window
+        // new Board
+    }
+
+    function startGame() {
+        // close starter window
+        // open game window
+        // store gamemode
+        // store difficulty (depending on gamemode)
     }
 
     // gameLoop
-    // start game
     // checkWinner
     // declareWinner(playeObj)
     // update player turn

@@ -16,26 +16,32 @@
             <div class="starter">
                 <div class="message"></div>
                 <form>
-                    <fieldset class="gamemode">
-                        <div class="radio-option">
-                            <input type="radio" name="gamemode" id="two_player" value="two_player">
-                            <label for="two_player">Two Player</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="gamemode" id="computer" value="computer">
-                            <label for="computer">Computer</label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="difficulty">
-                        <div class="radio-option">
-                            <input type="radio" name="difficulty" id="easy" value="easy">
-                            <label for="easy">Clueless</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="difficulty" id="hard" value="hard">
-                            <label for="hard">Unstoppable</label>
-                        </div>
-                    </fieldset>
+                    <div class="gamemode">
+                        <div class="title">Gamemode</div>
+                        <fieldset>
+                            <div class="radio-option">
+                                <input type="radio" name="gamemode" id="two_player" value="two_player">
+                                <label for="two_player">Two Player</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="gamemode" id="computer" value="computer">
+                                <label for="computer">Computer</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="difficulty">
+                        <div class="title">Difficulty</div>
+                        <fieldset>
+                            <div class="radio-option">
+                                <input type="radio" name="difficulty" id="easy" value="easy">
+                                <label for="easy">Clueless</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="difficulty" id="hard" value="hard">
+                                <label for="hard">Unstoppable</label>
+                            </div>
+                        </fieldset>
+                    </div>
                     <button type="button" id="startGame">Start</button>
                 </form>
             </div>

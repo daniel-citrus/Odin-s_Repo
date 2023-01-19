@@ -27,6 +27,10 @@
     display: none;
 }
 
+.starter form input[type='radio']:checked + label {
+    background: rgb(14, 30, 255);
+}
+
 .starter form label {
     display: block;
     width: 100px;
