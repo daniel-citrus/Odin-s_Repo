@@ -10,16 +10,6 @@ const startSettings = document.querySelector('.starter form');
 const startWindow = document.querySelector('.starter')
 const twoPlayerOption = document.getElementById('two_player');
 
-/* Disable difficulty option if the gamemode is 2-player */
-gamemode.addEventListener('click', (e) => {
-    if (twoPlayerOption.checked) {
-        difficultySetting.classList.add('disabled');
-    }
-    else {
-        difficultySetting.classList.remove('disabled');
-    }
-});
-
 /* Prevent refresh from enabling difficulty option */
 document.addEventListener('DOMContentLoaded', () => {
     if (twoPlayerOption.checked) {
@@ -30,7 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 })
 
+/* Disable difficulty option if the gamemode is 2-player */
+gamemode.addEventListener('click', (e) => {
+    if (twoPlayerOption.checked) {
+        difficultySetting.classList.add('disabled');
+    }
+    else {
+        difficultySetting.classList.remove('disabled');
+    }
+});
+
 startButton.addEventListener('click', () => {
+    let mode = gamemode.querySelector('input[name="gamemode"]:checked');
+    let difficulty = difficultySetting.querySelector('input[name="difficulty"]:checked');
+
+    mode = (mode ? mode.value : null);
+    difficulty = (difficulty ? difficulty.value : null);
+
+    console.log(`mode: ${mode} \ndifficulty: ${difficulty}`);
+
     director.startGame();
 });
 
@@ -135,11 +143,8 @@ const displayController = (() => {
     }
 
     function drawBoard(dimensions) {
-        let xCoord = dimensions;
-        let yCoord = dimensions;
-
-        for (let x = 0; x < xCoord; x++) {
-            for (let y = 0; y < yCoord; y++) {
+        for (let x = 0; x < dimensions; x++) {
+            for (let y = 0; y < dimensions; y++) {
                 gameBoard.appendChild(newBoardCell(x, y));
             }
         }
@@ -162,10 +167,6 @@ const displayController = (() => {
         cell.setAttribute('coordinates', `${x},${y}`);
 
         return cell;
-    }
-
-    function markCell(cell, symbol) {
-        cell.textContent = symbol;
     }
 
     function updateCell(x, y, symbol) {
@@ -199,7 +200,6 @@ const displayController = (() => {
         getBoardCell,
         clearBoard,
         updateCell,
-        markCell,
         updateMessage,
         updateScore
     };
@@ -210,13 +210,13 @@ const director = (() => {
 
     function gameReset() {
         startSettings.reset();
-        // close game window
-        // open starter window
-        // new Board
+        displayController.closeGame();
+        displayController.openMenu();
+        displayController.clearBoard();
+        boardBrain.newBoard();
     }
 
-    function startGame() {
-        let mode = 
+    function startGame(mode, difficulty) {
         // close starter window
         // open game window
         // store gamemode

@@ -23,24 +23,39 @@
     pointer-events: none;
 }
 
-.starter form input[type='radio'] {
-    display: none;
-}
-
-.starter form input[type='radio']:checked + label {
-    background: rgb(14, 30, 255);
-}
-
-.starter form label {
-    display: block;
-    width: 100px;
-    text-align: center;
-    border: 1px solid red;
-    padding: 3px 6px;
-}
-
 .starter form fieldset {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
+}
+
+.starter form input[type='radio'] {
+    display: none;
+    /* appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    border: 1px solid red;
+    border-radius: 100%;
+    height: 18px;
+    width: 18px; */
+}
+
+.starter form input[type='radio']:checked+label {
+    background: rgb(55, 68, 255);
+    color: white;
+}
+
+.starter form label {
+    display: block;
+    text-align: center;
+    border: 1px solid rgb(55, 68, 255);
+    width: 85px;
+    padding: 15px 25px;
+}
+
+.starter .radio-option {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 3px;
 }
