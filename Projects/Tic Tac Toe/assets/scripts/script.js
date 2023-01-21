@@ -37,9 +37,7 @@ startButton.addEventListener('click', () => {
     mode = (mode ? mode.value : null);
     difficulty = (difficulty ? difficulty.value : null);
 
-    console.log(`mode: ${mode} \ndifficulty: ${difficulty}`);
-
-    director.startGame();
+    director.startGame(mode, difficulty);
 });
 
 const player = (name) => {
@@ -83,17 +81,21 @@ const bot = () => {
 }
 
 const boardBrain = (() => {
-    let board;
+    let board = [
+        ['X', 'X', 'X'],
+        ['X', 'O', 'X'],
+        ['X', 'X', 'X']
+    ];
 
     function getBoard() {
         return board;
     }
 
-    function newBoard() {
-        let arr = Array(3).fill(null);
+    function newBoard(dimensions = 3) {
+        let arr = Array(dimensions).fill(null);
 
         for (let a in arr) {
-            arr[a] = Array(3).fill(null);
+            arr[a] = Array(dimensions).fill(null);
         }
 
         board = arr;
@@ -105,12 +107,33 @@ const boardBrain = (() => {
         }
     }
 
+    function checkWinner(symbol) {
+        let len = board.length;
+
+        function checkRows(x, y, symbol) {
+            let boardSymbol = board[x][y];
+
+            if (!boardSymbol || symbol !== boardSymbol) {
+                return null;
+            }
+
+            if (y === len - 1) {
+                return symbol;
+            }
+
+            return checkRows(x, y + 1, symbol);
+        }
+    }
+
     return {
         getBoard,
         newBoard,
-        updateBoard
+        updateBoard,
+        checkWinner,
     }
 })();
+
+boardBrain.checkWinner('O');
 
 /* Controls DOM content */
 const displayController = (() => {
@@ -134,12 +157,6 @@ const displayController = (() => {
 
     function closeMenu() {
         startWindow.classList.add('hidden');
-
-        let radioButtons = startWindow.querySelectorAll(`input[type="radio"]`);
-
-        for (let r of radioButtons) {
-            r.checked = false;
-        }
     }
 
     function drawBoard(dimensions) {
@@ -211,16 +228,14 @@ const director = (() => {
     function gameReset() {
         startSettings.reset();
         displayController.closeGame();
-        displayController.openMenu();
         displayController.clearBoard();
+        displayController.openMenu();
         boardBrain.newBoard();
     }
 
     function startGame(mode, difficulty) {
-        // close starter window
-        // open game window
-        // store gamemode
-        // store difficulty (depending on gamemode)
+        displayController.closeMenu();
+        displayController.openGame();
     }
 
     // gameLoop
