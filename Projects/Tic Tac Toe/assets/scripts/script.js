@@ -82,10 +82,12 @@ const bot = () => {
 
 const boardBrain = (() => {
     let board = [
-        ['X', 'X', 'X'],
-        ['X', 'O', 'X'],
-        ['X', 'X', 'X']
+        ['O', 'O', 'X'],
+        ['X', 'O', 'O'],
+        ['X', 'O', 'X']
     ];
+
+    let len = board.length;
 
     function getBoard() {
         return board;
@@ -107,21 +109,39 @@ const boardBrain = (() => {
         }
     }
 
+    function checkRow(x, y, symbol) {
+        let boardSymbol = board[x][y];
+
+        if (!boardSymbol || symbol !== boardSymbol) {
+            return null;
+        }
+
+        if (y === len - 1) {
+            return symbol;
+        }
+
+        return checkRow(x, y + 1, symbol);
+    }
+
+    function checkCol(x, y, symbol) {
+        let boardSymbol = board[x][y];
+
+        if (!boardSymbol || symbol !== boardSymbol) {
+            return null;
+        }
+
+        if (x === len - 1) {
+            return symbol;
+        }
+
+        return checkCol(x + 1, y, symbol);
+    }
+
     function checkWinner(symbol) {
-        let len = board.length;
-
-        function checkRows(x, y, symbol) {
-            let boardSymbol = board[x][y];
-
-            if (!boardSymbol || symbol !== boardSymbol) {
-                return null;
-            }
-
-            if (y === len - 1) {
+        for (let i = 0; i < len; i++) {
+            if (checkRow(i, 0, symbol) || checkCol(0, i, symbol)) {
                 return symbol;
             }
-
-            return checkRows(x, y + 1, symbol);
         }
     }
 
