@@ -82,9 +82,9 @@ const bot = () => {
 
 const boardBrain = (() => {
     let board = [
-        ['O', 'O', 'X'],
-        ['X', 'O', 'O'],
-        ['X', 'O', 'X']
+        ['O', 'X', 'X'],
+        ['X', 'O', 'X'],
+        ['X', 'O', 'O']
     ];
 
     let len = board.length;
@@ -137,13 +137,35 @@ const boardBrain = (() => {
         return checkCol(x + 1, y, symbol);
     }
 
+    function checkDiag(x, y, symbol) {
+        let boardSymbol = board[x][y];
+
+        if (!boardSymbol || symbol !== boardSymbol) {
+            return null;
+        }
+
+        if (x === len - 1) {
+            return symbol;
+        }
+
+        return checkDiag(x + 1, y + 1, symbol);
+    }
+
+    function checkRevDiag(x, y, symbol) { }
+
     function checkWinner(symbol) {
         for (let i = 0; i < len; i++) {
-            if (checkRow(i, 0, symbol) || checkCol(0, i, symbol)) {
-                return symbol;
+            if (checkRow(i, 0, symbol)) {
+                return { direction: 'row', value: i };
+            }
+
+            if (checkCol(0, i, symbol)) {
+                return { direction: 'column', value: i };
             }
         }
+        return { direction: null, value: null };
     }
+
 
     return {
         getBoard,
@@ -153,7 +175,8 @@ const boardBrain = (() => {
     }
 })();
 
-boardBrain.checkWinner('O');
+let { direction, value } = boardBrain.checkWinner('O');
+console.log(direction + ' , ' + value);
 
 /* Controls DOM content */
 const displayController = (() => {
