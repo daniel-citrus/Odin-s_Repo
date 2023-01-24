@@ -1,9 +1,13 @@
+/* const exitButton = document.getElementById('exit'); */
 const difficultySetting = document.querySelector('.difficulty');
 const gameBoard = document.querySelector('.game .board')
-const gamemode = document.querySelector('.gamemode');
+const gamemodeSetting = document.querySelector('.gamemode');
 const gameWindow = document.querySelector('.game');
 const mainWindow = document.querySelector('.main');
-const scoreWindow = document.querySelector('.game .score')
+const player1Name = document.querySelector('.game .player1 .name');
+const player2Name = document.querySelector('.game .player2 .name');
+/* const restartButton = document.getElementById('restart'); */
+const scoreWindow = document.querySelector('.game .playerBoard')
 const startButton = document.querySelector('.starter form button');
 const startGameButton = document.querySelector('.starter .startGame');
 const startSettings = document.querySelector('.starter form');
@@ -20,8 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 })
 
+/* exitButton.addEventListener('click', () => {
+    director.gameExit();
+})
+ */
 /* Disable difficulty option if the gamemode is 2-player */
-gamemode.addEventListener('click', (e) => {
+gamemodeSetting.addEventListener('click', (e) => {
     if (twoPlayerOption.checked) {
         difficultySetting.classList.add('disabled');
     }
@@ -30,8 +38,12 @@ gamemode.addEventListener('click', (e) => {
     }
 });
 
+/* restartButton.addEventListener('click', () => {
+    director.startGame();
+}) */
+
 startButton.addEventListener('click', () => {
-    let mode = gamemode.querySelector('input[name="gamemode"]:checked');
+    let mode = gamemodeSetting.querySelector('input[name="gamemode"]:checked');
     let difficulty = difficultySetting.querySelector('input[name="difficulty"]:checked');
 
     mode = (mode ? mode.value : null);
@@ -43,19 +55,10 @@ startButton.addEventListener('click', () => {
 const player = (name) => {
     let playerObj = {
         name,
-        score: 0
     };
 
     function getName() {
         return playerObj.name;
-    }
-
-    function getScore() {
-        return playerObj.score;
-    }
-
-    function incrementScore() {
-        playerObj.score++;
     }
 
     function setSymbol(symbol) {
@@ -68,24 +71,39 @@ const player = (name) => {
 
     return {
         getName,
-        getScore,
-        incrementScore,
         getSymbol,
         setSymbol,
     }
 }
 
-const bot = () => {
-    // inherit player
-    // pick a move
+const bot = (difficulty) => {
+    let myBot = player('Computer');
+    let moveType;
+
+    function notSoSmartMove() {
+
+    }
+
+    function smartMove() {
+
+    }
+
+    if (difficulty === 'easy') {
+        moveType = notSoSmartMove;
+    }
+    else if (difficulty === 'hard') {
+        moveType = smartMove;
+    }
+
+    return Object.create(
+        myBot,
+        moveType,
+    )
 }
 
 const boardBrain = (() => {
-    let board = [
-        ['O', 'X', 'X'],
-        ['X', 'O', 'X'],
-        ['X', 'O', 'O']
-    ];
+    let board;
+    newBoard();
 
     let len = board.length;
 
@@ -106,64 +124,96 @@ const boardBrain = (() => {
     function updateBoard(x, y, symbol) {
         if (board[x][y] === null) {
             board[x][y] = symbol;
+
+            return true;
         }
+
+        return false;
     }
 
+    /* Win condition: matching row */
     function checkRow(x, y, symbol) {
         let boardSymbol = board[x][y];
 
         if (!boardSymbol || symbol !== boardSymbol) {
-            return null;
+            return false;
         }
 
         if (y === len - 1) {
-            return symbol;
+            return true;
         }
 
         return checkRow(x, y + 1, symbol);
     }
 
+    /* Win condition: matching column */
     function checkCol(x, y, symbol) {
         let boardSymbol = board[x][y];
 
         if (!boardSymbol || symbol !== boardSymbol) {
-            return null;
+            return false;
         }
 
         if (x === len - 1) {
-            return symbol;
+            return true;
         }
 
         return checkCol(x + 1, y, symbol);
     }
 
+    /* Win condition: matching symbols from top left to bottom right */
     function checkDiag(x, y, symbol) {
         let boardSymbol = board[x][y];
 
         if (!boardSymbol || symbol !== boardSymbol) {
-            return null;
+            return false;
         }
 
         if (x === len - 1) {
-            return symbol;
+            return true;
         }
 
         return checkDiag(x + 1, y + 1, symbol);
     }
 
-    function checkRevDiag(x, y, symbol) { }
+    /* Win condition: matching symbols from top right to bottom left */
+    function checkRevDiag(x, y, symbol) {
+        let boardSymbol = board[x][y];
+
+        if (!boardSymbol || symbol !== boardSymbol) {
+            return false;
+        }
+
+        if (x === len - 1) {
+            return true;
+        }
+
+        return checkRevDiag(x + 1, y - 1, symbol);
+    }
 
     function checkWinner(symbol) {
+        let direction = null;
+        let value = null;
+
         for (let i = 0; i < len; i++) {
             if (checkRow(i, 0, symbol)) {
                 return { direction: 'row', value: i };
             }
 
             if (checkCol(0, i, symbol)) {
-                return { direction: 'column', value: i };
+                return { direction: 'col', value: i };
             }
         }
-        return { direction: null, value: null };
+
+        if (checkDiag(0, 0, symbol)) {
+            return { direction: 'diag', value };
+        }
+
+        if (checkRevDiag(0, len - 1, symbol)) {
+            return { direction: 'rdiag', value };
+        }
+
+        return { direction, value };
     }
 
 
@@ -174,9 +224,6 @@ const boardBrain = (() => {
         checkWinner,
     }
 })();
-
-let { direction, value } = boardBrain.checkWinner('O');
-console.log(direction + ' , ' + value);
 
 /* Controls DOM content */
 const displayController = (() => {
@@ -202,7 +249,7 @@ const displayController = (() => {
         startWindow.classList.add('hidden');
     }
 
-    function drawBoard(dimensions) {
+    function drawBoard(dimensions = 3) {
         for (let x = 0; x < dimensions; x++) {
             for (let y = 0; y < dimensions; y++) {
                 gameBoard.appendChild(newBoardCell(x, y));
@@ -240,6 +287,11 @@ const displayController = (() => {
         messageBox.textContent = message;
     }
 
+    function updatePlayerBoard(player1, player2) {
+        player1Name.textContent = player1.getName();
+        player2Name.textContent = player2.getName();
+    }
+
     function updateScore(player, score) {
         if (player === 1) {
             player = '.player1';
@@ -261,14 +313,18 @@ const displayController = (() => {
         clearBoard,
         updateCell,
         updateMessage,
+        updatePlayerBoard,
         updateScore
     };
 })();
 
 const director = (() => {
-    let players = [];
+    let player1;
+    let player2;
+    let mode;
+    let difficulty;
 
-    function gameReset() {
+    function gameExit() {
         startSettings.reset();
         displayController.closeGame();
         displayController.clearBoard();
@@ -276,9 +332,52 @@ const director = (() => {
         boardBrain.newBoard();
     }
 
-    function startGame(mode, difficulty) {
+    /* Instantiate 2 players according to the game settings */
+    function initiatePlayers(mode, difficulty) {
+        player1 = player('Player 1');
+
+        if (mode === 'computer') {
+            if (difficulty === 'easy') {
+                player2 = bot('easy');
+            }
+            else if (difficulty === 'hard') {
+                player2 = bot('hard');
+            }
+            else {
+                throw new Error('Invalid difficulty value');
+            }
+        }
+        else if (mode === 'two_player') {
+            player2 = player('Player 2');
+        }
+        else {
+            throw new Error('Invalid mode value');
+        }
+
+        player1.setSymbol('X');
+        player2.setSymbol('O');
+        displayController.updatePlayerBoard(player1, player2);
+    }
+
+    function restartGame() {
+
+    }
+
+    function setSettings(gamemode, diff) {
+        mode = gamemode;
+        difficulty = diff;
+    }
+
+    function startGame(gamemode, diff) {
+        setSettings(gamemode, diff);
+        initiatePlayers(gamemode, diff);
+
+        displayController.drawBoard();
         displayController.closeMenu();
         displayController.openGame();
+        boardBrain.newBoard();
+
+        console.log(`Player1: ${player1.getSymbol()}\nPlayer2: ${player2.getSymbol()}`);
     }
 
     // gameLoop
@@ -288,7 +387,8 @@ const director = (() => {
     // isGameover return winner
 
     return {
-        gameReset,
+        gameExit,
         startGame,
+        setSettings,
     }
 })();
