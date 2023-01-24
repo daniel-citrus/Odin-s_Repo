@@ -1,5 +1,6 @@
 /* const exitButton = document.getElementById('exit'); */
 const difficultySetting = document.querySelector('.difficulty');
+const firstPlayerSymbol = document.querySelector('.firstPlayerSymbol');
 const gameBoard = document.querySelector('.game .board')
 const gamemodeSetting = document.querySelector('.gamemode');
 const gameWindow = document.querySelector('.game');
@@ -43,13 +44,11 @@ gamemodeSetting.addEventListener('click', (e) => {
 }) */
 
 startButton.addEventListener('click', () => {
-    let mode = gamemodeSetting.querySelector('input[name="gamemode"]:checked');
-    let difficulty = difficultySetting.querySelector('input[name="difficulty"]:checked');
+    let mode = gamemodeSetting.querySelector(`input[name='gamemode']:checked`).value;
+    let difficulty = difficultySetting.querySelector(`input[name='difficulty']:checked`).value;
+    let symbol = firstPlayerSymbol.querySelector(`input[name='symbol']:checked`).value;
 
-    mode = (mode ? mode.value : null);
-    difficulty = (difficulty ? difficulty.value : null);
-
-    director.startGame(mode, difficulty);
+    director.startGame(mode, difficulty, symbol);
 });
 
 const player = (name) => {
@@ -102,8 +101,11 @@ const bot = (difficulty) => {
 }
 
 const boardBrain = (() => {
-    let board;
-    newBoard();
+    let board = [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+    ];
 
     let len = board.length;
 
@@ -112,13 +114,11 @@ const boardBrain = (() => {
     }
 
     function newBoard(dimensions = 3) {
-        let arr = Array(dimensions).fill(null);
+        board = Array(dimensions).fill(null);
 
-        for (let a in arr) {
-            arr[a] = Array(dimensions).fill(null);
+        for (let b in board) {
+            board[b] = Array(dimensions).fill(null);
         }
-
-        board = arr;
     }
 
     function updateBoard(x, y, symbol) {
@@ -227,6 +227,18 @@ const boardBrain = (() => {
 
 /* Controls DOM content */
 const displayController = (() => {
+    let diagonal = [
+        { x: 0, y: 0 },
+        { x: 1, y: 1 },
+        { x: 2, y: 2 }
+    ];
+
+    let reverseDiagonal = [
+        { x: 0, y: 2 },
+        { x: 1, y: 1 },
+        { x: 2, y: 0 }
+    ];
+
     function openGame() {
         gameWindow.classList.remove('hidden');
     }
@@ -272,6 +284,8 @@ const displayController = (() => {
 
         cell.classList.add('cell');
         cell.setAttribute('coordinates', `${x},${y}`);
+
+        cell.addEventListener('click', () => { })
 
         return cell;
     }
@@ -323,6 +337,11 @@ const director = (() => {
     let player2;
     let mode;
     let difficulty;
+    /*  0 for Player 1
+        1 for Player 2 */
+    let currentPlayer = 0;
+    let gameActive = false;
+    let moves = 0;
 
     function gameExit() {
         startSettings.reset();
@@ -332,16 +351,16 @@ const director = (() => {
         boardBrain.newBoard();
     }
 
-    /* Instantiate 2 players according to the game settings */
-    function initiatePlayers(mode, difficulty) {
+    /* 
+        Instantiate 2 players according to the game settings
+        symbol -> Player 1's symbol, if it's 'O' then Player 2 will make the first move.
+    */
+    function initiatePlayers(mode, difficulty, symbol) {
         player1 = player('Player 1');
 
         if (mode === 'computer') {
-            if (difficulty === 'easy') {
-                player2 = bot('easy');
-            }
-            else if (difficulty === 'hard') {
-                player2 = bot('hard');
+            if (difficulty === 'easy' || difficulty === 'hard') {
+                player2 = bot(difficulty);
             }
             else {
                 throw new Error('Invalid difficulty value');
@@ -354,8 +373,19 @@ const director = (() => {
             throw new Error('Invalid mode value');
         }
 
-        player1.setSymbol('X');
-        player2.setSymbol('O');
+        if (symbol === 'X') {
+            player1.setSymbol('X');
+            player2.setSymbol('O');
+        }
+        else if (symbol === 'O') {
+            player1.setSymbol('O');
+            player2.setSymbol('X');
+            currentPlayer = 1;
+        }
+        else {
+            throw new Error('Invalid symbol value');
+        }
+
         displayController.updatePlayerBoard(player1, player2);
     }
 
@@ -368,19 +398,35 @@ const director = (() => {
         difficulty = diff;
     }
 
-    function startGame(gamemode, diff) {
+    function startGame(gamemode, diff, symbol) {
+        gameActive = true;
+
         setSettings(gamemode, diff);
-        initiatePlayers(gamemode, diff);
+        initiatePlayers(gamemode, diff, symbol);
 
         displayController.drawBoard();
         displayController.closeMenu();
         displayController.openGame();
         boardBrain.newBoard();
-
-        console.log(`Player1: ${player1.getSymbol()}\nPlayer2: ${player2.getSymbol()}`);
     }
 
-    // gameLoop
+    function makeMove() {
+        /* get the current player */
+        let player = (currentPlayer === 0 ? player1 : player2);
+
+        /*  Update boardBrain
+            update display board with the current player's symbol 
+            
+            IF the cell clicked is populated already, do not do anything just RETURN */
+        
+        
+            /*  get game mode
+                if the mode is computer, then make player 2 move after a delay
+                skip current player switch
+
+            else switch current player */
+    }
+
     // checkWinner
     // declareWinner(playeObj)
     // update player turn
@@ -390,5 +436,9 @@ const director = (() => {
         gameExit,
         startGame,
         setSettings,
+        makeMove,
     }
 })();
+
+director.startGame('two_player', 'easy', 'O');
+director.makeMove();
