@@ -77,26 +77,27 @@ const player = (name) => {
 
 const bot = (difficulty) => {
     let myBot = player('Computer');
-    let moveType;
+    let move;
 
-    function notSoSmartMove() {
-
+    let notSoSmartMove = () => {
+        console.log(`no so smart move`)
     }
 
     function smartMove() {
-
+        console.log(`smart move`)
     }
 
     if (difficulty === 'easy') {
-        moveType = notSoSmartMove;
+        move = notSoSmartMove;
     }
     else if (difficulty === 'hard') {
-        moveType = smartMove;
+        move = smartMove;
     }
 
-    return Object.create(
+    return Object.assign(
+        {},
         myBot,
-        moveType,
+        { move },
     )
 }
 
@@ -276,7 +277,7 @@ const displayController = (() => {
     }
 
     function getBoardCell(x, y) {
-        return gameBoard.querySelector(`[coordinates="${x},${y}"]`)
+        return gameBoard.querySelector(`[coordinates="${x},${y}"]`);
     }
 
     function newBoardCell(x, y) {
@@ -285,7 +286,9 @@ const displayController = (() => {
         cell.classList.add('cell');
         cell.setAttribute('coordinates', `${x},${y}`);
 
-        cell.addEventListener('click', () => { })
+        cell.addEventListener('click', () => {
+            director.makeMove(x, y);
+        })
 
         return cell;
     }
@@ -317,6 +320,23 @@ const displayController = (() => {
         gameWindow.querySelector(`${player} .score`).textContent = score;
     }
 
+    function markWinningLine(direction, value) {
+        /* let array;
+        let cell; */
+
+        /* if (direction === 'diag') {
+            array = diagonal;
+        }
+        else if (direction === 'rdiag') {
+            array = reverseDiagonal;
+        } */
+
+        let cell = getBoardCell(1,1);
+        cell.classList.add('win-mark');
+        /* for (let a in array) {
+        } */
+    }
+
     return {
         drawBoard,
         openGame,
@@ -328,9 +348,12 @@ const displayController = (() => {
         updateCell,
         updateMessage,
         updatePlayerBoard,
-        updateScore
+        updateScore,
+        markWinningLine,
     };
 })();
+
+displayController.markWinningLine('diag',1);
 
 const director = (() => {
     let player1;
@@ -340,7 +363,6 @@ const director = (() => {
     /*  0 for Player 1
         1 for Player 2 */
     let currentPlayer = 0;
-    let gameActive = false;
     let moves = 0;
 
     function gameExit() {
@@ -399,8 +421,6 @@ const director = (() => {
     }
 
     function startGame(gamemode, diff, symbol) {
-        gameActive = true;
-
         setSettings(gamemode, diff);
         initiatePlayers(gamemode, diff, symbol);
 
@@ -410,25 +430,40 @@ const director = (() => {
         boardBrain.newBoard();
     }
 
-    function makeMove() {
-        /* get the current player */
+    function makeMove(x, y) {
         let player = (currentPlayer === 0 ? player1 : player2);
+        let symbol = player.getSymbol();
 
-        /*  Update boardBrain
-            update display board with the current player's symbol 
-            
-            IF the cell clicked is populated already, do not do anything just RETURN */
-        
-        
-            /*  get game mode
-                if the mode is computer, then make player 2 move after a delay
-                skip current player switch
+        // Nothing happens if the cell is already populated
+        if (boardBrain.updateBoard(x, y, symbol)) {
+            displayController.updateCell(x, y, symbol);
+        }
+        else {
+            return;
+        }
 
-            else switch current player */
+        if (mode === 'computer') {
+            player2.move();
+        }
+        else {
+            currentPlayer = 1 - currentPlayer;
+        }
+
+        moves++;
+        let { direction, value } = boardBrain.checkWinner(symbol);
+
+        if (direction) {
+            /* Declare winner */
+        }
+        else if (moves >= 9) {
+            /* Declare a tie */
+        }
     }
 
-    // checkWinner
     // declareWinner(playeObj)
+    function declareWinner(player, direction, value) {
+
+    }
     // update player turn
     // isGameover return winner
 
@@ -441,4 +476,3 @@ const director = (() => {
 })();
 
 director.startGame('two_player', 'easy', 'O');
-director.makeMove();
