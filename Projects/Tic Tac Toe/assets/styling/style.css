@@ -17,6 +17,9 @@
     background: pink;
 }
 
+.game .board .win-mark {
+    background: green;
+}
 .starter form .disabled {
     background: rgb(223, 223, 223);
     user-select: none;

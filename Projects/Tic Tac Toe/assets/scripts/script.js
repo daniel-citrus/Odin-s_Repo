@@ -276,6 +276,10 @@ const displayController = (() => {
         }
     }
 
+    function colorCell(x, y) {
+        gameBoard.querySelector(`[coordinates="${x},${y}"]`).classList.add('win-mark');
+    }
+
     function getBoardCell(x, y) {
         return gameBoard.querySelector(`[coordinates="${x},${y}"]`);
     }
@@ -321,20 +325,30 @@ const displayController = (() => {
     }
 
     function markWinningLine(direction, value) {
-        /* let array;
-        let cell; */
+        let array;
+        let cell;
 
-        /* if (direction === 'diag') {
+        if (direction === 'diag') {
             array = diagonal;
         }
         else if (direction === 'rdiag') {
             array = reverseDiagonal;
-        } */
+        }
 
-        let cell = getBoardCell(1,1);
-        cell.classList.add('win-mark');
-        /* for (let a in array) {
-        } */
+        for (let a in array) {
+            colorCell(a['x'], a['y']);
+        }
+
+        if (direction === 'row') {
+            for (let y = 0; y < 3; y++) {
+                colorCell(value, y);
+            }
+        }
+        else if (direction === 'col') {
+            for (let x = 0; x < 3; x++) {
+                colorCell(x, value);
+            }
+        }
     }
 
     return {
@@ -352,8 +366,6 @@ const displayController = (() => {
         markWinningLine,
     };
 })();
-
-displayController.markWinningLine('diag',1);
 
 const director = (() => {
     let player1;
@@ -476,3 +488,4 @@ const director = (() => {
 })();
 
 director.startGame('two_player', 'easy', 'O');
+displayController.markWinningLine('row', 1);
