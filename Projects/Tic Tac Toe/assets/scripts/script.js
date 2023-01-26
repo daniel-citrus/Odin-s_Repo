@@ -1,4 +1,4 @@
-/* const exitButton = document.getElementById('exit'); */
+const exitButton = document.getElementById('exit');
 const difficultySetting = document.querySelector('.difficulty');
 const firstPlayerSymbol = document.querySelector('.firstPlayerSymbol');
 const gameBoard = document.querySelector('.game .board')
@@ -7,7 +7,7 @@ const gameWindow = document.querySelector('.game');
 const mainWindow = document.querySelector('.main');
 const player1Name = document.querySelector('.game .player1 .name');
 const player2Name = document.querySelector('.game .player2 .name');
-/* const restartButton = document.getElementById('restart'); */
+const restartButton = document.getElementById('restart');
 const scoreWindow = document.querySelector('.game .playerBoard')
 const startButton = document.querySelector('.starter form button');
 const startGameButton = document.querySelector('.starter .startGame');
@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 })
 
-/* exitButton.addEventListener('click', () => {
+exitButton.addEventListener('click', () => {
     director.gameExit();
 })
- */
+
 /* Disable difficulty option if the gamemode is 2-player */
 gamemodeSetting.addEventListener('click', (e) => {
     if (twoPlayerOption.checked) {
@@ -39,9 +39,9 @@ gamemodeSetting.addEventListener('click', (e) => {
     }
 });
 
-/* restartButton.addEventListener('click', () => {
-    director.startGame();
-}) */
+restartButton.addEventListener('click', () => {
+    director.restartGame();
+})
 
 startButton.addEventListener('click', () => {
     let mode = gamemodeSetting.querySelector(`input[name='gamemode']:checked`).value;
@@ -109,10 +109,6 @@ const boardBrain = (() => {
     ];
 
     let len = board.length;
-
-    function getBoard() {
-        return board;
-    }
 
     function newBoard(dimensions = 3) {
         board = Array(dimensions).fill(null);
@@ -219,7 +215,6 @@ const boardBrain = (() => {
 
 
     return {
-        getBoard,
         newBoard,
         updateBoard,
         checkWinner,
@@ -262,6 +257,11 @@ const displayController = (() => {
         startWindow.classList.add('hidden');
     }
 
+    function newBoard() {
+        drawBoard();
+        clearBoard();
+    }
+
     function drawBoard(dimensions = 3) {
         for (let x = 0; x < dimensions; x++) {
             for (let y = 0; y < dimensions; y++) {
@@ -277,7 +277,7 @@ const displayController = (() => {
     }
 
     function colorCell(x, y) {
-        gameBoard.querySelector(`[coordinates="${x},${y}"]`).classList.add('win-mark');
+        getBoardCell(x, y).classList.add('win-mark');
     }
 
     function getBoardCell(x, y) {
@@ -326,38 +326,41 @@ const displayController = (() => {
 
     function markWinningLine(direction, value) {
         let array;
-        let cell;
 
-        if (direction === 'diag') {
-            array = diagonal;
-        }
-        else if (direction === 'rdiag') {
-            array = reverseDiagonal;
-        }
+        if (direction === 'diag' || direction === 'rdiag') {
+            if (direction === 'diag') {
+                array = diagonal;
+            }
+            else if (direction === 'rdiag') {
+                array = reverseDiagonal;
+            }
 
-        for (let a in array) {
-            colorCell(a['x'], a['y']);
-        }
-
-        if (direction === 'row') {
-            for (let y = 0; y < 3; y++) {
-                colorCell(value, y);
+            for (let a of array) {
+                colorCell(a['x'], a['y']);
             }
         }
-        else if (direction === 'col') {
-            for (let x = 0; x < 3; x++) {
-                colorCell(x, value);
+        else {
+            if (direction === 'row') {
+                for (let y = 0; y < 3; y++) {
+                    colorCell(value, y);
+                }
+            }
+            else if (direction === 'col') {
+                for (let x = 0; x < 3; x++) {
+                    colorCell(x, value);
+                }
             }
         }
     }
 
     return {
-        drawBoard,
         openGame,
         closeGame,
         openMenu,
         closeMenu,
         getBoardCell,
+        newBoard,
+        drawBoard,
         clearBoard,
         updateCell,
         updateMessage,
@@ -372,6 +375,7 @@ const director = (() => {
     let player2;
     let mode;
     let difficulty;
+    let gameOver = false;
     /*  0 for Player 1
         1 for Player 2 */
     let currentPlayer = 0;
@@ -424,7 +428,6 @@ const director = (() => {
     }
 
     function restartGame() {
-
     }
 
     function setSettings(gamemode, diff) {
@@ -442,7 +445,12 @@ const director = (() => {
         boardBrain.newBoard();
     }
 
+    /* Make a move on the board, uses the current players symbol, then toggles the current player. Checks for winners or ties. */
     function makeMove(x, y) {
+        if (gameOver) {
+            return;
+        }
+
         let player = (currentPlayer === 0 ? player1 : player2);
         let symbol = player.getSymbol();
 
@@ -464,28 +472,33 @@ const director = (() => {
         moves++;
         let { direction, value } = boardBrain.checkWinner(symbol);
 
+        /* Direction is null if there are no winners */
         if (direction) {
-            /* Declare winner */
+            declareWinner(player, direction, value);
+            gameOver = true;
         }
         else if (moves >= 9) {
-            /* Declare a tie */
+            declareTie();
+            gameOver = true;
         }
     }
 
-    // declareWinner(playeObj)
     function declareWinner(player, direction, value) {
-
+        displayController.markWinningLine(direction, value);
+        displayController.updateMessage(`${player.getName()} has won!`);
     }
-    // update player turn
-    // isGameover return winner
+
+    function declareTie() {
+        displayController.updateMessage(`Tie game`);
+    }
 
     return {
         gameExit,
         startGame,
         setSettings,
         makeMove,
+        restartGame,
     }
 })();
 
-director.startGame('two_player', 'easy', 'O');
-displayController.markWinningLine('row', 1);
+/* director.startGame('two_player', 'easy', 'X'); */
