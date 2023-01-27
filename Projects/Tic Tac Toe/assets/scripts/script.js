@@ -76,11 +76,26 @@ const player = (name) => {
 }
 
 const bot = (difficulty) => {
+    let possibleMoves = [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+        [1, 0],
+        [1, 1],
+        [1, 2],
+        [2, 0],
+        [2, 1],
+        [2, 2],
+    ];
+
     let myBot = player('Computer');
     let move;
 
     let notSoSmartMove = () => {
         console.log(`no so smart move`)
+
+        let decision = Math.floor(Math.random() * possibleMoves.length);
+
     }
 
     function smartMove() {
