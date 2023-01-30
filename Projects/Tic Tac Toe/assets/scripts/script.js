@@ -100,7 +100,6 @@ const bot = (difficulty) => {
         console.log(`no so smart move`)
 
         let decision = Math.floor(Math.random() * possibleMoves.length);
-
     }
 
     function smartMove() {
@@ -401,14 +400,6 @@ const director = (() => {
     let currentPlayer = 0;
     let moves = 0;
 
-    function gameExit() {
-        startSettings.reset();
-        displayController.closeGame();
-        displayController.clearBoard();
-        displayController.openMenu();
-        boardBrain.newBoard();
-    }
-
     /* 
         Instantiate 2 players according to the game settings
         symbol -> Player 1's symbol, if it's 'O' then Player 2 will make the first move.
@@ -438,17 +429,34 @@ const director = (() => {
         else if (symbol === 'O') {
             player1.setSymbol('O');
             player2.setSymbol('X');
-            currentPlayer = 1;
+            currentPlayer = 1 - currentPlayer;
         }
         else {
             throw new Error('Invalid symbol value');
+        }
+
+        // If bot has symbol 'X' then it will make the first move
+        if (mode === 'computer' && symbol === 'O') {
+            player2.move();
         }
 
         displayController.updatePlayerBoard(player1, player2);
     }
 
     function restartGame() {
+        displayController.updateMessage('');
         displayController.newBoard();
+        boardBrain.newBoard();
+        currentPlayer = 0;
+        moves = 0;
+        gameOver = false;
+    }
+
+    function gameExit() {
+        startSettings.reset();
+        displayController.closeGame();
+        displayController.openMenu();
+        displayController.clearBoard();
         boardBrain.newBoard();
         currentPlayer = 0;
         moves = 0;
@@ -464,8 +472,8 @@ const director = (() => {
         setSettings(gamemode, diff);
         initiatePlayers(gamemode, diff, symbol);
 
-        displayController.drawBoard();
         displayController.closeMenu();
+        displayController.drawBoard();
         displayController.openGame();
         boardBrain.newBoard();
     }
@@ -473,6 +481,7 @@ const director = (() => {
     /* Make a move on the board, uses the current players symbol, then toggles the current player. Checks for winners or ties. */
     function makeMove(x, y) {
         if (gameOver) {
+            console.log('yes');
             return;
         }
 
@@ -481,31 +490,49 @@ const director = (() => {
 
         // Nothing happens if the cell is already populated
         if (boardBrain.updateBoard(x, y, symbol)) {
+            console.log(moves);
             displayController.updateCell(x, y, symbol);
+            moves++;
+
+            let { direction, value } = boardBrain.checkWinner(symbol);
+
+            if (isGameOver(direction, value, player)) {
+                return;
+            }
         }
         else {
             return;
         }
 
         if (mode === 'computer') {
+            symbol = player2.getSymbol();
             player2.move();
+            moves++;
+
+            let { direction, value } = boardBrain.checkWinner(symbol);
+
+            if (isGameOver(direction, value, player2)) {
+                return;
+            }
         }
         else {
             currentPlayer = 1 - currentPlayer;
         }
+    }
 
-        moves++;
-        let { direction, value } = boardBrain.checkWinner(symbol);
-
-        /* Direction is null if there are no winners */
+    function isGameOver(direction, value, player) {
         if (direction) {
             declareWinner(player, direction, value);
-            gameOver = true;
         }
         else if (moves >= 9) {
             declareTie();
-            gameOver = true;
         }
+        else {
+            return false;
+        }
+
+        gameOver = true;
+        return true;
     }
 
     function declareWinner(player, direction, value) {
@@ -526,4 +553,4 @@ const director = (() => {
     }
 })();
 
-/* director.startGame('two_player', 'easy', 'X'); */
+/* director.startGame('computer', 'easy', 'X'); */
