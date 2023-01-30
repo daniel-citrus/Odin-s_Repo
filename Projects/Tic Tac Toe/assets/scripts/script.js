@@ -15,19 +15,24 @@ const startSettings = document.querySelector('.starter form');
 const startWindow = document.querySelector('.starter')
 const twoPlayerOption = document.getElementById('two_player');
 
-/* Prevent refresh from enabling difficulty option */
 document.addEventListener('DOMContentLoaded', () => {
+    difficultySettingCheck();
+})
+
+exitButton.addEventListener('click', () => {
+    director.gameExit();
+    difficultySettingCheck();
+})
+
+/* Disables difficulty radio buttons if the gamemode is two-player */
+function difficultySettingCheck() {
     if (twoPlayerOption.checked) {
         difficultySetting.classList.add('disabled');
     }
     else {
         difficultySetting.classList.remove('disabled');
     }
-})
-
-exitButton.addEventListener('click', () => {
-    director.gameExit();
-})
+}
 
 /* Disable difficulty option if the gamemode is 2-player */
 gamemodeSetting.addEventListener('click', (e) => {
@@ -273,8 +278,8 @@ const displayController = (() => {
     }
 
     function newBoard() {
-        drawBoard();
         clearBoard();
+        drawBoard();
     }
 
     function drawBoard(dimensions = 3) {
@@ -443,6 +448,11 @@ const director = (() => {
     }
 
     function restartGame() {
+        displayController.newBoard();
+        boardBrain.newBoard();
+        currentPlayer = 0;
+        moves = 0;
+        gameOver = false;
     }
 
     function setSettings(gamemode, diff) {
