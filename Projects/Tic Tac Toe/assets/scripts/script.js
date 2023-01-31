@@ -4,13 +4,10 @@ const firstPlayerSymbol = document.querySelector('.firstPlayerSymbol');
 const gameBoard = document.querySelector('.game .board')
 const gamemodeSetting = document.querySelector('.gamemode');
 const gameWindow = document.querySelector('.game');
-const mainWindow = document.querySelector('.main');
 const player1Name = document.querySelector('.game .player1 .name');
 const player2Name = document.querySelector('.game .player2 .name');
 const restartButton = document.getElementById('restart');
-const scoreWindow = document.querySelector('.game .playerBoard')
 const startButton = document.querySelector('.starter form button');
-const startGameButton = document.querySelector('.starter .startGame');
 const startSettings = document.querySelector('.starter form');
 const startWindow = document.querySelector('.starter')
 const twoPlayerOption = document.getElementById('two_player');
@@ -81,29 +78,14 @@ const player = (name) => {
 }
 
 const bot = (difficulty) => {
-    let possibleMoves = [
-        [0, 0],
-        [0, 1],
-        [0, 2],
-        [1, 0],
-        [1, 1],
-        [1, 2],
-        [2, 0],
-        [2, 1],
-        [2, 2],
-    ];
-
     let myBot = player('Computer');
     let move;
 
     let notSoSmartMove = () => {
-        console.log(`no so smart move`)
-
         let decision = Math.floor(Math.random() * possibleMoves.length);
     }
 
     function smartMove() {
-        console.log(`smart move`)
     }
 
     if (difficulty === 'easy') {
@@ -231,7 +213,6 @@ const boardBrain = (() => {
 
         return { direction, value };
     }
-
 
     return {
         newBoard,
@@ -490,7 +471,6 @@ const director = (() => {
 
         // Nothing happens if the cell is already populated
         if (boardBrain.updateBoard(x, y, symbol)) {
-            console.log(moves);
             displayController.updateCell(x, y, symbol);
             moves++;
 
