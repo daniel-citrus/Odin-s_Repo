@@ -4,6 +4,8 @@ const firstPlayerSymbol = document.querySelector('.firstPlayerSymbol');
 const gameBoard = document.querySelector('.game .board')
 const gamemodeSetting = document.querySelector('.gamemode');
 const gameWindow = document.querySelector('.game');
+const player1Div = document.querySelector('.game .player1');
+const player2Div = document.querySelector('.game .player1');
 const player1Name = document.querySelector('.game .player1 .name');
 const player2Name = document.querySelector('.game .player2 .name');
 const restartButton = document.getElementById('restart');
@@ -81,23 +83,35 @@ const bot = (difficulty) => {
     let myBot = player('Computer');
     let move;
 
+    function minimax(maximizer) {
+
+    }
+
     let notSoSmartMove = () => {
         let availableMoves = boardBrain.getEmptyCells();
         let len = availableMoves.length;
         let decision = Math.floor(Math.random() * len);
 
-        console.log(availableMoves);
         return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
     function smartMove() {
+        let availableMoves = boardBrain.getEmptyCells();
+        let len = availableMoves.length;
+        let decision = Math.floor(Math.random() * len);
+
+        return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
-    if (difficulty === 'easy') {
-        move = notSoSmartMove;
-    }
-    else if (difficulty === 'hard') {
-        move = smartMove;
+    switch (difficulty) {
+        case 'easy':
+            move = notSoSmartMove;
+            break;
+        case 'hard':
+            move = smartMove;
+            break;
+        default:
+            throw new Error('Invalid difficulty value.');
     }
 
     return Object.assign(
@@ -145,7 +159,6 @@ const boardBrain = (() => {
 
             return true;
         }
-
 
         return false;
     }
@@ -263,7 +276,6 @@ const displayController = (() => {
 
     function closeGame() {
         gameWindow.classList.add('hidden');
-
         let infoDivs = document.querySelectorAll('.info');
 
         for (let i of infoDivs) {
@@ -335,17 +347,6 @@ const displayController = (() => {
         player2Name.textContent = player2.getName();
     }
 
-    function updateScore(player, score) {
-        if (player === 1) {
-            player = '.player1';
-        }
-        else {
-            player = '.player2';
-        }
-
-        gameWindow.querySelector(`${player} .score`).textContent = score;
-    }
-
     function markWinningLine(direction, value) {
         let array;
 
@@ -387,7 +388,6 @@ const displayController = (() => {
         updateCell,
         updateMessage,
         updatePlayerBoard,
-        updateScore,
         markWinningLine,
     };
 })();
@@ -411,12 +411,7 @@ const director = (() => {
         player1 = player('Player 1');
 
         if (mode === 'computer') {
-            if (difficulty === 'easy' || difficulty === 'hard') {
-                player2 = bot(difficulty);
-            }
-            else {
-                throw new Error('Invalid difficulty value');
-            }
+            player2 = bot(difficulty);
         }
         else if (mode === 'two_player') {
             player2 = player('Player 2');
@@ -437,19 +432,6 @@ const director = (() => {
         else {
             throw new Error('Invalid symbol value');
         }
-
-        // If bot has symbol 'X' then it will make the first move
-        if (mode === 'computer' && symbol === 'O') {
-            let { x, y } = player2.move();
-            let symbol = player2.getSymbol();
-
-            boardBrain.updateBoard(x, y, symbol);
-            displayController.updateCell(x, y, symbol);
-            moves++;
-            currentPlayer = 1 - currentPlayer;
-        }
-
-        displayController.updatePlayerBoard(player1, player2);
     }
 
     function restartGame() {
@@ -461,6 +443,8 @@ const director = (() => {
 
         moves = 0;
         gameOver = false;
+
+        botFirstMove(mode, player1.getSymbol());
     }
 
     function gameExit() {
@@ -469,25 +453,40 @@ const director = (() => {
         displayController.openMenu();
         displayController.clearBoard();
         boardBrain.newBoard();
+
         currentPlayer = 0;
         moves = 0;
         gameOver = false;
     }
 
-    function setSettings(gamemode, diff) {
+    function startGame(gamemode, diff, symbol) {
+        initiatePlayers(gamemode, diff, symbol);
+
         mode = gamemode;
         difficulty = diff;
-    }
 
-    function startGame(gamemode, diff, symbol) {
-        
         displayController.closeMenu();
         displayController.drawBoard();
         displayController.openGame();
         boardBrain.newBoard();
-        
-        setSettings(gamemode, diff);
-        initiatePlayers(gamemode, diff, symbol);
+        displayController.updatePlayerBoard(player1, player2);
+        botFirstMove(gamemode, symbol);
+    }
+
+    /*
+        If bot has symbol 'X' then it will make the first move
+        @param: symbol - player1's symbol
+    */
+    function botFirstMove(mode, symbol) {
+        if (mode === 'computer' && symbol === 'O') {
+            let { x, y } = player2.move();
+            let symbol = player2.getSymbol();
+
+            boardBrain.updateBoard(x, y, symbol);
+            displayController.updateCell(x, y, symbol);
+            moves++;
+            currentPlayer = 1 - currentPlayer;
+        }
     }
 
     /* Make a move on the board, uses the current players symbol, then toggles the current player. Checks for winners or ties. */
@@ -506,15 +505,11 @@ const director = (() => {
 
             let { direction, value } = boardBrain.checkWinner(symbol);
 
-            if (isGameOver(direction, value, player)) {
+            if (checkGameover(direction, value, player)) {
                 return;
             }
         }
         else {
-            return;
-        }
-
-        if (gameOver) {
             return;
         }
 
@@ -528,7 +523,7 @@ const director = (() => {
 
             let { direction, value } = boardBrain.checkWinner(symbol);
 
-            if (isGameOver(direction, value, player2)) {
+            if (checkGameover(direction, value, player2)) {
                 return;
             }
         }
@@ -537,19 +532,20 @@ const director = (() => {
         }
     }
 
-    function isGameOver(direction, value, player) {
+    function checkGameover(direction, value, player) {
         if (direction) {
             declareWinner(player, direction, value);
+            gameOver = true;
+            return 'winner';
         }
         else if (moves >= 9) {
             declareTie();
+            gameOver = true;
+            return 'tie';
         }
         else {
             return false;
         }
-
-        gameOver = true;
-        return true;
     }
 
     function declareWinner(player, direction, value) {
@@ -564,7 +560,6 @@ const director = (() => {
     return {
         gameExit,
         startGame,
-        setSettings,
         makeMove,
         restartGame,
     }
