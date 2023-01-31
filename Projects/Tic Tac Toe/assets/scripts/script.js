@@ -82,7 +82,12 @@ const bot = (difficulty) => {
     let move;
 
     let notSoSmartMove = () => {
-        let decision = Math.floor(Math.random() * possibleMoves.length);
+        let availableMoves = boardBrain.getEmptyCells();
+        let len = availableMoves.length;
+        let decision = Math.floor(Math.random() * len);
+
+        console.log(availableMoves);
+        return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
     function smartMove() {
@@ -104,27 +109,43 @@ const bot = (difficulty) => {
 
 const boardBrain = (() => {
     let board = [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
     ];
 
     let len = board.length;
 
+    // Returns an array containing [x, y] coordinates of each empty cell on the board
+    function getEmptyCells() {
+        let emptyCells = [];
+
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < 3; y++) {
+                if (board[x][y] === '') {
+                    emptyCells.push([x, y]);
+                }
+            }
+        }
+
+        return emptyCells;
+    }
+
     function newBoard(dimensions = 3) {
-        board = Array(dimensions).fill(null);
+        board = Array(dimensions).fill('');
 
         for (let b in board) {
-            board[b] = Array(dimensions).fill(null);
+            board[b] = Array(dimensions).fill('');
         }
     }
 
     function updateBoard(x, y, symbol) {
-        if (board[x][y] === null) {
+        if (board[x][y] === '') {
             board[x][y] = symbol;
 
             return true;
         }
+
 
         return false;
     }
@@ -215,9 +236,10 @@ const boardBrain = (() => {
     }
 
     return {
+        checkWinner,
+        getEmptyCells,
         newBoard,
         updateBoard,
-        checkWinner,
     }
 })();
 
@@ -418,7 +440,13 @@ const director = (() => {
 
         // If bot has symbol 'X' then it will make the first move
         if (mode === 'computer' && symbol === 'O') {
-            player2.move();
+            let { x, y } = player2.move();
+            let symbol = player2.getSymbol();
+
+            boardBrain.updateBoard(x, y, symbol);
+            displayController.updateCell(x, y, symbol);
+            moves++;
+            currentPlayer = 1 - currentPlayer;
         }
 
         displayController.updatePlayerBoard(player1, player2);
@@ -428,7 +456,9 @@ const director = (() => {
         displayController.updateMessage('');
         displayController.newBoard();
         boardBrain.newBoard();
-        currentPlayer = 0;
+
+        (player1.getSymbol() === 'X') ? currentPlayer = 0 : currentPlayer = 1;
+
         moves = 0;
         gameOver = false;
     }
@@ -450,19 +480,19 @@ const director = (() => {
     }
 
     function startGame(gamemode, diff, symbol) {
-        setSettings(gamemode, diff);
-        initiatePlayers(gamemode, diff, symbol);
-
+        
         displayController.closeMenu();
         displayController.drawBoard();
         displayController.openGame();
         boardBrain.newBoard();
+        
+        setSettings(gamemode, diff);
+        initiatePlayers(gamemode, diff, symbol);
     }
 
     /* Make a move on the board, uses the current players symbol, then toggles the current player. Checks for winners or ties. */
     function makeMove(x, y) {
         if (gameOver) {
-            console.log('yes');
             return;
         }
 
@@ -484,9 +514,16 @@ const director = (() => {
             return;
         }
 
+        if (gameOver) {
+            return;
+        }
+
         if (mode === 'computer') {
+            let { x, y } = player2.move();
             symbol = player2.getSymbol();
-            player2.move();
+
+            boardBrain.updateBoard(x, y, symbol);
+            displayController.updateCell(x, y, symbol);
             moves++;
 
             let { direction, value } = boardBrain.checkWinner(symbol);
