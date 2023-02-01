@@ -96,11 +96,7 @@ const bot = (difficulty) => {
     }
 
     function smartMove() {
-        let availableMoves = boardBrain.getEmptyCells();
-        let len = availableMoves.length;
-        let decision = Math.floor(Math.random() * len);
 
-        return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
     switch (difficulty) {
@@ -110,8 +106,6 @@ const bot = (difficulty) => {
         case 'hard':
             move = smartMove;
             break;
-        default:
-            throw new Error('Invalid difficulty value.');
     }
 
     return Object.assign(
@@ -223,33 +217,47 @@ const boardBrain = (() => {
         return checkRevDiag(x + 1, y - 1, symbol);
     }
 
-    function checkWinner(symbol) {
+    function updateGameStatus() {
         let direction = null;
+        let status = '';
+        let symbol = '';
         let value = null;
 
         for (let i = 0; i < len; i++) {
             if (checkRow(i, 0, symbol)) {
-                return { direction: 'row', value: i };
+                symbol = board[i][0];
+                status = 'win'
+                return { status, symbol, direction: 'row', value: i };
             }
 
             if (checkCol(0, i, symbol)) {
-                return { direction: 'col', value: i };
+                symbol = board[0][i];
+                status = 'win'
+                return { status, symbol, direction: 'col', value: i };
             }
         }
 
         if (checkDiag(0, 0, symbol)) {
-            return { direction: 'diag', value };
+            symbol = board[0][0];
+            status = 'win'
+            return { status, symbol, direction: 'diag', value };
         }
 
         if (checkRevDiag(0, len - 1, symbol)) {
-            return { direction: 'rdiag', value };
+            symbol = board[0][len - 1];
+            status = 'win'
+            return { status, symbol, direction: 'rdiag', value };
         }
 
-        return { direction, value };
+        if (getEmptyCells().length <= 0) {
+            status = 'tie';
+        }
+
+        return { status, direction, value, symbol };
     }
 
     return {
-        checkWinner,
+        updateGameStatus,
         getEmptyCells,
         newBoard,
         updateBoard,
@@ -416,9 +424,6 @@ const director = (() => {
         else if (mode === 'two_player') {
             player2 = player('Player 2');
         }
-        else {
-            throw new Error('Invalid mode value');
-        }
 
         if (symbol === 'X') {
             player1.setSymbol('X');
@@ -428,9 +433,6 @@ const director = (() => {
             player1.setSymbol('O');
             player2.setSymbol('X');
             currentPlayer = 1 - currentPlayer;
-        }
-        else {
-            throw new Error('Invalid symbol value');
         }
     }
 
@@ -503,9 +505,9 @@ const director = (() => {
             displayController.updateCell(x, y, symbol);
             moves++;
 
-            let { direction, value } = boardBrain.checkWinner(symbol);
+            let { direction, value } = boardBrain.updateGameStatus();
 
-            if (checkGameover(direction, value, player)) {
+            if (endGame(direction, value, player)) {
                 return;
             }
         }
@@ -521,9 +523,9 @@ const director = (() => {
             displayController.updateCell(x, y, symbol);
             moves++;
 
-            let { direction, value } = boardBrain.checkWinner(symbol);
+            let { status, symbol, direction, value } = boardBrain.updateGameStatus();
 
-            if (checkGameover(direction, value, player2)) {
+            if (endGame(direction, value, player2)) {
                 return;
             }
         }
@@ -532,7 +534,7 @@ const director = (() => {
         }
     }
 
-    function checkGameover(direction, value, player) {
+    function endGame(direction, value, player) {
         if (direction) {
             declareWinner(player, direction, value);
             gameOver = true;
