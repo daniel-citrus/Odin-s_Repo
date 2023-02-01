@@ -217,34 +217,40 @@ const boardBrain = (() => {
         return checkRevDiag(x + 1, y - 1, symbol);
     }
 
-    function updateGameStatus() {
+    function getGameStatus() {
         let direction = null;
         let status = '';
         let symbol = '';
         let value = null;
 
+
         for (let i = 0; i < len; i++) {
+            symbol = board[i][0];
+
             if (checkRow(i, 0, symbol)) {
-                symbol = board[i][0];
                 status = 'win'
+
                 return { status, symbol, direction: 'row', value: i };
             }
 
+            symbol = board[0][i];
+
             if (checkCol(0, i, symbol)) {
-                symbol = board[0][i];
                 status = 'win'
                 return { status, symbol, direction: 'col', value: i };
             }
         }
 
+        symbol = board[0][0];
+
         if (checkDiag(0, 0, symbol)) {
-            symbol = board[0][0];
             status = 'win'
             return { status, symbol, direction: 'diag', value };
         }
 
+        symbol = board[0][len - 1];
+
         if (checkRevDiag(0, len - 1, symbol)) {
-            symbol = board[0][len - 1];
             status = 'win'
             return { status, symbol, direction: 'rdiag', value };
         }
@@ -257,7 +263,7 @@ const boardBrain = (() => {
     }
 
     return {
-        updateGameStatus,
+        getGameStatus,
         getEmptyCells,
         newBoard,
         updateBoard,
@@ -505,9 +511,10 @@ const director = (() => {
             displayController.updateCell(x, y, symbol);
             moves++;
 
-            let { direction, value } = boardBrain.updateGameStatus();
+            let { status, direction, value } = boardBrain.getGameStatus();
 
-            if (endGame(direction, value, player)) {
+            if (status === 'win' || status === 'tie') {
+                endMatch(direction, value, player);
                 return;
             }
         }
@@ -523,9 +530,10 @@ const director = (() => {
             displayController.updateCell(x, y, symbol);
             moves++;
 
-            let { status, symbol, direction, value } = boardBrain.updateGameStatus();
+            let { status, direction, value } = boardBrain.getGameStatus();
 
-            if (endGame(direction, value, player2)) {
+            if (status === 'win' || status === 'tie') {
+                endMatch(direction, value, player2);
                 return;
             }
         }
@@ -534,19 +542,14 @@ const director = (() => {
         }
     }
 
-    function endGame(direction, value, player) {
+    function endMatch(direction, value, player) {
         if (direction) {
             declareWinner(player, direction, value);
             gameOver = true;
-            return 'winner';
         }
         else if (moves >= 9) {
             declareTie();
             gameOver = true;
-            return 'tie';
-        }
-        else {
-            return false;
         }
     }
 
