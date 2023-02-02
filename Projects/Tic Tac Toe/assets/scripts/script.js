@@ -81,13 +81,23 @@ const player = (name) => {
 
 const bot = (difficulty) => {
     let myBot = player('Computer');
-    let move;
-
-    function minimax(maximizer) {
-
+    let scoreTable = {
+        'win': 1,
+        'tie': 0,
+        'loss': -1
     }
 
-    let notSoSmartMove = () => {
+    function minimax(board, maximizer) {
+        let {status, symbol} = boardBrain.getGameStatus();
+
+        if (status === 'win') {
+        }
+        else if (status === 'tie') {
+            return 0;
+        }
+    }
+
+    function notSoSmartMove() {
         let availableMoves = boardBrain.getEmptyCells();
         let len = availableMoves.length;
         let decision = Math.floor(Math.random() * len);
@@ -96,7 +106,23 @@ const bot = (difficulty) => {
     }
 
     function smartMove() {
+        let availableMoves = boardBrain.getEmptyCells();
+        let bestScore = Number.NEGATIVE_INFINITY;
+        let bestMove = { x: 0, y: 0 };
 
+
+        for (let a of availableMoves) {
+            boardBrain.updateBoard(a[0], a[1], this.getSymbol());
+            let score = minimax(boardBrain.getBoard(), true);
+            boardBrain.updateBoard(a[0], a[1], '');
+
+            if (bestScore < score) {
+                bestScore = score;
+                bestMove = { x: a[0], y: a[1] };
+            }
+        }
+
+        return bestMove;
     }
 
     switch (difficulty) {
@@ -112,6 +138,7 @@ const bot = (difficulty) => {
         {},
         myBot,
         { move },
+        { firstMove: notSoSmartMove },
     )
 }
 
@@ -124,7 +151,11 @@ const boardBrain = (() => {
 
     let len = board.length;
 
-    // Returns an array containing [x, y] coordinates of each empty cell on the board
+    function getBoard() {
+        return board;
+    }
+
+    /* Returns an array containing [x, y] coordinates of each empty cell on the board */
     function getEmptyCells() {
         let emptyCells = [];
 
@@ -152,6 +183,9 @@ const boardBrain = (() => {
             board[x][y] = symbol;
 
             return true;
+        }
+        else if (symbol === '') {
+            board[x][y] = symbol;
         }
 
         return false;
@@ -217,12 +251,34 @@ const boardBrain = (() => {
         return checkRevDiag(x + 1, y - 1, symbol);
     }
 
-    function getGameStatus() {
-        let direction = null;
-        let status = '';
-        let symbol = '';
-        let value = null;
+    /*
+        Scans the board for wins and ties.
+        Returns:
+        @param status - 'win' or 'tie'
+        @param direction -
+            'row' (left to right),
+            'col' (top to bottom),
+            'diag' (top left to bottom right),
+            'rdiag' (top right to bottom left)
+        @param value - nth column or row
+        @param symbol - winning symbol
 
+        Example Case:
+              0 1 2
+            0 O X X
+            1 X X O
+            2 O X O
+
+            status = 'win'
+            direction = 'col'
+            value = 1
+            symbol = 'X'
+    */
+    function getGameStatus() {
+        let status = null;
+        let direction = null;
+        let value = null;
+        let symbol = null;
 
         for (let i = 0; i < len; i++) {
             symbol = board[i][0];
@@ -263,6 +319,7 @@ const boardBrain = (() => {
     }
 
     return {
+        getBoard,
         getGameStatus,
         getEmptyCells,
         newBoard,
@@ -487,7 +544,7 @@ const director = (() => {
     */
     function botFirstMove(mode, symbol) {
         if (mode === 'computer' && symbol === 'O') {
-            let { x, y } = player2.move();
+            let { x, y } = player2.firstMove();
             let symbol = player2.getSymbol();
 
             boardBrain.updateBoard(x, y, symbol);
@@ -571,3 +628,4 @@ const director = (() => {
 })();
 
 /* director.startGame('computer', 'easy', 'X'); */
+director.startGame('computer', 'hard', 'O');
