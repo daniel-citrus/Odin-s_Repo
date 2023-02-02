@@ -23,7 +23,9 @@ exitButton.addEventListener('click', () => {
     difficultySettingCheck();
 })
 
-/* Disables difficulty radio buttons if the gamemode is two-player */
+/**
+ * Disables difficulty radio buttons if the gamemode is two-player
+ */
 function difficultySettingCheck() {
     if (twoPlayerOption.checked) {
         difficultySetting.classList.add('disabled');
@@ -33,7 +35,9 @@ function difficultySettingCheck() {
     }
 }
 
-/* Disable difficulty option if the gamemode is 2-player */
+/**
+ * Disable difficulty option if the gamemode is 2-player
+ */
 gamemodeSetting.addEventListener('click', (e) => {
     if (twoPlayerOption.checked) {
         difficultySetting.classList.add('disabled');
@@ -87,13 +91,19 @@ const bot = (difficulty) => {
         'loss': -1
     }
 
-    function minimax(board, maximizer) {
-        let {status, symbol} = boardBrain.getGameStatus();
+    function minimax(board, depth, maximizer) {
+        let { status, symbol } = boardBrain.getGameStatus();
 
         if (status === 'win') {
+            if (this.getSymbol() === symbol) {
+                return scoreTable['win'];
+            }
+            else {
+                return scoreTable['loss'];
+            }
         }
         else if (status === 'tie') {
-            return 0;
+            return scoreTable['tie'];
         }
     }
 
@@ -110,10 +120,9 @@ const bot = (difficulty) => {
         let bestScore = Number.NEGATIVE_INFINITY;
         let bestMove = { x: 0, y: 0 };
 
-
         for (let a of availableMoves) {
             boardBrain.updateBoard(a[0], a[1], this.getSymbol());
-            let score = minimax(boardBrain.getBoard(), true);
+            let score = minimax(boardBrain.getBoard(), 0, true);
             boardBrain.updateBoard(a[0], a[1], '');
 
             if (bestScore < score) {
@@ -155,7 +164,9 @@ const boardBrain = (() => {
         return board;
     }
 
-    /* Returns an array containing [x, y] coordinates of each empty cell on the board */
+    /**
+     * Returns an array containing [x, y] coordinates of each empty cell on the board
+     */
     function getEmptyCells() {
         let emptyCells = [];
 
@@ -191,7 +202,9 @@ const boardBrain = (() => {
         return false;
     }
 
-    /* Win condition: matching row */
+    /**
+     * Win condition: matching row
+     */
     function checkRow(x, y, symbol) {
         let boardSymbol = board[x][y];
 
@@ -206,7 +219,9 @@ const boardBrain = (() => {
         return checkRow(x, y + 1, symbol);
     }
 
-    /* Win condition: matching column */
+    /**
+     * Win condition: matching column
+     */
     function checkCol(x, y, symbol) {
         let boardSymbol = board[x][y];
 
@@ -221,7 +236,9 @@ const boardBrain = (() => {
         return checkCol(x + 1, y, symbol);
     }
 
-    /* Win condition: matching symbols from top left to bottom right */
+    /**
+     * Win condition: matching symbols from top left to bottom right
+     */
     function checkDiag(x, y, symbol) {
         let boardSymbol = board[x][y];
 
@@ -236,7 +253,9 @@ const boardBrain = (() => {
         return checkDiag(x + 1, y + 1, symbol);
     }
 
-    /* Win condition: matching symbols from top right to bottom left */
+    /**
+     * Win condition: matching symbols from top right to bottom left
+     */
     function checkRevDiag(x, y, symbol) {
         let boardSymbol = board[x][y];
 
@@ -251,29 +270,30 @@ const boardBrain = (() => {
         return checkRevDiag(x + 1, y - 1, symbol);
     }
 
-    /*
-        Scans the board for wins and ties.
-        Returns:
-        @param status - 'win' or 'tie'
-        @param direction -
-            'row' (left to right),
-            'col' (top to bottom),
-            'diag' (top left to bottom right),
-            'rdiag' (top right to bottom left)
-        @param value - nth column or row
-        @param symbol - winning symbol
-
-        Example Case:
-              0 1 2
-            0 O X X
-            1 X X O
-            2 O X O
-
-            status = 'win'
-            direction = 'col'
-            value = 1
-            symbol = 'X'
-    */
+    /**
+     *  Scans the board for wins and ties.
+     *  Returns:
+     *   @param status - 'win' or 'tie'
+     *   @param direction -
+     *       'row' (left to right),
+     *       'col' (top to bottom),
+     *       'diag' (top left to bottom right),
+     *       'rdiag' (top right to bottom left)
+     *   @param value - nth column or row
+     *   @param symbol - winning symbol
+     *
+     *   Example Case:
+     *         0 1 2
+     *       0 O X X
+     *       1 X X O
+     *       2 O X O
+     *
+     *  @returns
+     *       status = 'win'
+     *       direction = 'col'
+     *       value = 1
+     *       symbol = 'X'
+     */
     function getGameStatus() {
         let status = null;
         let direction = null;
@@ -327,7 +347,9 @@ const boardBrain = (() => {
     }
 })();
 
-/* Controls DOM content */
+/**
+ * Controls DOM content
+ */
 const displayController = (() => {
     let diagonal = [
         { x: 0, y: 0 },
@@ -474,10 +496,10 @@ const director = (() => {
     let currentPlayer = 0;
     let moves = 0;
 
-    /* 
-        Instantiate 2 players according to the game settings
-        symbol -> Player 1's symbol, if it's 'O' then Player 2 will make the first move.
-    */
+    /**
+     * Instantiate 2 players according to the game settings
+     * @param symbol - player1's symbol
+     */
     function initiatePlayers(mode, difficulty, symbol) {
         player1 = player('Player 1');
 
@@ -538,10 +560,10 @@ const director = (() => {
         botFirstMove(gamemode, symbol);
     }
 
-    /*
-        If bot has symbol 'X' then it will make the first move
-        @param: symbol - player1's symbol
-    */
+    /**
+     * If bot has symbol 'X' then it will make the first move
+     * @param: symbol - player1's symbol
+     */
     function botFirstMove(mode, symbol) {
         if (mode === 'computer' && symbol === 'O') {
             let { x, y } = player2.firstMove();
@@ -554,7 +576,10 @@ const director = (() => {
         }
     }
 
-    /* Make a move on the board, uses the current players symbol, then toggles the current player. Checks for winners or ties. */
+    /**
+     * Make a move on the board, uses the current players symbol, then toggles
+     * the current player. Checks for winners or ties.
+     */
     function makeMove(x, y) {
         if (gameOver) {
             return;
