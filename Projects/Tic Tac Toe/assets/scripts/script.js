@@ -85,28 +85,59 @@ const player = (name) => {
 
 const bot = (difficulty) => {
     let myBot = player('Computer');
-    let scoreTable = {
-        'win': 1,
-        'tie': 0,
-        'loss': -1
-    }
 
-    function minimax(board, depth, maximizer) {
+    /**
+     * Recursive algorithm to decide the next tic tac toe move
+     * @param {integer} depth - # moves ahead
+     * @param {boolean} maximize - maximizer or minimizer
+     * @returns bestScore - value of the final move
+     */
+    function minimax(depth, maximize) {
         let { status, symbol } = boardBrain.getGameStatus();
+        let botSymbol = myBot.getSymbol();
+        let playerSymbol = (botSymbol === 'X') ? 'O' : 'X';
+        let availableMoves = boardBrain.getEmptyCells();
 
         if (status === 'win') {
-            if (this.getSymbol() === symbol) {
-                return scoreTable['win'];
+            if (symbol === botSymbol) {
+                return 1 * (availableMoves.length + 1);
             }
             else {
-                return scoreTable['loss'];
+                return -1 * (availableMoves.length + 1);
             }
         }
         else if (status === 'tie') {
-            return scoreTable['tie'];
+            return 0;
         }
+
+        let bestScore = Number.NEGATIVE_INFINITY;
+
+        if (maximize) {
+            for (let a of availableMoves) {
+                boardBrain.updateBoard(a[0], a[1], botSymbol);
+                let score = minimax(depth + 1, false);
+                boardBrain.updateBoard(a[0], a[1], '');
+                bestScore = Math.max(score, bestScore);
+            }
+        }
+        else {
+            bestScore = Number.POSITIVE_INFINITY;
+
+            for (let a of availableMoves) {
+                boardBrain.updateBoard(a[0], a[1], playerSymbol);
+                let score = minimax(depth + 1, true);
+                boardBrain.updateBoard(a[0], a[1], '');
+                bestScore = Math.min(score, bestScore);
+            }
+        }
+
+        return bestScore;
     }
 
+    /**
+     * Returns a random empty cell on the game board
+     * {x, y}
+     *  */
     function notSoSmartMove() {
         let availableMoves = boardBrain.getEmptyCells();
         let len = availableMoves.length;
@@ -115,14 +146,18 @@ const bot = (difficulty) => {
         return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
+    /**
+     * Uses the minimax algorithm to check for the best possible move. 
+     */
     function smartMove() {
         let availableMoves = boardBrain.getEmptyCells();
         let bestScore = Number.NEGATIVE_INFINITY;
         let bestMove = { x: 0, y: 0 };
+        let symbol = this.getSymbol();
 
         for (let a of availableMoves) {
-            boardBrain.updateBoard(a[0], a[1], this.getSymbol());
-            let score = minimax(boardBrain.getBoard(), 0, true);
+            boardBrain.updateBoard(a[0], a[1], symbol);
+            let score = minimax(0, false);
             boardBrain.updateBoard(a[0], a[1], '');
 
             if (bestScore < score) {
@@ -138,6 +173,8 @@ const bot = (difficulty) => {
         case 'easy':
             move = notSoSmartMove;
             break;
+        case 'medium':
+            move = normalMove;
         case 'hard':
             move = smartMove;
             break;
@@ -272,15 +309,13 @@ const boardBrain = (() => {
 
     /**
      *  Scans the board for wins and ties.
-     *  Returns:
-     *   @param status - 'win' or 'tie'
-     *   @param direction -
-     *       'row' (left to right),
-     *       'col' (top to bottom),
-     *       'diag' (top left to bottom right),
-     *       'rdiag' (top right to bottom left)
-     *   @param value - nth column or row
-     *   @param symbol - winning symbol
+     *   @return {string} status - 'win' or 'tie'
+     *   @return {string} direction - 'row' (left to right),
+     *                                'col' (top to bottom),
+     *                                'diag' (top left to bottom right),
+     *                                'rdiag' (top right to bottom left)
+     *   @return {number} value - nth column or row
+     *   @return {string} symbol - winning symbol
      *
      *   Example Case:
      *         0 1 2
@@ -288,7 +323,6 @@ const boardBrain = (() => {
      *       1 X X O
      *       2 O X O
      *
-     *  @returns
      *       status = 'win'
      *       direction = 'col'
      *       value = 1
