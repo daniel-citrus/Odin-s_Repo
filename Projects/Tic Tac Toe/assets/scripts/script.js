@@ -696,14 +696,14 @@ const director = (() => {
             symbol = player2.getSymbol();
             boardBrain.updateBoard(x, y, symbol);
             displayController.updateCell(x, y, symbol);
-            displayController.updateCurrentPlayer(currentPlayer);
-
+            
             let { status, direction, value } = boardBrain.getGameStatus();
-
+            
             if (status === 'win' || status === 'tie') {
                 endMatch(direction, value, player2);
                 return;
             }
+
         }
         else {
             currentPlayer = 1 - currentPlayer;
