@@ -87,12 +87,15 @@ const bot = (difficulty) => {
     let myBot = player('Computer');
 
     /**
-     * Recursive algorithm to decide the next tic tac toe move
+     * Recursive algorithm to decide the next tic tac toe move. Also utilizes
+     * alpha-beta pruning.
      * @param {integer} depth - # moves ahead
      * @param {boolean} maximize - maximizer or minimizer
+     * @param {integer} alpha - tracks maximizer score
+     * @param {integer} beta - tracks minimizer score
      * @returns bestScore - value of the final move
      */
-    function minimax(depth, maximize) {
+    function minimax(depth, maximize, alpha, beta) {
         let { status, symbol } = boardBrain.getGameStatus();
         let botSymbol = myBot.getSymbol();
         let playerSymbol = (botSymbol === 'X') ? 'O' : 'X';
@@ -117,6 +120,10 @@ const bot = (difficulty) => {
                 boardBrain.updateBoard(a[0], a[1], botSymbol);
                 let score = minimax(depth + 1, false);
                 boardBrain.updateBoard(a[0], a[1], '');
+
+                alpha = Math.max(alpha, score);
+                if (beta <= alpha) break;
+
                 bestScore = Math.max(score, bestScore);
             }
         }
@@ -127,6 +134,10 @@ const bot = (difficulty) => {
                 boardBrain.updateBoard(a[0], a[1], playerSymbol);
                 let score = minimax(depth + 1, true);
                 boardBrain.updateBoard(a[0], a[1], '');
+
+                beta = Math.min(beta, score);
+                if (beta <= alpha) break;
+
                 bestScore = Math.min(score, bestScore);
             }
         }
@@ -146,18 +157,38 @@ const bot = (difficulty) => {
         return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
+    function normalMove() {
+        let availableMoves = boardBrain.getEmptyCells();
+        let bestScore = Number.NEGATIVE_INFINITY;
+        let bestMove = {};
+        let symbol = this.getSymbol();
+
+        for (let a of availableMoves) {
+            boardBrain.updateBoard(a[0], a[1], symbol);
+            let score = minimax(0, false, Math.NEGATIVE_INFINITY, Math.POSITIVE_INFINITY);
+            boardBrain.updateBoard(a[0], a[1], '');
+
+            if (bestScore < score) {
+                bestScore = score;
+                bestMove = { x: a[0], y: a[1] };
+            }
+        }
+
+        return bestMove;
+    }
+
     /**
      * Uses the minimax algorithm to check for the best possible move. 
      */
     function smartMove() {
         let availableMoves = boardBrain.getEmptyCells();
         let bestScore = Number.NEGATIVE_INFINITY;
-        let bestMove = { x: 0, y: 0 };
+        let bestMove = {};
         let symbol = this.getSymbol();
 
         for (let a of availableMoves) {
             boardBrain.updateBoard(a[0], a[1], symbol);
-            let score = minimax(0, false);
+            let score = minimax(0, false, Math.NEGATIVE_INFINITY, Math.POSITIVE_INFINITY);
             boardBrain.updateBoard(a[0], a[1], '');
 
             if (bestScore < score) {
