@@ -5,7 +5,7 @@ const gameBoard = document.querySelector('.game .board')
 const gamemodeSetting = document.querySelector('.gamemode');
 const gameWindow = document.querySelector('.game');
 const player1Div = document.querySelector('.game .player1');
-const player2Div = document.querySelector('.game .player1');
+const player2Div = document.querySelector('.game .player2');
 const player1Name = document.querySelector('.game .player1 .name');
 const player2Name = document.querySelector('.game .player2 .name');
 const restartButton = document.getElementById('restart');
@@ -118,7 +118,7 @@ const bot = (difficulty) => {
         if (maximize) {
             for (let a of availableMoves) {
                 boardBrain.updateBoard(a[0], a[1], botSymbol);
-                let score = minimax(depth + 1, false);
+                let score = minimax(depth + 1, false, alpha, beta);
                 boardBrain.updateBoard(a[0], a[1], '');
 
                 alpha = Math.max(alpha, score);
@@ -132,7 +132,7 @@ const bot = (difficulty) => {
 
             for (let a of availableMoves) {
                 boardBrain.updateBoard(a[0], a[1], playerSymbol);
-                let score = minimax(depth + 1, true);
+                let score = minimax(depth + 1, true, alpha, beta);
                 boardBrain.updateBoard(a[0], a[1], '');
 
                 beta = Math.min(beta, score);
@@ -157,8 +157,16 @@ const bot = (difficulty) => {
         return { x: availableMoves[decision][0], y: availableMoves[decision][1] };
     }
 
+    /**
+     * Generates a random move on the first 2 moves, then returns smart decisions when there are 6 empty cells left.
+     */
     function normalMove() {
         let availableMoves = boardBrain.getEmptyCells();
+
+        if (availableMoves.length > 6) {
+            return notSoSmartMove();
+        }
+
         let bestScore = Number.NEGATIVE_INFINITY;
         let bestMove = {};
         let symbol = this.getSymbol();
@@ -178,7 +186,7 @@ const bot = (difficulty) => {
     }
 
     /**
-     * Uses the minimax algorithm to check for the best possible move. 
+     * Uses the minimax algorithm along with alpha-beta pruning to check for the best possible move. 
      */
     function smartMove() {
         let availableMoves = boardBrain.getEmptyCells();
@@ -206,6 +214,7 @@ const bot = (difficulty) => {
             break;
         case 'medium':
             move = normalMove;
+            break;
         case 'hard':
             move = smartMove;
             break;
@@ -257,6 +266,9 @@ const boardBrain = (() => {
         }
     }
 
+    /**
+     * Add a symbol or erase a cell on the board
+     */
     function updateBoard(x, y, symbol) {
         if (board[x][y] === '') {
             board[x][y] = symbol;
@@ -369,31 +381,26 @@ const boardBrain = (() => {
             symbol = board[i][0];
 
             if (checkRow(i, 0, symbol)) {
-                status = 'win'
-
-                return { status, symbol, direction: 'row', value: i };
+                return { status: 'win', symbol, direction: 'row', value: i };
             }
 
             symbol = board[0][i];
 
             if (checkCol(0, i, symbol)) {
-                status = 'win'
-                return { status, symbol, direction: 'col', value: i };
+                return { status: 'win', symbol, direction: 'col', value: i };
             }
         }
 
         symbol = board[0][0];
 
         if (checkDiag(0, 0, symbol)) {
-            status = 'win'
-            return { status, symbol, direction: 'diag', value };
+            return { status: 'win', symbol, direction: 'diag', value };
         }
 
         symbol = board[0][len - 1];
 
         if (checkRevDiag(0, len - 1, symbol)) {
-            status = 'win'
-            return { status, symbol, direction: 'rdiag', value };
+            return { status: 'win', symbol, direction: 'rdiag', value };
         }
 
         if (getEmptyCells().length <= 0) {
@@ -494,6 +501,19 @@ const displayController = (() => {
         cell.textContent = symbol;
     }
 
+    /**
+     * @param {integer} current - 0 for player1 and 1 for player2
+     */
+    function updateCurrentPlayer(current) {
+        if (current) {
+            player1Div.classList.remove('current-player');
+            player2Div.classList.add('current-player');
+            return;
+        }
+        player1Div.classList.add('current-player');
+        player2Div.classList.remove('current-player');
+    }
+
     function updateMessage(message) {
         const messageBox = document.querySelector('.game .message');
 
@@ -544,6 +564,7 @@ const displayController = (() => {
         drawBoard,
         clearBoard,
         updateCell,
+        updateCurrentPlayer,
         updateMessage,
         updatePlayerBoard,
         markWinningLine,
@@ -559,7 +580,6 @@ const director = (() => {
     /*  0 for Player 1
         1 for Player 2 */
     let currentPlayer = 0;
-    let moves = 0;
 
     /**
      * Instantiate 2 players according to the game settings
@@ -591,9 +611,9 @@ const director = (() => {
         displayController.newBoard();
         boardBrain.newBoard();
 
-        (player1.getSymbol() === 'X') ? currentPlayer = 0 : currentPlayer = 1;
+        currentPlayer = (player1.getSymbol() === 'X') ? 0 : 1;
+        displayController.updateCurrentPlayer(currentPlayer);
 
-        moves = 0;
         gameOver = false;
 
         botFirstMove(mode, player1.getSymbol());
@@ -607,7 +627,6 @@ const director = (() => {
         boardBrain.newBoard();
 
         currentPlayer = 0;
-        moves = 0;
         gameOver = false;
     }
 
@@ -620,6 +639,7 @@ const director = (() => {
         displayController.closeMenu();
         displayController.drawBoard();
         displayController.openGame();
+        displayController.updateCurrentPlayer(currentPlayer);
         boardBrain.newBoard();
         displayController.updatePlayerBoard(player1, player2);
         botFirstMove(gamemode, symbol);
@@ -636,14 +656,17 @@ const director = (() => {
 
             boardBrain.updateBoard(x, y, symbol);
             displayController.updateCell(x, y, symbol);
-            moves++;
             currentPlayer = 1 - currentPlayer;
         }
     }
 
     /**
      * Make a move on the board, uses the current players symbol, then toggles
-     * the current player. Checks for winners or ties.
+     * the current player.
+     * 
+     * Computer will also make a move after the player if gamemode is 'Computer'
+     * 
+     * Checks for winners or ties.
      */
     function makeMove(x, y) {
         if (gameOver) {
@@ -656,7 +679,6 @@ const director = (() => {
         // Nothing happens if the cell is already populated
         if (boardBrain.updateBoard(x, y, symbol)) {
             displayController.updateCell(x, y, symbol);
-            moves++;
 
             let { status, direction, value } = boardBrain.getGameStatus();
 
@@ -672,10 +694,9 @@ const director = (() => {
         if (mode === 'computer') {
             let { x, y } = player2.move();
             symbol = player2.getSymbol();
-
             boardBrain.updateBoard(x, y, symbol);
             displayController.updateCell(x, y, symbol);
-            moves++;
+            displayController.updateCurrentPlayer(currentPlayer);
 
             let { status, direction, value } = boardBrain.getGameStatus();
 
@@ -686,15 +707,20 @@ const director = (() => {
         }
         else {
             currentPlayer = 1 - currentPlayer;
+            displayController.updateCurrentPlayer(currentPlayer);
         }
     }
 
+    /**
+     * Ends the match depending on the win condition.
+     * @param direction - contains the direction of the win condition, it's null if the match is a tie
+     */
     function endMatch(direction, value, player) {
         if (direction) {
             declareWinner(player, direction, value);
             gameOver = true;
         }
-        else if (moves >= 9) {
+        else {
             declareTie();
             gameOver = true;
         }
@@ -716,6 +742,3 @@ const director = (() => {
         restartGame,
     }
 })();
-
-/* director.startGame('computer', 'easy', 'X'); */
-director.startGame('computer', 'hard', 'O');
