@@ -602,7 +602,7 @@ const director = (() => {
         else if (symbol === 'O') {
             player1.setSymbol('O');
             player2.setSymbol('X');
-            currentPlayer = 1 - currentPlayer;
+            currentPlayer = 1;
         }
     }
 
@@ -639,10 +639,10 @@ const director = (() => {
         displayController.closeMenu();
         displayController.drawBoard();
         displayController.openGame();
-        displayController.updateCurrentPlayer(currentPlayer);
         boardBrain.newBoard();
         displayController.updatePlayerBoard(player1, player2);
         botFirstMove(gamemode, symbol);
+        displayController.updateCurrentPlayer(currentPlayer);
     }
 
     /**
@@ -666,7 +666,7 @@ const director = (() => {
      * 
      * Computer will also make a move after the player if gamemode is 'Computer'
      * 
-     * Checks for winners or ties.
+     * Checks for winners or ties after every move.
      */
     function makeMove(x, y) {
         if (gameOver) {
@@ -693,17 +693,21 @@ const director = (() => {
 
         if (mode === 'computer') {
             let { x, y } = player2.move();
-            symbol = player2.getSymbol();
-            boardBrain.updateBoard(x, y, symbol);
-            displayController.updateCell(x, y, symbol);
-            
-            let { status, direction, value } = boardBrain.getGameStatus();
-            
-            if (status === 'win' || status === 'tie') {
-                endMatch(direction, value, player2);
-                return;
-            }
+            displayController.updateCurrentPlayer(1 - currentPlayer);
 
+            setTimeout(() => {
+                symbol = player2.getSymbol();
+                boardBrain.updateBoard(x, y, symbol);
+                displayController.updateCell(x, y, symbol);
+
+                let { status, direction, value } = boardBrain.getGameStatus();
+                if (status === 'win' || status === 'tie') {
+                    endMatch(direction, value, player2);
+                    return;
+                }
+
+                displayController.updateCurrentPlayer(currentPlayer);
+            }, 200);
         }
         else {
             currentPlayer = 1 - currentPlayer;
