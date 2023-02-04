@@ -1,3 +1,64 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    font-family: 'ArchitectsDaughter', Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+}
+
+button {
+    font-family: 'ArchitectsDaughter';
+    font-weight: bold;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 .hidden {
     display: none;
 }
@@ -27,29 +88,39 @@
 
 .starter {
     font-size: 1.4rem;
+    padding: 10px;
+}
+
+.starter form input[type='radio']:checked+label {
+    background: rgb(55, 68, 255);
+    color: black;
 }
 
 .starter form {
     display: flex;
     flex-flow: column nowrap;
-    gap: 10px;
-}
-
-.starter form .disabled {
-    background: rgba(190, 190, 190, 0.719);
-    user-select: none;
-    pointer-events: none;
-}
-
-.starter form button {
-    font-size: 1.8rem;
+    gap: 12px;
 }
 
 .starter form fieldset {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-around;
-    padding: 10px;
+    gap: 2px;
+}
+
+.starter form .disabled #easy+label,
+.starter form .disabled #medium+label,
+.starter form .disabled #hard+label {
+    background: rgba(190, 190, 190, 0.719);
+    border: 1px solid rgba(190, 190, 190, 0.719);
+    user-select: none;
+    pointer-events: none;
+}
+
+.starter form div {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
 }
 
 .starter form input[type='radio'] {
@@ -59,18 +130,40 @@
     -webkit-appearance: none;
 }
 
-.starter form input[type='radio']:checked+label {
-    background: rgb(55, 68, 255);
-    color: white;
-}
-
 .starter form label {
     display: block;
     text-align: center;
-    border: 1px solid rgb(55, 68, 255);
+    border: 1px solid rgba(145, 145, 145, 0.5);
+    border-radius: 3px;
     font-size: 1.8rem;
+    padding: 10px;
 }
 
-.starter .title {
-    font-size: 2rem;
+.starter .difficulty input:checked+label[for='easy'] {
+    background: #8cb369;
+    border: 1px solid #8cb369;
+}
+
+.starter .difficulty input:checked+label[for='medium'] {
+    background: #f4e285;
+    border: 1px solid #f4e285;
+}
+
+.starter .difficulty input:checked+label[for='hard'] {
+    background: #bc4b51;
+    border: 1px solid #bc4b51;
+}
+
+.starter .title,
+.starter form button {
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: 'ArchitectsDaughter';
+    src: url('webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('/assets/styling/fonts/Architects_Daughter/ArchitectsDaughter-Regular.ttf') format('truetype');
+    /* Safari, Android, iOS */
 }
