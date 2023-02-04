@@ -25,16 +25,31 @@
     background: red;
 }
 
+.starter {
+    font-size: 1.4rem;
+}
+
+.starter form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
 .starter form .disabled {
-    background: rgb(223, 223, 223);
+    background: rgba(190, 190, 190, 0.719);
     user-select: none;
     pointer-events: none;
 }
 
+.starter form button {
+    font-size: 1.8rem;
+}
+
 .starter form fieldset {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: space-around;
+    padding: 10px;
 }
 
 .starter form input[type='radio'] {
@@ -53,12 +68,9 @@
     display: block;
     text-align: center;
     border: 1px solid rgb(55, 68, 255);
-    width: 85px;
-    padding: 15px 25px;
+    font-size: 1.8rem;
 }
 
-.starter .radio-option {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 3px;
+.starter .title {
+    font-size: 2rem;
 }

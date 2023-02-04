@@ -707,7 +707,7 @@ const director = (() => {
                 }
 
                 displayController.updateCurrentPlayer(currentPlayer);
-            }, 200);
+            }, 150);
         }
         else {
             currentPlayer = 1 - currentPlayer;
