@@ -3,6 +3,14 @@
    License: none (public domain)
 */
 
+:root {
+    --primary-background: #FFFCF2;
+    --secondary-background: #CCC5B9;
+    --primary-color: #252422;
+    --secondary-color: #403D39;
+    --highlight-color: #eb6e3de5;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -31,13 +39,25 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
+    background: var(--primary-background);
     line-height: 1;
     font-family: 'ArchitectsDaughter', Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
 }
 
 button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-progress-appearance: none;
+    
+    color: var(--primary-background);
+    border: 1px solid var(--secondary-color);
+    background: var(--secondary-color);
+    border-radius: 3px;
     font-family: 'ArchitectsDaughter';
+    font-size: 2rem;
     font-weight: bold;
+    padding: 7px;
 }
 
 ol, ul {
@@ -97,18 +117,6 @@ table {
     gap: 12px;
 }
 
-.starter form button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-progress-appearance: none;
-    
-    border: 1px solid red;
-    border-radius: 3px;
-    font-size: 2rem;
-    padding: 7px;
-}
-
 .starter form fieldset {
     display: flex;
     flex-flow: column nowrap;
@@ -163,8 +171,8 @@ table {
 
 .starter .firstPlayerSymbol input:checked+label,
 .starter .gamemode input:checked+label {
-    background: #4b80bcb4;
-    border-color: #72a7e3b5;
+    background: var(--highlight-color);
+    border-color: var(--highlight-color);
     color: black;
 }
 
@@ -187,7 +195,9 @@ table {
 }
 
 .starter .title
-/* .starter form button */ {
+
+/* .starter form button */
+    {
     font-size: 1.5rem;
     font-weight: bold;
 }
