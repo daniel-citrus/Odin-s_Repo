@@ -3,18 +3,6 @@
    License: none (public domain)
 */
 
-:root {
-    --primary-background: #FFFCF2;
-    --primary-background-sections: #ebe7dd;
-    --secondary-background: #CCC5B9;
-    --secondary-background-label: #eedfc398;
-    --primary-color: #252422;
-    --secondary-color: #403D39;
-    --secondary-color-highlight: #666461;
-    --highlight-color: #eb6e3de5;
-    --disabled-color: rgba(138, 138, 138, 0.596);
-}
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -43,9 +31,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-    background: var(--primary-background);
     line-height: 1;
-    font-family: 'ArchitectsDaughter', Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
 }
 
 button {
@@ -65,7 +51,7 @@ button {
 }
 
 button:hover {
-    background:var(--secondary-color-highlight);
+    background: var(--secondary-color-highlight);
     border-color: var(--secondary-color-highlight);
 }
 
@@ -86,6 +72,42 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+/* End CSS Reset */
+
+:root {
+    --primary-background: #FFFCF2;
+    --primary-background-sections: #ebe7dd;
+    --secondary-background: #CCC5B9;
+    --secondary-background-label: #f1e8d5;
+    --secondary-background-label-highlight: #faeed8;
+    --primary-color: #252422;
+    --secondary-color: #403D39;
+    --secondary-color-highlight: #666461;
+    --highlight-color: #eb6e3de5;
+    --highlight-color: #5ba1db;
+    --disabled-color: rgb(170, 170, 170);
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'ArchitectsDaughter', Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    background-image: url('/assets/media/mobilebg.svg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+button {
+    transition: background-color 80ms ease-in-out;
 }
 
 .hidden {
@@ -115,6 +137,11 @@ table {
     background: red;
 }
 
+.main>* {
+    max-width: 85vw;
+    margin: 0 auto;
+}
+
 .starter {
     font-size: 1.4rem;
     padding: 10px;
@@ -123,7 +150,8 @@ table {
 .starter form {
     display: flex;
     flex-flow: column nowrap;
-    gap: 12px;
+    gap: 15px;
+    padding: 10px;
 }
 
 .starter form fieldset {
@@ -132,11 +160,10 @@ table {
     gap: 4px;
 }
 
-.starter form > div {
+.starter form>div {
     display: flex;
     flex-flow: column nowrap;
     gap: 8px;
-    padding: 10px;
 }
 
 .starter form input[type='radio'] {
@@ -154,6 +181,12 @@ table {
     font-size: 1.8rem;
     padding: 15px;
     background: var(--secondary-background-label);
+    background: var(--secondary-background-label);
+    transition: background-color 80ms ease-in-out;
+}
+
+.starter form label:hover {
+    background: var(--secondary-background-label-highlight);
 }
 
 .starter form .disabled #easy+label,
@@ -161,6 +194,7 @@ table {
 .starter form .disabled #hard+label {
     background: var(--disabled-color);
     border: 1px solid var(--disabled-color);
+    color: #313030;
     user-select: none;
     pointer-events: none;
 }
@@ -209,6 +243,7 @@ table {
     color: var(--primary-color);
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
 }
 
 @font-face {
@@ -218,3 +253,39 @@ table {
     src: url('/assets/styling/fonts/Architects_Daughter/ArchitectsDaughter-Regular.ttf') format('truetype');
     /* Safari, Android, iOS */
 }
+
+@media screen and (min-width: 769px) {
+    body {
+        background-image: url('/assets/media/desktopbg.svg');
+    }
+    .main {
+        height: 100%;
+    }
+
+    .starter form {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .starter form fieldset {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .starter form fieldset * {
+        flex: 1 1 auto;
+    }
+    
+    .starter .header img {
+        height: 150px;
+    }
+
+    .starter .header .title {
+        font-size: 4rem;
+    }
+}
+
+@media screen and (min-width: 1025px) {}
+
+@media screen and (max-height: 700px) {}
