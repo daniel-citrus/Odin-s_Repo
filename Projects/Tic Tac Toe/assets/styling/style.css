@@ -91,30 +91,28 @@ table {
     padding: 10px;
 }
 
-.starter form input[type='radio']:checked+label {
-    background: rgb(55, 68, 255);
-    color: black;
-}
-
 .starter form {
     display: flex;
     flex-flow: column nowrap;
     gap: 12px;
 }
 
+.starter form button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-progress-appearance: none;
+    
+    border: 1px solid red;
+    border-radius: 3px;
+    font-size: 2rem;
+    padding: 7px;
+}
+
 .starter form fieldset {
     display: flex;
     flex-flow: column nowrap;
-    gap: 2px;
-}
-
-.starter form .disabled #easy+label,
-.starter form .disabled #medium+label,
-.starter form .disabled #hard+label {
-    background: rgba(190, 190, 190, 0.719);
-    border: 1px solid rgba(190, 190, 190, 0.719);
-    user-select: none;
-    pointer-events: none;
+    gap: 4px;
 }
 
 .starter form div {
@@ -136,7 +134,16 @@ table {
     border: 1px solid rgba(145, 145, 145, 0.5);
     border-radius: 3px;
     font-size: 1.8rem;
-    padding: 10px;
+    padding: 15px;
+}
+
+.starter form .disabled #easy+label,
+.starter form .disabled #medium+label,
+.starter form .disabled #hard+label {
+    background: rgba(190, 190, 190, 0.719);
+    border: 1px solid rgba(190, 190, 190, 0.719);
+    user-select: none;
+    pointer-events: none;
 }
 
 .starter .difficulty input:checked+label[for='easy'] {
@@ -154,10 +161,35 @@ table {
     border: 1px solid #bc4b51;
 }
 
-.starter .title,
-.starter form button {
-    font-size: 1.3rem;
+.starter .firstPlayerSymbol input:checked+label,
+.starter .gamemode input:checked+label {
+    background: #4b80bcb4;
+    border-color: #72a7e3b5;
+    color: black;
+}
+
+.starter .header {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 40px 0;
+}
+
+.starter .header img {
+    height: 100px;
+    width: auto;
+}
+
+.starter .header .title {
+    font-size: 3rem;
     font-weight: bolder;
+}
+
+.starter .title
+/* .starter form button */ {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 @font-face {

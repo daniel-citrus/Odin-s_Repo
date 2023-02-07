@@ -93,7 +93,7 @@ const bot = (difficulty) => {
      * @param {boolean} maximize - maximizer or minimizer
      * @param {integer} alpha - tracks maximizer score
      * @param {integer} beta - tracks minimizer score
-     * @returns bestScore - value of the final move
+     * @returns bestScore - score for the best move possible
      */
     function minimax(depth, maximize, alpha, beta) {
         let { status, symbol } = boardBrain.getGameStatus();
