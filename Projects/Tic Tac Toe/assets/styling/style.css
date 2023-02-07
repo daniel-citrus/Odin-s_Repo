@@ -5,10 +5,14 @@
 
 :root {
     --primary-background: #FFFCF2;
+    --primary-background-sections: #ebe7dd;
     --secondary-background: #CCC5B9;
+    --secondary-background-label: #eedfc398;
     --primary-color: #252422;
     --secondary-color: #403D39;
+    --secondary-color-highlight: #666461;
     --highlight-color: #eb6e3de5;
+    --disabled-color: rgba(138, 138, 138, 0.596);
 }
 
 html, body, div, span, applet, object, iframe,
@@ -49,15 +53,20 @@ button {
     -moz-appearance: none;
     -webkit-appearance: none;
     -ms-progress-appearance: none;
-    
+
     color: var(--primary-background);
     border: 1px solid var(--secondary-color);
     background: var(--secondary-color);
-    border-radius: 3px;
+    border-radius: 5px;
     font-family: 'ArchitectsDaughter';
     font-size: 2rem;
     font-weight: bold;
     padding: 7px;
+}
+
+button:hover {
+    background:var(--secondary-color-highlight);
+    border-color: var(--secondary-color-highlight);
 }
 
 ol, ul {
@@ -123,10 +132,11 @@ table {
     gap: 4px;
 }
 
-.starter form div {
+.starter form > div {
     display: flex;
     flex-flow: column nowrap;
     gap: 8px;
+    padding: 10px;
 }
 
 .starter form input[type='radio'] {
@@ -139,17 +149,18 @@ table {
 .starter form label {
     display: block;
     text-align: center;
-    border: 1px solid rgba(145, 145, 145, 0.5);
-    border-radius: 3px;
+    border: 1px solid #ccc5b9c9;
+    border-radius: 5px;
     font-size: 1.8rem;
     padding: 15px;
+    background: var(--secondary-background-label);
 }
 
 .starter form .disabled #easy+label,
 .starter form .disabled #medium+label,
 .starter form .disabled #hard+label {
-    background: rgba(190, 190, 190, 0.719);
-    border: 1px solid rgba(190, 190, 190, 0.719);
+    background: var(--disabled-color);
+    border: 1px solid var(--disabled-color);
     user-select: none;
     pointer-events: none;
 }
@@ -194,10 +205,8 @@ table {
     font-weight: bolder;
 }
 
-.starter .title
-
-/* .starter form button */
-    {
+.starter .title {
+    color: var(--primary-color);
     font-size: 1.5rem;
     font-weight: bold;
 }
