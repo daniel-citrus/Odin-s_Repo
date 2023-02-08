@@ -85,9 +85,9 @@ table {
     --primary-color: #252422;
     --secondary-color: #403D39;
     --secondary-color-highlight: #666461;
-    --highlight-color: #eb6e3de5;
-    --highlight-color: #5ba1db;
+    --highlight-color: #ff8655;
     --disabled-color: rgb(170, 170, 170);
+    --complimentary-blue: #437699;
 }
 
 html {
@@ -110,6 +110,15 @@ button {
     transition: background-color 80ms ease-in-out;
 }
 
+.game {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-self: center;
+    align-items: center;
+    font-size: 1.7rem;
+    gap: 20px;
+}
+
 .hidden {
     display: none;
 }
@@ -120,6 +129,7 @@ button {
     justify-items: center;
     justify-content: center;
     width: auto;
+    font-size: 3rem;
 }
 
 .game .board .cell {
@@ -127,14 +137,49 @@ button {
     height: 100%;
     width: 100%;
     background: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .game .board .win-mark {
     background: green;
 }
 
+.game .gameInfo {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 5px;
+}
+
+.game .gameInfo>* {
+    height: 30px;
+    text-align: center;
+}
+
+.game .playerBoard {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--secondary-background-label);
+    border: 2px solid var(--secondary-background);
+    border-radius: 10px;
+}
+
+.game .player {
+    padding: 10px 25px;
+}
+
 .game .player.current-player {
-    background: red;
+    background: var(--secondary-color);
+    color: var(--highlight-color);
+    border-radius: 7px;
+}
+
+.main {
+    padding: 30px 0;
 }
 
 .main>* {
@@ -142,16 +187,11 @@ button {
     margin: 0 auto;
 }
 
-.starter {
-    font-size: 1.4rem;
-    padding: 10px;
-}
-
 .starter form {
     display: flex;
     flex-flow: column nowrap;
     gap: 15px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .starter form fieldset {
@@ -216,9 +256,9 @@ button {
 
 .starter .firstPlayerSymbol input:checked+label,
 .starter .gamemode input:checked+label {
-    background: var(--highlight-color);
-    border-color: var(--highlight-color);
-    color: black;
+    background: var(--complimentary-blue);
+    border-color: var(--complimentary-blue);
+    color: var(--primary-background);
 }
 
 .starter .header {
@@ -226,7 +266,7 @@ button {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    margin: 10px 0 40px 0;
+    margin: 0 0 40px 0;
 }
 
 .starter .header img {
@@ -258,6 +298,7 @@ button {
     body {
         background-image: url('/assets/media/desktopbg.svg');
     }
+
     .main {
         height: 100%;
     }
@@ -273,16 +314,21 @@ button {
         justify-content: center;
         align-items: center;
     }
+
     .starter form fieldset * {
         flex: 1 1 auto;
     }
-    
+
     .starter .header img {
         height: 150px;
     }
 
     .starter .header .title {
         font-size: 4rem;
+    }
+
+    .starter .title {
+        text-align: left;
     }
 }
 

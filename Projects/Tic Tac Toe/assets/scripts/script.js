@@ -1,5 +1,6 @@
 const exitButton = document.getElementById('exit');
 const difficultySetting = document.querySelector('.difficulty');
+const difficultyInfoDiv = document.querySelector('.game .gameInfo .difficulty');
 const firstPlayerSymbol = document.querySelector('.firstPlayerSymbol');
 const gameBoard = document.querySelector('.game .board')
 const gamemodeSetting = document.querySelector('.gamemode');
@@ -514,6 +515,14 @@ const displayController = (() => {
         player2Div.classList.remove('current-player');
     }
 
+    function updateDifficultyInfo(difficulty) {
+        if(difficulty) {
+            difficulty = difficulty[0].toUpperCase() + difficulty.slice(1).toLowerCase();
+        }
+
+        difficultyInfoDiv.textContent = `${difficulty}`;
+    }
+
     function updateMessage(message) {
         const messageBox = document.querySelector('.game .message');
 
@@ -565,6 +574,7 @@ const displayController = (() => {
         clearBoard,
         updateCell,
         updateCurrentPlayer,
+        updateDifficultyInfo,
         updateMessage,
         updatePlayerBoard,
         markWinningLine,
@@ -639,6 +649,7 @@ const director = (() => {
         displayController.closeMenu();
         displayController.drawBoard();
         displayController.openGame();
+        displayController.updateDifficultyInfo(diff);
         boardBrain.newBoard();
         displayController.updatePlayerBoard(player1, player2);
         botFirstMove(gamemode, symbol);
@@ -746,3 +757,5 @@ const director = (() => {
         restartGame,
     }
 })();
+
+director.startGame('computer', 'medium', 'X');
