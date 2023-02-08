@@ -125,18 +125,19 @@ button {
 
 .game .board {
     display: grid;
-    grid-template: repeat(3, 60px) / repeat(3, 60px);
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     justify-items: center;
     justify-content: center;
-    width: auto;
-    font-size: 3rem;
+    width: 75vw;
+    height: 75vw;
+    font-size: 5rem;
 }
 
 .game .board .cell {
-    border: 1px solid red;
+    border: 1px solid var(--secondary-color);
     height: 100%;
     width: 100%;
-    background: pink;
+    background: var(--secondary-background);
     display: flex;
     justify-content: center;
     align-items: center;
