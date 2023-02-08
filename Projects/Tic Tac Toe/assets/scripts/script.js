@@ -516,7 +516,7 @@ const displayController = (() => {
     }
 
     function updateDifficultyInfo(difficulty) {
-        if(difficulty) {
+        if (difficulty) {
             difficulty = difficulty[0].toUpperCase() + difficulty.slice(1).toLowerCase();
         }
 
@@ -663,11 +663,21 @@ const director = (() => {
     function botFirstMove(mode, symbol) {
         if (mode === 'computer' && symbol === 'O') {
             let { x, y } = player2.firstMove();
-            let symbol = player2.getSymbol();
+            displayController.updateCurrentPlayer(1 - currentPlayer);
 
-            boardBrain.updateBoard(x, y, symbol);
-            displayController.updateCell(x, y, symbol);
-            currentPlayer = 1 - currentPlayer;
+            setTimeout(() => {
+                boardBrain.updateBoard(x, y, symbol);
+                displayController.updateCell(x, y, symbol);
+                currentPlayer = 1 - currentPlayer;
+
+                let { status, direction, value } = boardBrain.getGameStatus();
+                if (status === 'win' || status === 'tie') {
+                    endMatch(direction, value, player2);
+                    return;
+                }
+
+                displayController.updateCurrentPlayer(currentPlayer);
+            }, 150);
         }
     }
 
