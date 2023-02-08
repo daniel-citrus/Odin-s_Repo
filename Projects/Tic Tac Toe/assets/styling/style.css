@@ -12,66 +12,39 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
-
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
+article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-    display: block;
+	display: block;
 }
-
 body {
-    line-height: 1;
+	line-height: 1;
 }
-
-button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-progress-appearance: none;
-
-    color: var(--secondary-background-label);
-    border: 2px solid var(--primary-color);
-    background: var(--secondary-color-highlight);
-    border-radius: 5px;
-    font-family: 'ArchitectsDaughter';
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 7px;
-}
-
-button:hover {
-    background: var(--secondary-color-highlight);
-    border-color: var(--secondary-color-highlight);
-}
-
 ol, ul {
-    list-style: none;
+	list-style: none;
 }
-
 blockquote, q {
-    quotes: none;
+	quotes: none;
 }
-
 blockquote:before, blockquote:after,
 q:before, q:after {
-    content: '';
-    content: none;
+	content: '';
+	content: none;
 }
-
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 /* End CSS Reset */
@@ -81,18 +54,20 @@ table {
     --primary-background-sections: #ebe7dd;
     --secondary-background: #CCC5B9;
     --secondary-background-label: #ebe5d9;
-    --secondary-background-label-highlight: #fff6e4;
+    --secondary-background-label-highlight: #d8ceb9;
+    --secondary-border-color: #a79e8c;
     --primary-color: #252422;
     --secondary-color: #4d3636;;
     --border-color: #766765;
-    --secondary-border-color: #b9aaa8;
+    --button-border-color: #393630;
     --pastel-white: #fdfdfd;
     --secondary-color-highlight: #666461;
     --highlight-color: #ff8655;
     --disabled-color: rgb(170, 170, 170);
     --disabled-color-border: rgb(126, 126, 126);
-    --label-selected-brown: #ba967c;
-    --label-selected-brown-border: #8c725f;
+    /* --label-selected-brown: #ba967c; */
+    --label-selected-brown: #d8beb7;
+    --label-selected-brown-border: #968581;
 }
 
 html {
@@ -112,7 +87,24 @@ body {
 }
 
 button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-progress-appearance: none;
     transition: background-color 80ms ease-in-out;
+    
+    color: var(--secondary-background-label);
+    border: 2px solid var(--button-border-color);
+    background: var(--secondary-color-highlight);
+    border-radius: 5px;
+    font-family: 'ArchitectsDaughter';
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 7px;
+}
+
+button:hover {
+    background: #605a50;
 }
 
 .game {
@@ -275,7 +267,7 @@ button {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    margin: 0 0 40px 0;
+    margin: 0 0 30px 0;
 }
 
 .starter .header img {
