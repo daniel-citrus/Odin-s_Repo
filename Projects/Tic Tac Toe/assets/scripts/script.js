@@ -768,4 +768,4 @@ const director = (() => {
     }
 })();
 
-director.startGame('computer', 'medium', 'X');
+/* director.startGame('computer', 'medium', 'X'); */

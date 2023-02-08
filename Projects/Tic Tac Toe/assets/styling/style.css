@@ -40,9 +40,9 @@ button {
     -webkit-appearance: none;
     -ms-progress-appearance: none;
 
-    color: var(--primary-background);
-    border: 1px solid var(--secondary-color);
-    background: var(--secondary-color);
+    color: var(--secondary-background-label);
+    border: 2px solid var(--primary-color);
+    background: var(--secondary-color-highlight);
     border-radius: 5px;
     font-family: 'ArchitectsDaughter';
     font-size: 2rem;
@@ -77,17 +77,22 @@ table {
 /* End CSS Reset */
 
 :root {
-    --primary-background: #FFFCF2;
+    --primary-background: #85595a;
     --primary-background-sections: #ebe7dd;
     --secondary-background: #CCC5B9;
-    --secondary-background-label: #f1e8d5;
-    --secondary-background-label-highlight: #faeed8;
+    --secondary-background-label: #ebe5d9;
+    --secondary-background-label-highlight: #fff6e4;
     --primary-color: #252422;
-    --secondary-color: #403D39;
+    --secondary-color: #4d3636;;
+    --border-color: #766765;
+    --secondary-border-color: #b9aaa8;
+    --pastel-white: #fdfdfd;
     --secondary-color-highlight: #666461;
     --highlight-color: #ff8655;
     --disabled-color: rgb(170, 170, 170);
-    --complimentary-blue: #437699;
+    --disabled-color-border: rgb(126, 126, 126);
+    --label-selected-brown: #ba967c;
+    --label-selected-brown-border: #8c725f;
 }
 
 html {
@@ -130,6 +135,8 @@ button {
     justify-content: center;
     width: 75vw;
     height: 75vw;
+    max-width: 425px;
+    max-height: 425px;
     font-size: 5rem;
 }
 
@@ -137,6 +144,7 @@ button {
     border: 1px solid var(--secondary-color);
     height: 100%;
     width: 100%;
+    color: var(--secondary-color);
     background: var(--secondary-background);
     display: flex;
     justify-content: center;
@@ -217,12 +225,12 @@ button {
 .starter form label {
     display: block;
     text-align: center;
-    border: 1px solid #ccc5b9c9;
+    border: 2px solid var(--secondary-border-color);
     border-radius: 5px;
     font-size: 1.8rem;
     padding: 15px;
     background: var(--secondary-background-label);
-    background: var(--secondary-background-label);
+    color: var(--secondary-color);
     transition: background-color 80ms ease-in-out;
 }
 
@@ -234,32 +242,32 @@ button {
 .starter form .disabled #medium+label,
 .starter form .disabled #hard+label {
     background: var(--disabled-color);
-    border: 1px solid var(--disabled-color);
+    border: 2px solid var(--disabled-color-border);
     color: #313030;
     user-select: none;
     pointer-events: none;
 }
 
 .starter .difficulty input:checked+label[for='easy'] {
-    background: #8cb369;
-    border: 1px solid #8cb369;
+    background: #b1c681;
+    border: 2px solid #859464;
 }
 
 .starter .difficulty input:checked+label[for='medium'] {
-    background: #f4e285;
-    border: 1px solid #f4e285;
+    background: #fddc7b;
+    border: 2px solid #af9956;
 }
 
 .starter .difficulty input:checked+label[for='hard'] {
-    background: #bc4b51;
-    border: 1px solid #bc4b51;
+    background: #cd7a74;
+    border: 2px solid #995a56;
 }
 
 .starter .firstPlayerSymbol input:checked+label,
 .starter .gamemode input:checked+label {
-    background: var(--complimentary-blue);
-    border-color: var(--complimentary-blue);
-    color: var(--primary-background);
+    background: var(--label-selected-brown);
+    border: 2px solid var(--label-selected-brown-border);
+    color: var(--primary-color);
 }
 
 .starter .header {
