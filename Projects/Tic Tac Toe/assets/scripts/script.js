@@ -663,11 +663,12 @@ const director = (() => {
     function botFirstMove(mode, symbol) {
         if (mode === 'computer' && symbol === 'O') {
             let { x, y } = player2.firstMove();
+            let botSymbol = player2.getSymbol();
             displayController.updateCurrentPlayer(1 - currentPlayer);
 
             setTimeout(() => {
-                boardBrain.updateBoard(x, y, symbol);
-                displayController.updateCell(x, y, symbol);
+                boardBrain.updateBoard(x, y, botSymbol);
+                displayController.updateCell(x, y, botSymbol);
                 currentPlayer = 1 - currentPlayer;
 
                 let { status, direction, value } = boardBrain.getGameStatus();
