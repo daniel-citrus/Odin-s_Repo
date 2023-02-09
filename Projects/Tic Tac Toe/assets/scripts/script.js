@@ -768,5 +768,3 @@ const director = (() => {
         restartGame,
     }
 })();
-
-/* director.startGame('computer', 'medium', 'X'); */
