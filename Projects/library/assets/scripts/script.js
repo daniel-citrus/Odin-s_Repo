@@ -101,12 +101,14 @@ titleInputBox.addEventListener('change', () => {
 
 let library = {};
 
-function Book(title, author, published, pages, read = false) {
-    this.title = title;
-    this.author = author;
-    this.published = published;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, published, pages, read = false) {
+        this.title = title;
+        this.author = author;
+        this.published = published;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 function activateNewBookForm() {
