@@ -1,5 +1,199 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* End CSS Reset */
+
+
+:root {
+    --player1-color: blue;
+    --player1-hover: #0000ff67;
+    --player2-color: red;
+    --player2-hover: #ff000079;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    height: 500px;
+    width: 500px;
+    position: relative;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.board .line:hover {
+    background: var(--player1-color);
+    z-index: 1;
+    box-shadow: 0px 0px 5px var(--player1-hover);
+    border: 1px solid --player1-color;
+}
+
+.board.p2 .line:hover {
+    background: var(--player2-color);
+    box-shadow: 0px 0px 5px var(--player2-hover);
+    border: 1px solid --player2-color;
+}
+
 .line {
-    height: 100px;
+    transform: rotate(30deg);
+    position: absolute;
+    height: 500px;
     width: 10px;
     background: black;
+    border-radius: 100px;
+}
+
+/* Center Lines */
+.line[coordinates="1,4"] {}
+
+.line[coordinates="2,5"] {
+    transform: rotate(90deg);
+}
+
+.line[coordinates="3,6"] {
+    transform: rotate(150deg);
+}
+
+/* Middle Lines */
+.mid {
+    height: 435px;
+}
+
+.line[coordinates="1,3"] {
+    transform: rotate(180deg);
+    top: 32px;
+    left: 367px;
+}
+
+.line[coordinates="1,5"] {
+    transform: rotate(60deg);
+    top: -74px;
+    left: 184px;
+}
+
+.line[coordinates="2,6"] {
+    transform: rotate(120deg);
+    top: -74px;
+    left: 306px;
+}
+
+.line[coordinates="2,4"] {
+    transform: rotate(60deg);
+    top: 138px;
+    right: 184px;
+}
+
+.line[coordinates="3,5"] {
+    transform: rotate(120deg);
+    top: 138px;
+    left: 184px;
+}
+
+.line[coordinates="4,6"] {
+    transform: rotate(-180deg);
+    top: 32px;
+    right: 367px;
+}
+
+/* Outer Lines */
+.outer {
+    height: 254px;
+}
+
+.line[coordinates="1,2"] {
+    transform: rotate(150deg);
+    top: 15px;
+    left: 429px;
+}
+
+.line[coordinates="1,6"] {
+    transform: rotate(90deg);
+    top: -91px;
+}
+
+.line[coordinates="2,3"] {
+    transform: rotate(30deg);
+    top: 229px;
+    left: 430px;
+}
+
+.line[coordinates="3,4"] {
+    transform: rotate(90deg);
+    top: 335px;
+    left: 244px;
+}
+
+.line[coordinates="4,5"] {
+    transform: rotate(150deg);
+    top: 229px;
+    left: 60px;
+}
+
+.line[coordinates="5,6"] {
+    transform: rotate(30deg);
+    top: 15px;
+    left: 62px;
 }
