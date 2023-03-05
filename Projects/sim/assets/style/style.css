@@ -85,7 +85,7 @@ div[marker='1'] {
 
 .board {
     height: 500px;
-    width: 500px;
+    width: 320px;
     position: relative;
 
     display: flex;
@@ -110,15 +110,14 @@ div[marker='1'] {
 .line {
     transform: rotate(30deg);
     position: absolute;
-    height: 500px;
-    width: 10px;
+    height: 300px;
+    width: 8px;
     background: black;
     border-radius: 100px;
+    border: 4px transparent;
 }
 
 /* Center Lines */
-.line[coordinates="1,4"] {}
-
 .line[coordinates="2,5"] {
     transform: rotate(90deg);
 }
@@ -129,81 +128,171 @@ div[marker='1'] {
 
 /* Middle Lines */
 .mid {
-    height: 435px;
+    height: 260px;
 }
 
 .line[coordinates="1,3"] {
     transform: rotate(180deg);
-    top: 32px;
-    left: 367px;
+    top: 120px;
+    left: 229px;
 }
 
 .line[coordinates="1,5"] {
     transform: rotate(60deg);
-    top: -74px;
-    left: 184px;
+    top: 57px;
+    left: 119px;
 }
 
 .line[coordinates="2,6"] {
     transform: rotate(120deg);
-    top: -74px;
-    left: 306px;
+    top: 57px;
+    left: 193px;
 }
 
 .line[coordinates="2,4"] {
     transform: rotate(60deg);
-    top: 138px;
-    right: 184px;
+    top: 183px;
+    right: 119px;
 }
 
 .line[coordinates="3,5"] {
     transform: rotate(120deg);
-    top: 138px;
-    left: 184px;
+    top: 183px;
+    left: 119px;
 }
 
 .line[coordinates="4,6"] {
     transform: rotate(-180deg);
-    top: 32px;
-    right: 367px;
+    top: 120px;
+    left: 83px;
 }
 
 /* Outer Lines */
 .outer {
-    height: 254px;
+    height: 153px;
 }
 
 .line[coordinates="1,2"] {
     transform: rotate(150deg);
-    top: 15px;
-    left: 429px;
+    top: 110px;
+    right: 47px;
 }
 
 .line[coordinates="1,6"] {
     transform: rotate(90deg);
-    top: -91px;
+    top: 47px;
 }
 
 .line[coordinates="2,3"] {
     transform: rotate(30deg);
-    top: 229px;
-    left: 430px;
+    top: 237px;
+    left: 265px;
 }
 
 .line[coordinates="3,4"] {
     transform: rotate(90deg);
-    top: 335px;
-    left: 244px;
+    top: 300px;
 }
 
 .line[coordinates="4,5"] {
     transform: rotate(150deg);
-    top: 229px;
-    left: 60px;
+    top: 237px;
+    left: 47px;
 }
 
 .line[coordinates="5,6"] {
     transform: rotate(30deg);
-    top: 15px;
-    left: 61px;
+    top: 110px;
+    left: 47px;
 }
+
+@media screen and (min-width: 769px) {
+    .board {
+        width: 500px;
+    }
+
+    .line {
+        height: 500px;
+        width: 10px;
+    }
+
+    /* Center Lines */
+    .line[coordinates="1,4"] {}
+
+    .line[coordinates="2,5"] {}
+
+    .line[coordinates="3,6"] {}
+
+    /* Middle Lines */
+    .mid {
+        height: 435px;
+    }
+
+    .line[coordinates="1,3"] {
+        top: 32px;
+        left: 367px;
+    }
+
+    .line[coordinates="1,5"] {
+        top: -74px;
+        left: 184px;
+    }
+
+    .line[coordinates="2,6"] {
+        top: -74px;
+        left: 306px;
+    }
+
+    .line[coordinates="2,4"] {
+        top: 138px;
+        right: 184px;
+    }
+
+    .line[coordinates="3,5"] {
+        top: 138px;
+        left: 184px;
+    }
+
+    .line[coordinates="4,6"] {
+        top: 32px;
+        left: 123px;
+    }
+
+    /* Outer Lines */
+    .outer {
+        height: 254px;
+    }
+
+    .line[coordinates="1,2"] {
+        top: 16px;
+        left: 429px;
+    }
+
+    .line[coordinates="1,6"] {
+        top: -91px;
+    }
+
+    .line[coordinates="2,3"] {
+        top: 229px;
+        left: 430px;
+    }
+
+    .line[coordinates="3,4"] {
+        top: 335px;
+        left: 244px;
+    }
+
+    .line[coordinates="4,5"] {
+        top: 229px;
+        left: 60px;
+    }
+
+    .line[coordinates="5,6"] {
+        top: 15px;
+        left: 61px;
+    }
+}
+
+@media screen and (min-width: 1025px) {}
+
+@media screen and (max-height: 700px) {}
