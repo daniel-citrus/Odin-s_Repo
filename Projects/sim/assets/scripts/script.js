@@ -5,14 +5,24 @@ const board = (() => {
     const boardMap = new Map();
 
     let resetBrain = () => {
-        for (let l of lines) {
-            boardMap.set(l.getAttribute('coordinates'), l.getAttribute('marker'));
-        }
+        boardMap.clear();
+        /* for (let l of lines) {
+            boardMap.set(l.getAttribute('coordinates'), '');
+        } */
+        console.log(boardMap);
+    }
+
+    let updateBrain = (line, marker) => {
+        boardMap.set(line.getAttribute('coordinates'), marker);
+        console.log(boardMap);
     }
 
     return Object.assign(
         {},
-        { resetBrain },
+        {
+            resetBrain,
+            updateBrain
+        },
     );
 })();
 
@@ -20,19 +30,17 @@ const board = (() => {
 const director = (() => {
     currentPlayer = 0; // 0 = player1 | 1 = player2
 
-    let makeMove = (coordinates) => {
-        console.log(coordinates);
-        /*
-            update boardBrain
-            update display
-                switch to next player
-                updateMarker
-        */
+    let makeMove = (line) => {
+        board.updateBrain(line, currentPlayer);
+        displayController.updateMarker(line, currentPlayer);
+        currentPlayer = 1 - currentPlayer;
+        displayController.updateCurrentPlayer(currentPlayer)
     }
 
     let restartGame = () => {
         currentPlayer = 0;
         displayController.resetBoard();
+        board.resetBrain();
     }
 
     return Object.assign(
@@ -47,7 +55,7 @@ const displayController = (() => {
     // Initialize eventListeners for each line and add a custom attribute called 'marker' that represets player1('0') or player2('1') markings (default value = '')
     for (let l of lines) {
         l.addEventListener('click', () => {
-            director.makeMove(l.getAttribute('coordinates'));
+            director.makeMove(l);
         })
 
         l.setAttribute('marker', '');
@@ -77,7 +85,10 @@ const displayController = (() => {
 
     return Object.assign(
         {},
-        { resetBoard },
-        { updateMarker },
+        {
+            resetBoard,
+            updateCurrentPlayer,
+            updateMarker
+        },
     )
 })();
