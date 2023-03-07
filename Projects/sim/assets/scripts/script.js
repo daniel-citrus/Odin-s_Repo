@@ -14,14 +14,30 @@ const board = (() => {
 
     let updateBrain = (line, marker) => {
         boardMap.set(line.getAttribute('coordinates'), marker);
-        console.log(boardMap);
     }
+
+    /* 
+        Checking pattern
+        (1, 2->5)
+        (2, 3->6)
+        (3, 1)
+    */
+    let checkWinner = () => {
+        for (let move of boardMap) {
+            test(...move[0].split(','));
+        }
+    }
+
+    let test = (a, b) => {
+        console.log(`[${a}, ${b}]`);
+    } 
 
     return Object.assign(
         {},
         {
+            checkWinner,
             resetBrain,
-            updateBrain
+            updateBrain,
         },
     );
 })();
@@ -31,10 +47,16 @@ const director = (() => {
     currentPlayer = 0; // 0 = player1 | 1 = player2
 
     let makeMove = (line) => {
+        console.clear();
+        if (line.getAttribute('marker') !== '') {
+            return;
+        }
+
         board.updateBrain(line, currentPlayer);
         displayController.updateMarker(line, currentPlayer);
         currentPlayer = 1 - currentPlayer;
-        displayController.updateCurrentPlayer(currentPlayer)
+        displayController.updateCurrentPlayer(currentPlayer);
+        board.checkWinner();
     }
 
     let restartGame = () => {
