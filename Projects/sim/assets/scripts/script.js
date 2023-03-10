@@ -6,31 +6,76 @@ const board = (() => {
 
     let resetBrain = () => {
         boardMap.clear();
-        /* for (let l of lines) {
+        /*
+        for (let l of lines) {
             boardMap.set(l.getAttribute('coordinates'), '');
-        } */
-        console.log(boardMap);
+        }
+        */
     }
 
     let updateBrain = (line, marker) => {
         boardMap.set(line.getAttribute('coordinates'), marker);
     }
 
-    /* 
+    /*
         Checking pattern
         (1, 2->5)
         (2, 3->6)
-        (3, 1)
+        (1, 3)
     */
-    let checkWinner = () => {
-        for (let move of boardMap) {
-            test(...move[0].split(','));
-        }
+    let checkWinner = (line, currentPlayer) => {
+        let result = null;
+        let [a, b] = line.getAttribute('coordinates').split(',');
+        result = createsTriangle(currentPlayer, a, b);
+        console.log(result);
     }
 
-    let test = (a, b) => {
-        console.log(`[${a}, ${b}]`);
-    } 
+    let createsTriangle = (player, aInitial, bInitial) => {
+        let triangle = [];
+        triangle.push([aInitial, bInitial]);
+
+        let possibilites = [];
+
+        for (let a = 1; a < 7; a++) {
+            if (bInitial != a) {
+                possibilites.push(a);
+            }
+        }
+
+        for (let p of possibilites) {
+            
+        }
+
+        return triangle;
+    }
+
+    /* 
+        @param level - nth line of the triangle
+        @param player - the player that marked [aInitial, bInitial]
+    */
+    /* let createsTriangle = (level, player, aInitial, bInitial, aCurrent, bCurrent) => {
+        console.log(`level: ${level}, player: ${player}, aInitial: ${aInitial}, bInitial: ${bInitial}, aCurrent: ${aCurrent}, bCurrent: ${bCurrent}`);
+
+        if (level == 2) {
+            console.log(`hi2`);
+            if (boardMap.has(`${aInitial},${bCurrent}`)) {
+                if (player === boardMap.get(`${aInitial},${bCurrent}`)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        aCurrent = bCurrent;
+        for (let i = aCurrent + 1; i < 7; i++) {
+            if (boardMap.has(`${aCurrent},${i}`)) {
+                return createsTriangle(level + 1, player, aInitial, bInitial, aCurrent, i);
+            }
+        }
+
+        return false;
+    } */
 
     return Object.assign(
         {},
@@ -49,6 +94,7 @@ const director = (() => {
     let makeMove = (line) => {
         console.clear();
         if (line.getAttribute('marker') !== '') {
+            console.log(`Invalid move`);
             return;
         }
 
@@ -56,7 +102,7 @@ const director = (() => {
         displayController.updateMarker(line, currentPlayer);
         currentPlayer = 1 - currentPlayer;
         displayController.updateCurrentPlayer(currentPlayer);
-        board.checkWinner();
+        board.checkWinner(line, currentPlayer);
     }
 
     let restartGame = () => {
