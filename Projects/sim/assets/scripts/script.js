@@ -25,45 +25,34 @@ const board = (() => {
     */
     let checkWinner = (line, currentPlayer) => {
         let result = null;
-        let [a, b] = line.getAttribute('coordinates').split(',');
-        result = createsTriangle(currentPlayer, a, b);
-        console.log(result);
-    }
+        
+        for (let [line, player] of boardMap) {
+            let [a, b] = line.split(',');
+            result = createsTriangle(1, currentPlayer, +a, +b, +a, +b);
 
-    let createsTriangle = (player, aInitial, bInitial) => {
-        let triangle = [];
-        triangle.push([aInitial, bInitial]);
-
-        let possibilites = [];
-
-        for (let a = 1; a < 7; a++) {
-            if (bInitial != a) {
-                possibilites.push(a);
+            if (result) {
+                break;
             }
         }
-
-        for (let p of possibilites) {
-            
-        }
-
-        return triangle;
+        console.log(result);
     }
 
     /* 
         @param level - nth line of the triangle
         @param player - the player that marked [aInitial, bInitial]
     */
-    /* let createsTriangle = (level, player, aInitial, bInitial, aCurrent, bCurrent) => {
-        console.log(`level: ${level}, player: ${player}, aInitial: ${aInitial}, bInitial: ${bInitial}, aCurrent: ${aCurrent}, bCurrent: ${bCurrent}`);
+    let createsTriangle = (level, player, aInitial, bInitial, aCurrent, bCurrent) => {
+        if (player != boardMap.get(`${aCurrent},${bCurrent}`)) {
+            return false;
+        }
 
         if (level == 2) {
-            console.log(`hi2`);
             if (boardMap.has(`${aInitial},${bCurrent}`)) {
-                if (player === boardMap.get(`${aInitial},${bCurrent}`)) {
+                if (player == boardMap.get(`${aInitial},${bCurrent}`)) {
                     return true;
                 }
+                return false;
             }
-
             return false;
         }
 
@@ -75,7 +64,7 @@ const board = (() => {
         }
 
         return false;
-    } */
+    }
 
     return Object.assign(
         {},
@@ -100,9 +89,9 @@ const director = (() => {
 
         board.updateBrain(line, currentPlayer);
         displayController.updateMarker(line, currentPlayer);
+        board.checkWinner(line, currentPlayer);
         currentPlayer = 1 - currentPlayer;
         displayController.updateCurrentPlayer(currentPlayer);
-        board.checkWinner(line, currentPlayer);
     }
 
     let restartGame = () => {
