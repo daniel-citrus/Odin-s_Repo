@@ -24,36 +24,39 @@ const board = (() => {
         (1, 3)
     */
     let checkWinner = (line, currentPlayer) => {
-        let result = null;
-        
+        /* let result = null;
+        let losingPlayer = null;
+
+        // Checks the entire boardMap for a winning triangle
         for (let [line, player] of boardMap) {
             let [a, b] = line.split(',');
-            result = createsTriangle(1, currentPlayer, +a, +b, +a, +b);
+            [result, losingPlayer] = createsTriangle(1, currentPlayer, +a, +b, +a, +b);
 
             if (result) {
                 break;
             }
         }
-        console.log(result);
+        console.log(`Result: ${result}, Winner: ${losingPlayer}`); */
     }
 
     /* 
         @param level - nth line of the triangle
         @param player - the player that marked [aInitial, bInitial]
+        @return - true, if triangle is found and the losing player
     */
-    let createsTriangle = (level, player, aInitial, bInitial, aCurrent, bCurrent) => {
+    /* let createsTriangle = (level, player, aInitial, bInitial, aCurrent, bCurrent) => {
         if (player != boardMap.get(`${aCurrent},${bCurrent}`)) {
-            return false;
+            return [false, null];
         }
 
         if (level == 2) {
             if (boardMap.has(`${aInitial},${bCurrent}`)) {
                 if (player == boardMap.get(`${aInitial},${bCurrent}`)) {
-                    return true;
+                    return [true, player];
                 }
-                return false;
+                return [false, null];
             }
-            return false;
+            return [false, null];
         }
 
         aCurrent = bCurrent;
@@ -63,8 +66,8 @@ const board = (() => {
             }
         }
 
-        return false;
-    }
+        return [false, null];
+    } */
 
     return Object.assign(
         {},
