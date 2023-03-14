@@ -23,7 +23,7 @@ const board = (() => {
         (2, 3->6)
         (1, 3)
     */
-    /* let checkLoser = (currentPlayer) => {
+    let checkLoser = (currentPlayer) => {
         console.clear();
         let result = null;
         let losingPlayer = null;
@@ -39,7 +39,7 @@ const board = (() => {
             }
         }
         console.log(`Result: ${result}, Loser: ${losingPlayer}`);
-    } */
+    }
 
     /* 
         **All incoming parameter values must be integers**
@@ -47,20 +47,18 @@ const board = (() => {
         @param player - the player that marked [aInitial, bInitial]
         @return - true, if triangle is found and the losing player
     */
-    /* let createsTriangle = (level, player, aInitial, bInitial, aCurrent, bCurrent) => {
-        if (!boardMap.has(`${aCurrent},${bCurrent}`)) {
+    let createsTriangle = (level, player, aInitial, bInitial, a, b) => {
+        if (!boardMap.has(`${a},${b}`)) {
             return [false, null]
         }
 
-        if (player != boardMap.get(`${aCurrent},${bCurrent}`)) {
+        if (player != boardMap.get(`${a},${b}`)) {
             return [false, null];
         }
 
-        console.log(`Player: ${player}, a: ${aCurrent}, b:${bCurrent}`);
-
         if (level == 2) {
-            if (boardMap.has(`${aInitial},${bCurrent}`)) {
-                if (player == boardMap.get(`${aInitial},${bCurrent}`)) {
+            if (boardMap.has(`${aInitial},${b}`)) {
+                if (player == boardMap.get(`${aInitial},${b}`)) {
                     return [true, player];
                 }
                 return [false, null];
@@ -68,9 +66,9 @@ const board = (() => {
             return [false, null];
         }
 
-        aCurrent = bCurrent;
-        for (let i = aCurrent + 1; i < 7; i++) {
-            let [result, loser] = createsTriangle(level + 1, player, aInitial, bInitial, aCurrent, i);
+        a = b;
+        for (let i = a + 1; i < 7; i++) {
+            let [result, loser] = createsTriangle(level + 1, player, aInitial, bInitial, a, i);
 
             if (result) {
                 return [result, loser];
@@ -78,74 +76,6 @@ const board = (() => {
         }
 
         return [false, null];
-    } */
-
-    let checkLoser = (line, currentPlayer) => {
-        let [a, b] = line.getAttribute('coordinates').split(',');
-        let result = createsTriangle(1, currentPlayer, +a, +b, +a, +b);
-
-        if (result) {
-            let winner = (currentPlayer) ? "Blue" : "Red";
-
-            console.log(`${winner} wins!`);
-        }
-
-    }
-
-    let createsTriangle = (level, player, aI, bI, aC, bC) => {
-        if (!boardMap.has(`${aC},${bC}`)) {
-            return false;
-        }
-
-        if (player != boardMap.get(`${aC},${bC}`)) {
-            return false;
-        }
-
-        if (level == 2) {
-            let a, b;
-            a = aC;
-            b = aI;
-
-            if (a > b) {
-                [a, b] = swap(a, b);
-            }
-
-            if (boardMap.has(`${a},${b}`)) {
-                if (player == boardMap.get(`${a},${b}`)) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        for (let i = 1; i < 7; i++) {
-            let a, b;
-
-            if (a == i || b == i) {
-                continue;
-            }
-
-            a = bC;
-            b = i;
-
-            if (a > b) {
-                [a, b] = swap(a, b);
-            }
-
-            if (boardMap.has(`${a},${b}`)) {
-                if (player == boardMap.get(`${a},${b}`)) {
-                    if (createsTriangle(level + 1, player, aI, bI, a, b)) {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-
-    /* Swaps two variables and returns them */
-    let swap = (a, b) => {
-        return [b, a];
     }
 
     return Object.assign(
@@ -170,8 +100,7 @@ const director = (() => {
 
         board.updateBrain(line, currentPlayer);
         displayController.updateMarker(line, currentPlayer);
-        /* board.checkLoser(currentPlayer); */
-        board.checkLoser(line, currentPlayer);
+        board.checkLoser(currentPlayer);
         currentPlayer = 1 - currentPlayer;
         displayController.updateCurrentPlayer(currentPlayer);
     }
@@ -184,8 +113,10 @@ const director = (() => {
 
     return Object.assign(
         {},
-        { makeMove },
-        { restartGame },
+        {
+            makeMove,
+            restartGame
+        },
     )
 })();
 
