@@ -3,6 +3,7 @@ const lines = document.querySelectorAll('.line');
 // Board brain
 const board = (() => {
     const boardMap = new Map();
+    let losingTriangle = null;
 
     let resetBrain = () => {
         boardMap.clear();
@@ -27,10 +28,13 @@ const board = (() => {
         console.clear();
         let result = null;
         let losingPlayer = null;
-        let losingTriangle = null;
 
         // Checks the entire boardMap for a winning triangle
         for (let [line, player] of boardMap) {
+            if (player != currentPlayer) {
+                continue;
+            }
+
             let [a, b] = line.split(',');
             [result, losingPlayer] = createsTriangle(1, currentPlayer, +a, +b, +a, +b);
 
@@ -122,6 +126,8 @@ const director = (() => {
 
 // Controls the front-end
 const displayController = (() => {
+    let ZINDEX = 1;
+    
     // Initialize eventListeners for each line and add a custom attribute called 'marker' that represets player1('0') or player2('1') markings (default value = '')
     for (let l of lines) {
         l.addEventListener('click', () => {
@@ -140,6 +146,7 @@ const displayController = (() => {
     let resetBoard = () => {
         clearBoard();
         updateCurrentPlayer(0);
+        ZINDEX = 1;
     }
 
     let updateCurrentPlayer = (player) => {
@@ -151,6 +158,8 @@ const displayController = (() => {
     // Updates 'marker' attribute value
     let updateMarker = (line, player) => {
         line.setAttribute('marker', player);
+        line.style.zIndex = ZINDEX;
+        ZINDEX++;
     }
 
     return Object.assign(
