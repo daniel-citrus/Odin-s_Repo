@@ -19,17 +19,13 @@ const board = (() => {
     }
 
     /*
-        Checking pattern
-        (1, 2->5)
-        (2, 3->6)
-        (1, 3)
+        Checks the entire boardMap for a winning triangle
     */
     let checkLoser = (currentPlayer) => {
         console.clear();
         let result = null;
         let losingPlayer = null;
 
-        // Checks the entire boardMap for a winning triangle
         for (let [line, player] of boardMap) {
             if (player != currentPlayer) {
                 continue;
@@ -46,26 +42,31 @@ const board = (() => {
     }
 
     /* 
+        Recursive function that will check whether or not triangle exists starting on line aInitial to bInitial.
+
         **All incoming parameter values must be integers**
         @param level - nth line of the triangle
         @param player - the player that marked [aInitial, bInitial]
         @return - true, if triangle is found and the losing player
     */
     let createsTriangle = (level, player, aInitial, bInitial, a, b) => {
+        console.log(`a: ${a}, b: ${b}`);
         if (!boardMap.has(`${a},${b}`)) {
             return [false, null]
         }
-
+        
         if (player != boardMap.get(`${a},${b}`)) {
             return [false, null];
         }
-
+        
+        // Condition for a complete triangle
         if (level == 2) {
             if (boardMap.has(`${aInitial},${b}`)) {
+                console.log(`a: ${aInitial}, b: ${b}`);
+                console.log(boardMap);
                 if (player == boardMap.get(`${aInitial},${b}`)) {
                     return [true, player];
                 }
-                return [false, null];
             }
             return [false, null];
         }
@@ -126,7 +127,7 @@ const director = (() => {
 
 // Controls the front-end
 const displayController = (() => {
-    let ZINDEX = 1;
+    let z_index = 1; // Most recently marked line will appear above all other lines
     
     // Initialize eventListeners for each line and add a custom attribute called 'marker' that represets player1('0') or player2('1') markings (default value = '')
     for (let l of lines) {
@@ -146,7 +147,7 @@ const displayController = (() => {
     let resetBoard = () => {
         clearBoard();
         updateCurrentPlayer(0);
-        ZINDEX = 1;
+        z_index = 1;
     }
 
     let updateCurrentPlayer = (player) => {
@@ -158,8 +159,8 @@ const displayController = (() => {
     // Updates 'marker' attribute value
     let updateMarker = (line, player) => {
         line.setAttribute('marker', player);
-        line.style.zIndex = ZINDEX;
-        ZINDEX++;
+        line.style.zIndex = z_index;
+        z_index++;
     }
 
     return Object.assign(
