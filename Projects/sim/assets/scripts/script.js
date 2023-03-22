@@ -29,18 +29,14 @@ const board = (() => {
             result = createsTriangle(1, currentPlayer, +a, +b, +a, +b);
 
             if (result) {
-                console.log(`Winner: ${1 - currentPlayer}`);
-                for (let l of losingTriangle) {
-                    console.log(l);
-                }
                 break;
             }
         }
 
-        return {
+        return [
             result,
             losingTriangle
-        }
+        ]
     }
 
     /* 
@@ -106,7 +102,13 @@ const director = (() => {
     currentPlayer = 0; // 0 = player1 | 1 = player2
 
     let endGame = (winner, losingTriangle) => {
-        // 
+        if (winner) {
+            winner = 'Daniel';
+        }
+        else {
+            winner = 'Betzy';
+        }
+        console.log(`Winner: ${winner}, Triangle: ${losingTriangle}`);
     }
 
     let makeMove = (line) => {
@@ -120,7 +122,11 @@ const director = (() => {
         board.updateBrain(line, currentPlayer);
         displayController.updateMarker(line, currentPlayer);
 
-        board.checkLoser(currentPlayer);
+        let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
+
+        if (gameOver) {
+            endGame(1 - currentPlayer, losingTriangle);
+        }
 
         currentPlayer = 1 - currentPlayer;
         displayController.updateCurrentPlayer(currentPlayer);
@@ -143,6 +149,7 @@ const director = (() => {
 
 // Controls the front-end
 const displayController = (() => {
+    let board = document.querySelector('.board');
     let z_index = 1; // Most recently marked line will appear above all other lines
 
     // Initialize eventListeners for each line
@@ -158,6 +165,10 @@ const displayController = (() => {
         }
     }
 
+    let disableBoard = () => {
+        board.classList.add('disabled');
+    }
+
     let resetBoard = () => {
         clearBoard();
         updateCurrentPlayer(0);
@@ -165,7 +176,6 @@ const displayController = (() => {
     }
 
     let updateCurrentPlayer = (player) => {
-        let board = document.querySelector('.board');
         (player) ? board.classList.add('p2') : board.classList.remove('p2');
     }
 
