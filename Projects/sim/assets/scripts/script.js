@@ -1,17 +1,18 @@
 const lines = document.querySelectorAll('.line');
 
-/* Board brain */
+let bot = () => {
+    let dumbMove = () => {
+        let map = board.getBoardMap();
+        
+    }
+
+    let normalMove;
+    let smardMove;
+};
+
 const board = (() => {
     const boardMap = new Map();
     let losingTriangle = [];
-
-    let resetBrain = () => {
-        boardMap.clear();
-    }
-
-    let updateBrain = (line, marker) => {
-        boardMap.set(line.getAttribute('coordinates'), marker);
-    }
 
     /* Checks the entire boardMap for a winning triangle */
     let checkLoser = (currentPlayer) => {
@@ -87,10 +88,23 @@ const board = (() => {
         return false;
     }
 
+    let getBoardMap = () => {
+        return boardMap;
+    }
+
+    let resetBrain = () => {
+        boardMap.clear();
+    }
+
+    let updateBrain = (line, marker) => {
+        boardMap.set(line.getAttribute('coordinates'), marker);
+    }
+
     return Object.assign(
         {},
         {
             checkLoser,
+            getBoardMap,
             resetBrain,
             updateBrain,
         },
@@ -103,14 +117,15 @@ const director = (() => {
 
     let endGame = (winner, losingTriangle) => {
         if (winner) {
-            winner = 'Daniel';
+            winner = 'Red';
         }
         else {
-            winner = 'Betzy';
+            winner = 'Blue';
         }
         console.log(`Winner: ${winner}, Triangle: ${losingTriangle}`);
     }
 
+    // Analyse the current player's move to see if they lost
     let makeMove = (line) => {
         console.clear();
 
