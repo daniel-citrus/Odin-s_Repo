@@ -3,15 +3,36 @@ const lines = document.querySelectorAll('.line');
 let bot = () => {
     let dumbMove = () => {
         let map = board.getBoardMap();
-        
     }
 
     let normalMove;
-    let smardMove;
+    let smartMove;
+
+    return {
+        dumbMove,
+
+    }
 };
 
 const board = (() => {
     const boardMap = new Map();
+    let possibleMoves = [
+        [1, 2],
+        [1, 3],
+        [1, 4],
+        [1, 5],
+        [1, 6],
+        [2, 3],
+        [2, 4],
+        [2, 5],
+        [2, 6],
+        [3, 4],
+        [3, 5],
+        [3, 6],
+        [4, 5],
+        [4, 6],
+        [5, 6]
+    ];
     let losingTriangle = [];
 
     /* Checks the entire boardMap for a winning triangle */
@@ -92,12 +113,48 @@ const board = (() => {
         return boardMap;
     }
 
+    let getPossibleMoves = () => {
+        return possibleMoves;
+    }
+
     let resetBrain = () => {
         boardMap.clear();
+
+        possibleMoves = [
+            [1, 2],
+            [1, 3],
+            [1, 4],
+            [1, 5],
+            [1, 6],
+            [2, 3],
+            [2, 4],
+            [2, 5],
+            [2, 6],
+            [3, 4],
+            [3, 5],
+            [3, 6],
+            [4, 5],
+            [4, 6],
+            [5, 6]
+        ];
     }
 
     let updateBrain = (line, marker) => {
-        boardMap.set(line.getAttribute('coordinates'), marker);
+        line = line.getAttribute('coordinates');
+        boardMap.set(line, marker);
+
+        let [a, b] = line.split(',');
+        
+        updatePossibleMoves(+a, +b);
+    }
+
+    /* Removes line a->b from the possible moves */
+    let updatePossibleMoves = (a, b) => {
+        for (let move in possibleMoves) {
+            if (a == possibleMoves[move][0] && b == possibleMoves[move][1]) {
+                possibleMoves.splice(move, 1);
+            }
+        }
     }
 
     return Object.assign(
@@ -105,6 +162,7 @@ const board = (() => {
         {
             checkLoser,
             getBoardMap,
+            getPossibleMoves,
             resetBrain,
             updateBrain,
         },
@@ -115,13 +173,10 @@ const board = (() => {
 const director = (() => {
     currentPlayer = 0; // 0 = player1 | 1 = player2
 
+    let b = bot();
+
     let endGame = (winner, losingTriangle) => {
-        if (winner) {
-            winner = 'Red';
-        }
-        else {
-            winner = 'Blue';
-        }
+        winner = (winner) ? 'Red' : 'Blue';
         console.log(`Winner: ${winner}, Triangle: ${losingTriangle}`);
     }
 
@@ -145,6 +200,9 @@ const director = (() => {
 
         currentPlayer = 1 - currentPlayer;
         displayController.updateCurrentPlayer(currentPlayer);
+
+
+        b.dumbMove();
     }
 
     let restartGame = () => {
@@ -204,6 +262,7 @@ const displayController = (() => {
     return Object.assign(
         {},
         {
+            disableBoard,
             resetBoard,
             updateCurrentPlayer,
             updateMarker
