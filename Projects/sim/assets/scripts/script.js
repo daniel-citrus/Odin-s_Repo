@@ -1,17 +1,40 @@
 const lines = document.querySelectorAll('.line');
 
-let bot = () => {
+let bot = (difficulty) => {
     let dumbMove = () => {
-        let map = board.getBoardMap();
+        let possibleMoves = board.getPossibleMoves();
+        let availableMoves = possibleMoves.length;
+
+        if (!availableMoves) {
+            return;
+        }
+
+        let [a, b] = possibleMoves[getRandomInt(availableMoves)];
+
+        return [a, b];
     }
 
     let normalMove;
     let smartMove;
 
-    return {
-        dumbMove,
-
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
     }
+
+    let move;
+
+    if (difficulty === 'easy') {
+        move = dumbMove;
+    }
+    else if (difficulty === 'medium') {}
+    else if (difficulty === 'hard') {}
+
+    return Object.assign(
+        {},
+        {
+            move,
+        }
+    )
 };
 
 const board = (() => {
@@ -139,13 +162,9 @@ const board = (() => {
         ];
     }
 
-    let updateBrain = (line, marker) => {
-        line = line.getAttribute('coordinates');
-        boardMap.set(line, marker);
-
-        let [a, b] = line.split(',');
-        
-        updatePossibleMoves(+a, +b);
+    let updateBrain = (a, b, marker) => {
+        boardMap.set(`${a},${b}`, marker);
+        updatePossibleMoves(a, b);
     }
 
     /* Removes line a->b from the possible moves */
@@ -171,13 +190,19 @@ const board = (() => {
 
 // Controls the game flow
 const director = (() => {
-    currentPlayer = 0; // 0 = player1 | 1 = player2
-
-    let b = bot();
+    let currentPlayer = 0; // 0 = player1 | 1 = player2
+    let gamemode = 'computer';
+    let myBot = bot('easy');
 
     let endGame = (winner, losingTriangle) => {
         winner = (winner) ? 'Red' : 'Blue';
         console.log(`Winner: ${winner}, Triangle: ${losingTriangle}`);
+    }
+
+    let botMove = () => {
+        let [botA, botB] = myBot.move();
+        board.updateBrain(botA, botB, currentPlayer);
+        displayController.updateMarker(botA, botB, currentPlayer);
     }
 
     // Analyse the current player's move to see if they lost
@@ -189,20 +214,37 @@ const director = (() => {
             return;
         }
 
-        board.updateBrain(line, currentPlayer);
-        displayController.updateMarker(line, currentPlayer);
+        let [a, b] = line.getAttribute('coordinates').split(',');
+        a = +a;
+        b = +b;
+
+        board.updateBrain(a, b, currentPlayer);
+        displayController.updateMarker(a, b, currentPlayer);
 
         let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
 
         if (gameOver) {
             endGame(1 - currentPlayer, losingTriangle);
+            return;
         }
 
-        currentPlayer = 1 - currentPlayer;
-        displayController.updateCurrentPlayer(currentPlayer);
+        if (gamemode === 'computer') {
+            currentPlayer = 1 - currentPlayer;
+            botMove();
 
+            let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
 
-        b.dumbMove();
+            if (gameOver) {
+                endGame(1 - currentPlayer, losingTriangle);
+                return;
+            }
+
+            currentPlayer = 1 - currentPlayer;
+        }
+        else {
+            currentPlayer = 1 - currentPlayer;
+            displayController.updateCurrentPlayer(currentPlayer);
+        }
     }
 
     let restartGame = () => {
@@ -226,20 +268,30 @@ const displayController = (() => {
     let z_index = 1; // Most recently marked line will appear above all other lines
 
     // Initialize eventListeners for each line
-    for (let l of lines) {
-        l.addEventListener('click', () => {
-            director.makeMove(l);
+    for (let line of lines) {
+        line.addEventListener('click', () => {
+            director.makeMove(line);
         })
     }
 
     let clearBoard = () => {
-        for (let l of lines) {
-            l.setAttribute('marker', '')
+        for (let line of lines) {
+            line.setAttribute('marker', '')
         }
     }
 
     let disableBoard = () => {
         board.classList.add('disabled');
+    }
+
+    let findLine = (a, b) => {
+        for (let line of lines) {
+            if (line.getAttribute('coordinates') == `${a},${b}`) {
+                return line;
+            }
+        }
+
+        return;
     }
 
     let resetBoard = () => {
@@ -253,7 +305,9 @@ const displayController = (() => {
     }
 
     // Updates 'marker' attribute value
-    let updateMarker = (line, player) => {
+    let updateMarker = (a, b, player) => {
+        let line = findLine(a, b);
+
         line.setAttribute('marker', player);
         line.style.zIndex = z_index;
         z_index++;
