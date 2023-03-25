@@ -1,61 +1,108 @@
 const lines = document.querySelectorAll('.line');
 
 let bot = (difficulty) => {
+
+    /**
+     * Recursive algorithm to decide the next tic tac toe move. Also utilizes
+     * alpha-beta pruning.
+     * @param {integer} depth - # moves ahead
+     * @param {boolean} maximize - maximizer or minimizer
+     * @param {integer} alpha - tracks maximizer score
+     * @param {integer} beta - tracks minimizer score
+     * @returns bestScore - score for the best move possible
+     */
+    function minimax(depth, maximize, alpha, beta) {
+        let { status, symbol } = boardBrain.getGameStatus();
+        let botSymbol = myBot.getSymbol();
+        let playerSymbol = (botSymbol === 'X') ? 'O' : 'X';
+        let availableMoves = boardBrain.getEmptyCells();
+
+        if (status === 'win') {
+            if (symbol === botSymbol) {
+                return 1 * (availableMoves.length + 1);
+            }
+            else {
+                return -1 * (availableMoves.length + 1);
+            }
+        }
+        else if (status === 'tie') {
+            return 0;
+        }
+
+        let bestScore = Number.NEGATIVE_INFINITY;
+
+        if (maximize) {
+            for (let a of availableMoves) {
+                boardBrain.updateBoard(a[0], a[1], botSymbol);
+                let score = minimax(depth + 1, false, alpha, beta);
+                boardBrain.updateBoard(a[0], a[1], '');
+
+                alpha = Math.max(alpha, score);
+                if (beta <= alpha) break;
+
+                bestScore = Math.max(score, bestScore);
+            }
+        }
+        else {
+            bestScore = Number.POSITIVE_INFINITY;
+
+            for (let a of availableMoves) {
+                boardBrain.updateBoard(a[0], a[1], playerSymbol);
+                let score = minimax(depth + 1, true, alpha, beta);
+                boardBrain.updateBoard(a[0], a[1], '');
+
+                beta = Math.min(beta, score);
+                if (beta <= alpha) break;
+
+                bestScore = Math.min(score, bestScore);
+            }
+        }
+
+        return bestScore;
+    }
+    
     let dumbMove = () => {
         let possibleMoves = board.getPossibleMoves();
         let availableMoves = possibleMoves.length;
-
+        
         if (!availableMoves) {
             return;
         }
-
+        
         let [a, b] = possibleMoves[getRandomInt(availableMoves)];
 
         return [a, b];
     }
-
+    
     let normalMove;
     let smartMove;
-
+    
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-
+    
     let move;
 
-    if (difficulty === 'easy') {
-        move = dumbMove;
+    switch (difficulty) {
+        case 'medium':
+            move = normalMove;
+            break;
+        case 'hard':
+            move = smartMove;
+            break;
+        default:
+            move = dumbMove;
     }
-    else if (difficulty === 'medium') {}
-    else if (difficulty === 'hard') {}
 
     return Object.assign(
         {},
-        {
-            move,
-        }
+        { move }
     )
 };
 
 const board = (() => {
     const boardMap = new Map();
-    let possibleMoves = [
-        [1, 2],
-        [1, 3],
-        [1, 4],
-        [1, 5],
-        [1, 6],
-        [2, 3],
-        [2, 4],
-        [2, 5],
-        [2, 6],
-        [3, 4],
-        [3, 5],
-        [3, 6],
-        [4, 5],
-        [4, 6],
-        [5, 6]
-    ];
+    let possibleMoves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
     let losingTriangle = [];
 
     /* Checks the entire boardMap for a winning triangle */
@@ -78,13 +125,10 @@ const board = (() => {
             }
         }
 
-        return [
-            result,
-            losingTriangle
-        ]
+        return [result, losingTriangle];
     }
 
-    /* 
+    /** 
         Recursive function that will check whether or not triangle exists starting on line aInitial to bInitial.
 
         **All incoming parameter values must be integers**
@@ -120,6 +164,7 @@ const board = (() => {
         }
 
         a = b;
+
         for (let i = a + 1; i < 7; i++) {
             let result = createsTriangle(level + 1, player, aInitial, bInitial, a, i);
 
@@ -143,23 +188,7 @@ const board = (() => {
     let resetBrain = () => {
         boardMap.clear();
 
-        possibleMoves = [
-            [1, 2],
-            [1, 3],
-            [1, 4],
-            [1, 5],
-            [1, 6],
-            [2, 3],
-            [2, 4],
-            [2, 5],
-            [2, 6],
-            [3, 4],
-            [3, 5],
-            [3, 6],
-            [4, 5],
-            [4, 6],
-            [5, 6]
-        ];
+        possibleMoves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
     }
 
     let updateBrain = (a, b, marker) => {
@@ -167,7 +196,7 @@ const board = (() => {
         updatePossibleMoves(a, b);
     }
 
-    /* Removes line a->b from the possible moves */
+    /* Removes line [a,b] from the possibleMoves */
     let updatePossibleMoves = (a, b) => {
         for (let move in possibleMoves) {
             if (a == possibleMoves[move][0] && b == possibleMoves[move][1]) {
@@ -197,30 +226,21 @@ const director = (() => {
     let endGame = (winner, losingTriangle) => {
         winner = (winner) ? 'Red' : 'Blue';
         console.log(`Winner: ${winner}, Triangle: ${losingTriangle}`);
+        displayController.disableBoard();
     }
 
-    let botMove = () => {
-        let [botA, botB] = myBot.move();
-        board.updateBrain(botA, botB, currentPlayer);
-        displayController.updateMarker(botA, botB, currentPlayer);
+    let applyMove = (a, b) => {
+        board.updateBrain(a, b, currentPlayer);
+        displayController.updateMarker(a, b, currentPlayer);
     }
 
-    // Analyse the current player's move to see if they lost
     let makeMove = (line) => {
-        console.clear();
-
         if (line.getAttribute('marker') !== '') {
-            console.log(`Invalid move`);
             return;
         }
 
         let [a, b] = line.getAttribute('coordinates').split(',');
-        a = +a;
-        b = +b;
-
-        board.updateBrain(a, b, currentPlayer);
-        displayController.updateMarker(a, b, currentPlayer);
-
+        applyMove(a, b);
         let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
 
         if (gameOver) {
@@ -230,21 +250,20 @@ const director = (() => {
 
         if (gamemode === 'computer') {
             currentPlayer = 1 - currentPlayer;
-            botMove();
-
+            let [botA, botB] = myBot.move();
+            applyMove(botA, botB);
             let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
 
             if (gameOver) {
                 endGame(1 - currentPlayer, losingTriangle);
                 return;
             }
-
-            currentPlayer = 1 - currentPlayer;
         }
         else {
-            currentPlayer = 1 - currentPlayer;
             displayController.updateCurrentPlayer(currentPlayer);
         }
+
+        currentPlayer = 1 - currentPlayer;
     }
 
     let restartGame = () => {
@@ -284,6 +303,10 @@ const displayController = (() => {
         board.classList.add('disabled');
     }
 
+    let enableBoard = () => {
+        board.classList.remove('disabled');
+    }
+
     let findLine = (a, b) => {
         for (let line of lines) {
             if (line.getAttribute('coordinates') == `${a},${b}`) {
@@ -296,6 +319,7 @@ const displayController = (() => {
 
     let resetBoard = () => {
         clearBoard();
+        enableBoard();
         updateCurrentPlayer(0);
         z_index = 1;
     }

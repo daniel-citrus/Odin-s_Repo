@@ -55,7 +55,6 @@ table {
 
 /* End CSS Reset */
 
-
 :root {
     --player1-color: blue;
     --player1-hover: #0000ff67;
@@ -90,6 +89,10 @@ div[marker='1'] {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+}
+
+.board.disabled {
+    pointer-events: none;
 }
 
 .board div[marker='0'],
