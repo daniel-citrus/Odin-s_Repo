@@ -11,9 +11,9 @@ let bot = (difficulty) => {
      * @param {integer} beta - tracks minimizer score
      * @returns bestScore - score for the best move possible
      */
-    function minimax(depth, maximize, alpha, beta) {
-        let { status, symbol } = boardBrain.getGameStatus();
-        let botSymbol = myBot.getSymbol();
+    /* function minimax(depth, maximize, alpha, beta) {
+        let [gameOver, losingTriangle] = board.checkLoser();
+        let botNumber = myBot.getSymbol();
         let playerSymbol = (botSymbol === 'X') ? 'O' : 'X';
         let availableMoves = boardBrain.getEmptyCells();
 
@@ -59,28 +59,28 @@ let bot = (difficulty) => {
         }
 
         return bestScore;
-    }
-    
+    } */
+
     let dumbMove = () => {
         let possibleMoves = board.getPossibleMoves();
         let availableMoves = possibleMoves.length;
-        
+
         if (!availableMoves) {
             return;
         }
-        
+
         let [a, b] = possibleMoves[getRandomInt(availableMoves)];
 
         return [a, b];
     }
-    
+
     let normalMove;
     let smartMove;
-    
+
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    
+
     let move;
 
     switch (difficulty) {
