@@ -1,65 +1,7 @@
 const lines = document.querySelectorAll('.line');
 
-let bot = (difficulty) => {
-
-    /**
-     * Recursive algorithm to decide the next tic tac toe move. Also utilizes
-     * alpha-beta pruning.
-     * @param {integer} depth - # moves ahead
-     * @param {boolean} maximize - maximizer or minimizer
-     * @param {integer} alpha - tracks maximizer score
-     * @param {integer} beta - tracks minimizer score
-     * @returns bestScore - score for the best move possible
-     */
-    /* function minimax(depth, maximize, alpha, beta) {
-        let [gameOver, losingTriangle] = board.checkLoser();
-        let botNumber = myBot.getSymbol();
-        let playerSymbol = (botSymbol === 'X') ? 'O' : 'X';
-        let availableMoves = boardBrain.getEmptyCells();
-
-        if (status === 'win') {
-            if (symbol === botSymbol) {
-                return 1 * (availableMoves.length + 1);
-            }
-            else {
-                return -1 * (availableMoves.length + 1);
-            }
-        }
-        else if (status === 'tie') {
-            return 0;
-        }
-
-        let bestScore = Number.NEGATIVE_INFINITY;
-
-        if (maximize) {
-            for (let a of availableMoves) {
-                boardBrain.updateBoard(a[0], a[1], botSymbol);
-                let score = minimax(depth + 1, false, alpha, beta);
-                boardBrain.updateBoard(a[0], a[1], '');
-
-                alpha = Math.max(alpha, score);
-                if (beta <= alpha) break;
-
-                bestScore = Math.max(score, bestScore);
-            }
-        }
-        else {
-            bestScore = Number.POSITIVE_INFINITY;
-
-            for (let a of availableMoves) {
-                boardBrain.updateBoard(a[0], a[1], playerSymbol);
-                let score = minimax(depth + 1, true, alpha, beta);
-                boardBrain.updateBoard(a[0], a[1], '');
-
-                beta = Math.min(beta, score);
-                if (beta <= alpha) break;
-
-                bestScore = Math.min(score, bestScore);
-            }
-        }
-
-        return bestScore;
-    } */
+let bot = (difficulty, botNum) => {
+    let botNumber = botNum;
 
     let dumbMove = () => {
         let possibleMoves = board.getPossibleMoves();
@@ -75,7 +17,51 @@ let bot = (difficulty) => {
     }
 
     let normalMove;
-    let smartMove;
+    let smartMove = () => {
+        let possibleMoves = board.getPossibleMoves();
+        let availableMoves = possibleMoves.length;
+
+        if (!availableMoves) {
+            return;
+        }
+
+        let bestScore = Number.NEGATIVE_INFINITY;
+        let score;
+        let a, b;
+
+        for (let move of possibleMoves) {
+            board.update(move[0], move[1], botNumber);
+            score = minimax(0, true, Math.NEGATIVE_INFINITY, Math.POSITIVE_INFINITY, botNumber);
+            board.remove(move[0], move[1]);
+        }
+
+        if (bestScore < score) {
+            bestScore = score;
+            a = move[0];
+            b = move[1];
+        }
+
+        return [a, b];
+    }
+
+    function minimax(maximize, alpha, beta, currentPlayer) {
+        let possibleMoves = board.getPossibleMoves();
+        let [gameOver, triangle] = board.checkLoser(currentPlayer);
+
+        if (gameOver) {
+            return Math.abs(possibleMoves.length - 15);
+        }
+        
+
+        for (let move of possibleMoves) {
+            if (maximize) {
+                
+            }
+            else {
+
+            }
+        }
+    }
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -83,15 +69,14 @@ let bot = (difficulty) => {
 
     let move;
 
-    switch (difficulty) {
-        case 'medium':
-            move = normalMove;
-            break;
-        case 'hard':
-            move = smartMove;
-            break;
-        default:
-            move = dumbMove;
+    if (difficulty === 'easy') {
+        move = dumbMove;
+    }
+    /* else if (difficulty === 'medium') {
+        move = normalMove;
+    } */
+    else if (difficulty === 'hard') {
+        move = smartMove;
     }
 
     return Object.assign(
@@ -191,13 +176,21 @@ const board = (() => {
         possibleMoves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
     }
 
-    let updateBrain = (a, b, marker) => {
+    let update = (a, b, marker) => {
         boardMap.set(`${a},${b}`, marker);
-        updatePossibleMoves(a, b);
+        removePossibleMove(a, b);
     }
 
-    /* Removes line [a,b] from the possibleMoves */
-    let updatePossibleMoves = (a, b) => {
+    let remove = (a, b) => {
+        boardMap.delete(`${a},${b}`);
+        addPossibleMove(a, b);
+    }
+
+    let addPossibleMove = (a, b) => {
+        possibleMoves.push([a, b]);
+    }
+
+    let removePossibleMove = (a, b) => {
         for (let move in possibleMoves) {
             if (a == possibleMoves[move][0] && b == possibleMoves[move][1]) {
                 possibleMoves.splice(move, 1);
@@ -210,9 +203,11 @@ const board = (() => {
         {
             checkLoser,
             getBoardMap,
+            addPossibleMove,
             getPossibleMoves,
             resetBrain,
-            updateBrain,
+            update,
+            remove,
         },
     );
 })();
@@ -221,7 +216,7 @@ const board = (() => {
 const director = (() => {
     let currentPlayer = 0; // 0 = player1 | 1 = player2
     let gamemode = 'computer';
-    let myBot = bot('easy');
+    let myBot = bot('hard', 1 - currentPlayer);
 
     let endGame = (winner, losingTriangle) => {
         winner = (winner) ? 'Red' : 'Blue';
@@ -230,7 +225,7 @@ const director = (() => {
     }
 
     let applyMove = (a, b) => {
-        board.updateBrain(a, b, currentPlayer);
+        board.update(a, b, currentPlayer);
         displayController.updateMarker(a, b, currentPlayer);
     }
 
@@ -314,7 +309,7 @@ const displayController = (() => {
             }
         }
 
-        return;
+        return null;
     }
 
     let resetBoard = () => {
@@ -331,6 +326,8 @@ const displayController = (() => {
     // Updates 'marker' attribute value
     let updateMarker = (a, b, player) => {
         let line = findLine(a, b);
+
+        if (!line) return;
 
         line.setAttribute('marker', player);
         line.style.zIndex = z_index;

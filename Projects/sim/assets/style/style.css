@@ -97,7 +97,7 @@ div[marker='1'] {
     min-width: 320px;
     position: relative;
 
-    display: none;
+    display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
@@ -241,6 +241,10 @@ div[marker='1'] {
     transform: rotate(30deg);
     top: 110px;
     left: 47px;
+}
+
+.starter {
+    display: none;
 }
 
 .starter .difficulty input:checked+label[for='easy'] {

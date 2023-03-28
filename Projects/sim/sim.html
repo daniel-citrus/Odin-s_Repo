@@ -6,7 +6,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- Stylesheet -->
         <link rel="stylesheet" href="/assets/style/style.css">
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/favicon_io/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/favicon_io/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/media/favicon_io/favicon-16x16.png">
+        <link rel="manifest" href="/assets/media/favicon_io/site.webmanifest">
+
+        <!-- Script -->
         <script src="/assets/scripts/script.js" defer></script>
         <title>Sim</title>
     </head>
@@ -15,7 +24,7 @@
         <div class="starter">
             <div class="header">
                 <div class="title">Sim</div>
-                <img src="/assets/media/tic-tac-toe.png" alt="Hexagon">
+                <img src="/assets/media/hexagon.png" alt="Hexagon">
             </div>
             <form>
                 <div class="gamemode">
@@ -28,6 +37,19 @@
                         <div class="radio-option">
                             <input type="radio" name="gamemode" id="two_player" value="two_player" required>
                             <label for="two_player">Two Player</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="firstPlayer">
+                    <div class="title">Player 1</div>
+                    <fieldset>
+                        <div class="radio-option">
+                            <input type="radio" name="symbol" id="first" value="0" required checked>
+                            <label for="first">Blue</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="symbol" id="second" value="1">
+                            <label for="second">Red</label>
                         </div>
                     </fieldset>
                 </div>
