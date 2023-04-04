@@ -16,9 +16,8 @@ let bot = (difficulty, botNum) => {
         return [a, b];
     }
 
-    let normalMove;
     let smartMove = () => {
-        let possibleMoves = board.getPossibleMoves();
+        let possibleMoves = JSON.parse(JSON.stringify(board.getPossibleMoves()));
         let availableMoves = possibleMoves.length;
 
         if (!availableMoves) {
@@ -29,37 +28,62 @@ let bot = (difficulty, botNum) => {
         let score;
         let a, b;
 
-        for (let move of possibleMoves) {
-            board.update(move[0], move[1], botNumber);
-            score = minimax(0, true, Math.NEGATIVE_INFINITY, Math.POSITIVE_INFINITY, botNumber);
-            board.remove(move[0], move[1]);
-        }
+        console.log(possibleMoves);
+        let move = possibleMoves[0];
+        //for (let move of possibleMoves) {
+        board.update(move[0], move[1], botNumber);
+        score = minimax(true, botNumber);
+        board.remove(move[0], move[1]);
 
         if (bestScore < score) {
+            console.log('triangle');
             bestScore = score;
             a = move[0];
             b = move[1];
         }
+        //}
 
         return [a, b];
     }
 
-    function minimax(maximize, alpha, beta, currentPlayer) {
+    function minimax(maximize, currentPlayer) {
         let possibleMoves = board.getPossibleMoves();
+        let movesLeft = possibleMoves.length;
         let [gameOver, triangle] = board.checkLoser(currentPlayer);
+        let score;
 
-        if (gameOver) {
-            return Math.abs(possibleMoves.length - 15);
+        if (movesLeft === 0) {
+            return 15;
         }
-        
+        else if (gameOver) {
+            return Math.abs(movesLeft - 15);
+        }
 
-        for (let move of possibleMoves) {
-            if (maximize) {
-                
-            }
-            else {
+        if (maximize) {
+            let maxEval = Number.NEGATIVE_INFINITY;
 
+            for (let move of possibleMoves) {
+                board.update(move[0], move[1], currentPlayer);
+                score = minimax(false, 1 - currentPlayer);
+                board.remove(move[0], move[1]);
+
+                maxEval = Math.max(maxEval, score);
             }
+
+            return maxEval;
+        }
+        else {
+            let minEval = Number.POSITIVE_INFINITY;
+
+            for (let move of possibleMoves) {
+                board.update(move[0], move[1], currentPlayer);
+                score = minimax(true, 1 - currentPlayer);
+                board.remove(move[0], move[1]);
+
+                minEval = Math.min(minEval, score);
+            }
+
+            return minEval;
         }
     }
 
@@ -69,14 +93,11 @@ let bot = (difficulty, botNum) => {
 
     let move;
 
-    if (difficulty === 'easy') {
-        move = dumbMove;
-    }
-    /* else if (difficulty === 'medium') {
-        move = normalMove;
-    } */
-    else if (difficulty === 'hard') {
+    if (difficulty === 'hard') {
         move = smartMove;
+    }
+    else {
+        move = dumbMove;
     }
 
     return Object.assign(
