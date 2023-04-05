@@ -1,6 +1,7 @@
 const lines = document.querySelectorAll('.line');
 const startButton = document.getElementById('startGame');
-const gameBoard = document.querySelector('.game');
+const game = document.querySelector('.game');
+const gameBoard = game.querySelector('.board');
 const starterForm = document.querySelector('.starter');
 
 startButton.addEventListener('click', () => {
@@ -397,11 +398,11 @@ const displayController = (() => {
     }
 
     let disableBoard = () => {
-        gameBoard.classList.add('disabled');
+        game.classList.add('disabled');
     }
 
     let enableBoard = () => {
-        gameBoard.classList.remove('disabled');
+        game.classList.remove('disabled');
     }
 
     let findLine = (a, b) => {
@@ -415,11 +416,11 @@ const displayController = (() => {
     }
 
     let showBoard = () => {
-        gameBoard.style.display = 'flex';
+        game.style.display = 'flex';
     }
 
     let hideBoard = () => {
-        gameBoard.style.display = 'none';
+        game.style.display = 'none';
     }
 
     let showStarter = () => {

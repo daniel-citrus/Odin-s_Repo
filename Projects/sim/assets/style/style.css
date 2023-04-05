@@ -263,7 +263,14 @@ div[marker='1'] {
 }
 
 .starter {
-    display: block;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.starter form input[type="radio"] {
+    display: none;
 }
 
 .starter .difficulty input:checked+label[for='easy'] {
@@ -279,6 +286,14 @@ div[marker='1'] {
 .starter .difficulty input:checked+label[for='hard'] {
     background: #cd7a74;
     border: 2px solid #995a56;
+}
+
+.starter .firstPlayer input:checked+label[for='first'] {
+    background: blue;
+}
+
+.starter .firstPlayer input:checked+label[for='second'] {
+    background: red;
 }
 
 @media screen and (min-width: 769px) {
