@@ -17,7 +17,7 @@ let bot = (difficulty, botNum) => {
     }
 
     let smartMove = () => {
-        let possibleMoves = JSON.parse(JSON.stringify(board.getPossibleMoves()));
+        let possibleMoves = board.getPossibleMoves();
         let availableMoves = possibleMoves.length;
 
         if (!availableMoves) {
@@ -28,20 +28,17 @@ let bot = (difficulty, botNum) => {
         let score;
         let a, b;
 
-        console.log(possibleMoves);
-        let move = possibleMoves[0];
-        //for (let move of possibleMoves) {
-        board.update(move[0], move[1], botNumber);
-        score = minimax(true, botNumber);
-        board.remove(move[0], move[1]);
+        for (let move of possibleMoves) {
+            board.update(move[0], move[1], botNumber);
+            score = minimax(true, botNumber);
+            board.remove(move[0], move[1]);
 
-        if (bestScore < score) {
-            console.log('triangle');
-            bestScore = score;
-            a = move[0];
-            b = move[1];
+            if (bestScore < score) {
+                bestScore = score;
+                a = move[0];
+                b = move[1];
+            }
         }
-        //}
 
         return [a, b];
     }
@@ -52,11 +49,12 @@ let bot = (difficulty, botNum) => {
         let [gameOver, triangle] = board.checkLoser(currentPlayer);
         let score;
 
-        if (movesLeft === 0) {
-            return 15;
-        }
-        else if (gameOver) {
-            return Math.abs(movesLeft - 15);
+        if (gameOver) {
+            if (maximize) {
+                return -movesLeft;
+            }
+
+            return 15 - movesLeft;
         }
 
         if (maximize) {
@@ -108,14 +106,29 @@ let bot = (difficulty, botNum) => {
 
 const board = (() => {
     const boardMap = new Map();
-    let possibleMoves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
     let losingTriangle = [];
 
-    /* Checks the entire boardMap for a winning triangle */
-    let checkLoser = (currentPlayer) => {
+    /**
+        Checks the entire boardMap for a losing triangle
+        made by currentPlayer.
+        We can also check a different map by passing it
+        as a parameter.
+
+        @param currentPlayer - player being evaluated
+        @param otherMap - an alternative map to be checked
+    */
+    let checkLoser = (currentPlayer, otherMap = false) => {
+        let map;
         let result = null;
 
-        for (let [line, player] of boardMap) {
+        if (otherMap) {
+            map = otherMap;
+        }
+        else {
+            map = boardMap;
+        }
+
+        for (let [line, player] of map) {
             losingTriangle = [];
 
             if (player != currentPlayer) {
@@ -188,35 +201,28 @@ const board = (() => {
     }
 
     let getPossibleMoves = () => {
-        return possibleMoves;
+        let moves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
+        let result = [];
+
+        for (let move of moves) {
+            if (!boardMap.has(`${move[0]},${move[1]}`)) {
+                result.push([move[0], move[1]]);
+            }
+        }
+
+        return result;
     }
 
     let resetBrain = () => {
         boardMap.clear();
-
-        possibleMoves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
     }
 
     let update = (a, b, marker) => {
         boardMap.set(`${a},${b}`, marker);
-        removePossibleMove(a, b);
     }
 
     let remove = (a, b) => {
         boardMap.delete(`${a},${b}`);
-        addPossibleMove(a, b);
-    }
-
-    let addPossibleMove = (a, b) => {
-        possibleMoves.push([a, b]);
-    }
-
-    let removePossibleMove = (a, b) => {
-        for (let move in possibleMoves) {
-            if (a == possibleMoves[move][0] && b == possibleMoves[move][1]) {
-                possibleMoves.splice(move, 1);
-            }
-        }
     }
 
     return Object.assign(
@@ -224,7 +230,6 @@ const board = (() => {
         {
             checkLoser,
             getBoardMap,
-            addPossibleMove,
             getPossibleMoves,
             resetBrain,
             update,
