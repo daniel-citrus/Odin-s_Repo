@@ -144,6 +144,25 @@ div[marker='1'] {
     border: 1px solid --player2-color;
 }
 
+.game {
+    display: none;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.game .buttons {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.game .buttons button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
 .line {
     transform: rotate(30deg);
     position: absolute;
@@ -244,7 +263,7 @@ div[marker='1'] {
 }
 
 .starter {
-    display: none;
+    display: block;
 }
 
 .starter .difficulty input:checked+label[for='easy'] {

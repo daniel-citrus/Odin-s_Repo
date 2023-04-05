@@ -1,4 +1,11 @@
 const lines = document.querySelectorAll('.line');
+const startButton = document.getElementById('startGame');
+const gameBoard = document.querySelector('.game');
+const starterForm = document.querySelector('.starter');
+
+startButton.addEventListener('click', () => {
+    director.startGame();
+});
 
 let bot = (difficulty, botNum) => {
     let botNumber = botNum;
@@ -32,7 +39,7 @@ let bot = (difficulty, botNum) => {
             [a, b] = possibleMoves[rand];
 
             board.update(a, b, botNum);
-            let [gameOver, losingTriangle] = board.checkLoser(botNum);
+            let [gameOver,] = board.checkLoser(botNum);
             board.remove(a, b);
 
             if (!gameOver) {
@@ -53,7 +60,7 @@ let bot = (difficulty, botNum) => {
         if (movesRemaining === 0) {
             return;
         }
-        else if (movesRemaining > 7) {
+        else if (movesRemaining > 9) {
             return normalMove();
         }
 
@@ -83,7 +90,7 @@ let bot = (difficulty, botNum) => {
     function minimax(maximize, currentPlayer, alpha, beta) {
         let possibleMoves = board.getPossibleMoves();
         let movesRemaining = possibleMoves.length;
-        let [gameOver, triangle] = board.checkLoser(currentPlayer);
+        let [gameOver,] = board.checkLoser(currentPlayer);
         let score;
 
         if (gameOver) {
@@ -232,10 +239,6 @@ const board = (() => {
         return false;
     }
 
-    let getBoardMap = () => {
-        return boardMap;
-    }
-
     let getPossibleMoves = () => {
         let moves = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 3], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6], [4, 5], [4, 6], [5, 6]];
         let result = [];
@@ -265,7 +268,6 @@ const board = (() => {
         {},
         {
             checkLoser,
-            getBoardMap,
             getPossibleMoves,
             resetBrain,
             update,
@@ -276,19 +278,20 @@ const board = (() => {
 
 // Controls the game flow
 const director = (() => {
-    let currentPlayer = 0; // 0 = player1 | 1 = player2
-    let gamemode = 'computer';
-    let myBot = bot('hard', 1 - currentPlayer);
+    let myBot;
+    let firstPlayer;
+    let currentPlayer; // 0 = player1 | 1 = player2
+    let gamemode;
+
+    let applyMove = (a, b) => {
+        board.update(a, b, currentPlayer);
+        displayController.updateMarker(a, b, currentPlayer);
+    }
 
     let endGame = (winner, losingTriangle) => {
         winner = (winner) ? 'Red' : 'Blue';
         console.log(`Winner: ${winner}, Triangle: ${losingTriangle}`);
         displayController.disableBoard();
-    }
-
-    let applyMove = (a, b) => {
-        board.update(a, b, currentPlayer);
-        displayController.updateMarker(a, b, currentPlayer);
     }
 
     let makeMove = (line) => {
@@ -315,32 +318,69 @@ const director = (() => {
                 endGame(1 - currentPlayer, losingTriangle);
                 return;
             }
+            currentPlayer = 1 - currentPlayer;
         }
         else {
+            currentPlayer = 1 - currentPlayer;
             displayController.updateCurrentPlayer(currentPlayer);
         }
 
-        currentPlayer = 1 - currentPlayer;
     }
 
     let restartGame = () => {
-        currentPlayer = 0;
-        displayController.resetBoard();
+        currentPlayer = firstPlayer;
+        displayController.resetBoard(firstPlayer);
         board.resetBrain();
+    }
+
+    let startGame = () => {
+        initializeValues();
+        displayController.showBoard();
+        displayController.hideStarter();
+        restartGame();
+    }
+
+    let initializeValues = () => {
+        let gameDifficulty = document.getElementsByName('difficulty');
+        let firstPlayerSymbol = document.getElementsByName('symbol');
+        let gameMode = document.getElementsByName('gamemode');
+
+        for (let player of firstPlayerSymbol) {
+            if (player.checked) {
+                firstPlayer = +player.value;
+                currentPlayer = firstPlayer;
+            }
+        }
+
+        for (let mode of gameMode) {
+            if (mode.checked) {
+                gamemode = mode.value;
+            }
+        }
+
+        if (gamemode === 'two_player') {
+            return;
+        }
+
+        for (let diff of gameDifficulty) {
+            if (diff.checked) {
+                myBot = bot(diff.value, 1 - currentPlayer);
+            }
+        }
     }
 
     return Object.assign(
         {},
         {
             makeMove,
-            restartGame
+            restartGame,
+            startGame,
         },
     )
 })();
 
 // Controls the front-end
 const displayController = (() => {
-    let board = document.querySelector('.board');
     let z_index = 1; // Most recently marked line will appear above all other lines
 
     // Initialize eventListeners for each line
@@ -357,11 +397,11 @@ const displayController = (() => {
     }
 
     let disableBoard = () => {
-        board.classList.add('disabled');
+        gameBoard.classList.add('disabled');
     }
 
     let enableBoard = () => {
-        board.classList.remove('disabled');
+        gameBoard.classList.remove('disabled');
     }
 
     let findLine = (a, b) => {
@@ -374,15 +414,32 @@ const displayController = (() => {
         return null;
     }
 
-    let resetBoard = () => {
+    let showBoard = () => {
+        gameBoard.style.display = 'flex';
+    }
+
+    let hideBoard = () => {
+        gameBoard.style.display = 'none';
+    }
+
+    let showStarter = () => {
+        starterForm.style.display = 'block';
+    }
+
+    let hideStarter = () => {
+        starterForm.style.display = 'none';
+    }
+
+
+    let resetBoard = (firstPlayer) => {
         clearBoard();
         enableBoard();
-        updateCurrentPlayer(0);
+        updateCurrentPlayer(firstPlayer);
         z_index = 1;
     }
 
     let updateCurrentPlayer = (player) => {
-        (player) ? board.classList.add('p2') : board.classList.remove('p2');
+        (player) ? gameBoard.classList.add('p2') : gameBoard.classList.remove('p2');
     }
 
     // Updates 'marker' attribute value
@@ -400,7 +457,11 @@ const displayController = (() => {
         {},
         {
             disableBoard,
+            hideBoard,
+            hideStarter,
             resetBoard,
+            showBoard,
+            showStarter,
             updateCurrentPlayer,
             updateMarker
         },
