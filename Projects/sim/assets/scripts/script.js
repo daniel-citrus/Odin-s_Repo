@@ -5,27 +5,60 @@ let bot = (difficulty, botNum) => {
 
     let dumbMove = () => {
         let possibleMoves = board.getPossibleMoves();
-        let availableMoves = possibleMoves.length;
+        let movesRemaining = possibleMoves.length;
 
-        if (!availableMoves) {
+        if (!movesRemaining) {
             return;
         }
 
-        let [a, b] = possibleMoves[getRandomInt(availableMoves)];
+        let [a, b] = possibleMoves[getRandomInt(movesRemaining)];
+
+        return [a, b];
+    }
+
+    let normalMove = () => {
+        let possibleMoves = board.getPossibleMoves();
+        let movesRemaining = possibleMoves.length;
+
+        if (!movesRemaining) {
+            return;
+        }
+
+        let a, b;
+
+        while (movesRemaining > 0) {
+            let rand = getRandomInt(movesRemaining);
+
+            [a, b] = possibleMoves[rand];
+
+            board.update(a, b, botNum);
+            let [gameOver, losingTriangle] = board.checkLoser(botNum);
+            board.remove(a, b);
+
+            if (!gameOver) {
+                break;
+            }
+
+            possibleMoves.splice(rand, 1);
+            movesRemaining = possibleMoves.length;
+        }
 
         return [a, b];
     }
 
     let smartMove = () => {
         let possibleMoves = board.getPossibleMoves();
-        let availableMoves = possibleMoves.length;
+        let movesRemaining = possibleMoves.length;
 
-        if (!availableMoves) {
+        if (movesRemaining === 0) {
             return;
+        }
+        else if (movesRemaining > 7) {
+            return normalMove();
         }
 
         let bestScore = Number.NEGATIVE_INFINITY;
-        let score;
+        let score = 0;
         let a, b;
 
         for (let move of possibleMoves) {
@@ -38,23 +71,27 @@ let bot = (difficulty, botNum) => {
                 a = move[0];
                 b = move[1];
             }
+
+            if (bestScore == 15) {
+                break;
+            }
         }
 
         return [a, b];
     }
 
-    function minimax(maximize, currentPlayer) {
+    function minimax(maximize, currentPlayer, alpha, beta) {
         let possibleMoves = board.getPossibleMoves();
-        let movesLeft = possibleMoves.length;
+        let movesRemaining = possibleMoves.length;
         let [gameOver, triangle] = board.checkLoser(currentPlayer);
         let score;
 
         if (gameOver) {
             if (maximize) {
-                return -movesLeft;
+                return -movesRemaining;
             }
 
-            return 15 - movesLeft;
+            return 15 - movesRemaining;
         }
 
         if (maximize) {
@@ -62,10 +99,15 @@ let bot = (difficulty, botNum) => {
 
             for (let move of possibleMoves) {
                 board.update(move[0], move[1], currentPlayer);
-                score = minimax(false, 1 - currentPlayer);
+                score = minimax(false, 1 - currentPlayer, alpha, beta);
                 board.remove(move[0], move[1]);
 
                 maxEval = Math.max(maxEval, score);
+                alpha = Math.max(alpha, score);
+
+                if (beta <= alpha) {
+                    break;
+                }
             }
 
             return maxEval;
@@ -75,10 +117,11 @@ let bot = (difficulty, botNum) => {
 
             for (let move of possibleMoves) {
                 board.update(move[0], move[1], currentPlayer);
-                score = minimax(true, 1 - currentPlayer);
+                score = minimax(true, 1 - currentPlayer, alpha, beta);
                 board.remove(move[0], move[1]);
 
                 minEval = Math.min(minEval, score);
+                beta = Math.min(beta, score);
             }
 
             return minEval;
@@ -93,6 +136,9 @@ let bot = (difficulty, botNum) => {
 
     if (difficulty === 'hard') {
         move = smartMove;
+    }
+    else if (difficulty === 'medium') {
+        move = normalMove;
     }
     else {
         move = dumbMove;
@@ -110,25 +156,15 @@ const board = (() => {
 
     /**
         Checks the entire boardMap for a losing triangle
-        made by currentPlayer.
-        We can also check a different map by passing it
-        as a parameter.
+        made by currentPlayer
 
         @param currentPlayer - player being evaluated
         @param otherMap - an alternative map to be checked
     */
-    let checkLoser = (currentPlayer, otherMap = false) => {
-        let map;
+    let checkLoser = (currentPlayer) => {
         let result = null;
 
-        if (otherMap) {
-            map = otherMap;
-        }
-        else {
-            map = boardMap;
-        }
-
-        for (let [line, player] of map) {
+        for (let [line, player] of boardMap) {
             losingTriangle = [];
 
             if (player != currentPlayer) {
