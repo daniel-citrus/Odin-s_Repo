@@ -75,13 +75,10 @@ table {
 }
 
 body {
-    position: relative;
     height: 100vh;
-    width: 100%;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: center;
-    align-items: center;
 }
 
 div[marker='0'] {
@@ -265,6 +262,22 @@ div[marker='1'] {
 .starter {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0;
+}
+
+.starter form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.starter form fieldset {
+    display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
 }
