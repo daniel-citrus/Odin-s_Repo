@@ -332,19 +332,22 @@ const director = (() => {
         currentPlayer = firstPlayer;
         displayController.resetBoard(firstPlayer);
         board.resetBrain();
+
+        if (gamemode === 'computer') {
+
+        }
     }
 
     let startGame = () => {
         initializeValues();
-        displayController.showBoard();
+
         displayController.hideStarter();
+        displayController.showBoard();
         restartGame();
     }
 
     let initializeValues = () => {
-        let gameDifficulty = document.getElementsByName('difficulty');
         let firstPlayerSymbol = document.getElementsByName('symbol');
-        let gameMode = document.getElementsByName('gamemode');
 
         for (let player of firstPlayerSymbol) {
             if (player.checked) {
@@ -352,6 +355,8 @@ const director = (() => {
                 currentPlayer = firstPlayer;
             }
         }
+
+        let gameMode = document.getElementsByName('gamemode');
 
         for (let mode of gameMode) {
             if (mode.checked) {
@@ -362,6 +367,8 @@ const director = (() => {
         if (gamemode === 'two_player') {
             return;
         }
+
+        let gameDifficulty = document.getElementsByName('difficulty');
 
         for (let diff of gameDifficulty) {
             if (diff.checked) {
@@ -398,11 +405,11 @@ const displayController = (() => {
     }
 
     let disableBoard = () => {
-        game.classList.add('disabled');
+        gameBoard.classList.add('disabled');
     }
 
     let enableBoard = () => {
-        game.classList.remove('disabled');
+        gameBoard.classList.remove('disabled');
     }
 
     let findLine = (a, b) => {
