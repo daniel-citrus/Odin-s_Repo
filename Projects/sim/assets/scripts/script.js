@@ -1,8 +1,18 @@
-const lines = document.querySelectorAll('.line');
-const startButton = document.getElementById('startGame');
+const exitButton = document.getElementById('exitGame');
 const game = document.querySelector('.game');
 const gameBoard = game.querySelector('.board');
+const lines = document.querySelectorAll('.line');
+const resetButton = document.getElementById('restartGame');
+const startButton = document.getElementById('startGame');
 const starterForm = document.querySelector('.starter');
+
+exitButton.addEventListener('click', () => {
+    director.exitGame();
+})
+
+resetButton.addEventListener('click', () => {
+    director.restartGame();
+});
 
 startButton.addEventListener('click', () => {
     director.startGame();
@@ -293,6 +303,43 @@ const director = (() => {
         displayController.disableBoard();
     }
 
+    let exitGame = () => {
+        displayController.hideBoard();
+        displayController.showStarter();
+    }
+
+    /* This function must be executed before any other function */
+    let initializeValues = () => {
+        let firstPlayerSymbol = document.getElementsByName('symbol');
+
+        for (let player of firstPlayerSymbol) {
+            if (player.checked) {
+                firstPlayer = +player.value;
+                currentPlayer = firstPlayer;
+            }
+        }
+
+        let gameMode = document.getElementsByName('gamemode');
+
+        for (let mode of gameMode) {
+            if (mode.checked) {
+                gamemode = mode.value;
+            }
+        }
+
+        if (gamemode === 'two_player') {
+            return;
+        }
+
+        let gameDifficulty = document.getElementsByName('difficulty');
+
+        for (let diff of gameDifficulty) {
+            if (diff.checked) {
+                myBot = bot(diff.value, 1 - currentPlayer);
+            }
+        }
+    }
+
     let makeMove = (line) => {
         if (line.getAttribute('marker') !== '') {
             return;
@@ -348,41 +395,10 @@ const director = (() => {
         restartGame();
     }
 
-    /* This function must be executed before any other function */
-    let initializeValues = () => {
-        let firstPlayerSymbol = document.getElementsByName('symbol');
-
-        for (let player of firstPlayerSymbol) {
-            if (player.checked) {
-                firstPlayer = +player.value;
-                currentPlayer = firstPlayer;
-            }
-        }
-
-        let gameMode = document.getElementsByName('gamemode');
-
-        for (let mode of gameMode) {
-            if (mode.checked) {
-                gamemode = mode.value;
-            }
-        }
-
-        if (gamemode === 'two_player') {
-            return;
-        }
-
-        let gameDifficulty = document.getElementsByName('difficulty');
-
-        for (let diff of gameDifficulty) {
-            if (diff.checked) {
-                myBot = bot(diff.value, 1 - currentPlayer);
-            }
-        }
-    }
-
     return Object.assign(
         {},
         {
+            exitGame,
             makeMove,
             restartGame,
             startGame,
