@@ -68,17 +68,69 @@ table {
     --accents-or-warnings: #E74C3C;
     /* This is a vibrant red color that could be used for accents or warnings */
 
-    --player1-color: blue;
+    --player1-color: rgb(0, 0, 219);
     --player1-hover: #0000ff67;
-    --player2-color: red;
+    --player2-color: #ea0000;
     --player2-hover: #ff000079;
+    --button-not-selected: #717171;
+}
+
+@font-face {
+    font-family: 'Indie_Flower';
+    src: url(/assets/media/fonts/Indie_Flower/IndieFlower-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Fredericka_the_Great';
+    src: url(/assets/media/fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Itim';
+    src: url(/assets/media/fonts/Itim/Itim-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url(/assets/media/fonts/Caveat/Caveat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: 'Noto_Serif_Khojki';
+    src: url(/assets/media/fonts/Noto_Serif_Khojki/NotoSerifKhojki-VariableFont_wght.ttf);
 }
 
 body {
-    height: 100vh;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+    padding: 40px 0;
+}
+
+button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    font-size: 1.7rem;
+    font-family: 'Itim';
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid rgb(221, 221, 221);
+    border-radius: 4px;
+    background: white;
+    padding: 13px;
+}
+
+button:hover {
+    transition: all 0.2s ease-in-out;
+    background: rgb(221, 221, 221);
+    box-shadow: 0 0 6px #7575754b;
+    border: 2px solid rgba(161, 161, 161, 0.555);
+    cursor: pointer;
 }
 
 div[marker='0'] {
@@ -132,13 +184,13 @@ div[marker='1'] {
     background: var(--player1-color);
     z-index: 29;
     box-shadow: 0px 0px 5px var(--player1-hover);
-    border: 1px solid --player1-color;
+    border: 2px solid --player1-color;
 }
 
 .board.p2 .line:hover {
     background: var(--player2-color);
     box-shadow: 0px 0px 5px var(--player2-hover);
-    border: 1px solid --player2-color;
+    border: 2px solid --player2-color;
 }
 
 .game {
@@ -152,12 +204,6 @@ div[marker='1'] {
     flex-flow: column nowrap;
     gap: 10px;
     width: 100%;
-}
-
-.game .buttons button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
 }
 
 .line {
@@ -263,57 +309,88 @@ div[marker='1'] {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: center;
-    margin: auto 0;
+    text-align: center;
+}
+
+.starter .header .title {
+    font-family: 'Fredericka_the_Great';
+    font-size: 6rem;
+}
+
+.starter .logo {
+    height: auto;
+    width: 100%;
+    max-width: 400px;
 }
 
 .starter form {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: center;
-    text-align: center;
+    gap: 10px;
+    font-family: 'Indie_Flower';
+    padding: 10px;
+}
+
+.starter form>div {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
 .starter form fieldset {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    gap: 5px;
+}
+
+.starter form label {
+    display: block;
+    padding: 15px 0;
+    border: 2px solid rgb(216, 216, 216);
+    color: var(--button-not-selected);
+    font-size: 1.6rem;
+    border-radius: 4px;
 }
 
 .starter form input[type="radio"] {
     display: none;
 }
 
+.starter form label:hover {
+    background: rgba(224, 224, 224, 0.164);
+    border: 2px solid rgba(161, 161, 161, 0.555);
+    box-shadow: 0 0 6px #7575754b;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.starter form .title {
+    font-size: 1.7rem;
+    font-family: 'Itim';
+}
+
+.starter form input:checked+label {
+    color: black;
+    background: rgba(224, 224, 224, 0.466);
+    border: 2px solid rgb(161, 161, 161);
+    box-shadow: 0 0 7px #7575759c;
+}
+
 .starter .difficulty input:checked+label[for='easy'] {
-    background: #c3db8c;
+    background: #c7db98;
     border: 2px solid #859464;
 }
 
 .starter .difficulty input:checked+label[for='medium'] {
-    background: #fddc7b;
+    background: #ffe289;
     border: 2px solid #af9956;
 }
 
 .starter .difficulty input:checked+label[for='hard'] {
-    background: #cd7a74;
+    background: #e09994;
     border: 2px solid #995a56;
 }
-
-.starter .firstPlayer input:checked+label[for='first'] {
-    background: blue;
-}
-
-.starter .firstPlayer input:checked+label[for='second'] {
-    background: red;
-}
-
-.starter .gamemode input:checked+label {
-    background: grey;
-    color: white;
-}
-
 
 @media screen and (min-width: 769px) {
     .board {
