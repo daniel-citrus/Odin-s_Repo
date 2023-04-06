@@ -309,6 +309,12 @@ div[marker='1'] {
     background: red;
 }
 
+.starter .gamemode input:checked+label {
+    background: grey;
+    color: white;
+}
+
+
 @media screen and (min-width: 769px) {
     .board {
         width: 500px;

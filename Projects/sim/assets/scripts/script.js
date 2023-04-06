@@ -165,9 +165,7 @@ const board = (() => {
     /**
         Checks the entire boardMap for a losing triangle
         made by currentPlayer
-
         @param currentPlayer - player being evaluated
-        @param otherMap - an alternative map to be checked
     */
     let checkLoser = (currentPlayer) => {
         let result = null;
@@ -325,7 +323,6 @@ const director = (() => {
         else {
             displayController.updateCurrentPlayer(currentPlayer);
         }
-
     }
 
     /*
@@ -342,7 +339,6 @@ const director = (() => {
             currentPlayer = 1 - currentPlayer;
             displayController.updateCurrentPlayer(currentPlayer);
         }
-
     }
 
     let startGame = () => {
