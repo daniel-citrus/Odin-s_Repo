@@ -309,8 +309,9 @@ const director = (() => {
             return;
         }
 
+        currentPlayer = 1 - currentPlayer;
+
         if (gamemode === 'computer') {
-            currentPlayer = 1 - currentPlayer;
             let [botA, botB] = myBot.move();
             applyMove(botA, botB);
             let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
@@ -322,30 +323,36 @@ const director = (() => {
             currentPlayer = 1 - currentPlayer;
         }
         else {
+            displayController.updateCurrentPlayer(currentPlayer);
+        }
+
+    }
+
+    /*
+        Resets game and allows the bot to make the first move if the option is selected
+     */
+    let restartGame = () => {
+        currentPlayer = firstPlayer;
+        displayController.resetBoard(currentPlayer);
+        board.resetBrain();
+
+        if (firstPlayer && gamemode === 'computer') {
+            let [botA, botB] = myBot.move();
+            applyMove(botA, botB);
             currentPlayer = 1 - currentPlayer;
             displayController.updateCurrentPlayer(currentPlayer);
         }
 
     }
 
-    let restartGame = () => {
-        currentPlayer = firstPlayer;
-        displayController.resetBoard(firstPlayer);
-        board.resetBrain();
-
-        if (gamemode === 'computer') {
-
-        }
-    }
-
     let startGame = () => {
         initializeValues();
-
         displayController.hideStarter();
         displayController.showBoard();
         restartGame();
     }
 
+    /* This function must be executed before any other function */
     let initializeValues = () => {
         let firstPlayerSymbol = document.getElementsByName('symbol');
 
