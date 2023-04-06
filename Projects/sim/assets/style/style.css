@@ -90,16 +90,6 @@ table {
     src: url(/assets/media/fonts/Itim/Itim-Regular.ttf);
 }
 
-@font-face {
-    font-family: 'Caveat';
-    src: url(/assets/media/fonts/Caveat/Caveat-VariableFont_wght.ttf);
-}
-
-@font-face {
-    font-family: 'Noto_Serif_Khojki';
-    src: url(/assets/media/fonts/Noto_Serif_Khojki/NotoSerifKhojki-VariableFont_wght.ttf);
-}
-
 body {
     display: flex;
     flex-flow: column nowrap;
@@ -114,12 +104,10 @@ button {
 
     font-size: 1.7rem;
     font-family: 'Itim';
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border: 2px solid rgb(221, 221, 221);
+    border: 2px solid rgb(187, 187, 187);
     border-radius: 4px;
     background: white;
     padding: 13px;
@@ -127,9 +115,8 @@ button {
 
 button:hover {
     transition: all 0.2s ease-in-out;
-    background: rgb(221, 221, 221);
-    box-shadow: 0 0 6px #7575754b;
-    border: 2px solid rgba(161, 161, 161, 0.555);
+    background: rgba(221, 221, 221, 0.541);
+    box-shadow: 0 0 6px #75757575;
     cursor: pointer;
 }
 
@@ -347,7 +334,7 @@ div[marker='1'] {
 .starter form label {
     display: block;
     padding: 15px 0;
-    border: 2px solid rgb(216, 216, 216);
+    border: 2px solid rgba(216, 216, 216, 0.822);
     color: var(--button-not-selected);
     font-size: 1.6rem;
     border-radius: 4px;
@@ -373,7 +360,7 @@ div[marker='1'] {
 .starter form input:checked+label {
     color: black;
     background: rgba(224, 224, 224, 0.466);
-    border: 2px solid rgb(161, 161, 161);
+    border: 2px solid rgba(161, 161, 161, 0.87);
     box-shadow: 0 0 7px #7575759c;
 }
 
