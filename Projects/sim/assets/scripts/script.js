@@ -45,6 +45,7 @@ let bot = (difficulty, botNum) => {
         let a, b;
 
         while (movesRemaining > 0) {
+            console.log(movesRemaining);
             let rand = getRandomInt(movesRemaining);
 
             [a, b] = possibleMoves[rand];
@@ -53,6 +54,7 @@ let bot = (difficulty, botNum) => {
             let [gameOver,] = board.checkLoser(botNum);
             board.remove(a, b);
 
+            console.log(`[${a},${b}]: ${gameOver}`);
             if (!gameOver) {
                 break;
             }
@@ -333,9 +335,9 @@ const director = (() => {
 
         let gameDifficulty = document.getElementsByName('difficulty');
 
-        for (let diff of gameDifficulty) {
-            if (diff.checked) {
-                myBot = bot(diff.value, 1 - currentPlayer);
+        for (let difficulty of gameDifficulty) {
+            if (difficulty.checked) {
+                myBot = bot(difficulty.value, 1 - currentPlayer);
             }
         }
     }
@@ -386,6 +388,8 @@ const director = (() => {
             currentPlayer = 1 - currentPlayer;
             displayController.updateCurrentPlayer(currentPlayer);
         }
+
+        /* console.log(`Restart Game - firstPlayer:${firstPlayer}, currentPlayer: ${currentPlayer}, gamemode: ${gamemode}`); */
     }
 
     let startGame = () => {
@@ -393,6 +397,7 @@ const director = (() => {
         displayController.hideStarter();
         displayController.showBoard();
         restartGame();
+        /* console.log(`Start Game - firstPlayer:${firstPlayer}, currentPlayer: ${currentPlayer}, gamemode: ${gamemode}`); */
     }
 
     return Object.assign(
@@ -408,7 +413,7 @@ const director = (() => {
 
 // Controls the front-end
 const displayController = (() => {
-    let z_index = 1; // Most recently marked line will appear above all other lines
+    let z_index = 0; // Most recently marked line will appear above all other lines
 
     // Initialize eventListeners for each line
     for (let line of lines) {
@@ -457,12 +462,11 @@ const displayController = (() => {
         starterForm.style.display = 'none';
     }
 
-
     let resetBoard = (firstPlayer) => {
         clearBoard();
         enableBoard();
         updateCurrentPlayer(firstPlayer);
-        z_index = 1;
+        z_index = 0;
     }
 
     let updateCurrentPlayer = (player) => {
@@ -472,12 +476,12 @@ const displayController = (() => {
     // Updates 'marker' attribute value
     let updateMarker = (a, b, player) => {
         let line = findLine(a, b);
-
+        
         if (!line) return;
-
+        
         line.setAttribute('marker', player);
-        line.style.zIndex = z_index;
         z_index++;
+        line.style.zIndex = z_index;
     }
 
     return Object.assign(
