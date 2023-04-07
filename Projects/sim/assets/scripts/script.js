@@ -333,8 +333,8 @@ const director = (() => {
             return;
         }
 
+        let botNum = (firstPlayer) ? 0 : 1;
         let gameDifficulty = document.getElementsByName('difficulty');
-        let botNum = (firstPlayer) ? 1 : 0;
 
         for (let difficulty of gameDifficulty) {
             if (difficulty.checked) {
