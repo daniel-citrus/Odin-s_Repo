@@ -77,13 +77,13 @@ table {
 }
 
 @font-face {
-    font-family: 'Indie_Flower';
-    src: url(/assets/media/fonts/Indie_Flower/IndieFlower-Regular.ttf);
+    font-family: 'Fredericka_the_Great';
+    src: url(/assets/media/fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf);
 }
 
 @font-face {
-    font-family: 'Fredericka_the_Great';
-    src: url(/assets/media/fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf);
+    font-family: 'Indie_Flower';
+    src: url(/assets/media/fonts/Indie_Flower/IndieFlower-Regular.ttf);
 }
 
 @font-face {
@@ -91,11 +91,14 @@ table {
     src: url(/assets/media/fonts/Itim/Itim-Regular.ttf);
 }
 
+@font-face {
+    font-family: 'Nunito';
+    src: url(/assets/media/fonts/Nunito/Nunito-VariableFont_wght.ttf);
+}
 body {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    padding: 40px 0;
     background: var(--text-or-background);
 }
 
@@ -109,17 +112,18 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #3498DB;
+    border: 1px solid var(--button-not-selected);
     border-radius: 4px;
-    background: var(--headings-or-accents);
+    background: var(--button-not-selected);
     padding: 13px;
 }
 
 button:hover {
     transition: all 0.2s ease-in-out;
-    background: #2291db;
-    border: 1px solid #2291db;
-    box-shadow: 0 0 6px #46a1df;
+    /* background: #2291db;
+    border: 1px solid #2291db; */
+    background: var(--text-or-background);
+    color: var(--text-on-hover);
     cursor: pointer;
 }
 
@@ -304,6 +308,11 @@ div[marker='1'] {
     justify-content: center;
     text-align: center;
     gap: 20px;
+    padding: 10px;
+
+    font-family: 'Indie_Flower';
+    font-size: 1.7rem;
+    color: var(--negativespace-or-accents);
 }
 
 .starter form {
@@ -311,10 +320,8 @@ div[marker='1'] {
     flex-flow: column nowrap;
     justify-content: center;
     gap: 10px;
-    font-family: 'Indie_Flower';
-    padding: 10px;
-    font-size: 1.7rem;
-    color: var(--negativespace-or-accents);
+
+    min-height: 100vh;
 }
 
 .starter form>div {
@@ -350,6 +357,7 @@ div[marker='1'] {
     cursor: pointer;
 }
 
+.starter .title,
 .starter form .title {
     font-size: 1.7rem;
     font-family: 'Itim';
@@ -401,6 +409,7 @@ div[marker='1'] {
     justify-content: center;
     align-items: center;
     gap: 15px;
+    height: 100vh;
 }
 
 .starter .header img {
@@ -414,21 +423,14 @@ div[marker='1'] {
     color: var(--negativespace-or-accents);
 }
 
-.starter .tooltip {
-    height: 25px;
-    width: 25px;
-    border-radius: 50px;
-    border: 1px solid var(--button-not-selected);
-    align-self: center;
-    padding: 6px;
-    color: #b3b3b3;
+.starter .how-to {
+    min-height: 100vh;
 }
 
-.starter .tooltip:hover {
-    transition: all 0.2s ease-in-out;
-    color:var(--accents-or-warnings);
-    border: 1px solid var(--accents-or-warnings);
-    background: rgb(49, 49, 49);
+.starter .tips {
+    text-align: start;
+    font-size: 1.3rem;
+    font-family: 'Nunito';
 }
 
 @media screen and (min-width: 769px) {
