@@ -87,11 +87,6 @@ table {
 }
 
 @font-face {
-    font-family: 'Itim';
-    src: url(/assets/media/fonts/Itim/Itim-Regular.ttf);
-}
-
-@font-face {
     font-family: 'Nunito';
     src: url(/assets/media/fonts/Nunito/Nunito-VariableFont_wght.ttf);
 }
@@ -108,7 +103,8 @@ button {
     -webkit-appearance: none;
 
     font-size: 1.7rem;
-    font-family: 'Itim';
+    font-family: 'Nunito';
+    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -208,7 +204,7 @@ div[marker='1'] {
     position: absolute;
     height: 300px;
     width: 8px;
-    background: black;
+    background: rgb(226, 226, 226);
     border-radius: 100px;
     z-index: 0;
 }
@@ -360,7 +356,7 @@ div[marker='1'] {
 .starter .title,
 .starter form .title {
     font-size: 1.7rem;
-    font-family: 'Itim';
+    font-family: 'Nunito';
 }
 
 .starter form input:checked+label {
@@ -417,9 +413,17 @@ div[marker='1'] {
     max-width: 300px;
 }
 
-.starter .header .title {
+.starter .header .main {
     font-family: 'Fredericka_the_Great';
     font-size: 5rem;
+}
+
+.starter .header .sub {
+    font-family: 'Indie_Flower';
+    font-size: 1.25rem;
+}
+
+.starter .header .title {
     color: var(--negativespace-or-accents);
 }
 
