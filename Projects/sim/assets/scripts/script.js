@@ -423,6 +423,7 @@ const displayController = (() => {
     let clearBoard = () => {
         for (let line of lines) {
             line.setAttribute('marker', '')
+            line.style.zIndex = '';
         }
     }
 
