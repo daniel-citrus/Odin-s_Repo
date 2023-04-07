@@ -11,6 +11,7 @@ exitButton.addEventListener('click', () => {
 })
 
 resetButton.addEventListener('click', () => {
+    console.clear();
     director.restartGame();
 });
 
@@ -25,7 +26,7 @@ let bot = (difficulty, botNum) => {
         let possibleMoves = board.getPossibleMoves();
         let movesRemaining = possibleMoves.length;
 
-        if (!movesRemaining) {
+        if (movesRemaining <= 0) {
             return;
         }
 
@@ -38,24 +39,21 @@ let bot = (difficulty, botNum) => {
         let possibleMoves = board.getPossibleMoves();
         let movesRemaining = possibleMoves.length;
 
-        if (!movesRemaining) {
+        if (movesRemaining <= 0) {
             return;
         }
 
         let a, b;
 
         while (movesRemaining > 0) {
-            console.log(movesRemaining);
             let rand = getRandomInt(movesRemaining);
-
             [a, b] = possibleMoves[rand];
 
-            board.update(a, b, botNum);
-            let [gameOver,] = board.checkLoser(botNum);
+            board.update(a, b, botNumber);
+            let [gameIsOver, t] = board.checkLoser(botNumber);
             board.remove(a, b);
 
-            console.log(`[${a},${b}]: ${gameOver}`);
-            if (!gameOver) {
+            if (!gameIsOver) {
                 break;
             }
 
@@ -70,7 +68,7 @@ let bot = (difficulty, botNum) => {
         let possibleMoves = board.getPossibleMoves();
         let movesRemaining = possibleMoves.length;
 
-        if (movesRemaining === 0) {
+        if (movesRemaining <= 0) {
             return;
         }
         else if (movesRemaining > 9) {
@@ -164,6 +162,7 @@ let bot = (difficulty, botNum) => {
         move = dumbMove;
     }
 
+
     return Object.assign(
         {},
         { move }
@@ -171,7 +170,7 @@ let bot = (difficulty, botNum) => {
 };
 
 const board = (() => {
-    const boardMap = new Map();
+    let boardMap = new Map();
     let losingTriangle = [];
 
     /**
@@ -180,7 +179,7 @@ const board = (() => {
         @param currentPlayer - player being evaluated
     */
     let checkLoser = (currentPlayer) => {
-        let result = null;
+        let result = false;
 
         for (let [line, player] of boardMap) {
             losingTriangle = [];
@@ -283,6 +282,7 @@ const board = (() => {
             resetBrain,
             update,
             remove,
+            boardMap
         },
     );
 })();
@@ -334,10 +334,11 @@ const director = (() => {
         }
 
         let gameDifficulty = document.getElementsByName('difficulty');
+        let botNum = (firstPlayer) ? 1 : 0;
 
         for (let difficulty of gameDifficulty) {
             if (difficulty.checked) {
-                myBot = bot(difficulty.value, 1 - currentPlayer);
+                myBot = bot(difficulty.value, botNum);
             }
         }
     }
@@ -348,7 +349,7 @@ const director = (() => {
         }
 
         let [a, b] = line.getAttribute('coordinates').split(',');
-        applyMove(a, b);
+        applyMove(+a, +b);
         let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
 
         if (gameOver) {
@@ -361,9 +362,9 @@ const director = (() => {
         if (gamemode === 'computer') {
             let [botA, botB] = myBot.move();
             applyMove(botA, botB);
-            let [gameOver, losingTriangle] = board.checkLoser(currentPlayer);
+            let [gameIsOver, losingTriangle] = board.checkLoser(currentPlayer);
 
-            if (gameOver) {
+            if (gameIsOver) {
                 endGame(1 - currentPlayer, losingTriangle);
                 return;
             }
@@ -383,13 +384,11 @@ const director = (() => {
         board.resetBrain();
 
         if (firstPlayer && gamemode === 'computer') {
-            let [botA, botB] = myBot.move();
-            applyMove(botA, botB);
+            let [a, b] = myBot.move();
+            applyMove(a, b);
             currentPlayer = 1 - currentPlayer;
             displayController.updateCurrentPlayer(currentPlayer);
         }
-
-        /* console.log(`Restart Game - firstPlayer:${firstPlayer}, currentPlayer: ${currentPlayer}, gamemode: ${gamemode}`); */
     }
 
     let startGame = () => {
@@ -397,7 +396,6 @@ const director = (() => {
         displayController.hideStarter();
         displayController.showBoard();
         restartGame();
-        /* console.log(`Start Game - firstPlayer:${firstPlayer}, currentPlayer: ${currentPlayer}, gamemode: ${gamemode}`); */
     }
 
     return Object.assign(
@@ -476,9 +474,9 @@ const displayController = (() => {
     // Updates 'marker' attribute value
     let updateMarker = (a, b, player) => {
         let line = findLine(a, b);
-        
+
         if (!line) return;
-        
+
         line.setAttribute('marker', player);
         z_index++;
         line.style.zIndex = z_index;
