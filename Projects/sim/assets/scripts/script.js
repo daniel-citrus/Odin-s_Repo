@@ -19,8 +19,8 @@ startButton.addEventListener('click', () => {
     director.startGame();
 });
 
-let bot = (difficulty, botNum) => {
-    let botNumber = botNum;
+let bot = (difficulty) => {
+    const botNumber = 1; // bot will always have 1 (0 for player)
 
     let dumbMove = () => {
         let possibleMoves = board.getPossibleMoves();
@@ -333,12 +333,11 @@ const director = (() => {
             return;
         }
 
-        let botNum = (firstPlayer) ? 0 : 1;
         let gameDifficulty = document.getElementsByName('difficulty');
 
         for (let difficulty of gameDifficulty) {
             if (difficulty.checked) {
-                myBot = bot(difficulty.value, botNum);
+                myBot = bot(difficulty.value);
             }
         }
     }
