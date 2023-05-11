@@ -6,6 +6,7 @@ import Notes from './data.csv';
 import toml from './data.toml';
 import yaml from './data.yaml';
 import json from './data.json5';
+import printMe from './print';
 
 console.log(toml.title); // output `TOML Example`
 console.log(toml.owner.name); // output `Tom Preston-Werner`
@@ -16,10 +17,16 @@ console.log(json.owner.name); // output `Tom Preston-Werner`
 
 function component() {
     const element = document.createElement('div');
+    const btn = document.createElement('button');
 
     // Lodash, now imported by this script
     element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
     element.classList.add('hello');
+
+    btn.innerHTML = 'Click me and check the console!';
+    btn.onclick = printMe;
+    element.appendChild(btn);
 
     const myIcon = new Image();
     myIcon.src = icon;
