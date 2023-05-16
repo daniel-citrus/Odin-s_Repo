@@ -9,16 +9,29 @@ module.exports = {
         menu: './src/menu.js',
         contact: './src/contact.js',
     },
+    devtool: 'eval-source-map',
     output: {
-        filename: '[name]-build.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist/scripts'),
         clean: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader",
+                ],
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Andeez Donuts',
             filename: '../index.html',
             template: 'template.html',
-        })
+        }),
     ],
 };
