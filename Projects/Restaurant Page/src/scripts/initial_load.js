@@ -1,15 +1,24 @@
 import '../style/style.scss';
-import about from './pages/about.js';
+import about from './pages/about';
+import contact from './pages/contact';
+import menu from './pages/menu';
+
 
 /**
  * Generates navigation buttons and then calls the homepage module
  */
 (() => {
-    let pages = ['About', 'Menu', 'Location'];
+    let content = document.getElementById('content');
 
-    /* pages.forEach((page) => {
-        
-    }) */
+    let pages = {
+        'About': about,
+        'Contact': contact,
+        'Menu': menu,
+    };
+
+    Object.keys(pages).forEach((page) => {
+        content.appendChild(createButton(page, pages[page]));
+    });
 })();
 
 /**
@@ -21,9 +30,10 @@ import about from './pages/about.js';
  */
 function createButton(name, action) {
     let button = document.createElement('button');
-    
-    button.type = 'button';
+
+    button.textContent = name;
     button.title = name;
+    button.type = 'button';
     button.classList.add('nav');
 
     button.addEventListener('click', () => {
