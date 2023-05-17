@@ -5,11 +5,10 @@ const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
     entry: {
-        intial_load: './src/initial-load.js',
-        index: './src/index.js',
-        home: './src/home.js',
-        menu: './src/menu.js',
-        contact: './src/contact.js',
+        intial_load: './src/scripts/initial_load.js',
+        about: './src/scripts/pages/about.js',
+        menu: './src/scripts/pages/menu.js',
+        contact: './src/scripts/pages/contact.js',
     },
     devtool: 'eval-source-map',
     output: {
