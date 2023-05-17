@@ -3,6 +3,13 @@ import "./style/style.scss";
 /**
  * Generates navigation buttons and then calls the homepage module
  */
-export let initialLoad = () => {
-    let div = document.createElement('div[class="test"]');
-}
+(() => {
+    let div = document.createElement('div');
+    div.textContent = 'Hello World!';
+    div.classList.add('test');
+    document.querySelector('#content').appendChild(div);
+})();
+
+// About
+// Menu
+// Location

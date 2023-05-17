@@ -1,10 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
     entry: {
-        index: './src/index.js',
         intial_load: './src/initial-load.js',
+        index: './src/index.js',
         home: './src/home.js',
         menu: './src/menu.js',
         contact: './src/contact.js',
@@ -18,9 +20,9 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
-                    "style-loader",
+                    devMode ? "style-loader" : MiniCssExtractPlugin.loader,
                     "css-loader",
                     "sass-loader",
                 ],
@@ -29,7 +31,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Andeez Donuts',
+            title: 'Deez Donuts',
             filename: '../index.html',
             template: 'template.html',
         }),
