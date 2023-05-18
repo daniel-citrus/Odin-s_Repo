@@ -22,6 +22,10 @@ import menu from './pages/menu';
 })();
 
 /**
+ * Builds the header, footer, and background of the website
+ */
+
+/**
  * Returns a button element with an eventlistener that executes the action
  * parameter
  * @param name - button text and title

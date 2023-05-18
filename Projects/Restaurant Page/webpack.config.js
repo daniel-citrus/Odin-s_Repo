@@ -4,15 +4,15 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
-    entry: {
-        intial_load: './src/scripts/initial_load.js',
-        about: './src/scripts/pages/about.js',
-        menu: './src/scripts/pages/menu.js',
-        contact: './src/scripts/pages/contact.js',
-    },
+    entry: [
+        './src/scripts/initial_load.js',
+        './src/scripts/pages/about.js',
+        './src/scripts/pages/menu.js',
+        './src/scripts/pages/contact.js',
+    ],
     devtool: 'eval-source-map',
     output: {
-        filename: '[name].js',
+        filename: 'main.js',
         path: path.resolve(__dirname, 'dist/scripts'),
         clean: true,
     },
