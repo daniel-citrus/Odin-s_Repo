@@ -9,7 +9,7 @@ let content = document.getElementById('content');
  * Generates navigation buttons and then calls the homepage module
  */
 (() => {
-    buildHeader();
+    content.appendChild(buildDiv('div', 'header'));
 
     let pages = {
         'About': about,
@@ -21,26 +21,28 @@ let content = document.getElementById('content');
         content.appendChild(createButton(page, pages[page]));
     });
 
-    buildFooter();
+    content.appendChild(buildDiv('div', 'footer'));
 })();
 
 /**
- * Builds the header, footer, and background of the website
-*/
-function buildHeader() {
-    let header = document.createElement('div');
+ * Returns a div with specified class(es)
+ * @param type element type
+ * @param classes - multiple classes should be in array form eg. ['class1', 'class2', ...]
+ * @returns div
+ */
+function buildDiv(type, classes) {
+    let div = document.createElement(type);
 
-    header.classList.add('header');
-    header.textContent = 'Header';
-    content.appendChild(header);
+    div.classList.add(...classes);
+
+    return div;
 }
 
-function buildFooter() {
-    let footer = document.createElement('div');
+function buildHeader() {
+    let header = buildDiv('div', 'header');
+    let logo = buildDiv('div', 'logo');
+    let logoText = buildDiv('div', 'logo-text');
 
-    footer.classList.add('footer');
-    footer.textContent = 'Footer';
-    content.appendChild(footer);
 }
 
 /**
