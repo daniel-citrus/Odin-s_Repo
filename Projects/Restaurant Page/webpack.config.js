@@ -4,16 +4,16 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env, argv) => {
     return {
-        entry: [
-            './src/scripts/initial_load.js',
-            './src/scripts/pages/about.js',
-            './src/scripts/pages/menu.js',
-            './src/scripts/pages/contact.js',
-        ],
+        entry: {
+            initial_load: './src/scripts/initial_load.js',
+            about: './src/scripts/pages/about.js',
+            menu: './src/scripts/pages/menu.js',
+            contact: './src/scripts/pages/contact.js',
+        },
         devtool: 'eval-source-map',
         output: {
-            filename: 'main.js',
-            path: path.resolve(__dirname, 'dist'),
+            filename: '[name].js',
+            path: path.resolve(__dirname, 'dist/assets'),
             clean: true,
         },
         module: {
@@ -34,9 +34,9 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                title: 'Deez Donuts',
-                filename: 'index.html',
+                filename: '../index.html',
                 template: 'template.html',
+                title: 'Deez Donuts',
             }),
             new MiniCssExtractPlugin(),
         ],

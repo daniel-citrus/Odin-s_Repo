@@ -27,13 +27,13 @@ let content = document.getElementById('content');
 /**
  * Returns a div with specified class(es)
  * @param type element type
- * @param classes - multiple classes should be in array form eg. ['class1', 'class2', ...]
+ * @param classes - takes one or more class names eg. 'class1' || 'class1', 'class2', ...
  * @returns div
  */
-function buildDiv(type, classes) {
+function buildDiv(type, ...classes) {
     let div = document.createElement(type);
 
-    div.classList.add(...classes);
+    div.classList.add(classes);
 
     return div;
 }
@@ -61,6 +61,7 @@ function createButton(name, action) {
     button.type = 'button';
 
     button.addEventListener('click', () => {
+        /* If button contains a class indicating that it is the active page, then skip */
         action();
     })
 
