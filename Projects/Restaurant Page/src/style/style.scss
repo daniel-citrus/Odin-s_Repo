@@ -137,8 +137,30 @@ table {
 /* END CSS RESET */
 :root {
     --background: #f2e4c7;
+    --primary-color: #e3535d;
+    --trim: #69b9ba;
+}
+
+@font-face {
+    font-family: sunset;
+    src: url(/src/style/fonts/sunset-club-free-trial.regular.ttf);
 }
 
 body {
-    background: url('/src/style/media/background.svg')
+    background: url('/src/style/media/background.svg');
+}
+
+#header {
+    display: flex;
+    flex-flow: row nowrap;
+    
+    .logo {
+        height: 150px;
+        width: 300px;
+        background: green;
+    }
+}
+
+.logo-text {
+    font-family: sunset;
 }

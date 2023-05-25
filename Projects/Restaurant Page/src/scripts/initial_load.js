@@ -9,19 +9,9 @@ let content = document.getElementById('content');
  * Generates navigation buttons and then calls the homepage module
  */
 (() => {
-    content.appendChild(buildDiv('div', 'header'));
+    content.appendChild(buildHeader());
 
-    let pages = {
-        'About': about,
-        'Contact': contact,
-        'Menu': menu,
-    };
-
-    Object.keys(pages).forEach((page) => {
-        content.appendChild(createButton(page, pages[page]));
-    });
-
-    content.appendChild(buildDiv('div', 'footer'));
+    content.appendChild(buildElement('div', '', 'footer'));
 })();
 
 /**
@@ -30,19 +20,48 @@ let content = document.getElementById('content');
  * @param classes - takes one or more class names eg. 'class1' || 'class1', 'class2', ...
  * @returns div
  */
-function buildDiv(type, ...classes) {
+function buildElement(type, id, ...classes) {
     let div = document.createElement(type);
 
-    div.classList.add(classes);
+    if (id != '') {
+        div.id = id;
+    }
+
+    if (classes != '') {
+        div.classList.add(classes);
+    }
 
     return div;
 }
 
 function buildHeader() {
-    let header = buildDiv('div', 'header');
-    let logo = buildDiv('div', 'logo');
-    let logoText = buildDiv('div', 'logo-text');
+    let header = buildElement('div', 'header', '');
+    let logoText = buildElement('div', '', 'logo-text');
+    let logo = buildElement('div', '', 'logo');
 
+    logoText.textContent = 'Andeez Donuts';
+
+    header.appendChild(logoText);
+    header.appendChild(logo);
+    header.appendChild(buildNav());
+
+    return header;
+}
+
+function buildNav() {
+    let navBar = buildElement('div', 'top-nav', '');
+    
+    let pages = {
+        'About': about,
+        'Contact': contact,
+        'Menu': menu,
+    };
+
+    Object.keys(pages).forEach((page) => {
+        navBar.appendChild(createButton(page, pages[page]));
+    });
+
+    return navBar;
 }
 
 /**
@@ -61,7 +80,7 @@ function createButton(name, action) {
     button.type = 'button';
 
     button.addEventListener('click', () => {
-        /* If button contains a class indicating that it is the active page, then skip */
+        /* If button contains a class indicating that it is the active page, then do nothing */
         action();
     })
 

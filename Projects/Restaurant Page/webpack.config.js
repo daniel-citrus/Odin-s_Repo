@@ -36,7 +36,7 @@ module.exports = (env, argv) => {
             new HtmlWebpackPlugin({
                 filename: '../index.html',
                 template: 'template.html',
-                title: 'Deez Donuts',
+                title: 'Andeez Donuts',
             }),
             new MiniCssExtractPlugin(),
         ],
