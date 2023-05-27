@@ -153,14 +153,11 @@ body {
 #header {
     display: flex;
     flex-flow: row nowrap;
-    
-    .logo {
-        height: 150px;
-        width: 300px;
-        background: green;
-    }
 }
 
-.logo-text {
-    font-family: sunset;
+#logo {
+    .logo-text {
+        font-family: sunset;
+    }
+
 }

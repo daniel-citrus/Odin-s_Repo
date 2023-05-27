@@ -4,6 +4,7 @@ import contact from './pages/contact';
 import menu from './pages/menu';
 
 let content = document.getElementById('content');
+let body = document.querySelector('body');
 
 /**
  * Generates navigation buttons and then calls the homepage module
@@ -36,12 +37,14 @@ function buildElement(type, id, ...classes) {
 
 function buildHeader() {
     let header = buildElement('div', 'header', '');
+    let logo = buildElement('div', 'logo', '');
+    let logoImage = buildElement('img', '', '');
     let logoText = buildElement('div', '', 'logo-text');
-    let logo = buildElement('div', '', 'logo');
 
     logoText.textContent = 'Andeez Donuts';
-
-    header.appendChild(logoText);
+    
+    logo.appendChild(logoImage);
+    logo.appendChild(logoText);
     header.appendChild(logo);
     header.appendChild(buildNav());
 
