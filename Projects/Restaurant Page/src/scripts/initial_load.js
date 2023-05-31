@@ -2,10 +2,9 @@ import '../style/style.scss';
 import about from './pages/about';
 import contact from './pages/contact';
 import menu from './pages/menu';
+import donut from '../style/media/donut.svg';
 
 let content = document.getElementById('content');
-let body = document.querySelector('body');
-
 /**
  * Generates navigation buttons and then calls the homepage module
  */
@@ -40,6 +39,7 @@ function buildHeader() {
     let logoText = buildElement('div', '', 'logo-text');
 
     logoText.textContent = 'Andeez Donuts';
+    logoImage.src = donut;
     
     logo.appendChild(logoImage);
     logo.appendChild(logoText);
@@ -51,7 +51,7 @@ function buildHeader() {
 
 function buildNav() {
     let navBar = buildElement('div', 'top-nav', '');
-    
+
     let pages = {
         'About': about,
         'Contact': contact,
