@@ -11,8 +11,6 @@ let body = document.querySelector('body');
  */
 (() => {
     content.appendChild(buildHeader());
-
-    content.appendChild(buildElement('div', '', 'footer'));
 })();
 
 /**
