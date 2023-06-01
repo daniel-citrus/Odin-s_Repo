@@ -2,13 +2,14 @@ import '../style/style.scss';
 import about from './pages/about';
 import contact from './pages/contact';
 import menu from './pages/menu';
-import donut from '../style/media/donut.svg';
+import donut from '../style/media/donut-cropped.svg';
 
-let content = document.getElementById('content');
 /**
  * Generates navigation buttons and then calls the homepage module
- */
+*/
 (() => {
+    let content = document.getElementById('content');
+
     content.appendChild(buildHeader());
 })();
 
@@ -40,7 +41,7 @@ function buildHeader() {
 
     logoText.textContent = 'Andeez Donuts';
     logoImage.src = donut;
-    
+
     logo.appendChild(logoImage);
     logo.appendChild(logoText);
     header.appendChild(logo);
@@ -57,6 +58,9 @@ function buildNav() {
         'Contact': contact,
         'Menu': menu,
     };
+
+    let mobileNavToggle = buildElement('div', 'mobile-nav-toggle', '');
+    navBar.appendChild(mobileNavToggle);
 
     Object.keys(pages).forEach((page) => {
         navBar.appendChild(createButton(page, pages[page]));
