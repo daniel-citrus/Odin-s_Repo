@@ -1,4 +1,4 @@
-import '../style/style.scss';
+import '../style/scss/main.scss';
 import about from './pages/about';
 import contact from './pages/contact';
 import menu from './pages/menu';
@@ -27,7 +27,7 @@ function buildElement(type, id, ...classes) {
     }
 
     if (classes != '') {
-        div.classList.add(classes);
+        div.classList.add(...classes);
     }
 
     return div;
@@ -59,11 +59,21 @@ function buildNav() {
         'Menu': menu,
     };
 
-    let mobileNavToggle = buildElement('div', 'mobile-nav-toggle', '');
-    navBar.appendChild(mobileNavToggle);
+    let mobileHamburger = buildElement('button', '', 'hamburger', 'hamburger--squeeze');
+    mobileHamburger.type = 'button';
+    
+    let hamburgerBox = buildElement('span', '', 'hamburger-box');
+    let hamburgerInner = buildElement ('span', '', 'hamburger-inner');
+
+    hamburgerBox.appendChild(hamburgerInner);
+    mobileHamburger.appendChild(hamburgerBox);
+    navBar.appendChild(mobileHamburger);
+
+    let navOptions = buildElement('div', 'nav-links', '');
+    navBar.appendChild(navOptions);
 
     Object.keys(pages).forEach((page) => {
-        navBar.appendChild(createButton(page, pages[page]));
+        navOptions.appendChild(createButton(page, pages[page]));
     });
 
     return navBar;
