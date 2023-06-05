@@ -40,6 +40,5 @@ module.exports = (env, argv) => {
             }),
             new MiniCssExtractPlugin(),
         ],
-        target: 'node',
     }
 };

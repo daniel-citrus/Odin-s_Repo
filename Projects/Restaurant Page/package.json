@@ -2,7 +2,7 @@
   "name": "restaurant-page",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/scripts/initial_load.js",
   "scripts": {
     "code": "webpack --mode development --watch",
     "build": "webpack --mode production"
