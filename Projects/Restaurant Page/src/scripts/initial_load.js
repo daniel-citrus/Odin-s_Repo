@@ -15,7 +15,8 @@ import donut from '../style/media/donut-cropped.svg';
 
 /**
  * Returns a div with specified class(es)
- * @param type element type
+ * @param type - element type
+ * @param id - ID
  * @param classes - takes one or more class names eg. 'class1' || 'class1', 'class2', ...
  * @returns div
  */
@@ -59,24 +60,34 @@ function buildNav() {
         'Menu': menu,
     };
 
-    let mobileHamburger = buildElement('button', '', 'hamburger', 'hamburger--squeeze');
+    navBar.appendChild(buildMobileNavBurger());
+
+    let navLinks = buildElement('div', 'nav-links', '');
+    navBar.appendChild(navLinks);
+
+    Object.keys(pages).forEach((page) => {
+        navLinks.appendChild(createButton(page, pages[page]));
+    });
+
+    return navBar;
+}
+
+function buildMobileNavBurger() {
+    let mobileHamburger = buildElement('button', 'navBurger', 'hamburger', 'hamburger--squeeze');
+
+
+    mobileHamburger.addEventListener('click', () => {
+        mobileHamburger.classList.toggle('is-active');
+    })
+
     mobileHamburger.type = 'button';
-    
     let hamburgerBox = buildElement('span', '', 'hamburger-box');
     let hamburgerInner = buildElement ('span', '', 'hamburger-inner');
 
     hamburgerBox.appendChild(hamburgerInner);
     mobileHamburger.appendChild(hamburgerBox);
-    navBar.appendChild(mobileHamburger);
 
-    let navOptions = buildElement('div', 'nav-links', '');
-    navBar.appendChild(navOptions);
-
-    Object.keys(pages).forEach((page) => {
-        navOptions.appendChild(createButton(page, pages[page]));
-    });
-
-    return navBar;
+    return mobileHamburger;
 }
 
 /**
