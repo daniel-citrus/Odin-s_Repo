@@ -11,7 +11,14 @@ import donut from '../style/media/donut-cropped.svg';
     let content = document.getElementById('content');
 
     content.appendChild(buildHeader());
+    content.appendChild(buildElement('div', 'body', ''));
 })();
+
+/**
+ * Removes all of the child elements within the element
+ */
+function clearElement() {
+}
 
 /**
  * Returns a div with specified class(es)
@@ -74,7 +81,6 @@ function buildNav() {
 
 function buildMobileNavBurger() {
     let mobileHamburger = buildElement('button', 'navBurger', 'hamburger', 'hamburger--squeeze');
-
 
     mobileHamburger.addEventListener('click', () => {
         mobileHamburger.classList.toggle('is-active');
