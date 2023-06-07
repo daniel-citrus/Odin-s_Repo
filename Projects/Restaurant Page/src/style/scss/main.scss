@@ -157,8 +157,6 @@ body {
 #header {
     display: flex;
     flex-flow: column nowrap;
-    gap: 20px;
-
     margin: 20px auto;
 }
 
@@ -190,9 +188,9 @@ body {
     padding: 3px;
 }
 
-#navBurger.is-active + #nav-links {
-    height:0;
-    overflow: hidden;
+#navBurger.is-active+#nav-links {
+    max-height: 130px;
+    transition: max-height .4s ease-in;
 }
 
 #nav-links {
@@ -200,8 +198,10 @@ body {
     width: 100%;
     flex-flow: column nowrap;
     gap: 5px;
-
     
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease-in;
 
     button {
         margin: 0;
