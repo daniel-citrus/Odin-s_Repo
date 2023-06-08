@@ -140,9 +140,11 @@ table {
 
 :root {
     --background: #f2e4c7;
-    --primary-color: #e3535d;
-    --trim: #69b9ba;
-    --nav-background: #026c6e;
+    --light-red: #e3535d;
+    --sky-blue: #69b9ba;
+    --teal: #026c6e;
+    --dandelion-yellow: #fed469;
+    --cream-yellow: #f2ca86;
 }
 
 @font-face {
@@ -180,31 +182,47 @@ body {
 #top-nav {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
     align-items: center;
+
+    width: 100vw;
+
+    position: sticky;
+    top: 5px;
 }
 
 #navBurger {
-    margin: 13px 0;
-    padding: 3px;
+    padding: 5px;
 }
 
 #navBurger.is-active+#nav-links {
-    max-height: 130px;
-    transition: max-height .4s ease-in;
+    transition: height .2s ease-in;
+    height: 140px;
 }
 
 #nav-links {
     display: flex;
-    width: 100%;
     flex-flow: column nowrap;
+    justify-content: center;
     gap: 5px;
-    
-    max-height: 0;
+
+    background: var(--background);
+    width: 100%;
+    height: 0px;
     overflow: hidden;
-    transition: max-height .4s ease-in;
+    transition: height .2s ease-in;
 
     button {
         margin: 0;
         padding: 10px 0;
+
+        border: none;
+        border-radius: 3px;
+        background: var(--light-red);
+        color: var(black);
+
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
     }
 }
