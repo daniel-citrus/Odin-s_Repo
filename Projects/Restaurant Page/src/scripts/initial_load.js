@@ -15,6 +15,12 @@ import donut from '../style/media/donut-cropped.svg';
     content.appendChild(buildElement('div', 'body', ''));
 
     content.appendChild(fillWithLorem());
+
+    let h = document.querySelector('html');
+    onscroll = () => {
+        console.clear();
+        console.log(h.scrollTop);
+    }
 })();
 
 /**

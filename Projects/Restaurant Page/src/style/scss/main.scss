@@ -145,11 +145,17 @@ table {
     --teal: #026c6e;
     --dandelion-yellow: #fed469;
     --cream-yellow: #f2ca86;
+
+    --clean: #a7d2cb;
+    --butter: #f2d388;
+    --salmon: #c98474;
+    --eggplant: #874C62;
+    --dark-grey: rgb(53, 53, 53);
 }
 
 @font-face {
-    font-family: sunset;
-    src: url('/src/style/fonts/sunset-club-free-trial.regular.ttf');
+    font-family: breeze;
+    src: url('/src/style/fonts/breeze-personal-use.regular.ttf');
 }
 
 body {
@@ -159,7 +165,7 @@ body {
 #header {
     display: flex;
     flex-flow: column nowrap;
-    margin: 20px auto;
+    margin: 45px auto 10px auto;
 }
 
 #logo {
@@ -174,8 +180,12 @@ body {
     }
 
     .logo-text {
-        font-family: sunset;
-        font-size: 2.4rem;
+        color: #fd6a77;
+        font-family: breeze;
+        white-space: nowrap;
+        font-size: 3rem;
+        line-height: 3.3rem;
+        text-shadow: 2px 2px 0px #991f0c;
     }
 }
 
@@ -185,19 +195,24 @@ body {
     justify-content: center;
     align-items: center;
 
+    padding: 8px 0;
     width: 100vw;
 
     position: sticky;
-    top: 5px;
+    top: 0;
+
+    &.stuck {
+        background: var(--background);
+    }
 }
 
 #navBurger {
     padding: 5px;
-}
 
-#navBurger.is-active+#nav-links {
-    transition: height .2s ease-in;
-    height: 140px;
+    &.is-active+#nav-links {
+        transition: height .2s ease-in;
+        height: 140px;
+    }
 }
 
 #nav-links {
@@ -219,7 +234,7 @@ body {
         border: none;
         border-radius: 3px;
         background: var(--light-red);
-        color: var(black);
+        color: black;
 
         appearance: none;
         -moz-appearance: none;
