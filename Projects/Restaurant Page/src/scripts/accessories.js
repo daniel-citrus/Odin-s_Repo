@@ -41,15 +41,19 @@ export function buildHeader() {
     return header;
 }
 
+/**
+ * Additional pages can be added by adding a key/pair value into the "pages" object initializer
+ * @returns navBar element containing navigation links
+ */
 export function buildNav() {
     let navBar = buildElement('div', 'top-nav', '');
 
     let pages = {
         'About': about,
-        'Contact': contact,
         'Menu': menu,
+        'Contact': contact,
     };
-
+    console.log(mobile());
     navBar.appendChild(mobile());
 
     let navLinks = buildElement('div', 'nav-links', '');

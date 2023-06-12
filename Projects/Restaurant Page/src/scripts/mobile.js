@@ -1,3 +1,8 @@
+import { buildElement } from "./accessories";
+
+/**
+ * @returns mobileHamburger button that toggles the mobile navigation bar
+ */
 export default function buildMobileNavBurger() {
     let mobileHamburger = buildElement('button', 'navBurger', 'hamburger', 'hamburger--squeeze');
 
