@@ -6,8 +6,8 @@ module.exports = (env, argv) => {
     return {
         entry: {
             initial_load: './src/scripts/initial_load.js',
-            accessories: './src/scripts/accessories.js',
-            mobile: './src/scripts/mobile.js',
+            accessories: './src/scripts/tools/accessories.js',
+            mobile: './src/scripts/tools/mobile.js',
             about: './src/scripts/pages/about.js',
             menu: './src/scripts/pages/menu.js',
             contact: './src/scripts/pages/contact.js',

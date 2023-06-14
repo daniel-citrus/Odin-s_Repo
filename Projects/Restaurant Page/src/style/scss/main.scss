@@ -208,10 +208,11 @@ body {
 #navBurger {
     padding: 5px;
     margin: 13px 14px 0px 0;
+    z-index: 1;
 
     &.is-active+#nav-links {
         transition: height .2s ease-in;
-        height: 140px;
+        height: 100vh;
     }
 }
 
@@ -226,6 +227,8 @@ body {
     height: 0px;
     overflow: hidden;
     transition: height .2s ease-in;
+    position: absolute;
+    top: 0;
 
     button {
         margin: 0;

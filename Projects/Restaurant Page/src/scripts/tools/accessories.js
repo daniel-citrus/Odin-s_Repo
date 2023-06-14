@@ -1,7 +1,7 @@
-import about from './pages/about';
-import contact from './pages/contact';
-import menu from './pages/menu';
-import donut from '../style/media/donut-cropped.svg';
+import about from '../pages/about';
+import contact from '../pages/contact';
+import menu from '../pages/menu';
+import donut from '../../style/media/donut-cropped.svg';
 import mobile from './mobile';
 
 /**
@@ -31,7 +31,7 @@ export function buildHeader() {
     let logoImage = buildElement('img', '', '');
     let logoText = buildElement('div', '', 'logo-text');
 
-    logoText.textContent = 'Andeez Donuts';
+    logoText.textContent = 'Good Donuts';
     logoImage.src = donut;
 
     logo.appendChild(logoImage);
