@@ -10,6 +10,4 @@ import * as tools from './tools/accessories';
     content.appendChild(tools.buildHeader());
     content.appendChild(tools.buildNav());
     content.appendChild(tools.buildElement('div', 'body', ''));
-
-    content.appendChild(tools.fillWithLorem());
 })();

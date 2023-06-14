@@ -199,16 +199,17 @@ body {
 
     position: absolute;
     top: 0;
-
-    &.stuck {
-        background: var(--background);
-    }
 }
 
 #navBurger {
     padding: 5px;
     margin: 13px 14px 0px 0;
     z-index: 1;
+
+    &.is-active {
+        position: fixed;
+        top: 0;
+    }
 
     &.is-active+#nav-links {
         transition: height .2s ease-in;
@@ -227,7 +228,7 @@ body {
     height: 0px;
     overflow: hidden;
     transition: height .2s ease-in;
-    position: absolute;
+    position: fixed;
     top: 0;
 
     button {
@@ -237,7 +238,11 @@ body {
         border: none;
         border-radius: 3px;
         background: var(--light-red);
-        color: black;
+
+        font-family: breeze;
+        font-size: 1.6rem;
+        color: var(--background);
+        text-shadow: 2px 2px 0px #991f0c;
 
         appearance: none;
         -moz-appearance: none;
