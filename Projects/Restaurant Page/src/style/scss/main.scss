@@ -193,12 +193,11 @@ body {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
-    padding: 8px 0;
     width: 100vw;
 
-    position: relative;
+    position: absolute;
     top: 0;
 
     &.stuck {
@@ -208,6 +207,7 @@ body {
 
 #navBurger {
     padding: 5px;
+    margin: 13px 14px 0px 0;
 
     &.is-active+#nav-links {
         transition: height .2s ease-in;

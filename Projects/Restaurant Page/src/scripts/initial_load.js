@@ -12,11 +12,4 @@ import * as tools from './accessories';
     content.appendChild(tools.buildElement('div', 'body', ''));
 
     content.appendChild(tools.fillWithLorem());
-
-    let h = document.querySelector('html');
-    onscroll = () => {
-        console.clear();
-        console.log(h.scrollHeight-window.innerHeight);
-        /* use this for progress bar */
-    }
 })();
