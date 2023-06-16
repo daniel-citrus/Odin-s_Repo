@@ -1,5 +1,5 @@
 import about from '../pages/about';
-import contact from '../pages/contact';
+import location from '../pages/location';
 import menu from '../pages/menu';
 import donut from '../../style/media/donut-cropped.svg';
 import mobile from './mobile';
@@ -51,7 +51,7 @@ export function buildNav() {
     let pages = {
         'About': about,
         'Menu': menu,
-        'Contact': contact,
+        'Location': location,
     };
     console.log(mobile());
     navBar.appendChild(mobile());

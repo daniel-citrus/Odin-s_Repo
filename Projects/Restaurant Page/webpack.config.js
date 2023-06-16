@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
             mobile: './src/scripts/tools/mobile.js',
             about: './src/scripts/pages/about.js',
             menu: './src/scripts/pages/menu.js',
-            contact: './src/scripts/pages/contact.js',
+            location: './src/scripts/pages/location.js',
         },
         devtool: 'eval-source-map',
         output: {
