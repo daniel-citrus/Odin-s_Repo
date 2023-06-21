@@ -1,4 +1,4 @@
-import { buildElement } from "../tools/accessories";
+import { buildElement } from "../accessories";
 
 /**
  * Generate about page content

@@ -1,10 +1,10 @@
-import donut from '../../style/media/donut-cropped.svg';
-import mobile from './mobile';
+import donut from '../style/media/donut-cropped.svg';
+import mobile from './navigation';
 
 /* Pages */
-import about from '../pages/about';
-import menu from '../pages/menu';
-import location from '../pages/location';
+import about from './pages/about';
+import menu from './pages/menu';
+import location from './pages/location';
 
 /**
  * Returns a div with specified class(es)
@@ -73,7 +73,7 @@ export function buildNav() {
  */
 function clearBody() {
     const body = document.getElementById('body');
-    
+
     while(body.firstChild) {
         body.removeChild(parent.firstChild);
     }

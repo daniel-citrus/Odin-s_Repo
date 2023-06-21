@@ -1,5 +1,6 @@
 import '../style/scss/main.scss';
-import * as tools from './tools';
+import navigation from './navigation';
+import * as accessories from './accessories'
 
 /**
  * Generates navigation buttons and then calls the homepage module
@@ -10,7 +11,7 @@ import * as tools from './tools';
 
 function buildHeader() {
     let content = document.getElementById('content');
-    content.appendChild(tools.buildHeader());
-    content.appendChild(tools.buildNav());
-    content.appendChild(tools.buildElement('div', 'body', ''));
+    content.appendChild(accessories.buildHeader());
+    content.appendChild(navigation());
+    content.appendChild(accessories.buildElement('div', 'body', ''));
 }
