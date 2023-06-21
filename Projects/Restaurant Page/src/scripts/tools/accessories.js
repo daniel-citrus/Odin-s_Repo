@@ -1,8 +1,10 @@
-import about from '../pages/about';
-import location from '../pages/location';
-import menu from '../pages/menu';
 import donut from '../../style/media/donut-cropped.svg';
 import mobile from './mobile';
+
+/* Pages */
+import about from '../pages/about';
+import menu from '../pages/menu';
+import location from '../pages/location';
 
 /**
  * Returns a div with specified class(es)
@@ -60,26 +62,31 @@ export function buildNav() {
     navBar.appendChild(navLinks);
 
     Object.keys(pages).forEach((page) => {
-        navLinks.appendChild(createButton(page, pages[page]));
+        navLinks.appendChild(createNavButton(page, pages[page]));
     });
 
     return navBar;
 }
 
 /**
- * Removes all of the child elements within the element
+ * Removes all of the child elements within the id='body' element
  */
-export function clearElement() {
+function clearBody() {
+    const body = document.getElementById('body');
+    
+    while(body.firstChild) {
+        body.removeChild(parent.firstChild);
+    }
 }
 
 /**
- * Returns a button element with an eventlistener that executes the action
- * parameter
+ * Returns a nav button with an eventlistener that clears the body element then
+ * populates it with new data
  * @param name - button text and title
  * @param action - a function
  * @returns button
  */
-export function createButton(name, action) {
+export function createNavButton(name, action) {
     let button = document.createElement('button');
 
     button.classList.add('nav');
@@ -88,7 +95,7 @@ export function createButton(name, action) {
     button.type = 'button';
 
     button.addEventListener('click', () => {
-        /* If button contains a class indicating that it is the active page, then do nothing */
+        clearBody();
         action();
     })
 
