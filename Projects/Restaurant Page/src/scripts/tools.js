@@ -81,7 +81,7 @@ function buildNav() {
 
     let navLinks = buildElement('div', 'nav-links', '');
     navBar.appendChild(navLinks);
-
+    
     Object.keys(pages).forEach((page) => {
         navLinks.appendChild(createNavButton(page, pages[page]));
     });
@@ -112,9 +112,7 @@ function clearBody() {
  * @returns button
  */
 function createNavButton(name, action) {
-    let button = document.createElement('button');
-    
-    button.classList.add('nav');
+    let button = buildElement('button', 'nav','');
     button.textContent = name;
     button.title = name;
     button.type = 'button';

@@ -1,5 +1,5 @@
 import '../style/scss/main.scss';
-import * as accessories from './accessories';
+import * as accessories from './tools';
 /**
  * Generates navigation buttons and then calls the homepage module
 */

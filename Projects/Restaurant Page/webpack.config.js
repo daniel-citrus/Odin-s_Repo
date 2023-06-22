@@ -6,8 +6,7 @@ module.exports = (env, argv) => {
     return {
         entry: {
             initial_load: './src/scripts/initial_load.js',
-            accessories: './src/scripts/accessories.js',
-            
+            tools: './src/scripts/tools.js',
             about: './src/scripts/pages/about.js',
             menu: './src/scripts/pages/menu.js',
             location: './src/scripts/pages/location.js',
@@ -38,7 +37,7 @@ module.exports = (env, argv) => {
             new HtmlWebpackPlugin({
                 filename: '../index.html',
                 template: 'template.html',
-                title: 'Andeez Donuts',
+                title: 'Good Donuts',
             }),
             new MiniCssExtractPlugin(),
         ],

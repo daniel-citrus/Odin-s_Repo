@@ -1,20 +1,23 @@
-import { buildElement } from "../accessories";
+import { buildElement } from "../tools";
 
 /**
  * Generate about page content
  */
 
 export default () => {
-    let about = document.createElement('div', 'about_description');
+    let about = buildElement('div', 'about_description');
+    let header = buildElement('h1', '', '');
+
+    header.textContent = 'About Us';
+    about.appendChild(header);
+
     let information = {
         description: 'We serve fresh donuts, kolaches, croissants, breakfast burritos, and coffee. Family owned and operated since 2014.',
     }
+    let description = buildElement('div', '', 'description');
 
-    for (let item in information) {
-        let infoItem = buildElement('p', '', 'info');
-        infoItem.textContent = information[item];
-        about.appendChild(infoItem);
-    }
+    description.textContent = information['description'];
+    about.appendChild(description);
 
     return about;
 }
