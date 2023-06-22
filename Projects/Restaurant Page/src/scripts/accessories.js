@@ -1,5 +1,4 @@
 import donut from '../style/media/donut-cropped.svg';
-import mobile from './navigation';
 
 /* Pages */
 import about from './pages/about';
@@ -7,7 +6,7 @@ import menu from './pages/menu';
 import location from './pages/location';
 
 /**
- * Returns a div with specified class(es)
+ * Returns a div with specified ID and class(es)
  * @param type - element type
  * @param id - ID
  * @param classes - takes one or more class names eg. 'class1' || 'class1', 'class2', ...
@@ -39,15 +38,36 @@ export function buildHeader() {
     logo.appendChild(logoImage);
     logo.appendChild(logoText);
     header.appendChild(logo);
+    header.appendChild(buildMobileNavBurger());
 
     return header;
+}
+
+/**
+ * @returns mobileHamburger button that toggles the mobile navigation bar
+ */
+function buildMobileNavBurger() {
+    let mobileHamburger = buildElement('button', 'navBurger', 'hamburger', 'hamburger--squeeze');
+
+    mobileHamburger.addEventListener('click', () => {
+        mobileHamburger.classList.toggle('is-active');
+    })
+
+    mobileHamburger.type = 'button';
+    let hamburgerBox = buildElement('span', '', 'hamburger-box');
+    let hamburgerInner = buildElement('span', '', 'hamburger-inner');
+
+    hamburgerBox.appendChild(hamburgerInner);
+    mobileHamburger.appendChild(hamburgerBox);
+
+    return mobileHamburger;
 }
 
 /**
  * Additional pages can be added by adding a key/pair value into the "pages" object initializer
  * @returns navBar element containing navigation links
  */
-export function buildNav() {
+function buildNav() {
     let navBar = buildElement('div', 'top-nav', '');
 
     let pages = {
@@ -55,8 +75,8 @@ export function buildNav() {
         'Menu': menu,
         'Location': location,
     };
-    console.log(mobile());
-    navBar.appendChild(mobile());
+    console.log(buildMobileNavBurger());
+    navBar.appendChild(buildMobileNavBurger());
 
     let navLinks = buildElement('div', 'nav-links', '');
     navBar.appendChild(navLinks);
@@ -86,7 +106,7 @@ function clearBody() {
  * @param action - a function
  * @returns button
  */
-export function createNavButton(name, action) {
+function createNavButton(name, action) {
     let button = document.createElement('button');
 
     button.classList.add('nav');
