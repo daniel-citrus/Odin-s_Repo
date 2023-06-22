@@ -10,5 +10,5 @@ import * as accessories from './accessories';
 function initialize() {
     let content = document.getElementById('content');
     content.appendChild(accessories.buildHeader());
-    content.appendChild(accessories.buildElement('div', 'body', ''));
+    content.appendChild(accessories.buildElement('div', 'contentBody', ''));
 }

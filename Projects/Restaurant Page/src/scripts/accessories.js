@@ -38,7 +38,7 @@ export function buildHeader() {
     logo.appendChild(logoImage);
     logo.appendChild(logoText);
     header.appendChild(logo);
-    header.appendChild(buildMobileNavBurger());
+    header.appendChild(buildNav());
 
     return header;
 }
@@ -54,8 +54,9 @@ function buildMobileNavBurger() {
     })
 
     mobileHamburger.type = 'button';
-    let hamburgerBox = buildElement('span', '', 'hamburger-box');
+
     let hamburgerInner = buildElement('span', '', 'hamburger-inner');
+    let hamburgerBox = buildElement('span', '', 'hamburger-box');
 
     hamburgerBox.appendChild(hamburgerInner);
     mobileHamburger.appendChild(hamburgerBox);
@@ -75,7 +76,7 @@ function buildNav() {
         'Menu': menu,
         'Location': location,
     };
-    console.log(buildMobileNavBurger());
+
     navBar.appendChild(buildMobileNavBurger());
 
     let navLinks = buildElement('div', 'nav-links', '');
@@ -92,31 +93,37 @@ function buildNav() {
  * Removes all of the child elements within the id='body' element
  */
 function clearBody() {
-    const body = document.getElementById('body');
+    const body = document.getElementById('contentBody');
 
-    while(body.firstChild) {
-        body.removeChild(parent.firstChild);
+    if (!body) {
+        return;
+    }
+
+    while (body.firstChild) {
+        body.removeChild(body.firstChild);
     }
 }
 
 /**
  * Returns a nav button with an eventlistener that clears the body element then
- * populates it with new data
+ * executes a function
  * @param name - button text and title
  * @param action - a function
  * @returns button
  */
 function createNavButton(name, action) {
     let button = document.createElement('button');
-
+    
     button.classList.add('nav');
     button.textContent = name;
     button.title = name;
     button.type = 'button';
-
+    
     button.addEventListener('click', () => {
         clearBody();
-        action();
+
+        let contentBody = document.getElementById('contentBody');
+        contentBody.appendChild(action());
     })
 
     return button;
