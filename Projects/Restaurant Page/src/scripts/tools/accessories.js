@@ -7,8 +7,18 @@ import menu from '../pages/menu';
 import location from '../pages/location';
 
 /**
+ * Inserts the main header and navigation to contentDiv parameter
+ * @param {element} contentDiv 
+ */
+export default function initialize(contentDiv) {
+    contentDiv.appendChild(buildHeader());
+    contentDiv.appendChild(buildNav());
+    contentDiv.appendChild(buildElement('div', 'body', ''));
+}
+
+/**
  * Returns a div with specified class(es)
- * @param type - element type
+ * @param {element} type - element type
  * @param id - ID
  * @param classes - takes one or more class names eg. 'class1' || 'class1', 'class2', ...
  * @returns div
@@ -55,7 +65,6 @@ export function buildNav() {
         'Menu': menu,
         'Location': location,
     };
-    console.log(mobile());
     navBar.appendChild(mobile());
 
     let navLinks = buildElement('div', 'nav-links', '');
@@ -75,7 +84,7 @@ function clearBody() {
     const body = document.getElementById('body');
     
     while(body.firstChild) {
-        body.removeChild(parent.firstChild);
+        body.removeChild(body.firstChild);
     }
 }
 
@@ -95,8 +104,9 @@ export function createNavButton(name, action) {
     button.type = 'button';
 
     button.addEventListener('click', () => {
+        let body = document.getElementById('body');
         clearBody();
-        action();
+        body.appendChild(action());
     })
 
     return button;
