@@ -1,4 +1,5 @@
 import { buildElement } from "../tools/accessories";
+import './about.scss';
 
 /**
  * Generate about page content

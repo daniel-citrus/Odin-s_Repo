@@ -14,6 +14,8 @@ export default function initialize(contentDiv) {
     contentDiv.appendChild(buildHeader());
     contentDiv.appendChild(buildNav());
     contentDiv.appendChild(buildElement('div', 'body', ''));
+    let div = document.querySelector('#top-nav #nav-links button');
+    div.click();
 }
 
 /**
@@ -82,8 +84,8 @@ export function buildNav() {
  */
 function clearBody() {
     const body = document.getElementById('body');
-    
-    while(body.firstChild) {
+
+    while (body.firstChild) {
         body.removeChild(body.firstChild);
     }
 }
