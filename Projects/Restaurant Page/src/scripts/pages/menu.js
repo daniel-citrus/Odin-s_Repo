@@ -1,7 +1,11 @@
+import { buildElement } from '../tools/accessories';
+
 /**
  * Generate menu page content
  */
 
 export default () => {
-    console.log('menu');
+    let menu = buildElement('div', 'menu', '');
+
+    let items = [];
 }
