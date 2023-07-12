@@ -3,7 +3,7 @@ import { buildElement } from "./accessories";
 /**
  * @returns mobileHamburger button that toggles the mobile navigation bar
  */
-export default function buildMobileNavBurger() {
+export function buildMobileNavBurger() {
     let mobileHamburger = buildElement('button', 'navBurger', 'hamburger', 'hamburger--squeeze');
 
     mobileHamburger.addEventListener('click', () => {
@@ -18,4 +18,9 @@ export default function buildMobileNavBurger() {
     mobileHamburger.appendChild(hamburgerBox);
 
     return mobileHamburger;
+}
+
+export function toggleMenu() {
+    let navBurger = document.getElementById('navBurger');
+    navBurger.click();
 }

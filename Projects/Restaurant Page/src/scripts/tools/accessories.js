@@ -1,5 +1,5 @@
 import donut from '../../style/media/donut-cropped.svg';
-import mobile from './mobile';
+import * as mobile from './mobile';
 
 /* Pages */
 import about from '../pages/about';
@@ -67,7 +67,7 @@ export function buildNav() {
         'Menu': menu,
         'Location': location,
     };
-    navBar.appendChild(mobile());
+    navBar.appendChild(mobile.buildMobileNavBurger());
 
     let navLinks = buildElement('div', 'nav-links', '');
     navBar.appendChild(navLinks);
