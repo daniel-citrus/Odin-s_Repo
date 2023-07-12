@@ -91,8 +91,8 @@ function clearBody() {
 }
 
 /**
- * Returns a nav button with an eventlistener that clears the body element then
- * populates it with new data
+ * Returns a nav button with an eventlistener that clears the body element,
+ * populates it with new data, and then closes the mobile nav bar.
  * @param name - button text and title
  * @param action - a function
  * @returns button
@@ -109,6 +109,7 @@ export function createNavButton(name, action) {
         let body = document.getElementById('body');
         clearBody();
         body.appendChild(action());
+        mobile.disableBurger();
     })
 
     return button;

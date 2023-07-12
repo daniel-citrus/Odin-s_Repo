@@ -20,7 +20,7 @@ export function buildMobileNavBurger() {
     return mobileHamburger;
 }
 
-export function toggleMenu() {
+export function disableBurger() {
     let navBurger = document.getElementById('navBurger');
-    navBurger.click();
+    navBurger.classList.remove('is-active');
 }
