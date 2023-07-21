@@ -14,7 +14,8 @@ export default function initialize(contentDiv) {
     contentDiv.appendChild(buildHeader());
     contentDiv.appendChild(buildNav());
     contentDiv.appendChild(buildElement('div', 'body', ''));
-    let div = document.querySelector('#top-nav #nav-links button');
+    /* let div = document.querySelector('#top-nav #nav-links button'); */
+    let div = document.querySelectorAll('#top-nav #nav-links button')[1];
     div.click();
 }
 
