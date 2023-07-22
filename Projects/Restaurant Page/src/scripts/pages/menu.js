@@ -7,16 +7,33 @@ import { buildElement } from '../tools/accessories';
 export default () => {
     let menu = buildElement('div', 'menu', '');
 
+    let items1 = {
+        Food: [
+            {}
+        ],
+        Drinks: [
+            {
+                name: 'Coffee',
+                calories: 10,
+                protein: 0,
+            }
+        ]
+    };
     let items = [
         {
             name: 'Original Glazed Donut',
-            calories: 120,
-            protein: '2g',
+            calories: 190,
+            protein: 0,
         },
         {
-            name: 'Kolaches',
-            calories: 250,
-            protein: '10g',
+            name: 'Kolache',
+            calories: 480,
+            protein: 0,
+        },
+        {
+            name: 'Croissant',
+            calories: 230,
+            protein: 0
         },
     ];
 
@@ -32,7 +49,7 @@ export default () => {
                 continue;
             }
 
-            entry.textContent = `${detail}: ${item[detail]}`;
+            entry.textContent = `${detail.charAt(0).toUpperCase() + detail.slice(1)}: ${item[detail]}`;
             card.appendChild(entry);
         }
 
