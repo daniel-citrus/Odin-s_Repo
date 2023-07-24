@@ -11,12 +11,9 @@ export default () => {
     header.textContent = 'About Us';
     about.appendChild(header);
 
-    let information = {
-        description: 'We serve fresh donuts, kolaches, croissants, breakfast burritos, and coffee. Family owned and operated since 2014.',
-    }
     let description = buildElement('div', '', 'description');
 
-    description.textContent = information['description'];
+    description.textContent = 'We serve fresh donuts, kolaches, croissants, breakfast burritos, and coffee. Family owned and operated since 2014.';
     about.appendChild(description);
 
     return about;

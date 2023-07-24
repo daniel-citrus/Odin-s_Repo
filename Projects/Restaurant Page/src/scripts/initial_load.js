@@ -11,4 +11,6 @@ function initialize() {
     let content = document.getElementById('content');
     content.appendChild(accessories.buildHeader());
     content.appendChild(accessories.buildElement('div', 'contentBody', ''));
+
+    /* Click menu button for development, delete later */
 }
