@@ -7,19 +7,7 @@ import { buildElement } from '../tools/accessories';
 export default () => {
     let menu = buildElement('div', 'menu', '');
 
-    let items1 = {
-        Food: [
-            {}
-        ],
-        Drinks: [
-            {
-                name: 'Coffee',
-                calories: 10,
-                protein: 0,
-            }
-        ]
-    };
-    let items = [
+    let food = [
         {
             name: 'Original Glazed Donut',
             calories: 190,
@@ -35,26 +23,45 @@ export default () => {
             calories: 230,
             protein: 0
         },
-    ];
+    ]
 
-    for (let item of items) {
-        let card = buildElement('div', '', 'card');
-
-        for (let detail in item) {
-            let entry = buildElement('div', '', detail);
-            
-            if (detail === 'name') {
-                entry.textContent = item[detail];
-                card.appendChild(entry);
-                continue;
-            }
-
-            entry.textContent = `${detail.charAt(0).toUpperCase() + detail.slice(1)}: ${item[detail]}`;
-            card.appendChild(entry);
+    let drinks = [
+        {
+            name: 'Coffee',
+            calories: 10,
+            protein: 0,
+        },
+        {
+            name: 'Orange Juice',
+            calories: 170,
+            protein: 2,
         }
+    ]
 
-        menu.appendChild(card);
+    let foodDiv = buildElement('div', '', 'foods');
+    foodDiv.textContent = 'Food';
+
+    let foodCard, name, calories, protein;
+    for (let foodItem of food) {
+        foodCard = buildElement('div', '', 'food');
+        foodCard.textContent = 'Food'
+
+        name = buildElement('div', '', 'name');
+        name.textContent = foodItem.name;
+        foodCard.appendChild(name);
+
+        calories = buildElement('div', '', 'name');
+        calories.textContent = foodItem.calories;
+        foodCard.appendChild(calories);
+        
+        protein = buildElement('div', '', 'name');
+        protein.textContent = foodItem.protein;
+        foodCard.appendChild(protein);
+        
+        menu.appendChild(foodCard);
     }
+
+
 
     return menu;
 }
