@@ -1,3 +1,4 @@
+import { info } from 'sass';
 import { buildElement } from '../tools/accessories';
 
 /**
@@ -7,8 +8,9 @@ import { buildElement } from '../tools/accessories';
 export default () => {
     let menu = buildElement('div', 'menu', '');
 
-    const menuItems = {
-        food: [
+    const menuItems = [
+        [
+            'food',
             {
                 name: 'Original Glazed Donut',
                 calories: 190,
@@ -25,8 +27,8 @@ export default () => {
                 protein: 0
             },
         ],
-    
-        drinks: [
+        [
+            'drinks',
             {
                 name: 'Coffee',
                 calories: 10,
@@ -37,13 +39,17 @@ export default () => {
                 calories: 170,
                 protein: 2,
             }
-        ]
-    };
+        ],
+    ];
 
-    let items = Object.getOwnPropertyNames(menuItems);
-    
-    for (let item of items) {
-        console.log(menuItems[item]);
+    for (let item of menuItems) {
+        let menuCategoryDiv = buildElement('div', '', item[0], 'menu-category');
+        menuCategoryDiv.textContent = item[0].slice(0, 1).toUpperCase() + item[0].slice(1);
+        menu.appendChild(menuCategoryDiv);
+
+        item.slice(1).forEach((info)=> {
+            console.log(info);
+        });
     }
 
     return menu;
