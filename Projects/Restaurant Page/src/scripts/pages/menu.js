@@ -1,4 +1,3 @@
-import { info } from 'sass';
 import { buildElement } from '../tools/accessories';
 
 /**
@@ -8,9 +7,8 @@ import { buildElement } from '../tools/accessories';
 export default () => {
     let menu = buildElement('div', 'menu', '');
 
-    const menuItems = [
-        [
-            'food',
+    const menuItems = {
+        food: [
             {
                 name: 'Original Glazed Donut',
                 calories: 190,
@@ -27,8 +25,7 @@ export default () => {
                 protein: 0
             },
         ],
-        [
-            'drinks',
+        drinks: [
             {
                 name: 'Coffee',
                 calories: 10,
@@ -40,16 +37,29 @@ export default () => {
                 protein: 2,
             }
         ],
-    ];
+    };
 
-    for (let item of menuItems) {
-        let menuCategoryDiv = buildElement('div', '', item[0], 'menu-category');
-        menuCategoryDiv.textContent = item[0].slice(0, 1).toUpperCase() + item[0].slice(1);
-        menu.appendChild(menuCategoryDiv);
+    let categories = Object.getOwnPropertyNames(menuItems);
 
-        item.slice(1).forEach((info)=> {
-            console.log(info);
-        });
+    for (let category of categories) {
+        let categoryDiv = buildElement('div', '', 'category', category);
+        categoryDiv.textContent = category.slice(0,1).toUpperCase() + category.slice(1);
+
+        for (let item of menuItems[category]) {
+            let itemName = item['name'].toLowerCase().replace(/\s/g, '-');
+            let itemDiv = buildElement('div', '', 'item', itemName);
+            let itemInfo = Object.getOwnPropertyNames(item);
+
+            for (let info of itemInfo) {
+                let infoDiv = buildElement('div', '', 'info', info);
+                infoDiv.textContent = item[info];
+                itemDiv.appendChild(infoDiv);
+            }
+
+            categoryDiv.appendChild(itemDiv);
+        }
+
+        menu.appendChild(categoryDiv);
     }
 
     return menu;
