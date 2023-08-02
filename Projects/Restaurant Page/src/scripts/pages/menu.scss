@@ -1,0 +1,32 @@
+#menu {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 50px;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.category {
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    gap: 15px;
+    .items {
+        display: grid;
+        grid: auto / repeat(auto-fill, calc(calc(100% - 30px)/3)); // -30px accounts for the gap
+        gap: 35px 10px;
+    }
+    .item {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 10px;
+        line-height: 1.2rem;
+
+        border: 1px solid black;
+        padding: 20px 0;
+    }
+
+}
+.category-name {
+    font-size: 1.4rem;
+}

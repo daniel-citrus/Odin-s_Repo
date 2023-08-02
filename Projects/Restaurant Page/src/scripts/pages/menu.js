@@ -1,4 +1,5 @@
 import { buildElement } from '../tools/accessories';
+import './menu.scss';
 
 /**
  * Generate menu page content
@@ -10,31 +11,42 @@ export default () => {
     const menuItems = {
         food: [
             {
-                name: 'Original Glazed Donut',
+                name: 'Donut',
+                calories: 120,
+            },
+            {
+                name: 'Chocolate Donut',
+                calories: 200,
+            },
+            {
+                name: 'Strawberry Donut',
+                calories: 185,
+            },
+            {
+                name: 'Glazed Donut',
                 calories: 190,
-                protein: 0,
             },
             {
                 name: 'Kolache',
                 calories: 480,
-                protein: 0,
             },
             {
                 name: 'Croissant',
                 calories: 230,
-                protein: 0
             },
         ],
         drinks: [
             {
                 name: 'Coffee',
                 calories: 10,
-                protein: 0,
             },
             {
                 name: 'Orange Juice',
                 calories: 170,
-                protein: 2,
+            },
+            {
+                name: 'Water',
+                calories: 0,
             }
         ],
     };
@@ -43,7 +55,13 @@ export default () => {
 
     for (let category of categories) {
         let categoryDiv = buildElement('div', '', 'category', category);
-        categoryDiv.textContent = category.slice(0,1).toUpperCase() + category.slice(1);
+        let categoryName = category.slice(0, 1).toUpperCase() + category.slice(1);
+        let categoryNameDiv = buildElement('div', '', 'category-name', categoryName);
+
+        categoryNameDiv.textContent = categoryName;
+        categoryDiv.appendChild(categoryNameDiv);
+
+        let itemsDiv = buildElement('div', '', 'items');
 
         for (let item of menuItems[category]) {
             let itemName = item['name'].toLowerCase().replace(/\s/g, '-');
@@ -52,13 +70,20 @@ export default () => {
 
             for (let info of itemInfo) {
                 let infoDiv = buildElement('div', '', 'info', info);
-                infoDiv.textContent = item[info];
+                if (info != 'name') {
+                    infoDiv.textContent = `${item[info]} ${info.slice(0,3)}`;
+                }
+                else {
+                    infoDiv.textContent = item[info];
+                }
+
                 itemDiv.appendChild(infoDiv);
             }
 
-            categoryDiv.appendChild(itemDiv);
+            itemsDiv.appendChild(itemDiv);
         }
 
+        categoryDiv.appendChild(itemsDiv);
         menu.appendChild(categoryDiv);
     }
 

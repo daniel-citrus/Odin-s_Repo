@@ -1,4 +1,4 @@
-import { buildElement } from '../tools/accessories'
+import { buildElement } from '../tools/accessories';
 
 /**
  * Generate contact page content
