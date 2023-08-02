@@ -11,10 +11,13 @@
     flex-flow: column nowrap;
     text-align: center;
     gap: 15px;
+    margin: 0 20px;
+
     .items {
         display: grid;
-        grid: auto / repeat(auto-fill, calc(calc(100% - 30px)/3)); // -30px accounts for the gap
+        grid: auto / repeat(auto-fill, 175px); // -20px accounts for the gap
         gap: 35px 10px;
+        justify-content: center;
     }
     .item {
         display: flex;
@@ -22,11 +25,19 @@
         gap: 10px;
         line-height: 1.2rem;
 
-        border: 1px solid black;
+        border: 1px solid #aea593;
+        border-radius: 4px;
         padding: 20px 0;
+        box-shadow: 0 0 11px -7px black;
+        background-color: #f2e4c7;
+
+        .name {
+            font-weight: bold;
+        }
     }
 
 }
 .category-name {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
 }
