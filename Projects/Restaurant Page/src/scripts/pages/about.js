@@ -1,4 +1,5 @@
 import { buildElement } from "../tools/accessories";
+import donutShelf from '../../style/media/donut-shelf.jpg';
 import './about.scss';
 
 /**
@@ -14,7 +15,10 @@ export default () => {
     let description = buildElement('div', '', 'description');
     description.textContent = 'We serve fresh donuts, kolaches, croissants, breakfast burritos, and coffee. Family owned and operated.';
     about.appendChild(description);
-
+    
+    let donutImg = buildElement('img', '', 'donutShelf');
+    donutImg.src = donutShelf;
+    about.appendChild(donutImg);
     
     return about;
 }

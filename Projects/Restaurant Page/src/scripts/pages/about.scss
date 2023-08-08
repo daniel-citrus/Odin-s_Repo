@@ -1,9 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
 #about_description {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+    margin: 0 20px;
+
     * {
         font-family: 'Libre Baskerville', serif;
+        font-size: 1.4rem;
     }
 
-    
+    img {
+        height: 100%;
+        width: auto;
+        max-width: 650px;
+    }
+
+    .description {
+        max-width: 720px;
+    }
+
 }
