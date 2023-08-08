@@ -101,17 +101,26 @@ function clearBody() {
 export function createNavButton(name, action) {
     let button = document.createElement('button');
 
-    button.classList.add('nav');
+    button.classList.add('nav','selected');
     button.textContent = name;
     button.title = name;
     button.type = 'button';
 
-    button.addEventListener('click', () => {
-        let body = document.getElementById('body');
+    button.addEventListener('click', (e) => {
+        clearSelectedStatus();
+        e.target.classList.add('selected');
         clearBody();
+        let body = document.getElementById('body');
         body.appendChild(action());
         mobile.disableBurger();
     })
+
+    function clearSelectedStatus() {
+        let selectedButtons = document.querySelectorAll('button.nav');
+        selectedButtons.forEach((btn) => {
+            btn.classList.remove('selected');
+        });
+    }
 
     return button;
 }
