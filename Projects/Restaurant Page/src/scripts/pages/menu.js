@@ -1,5 +1,4 @@
 import { buildElement } from '../tools/accessories';
-import './menu.scss';
 
 /**
  * Generate menu page content

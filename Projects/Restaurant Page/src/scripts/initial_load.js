@@ -1,4 +1,6 @@
 import '../style/scss/main.scss';
+import './pages/about.scss';
+import './pages/menu.scss';
 import initialize from './tools/accessories';
 
 /**
