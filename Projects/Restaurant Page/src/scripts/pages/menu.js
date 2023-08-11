@@ -1,5 +1,4 @@
 import { buildElement } from '../tools/accessories';
-import './menu.scss';
 
 /**
  * Generate menu page content
@@ -8,7 +7,9 @@ import './menu.scss';
 export default () => {
     let menu = buildElement('div', 'menu', '');
 
-    /* let pageTitle = buildElement */
+    let pageTitle = buildElement('div', 'pageTitle', '');
+    pageTitle.textContent = 'Menu';
+    menu.appendChild(pageTitle);
 
     const menuItems = {
         food: [
