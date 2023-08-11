@@ -162,10 +162,16 @@ body {
     background: url('/src/style/media/background.svg');
 }
 
+#content {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
+    margin: 20px 0;
+}
+
 #header {
     display: flex;
     flex-flow: column nowrap;
-    margin: 45px auto 35px auto;
 }
 
 #logo {
@@ -249,13 +255,13 @@ body {
 @media screen and (min-width:1024px) {
     #top-nav {
         position: static;
-        margin: 35px 0;
     }
 
     #nav-links {
         flex-flow: row nowrap;
         position: static;
         height: initial;
+        gap: 10px;
 
         button {
             padding: 5px 30px;
@@ -264,8 +270,8 @@ body {
 
     #navBurger {
         display: none;
-        
-        &.is-active + #nav-links {
+
+        &.is-active+#nav-links {
             height: auto;
         }
     }
