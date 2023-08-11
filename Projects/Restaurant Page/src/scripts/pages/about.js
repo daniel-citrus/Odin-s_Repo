@@ -1,6 +1,6 @@
 import { buildElement } from "../tools/accessories";
 import donutShelf from '../../style/media/donut-shelf.jpg';
-
+import './about.scss';
 /**
  * Generate about page content
  */

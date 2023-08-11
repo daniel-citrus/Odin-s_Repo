@@ -1,4 +1,5 @@
 import { buildElement } from '../tools/accessories';
+import './menu.scss';
 
 /**
  * Generate menu page content
@@ -6,6 +7,8 @@ import { buildElement } from '../tools/accessories';
 
 export default () => {
     let menu = buildElement('div', 'menu', '');
+
+    /* let pageTitle = buildElement */
 
     const menuItems = {
         food: [
@@ -52,6 +55,7 @@ export default () => {
 
     let categories = Object.getOwnPropertyNames(menuItems);
 
+    /* Dynamically generate the menu using the menuItems dictionary */
     for (let category of categories) {
         let categoryDiv = buildElement('div', '', 'category', category);
         let categoryName = category.slice(0, 1).toUpperCase() + category.slice(1);
