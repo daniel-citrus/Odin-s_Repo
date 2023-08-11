@@ -162,10 +162,6 @@ body {
     background: url('/src/style/media/background.svg');
 }
 
-#content {
-    margin-bottom: 50px;
-}
-
 #header {
     display: flex;
     flex-flow: column nowrap;
@@ -173,9 +169,6 @@ body {
 }
 
 #logo {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
     text-align: center;
 
     img {
@@ -188,7 +181,6 @@ body {
         font-family: breeze;
         white-space: nowrap;
         font-size: 3rem;
-        line-height: 3.3rem;
         text-shadow: 2px 2px 0px #991f0c;
     }
 }
@@ -197,7 +189,6 @@ body {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: flex-end;
 
     width: 100vw;
 
@@ -209,6 +200,7 @@ body {
     padding: 5px;
     margin: 13px 14px 0px 0;
     z-index: 1;
+    align-self: flex-end;
 
     &.is-active {
         position: fixed;
@@ -252,4 +244,30 @@ body {
         -moz-appearance: none;
         -webkit-appearance: none;
     }
+}
+
+@media screen and (min-width:1024px) {
+    #top-nav {
+        position: static;
+        margin: 35px 0;
+    }
+
+    #nav-links {
+        flex-flow: row nowrap;
+        position: static;
+        height: initial;
+
+        button {
+            padding: 5px 30px;
+        }
+    }
+
+    #navBurger {
+        display: none;
+        
+        &.is-active + #nav-links {
+            height: auto;
+        }
+    }
+
 }
