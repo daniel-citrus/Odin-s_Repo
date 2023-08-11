@@ -7,4 +7,10 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    gap: 30px;
+
+    .map {
+        width: 90%;
+        max-width: 800px;
+    }
 }

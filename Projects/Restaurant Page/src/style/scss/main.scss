@@ -158,6 +158,21 @@ table {
     src: url('/src/style/fonts/breeze-personal-use.regular.ttf');
 }
 
+@font-face {
+    font-family: opensansBold;
+    src: url('/src/style/fonts/OpenSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: opensansRegular;
+    src: url('/src/style/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: opensansLight;
+    src: url('/src/style/fonts/OpenSans-Light.ttf');
+}
+
 body {
     background: url('/src/style/media/background.svg');
 }
