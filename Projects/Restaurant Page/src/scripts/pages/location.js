@@ -8,11 +8,11 @@ export default () => {
     let location = buildElement('div', 'location');
 
     let title = buildElement('div', 'pageTitle', '');
-    title.textContent = 'Contact Us';
+    title.textContent = 'Location';
     location.appendChild(title);
 
     let address = buildElement('div', '', 'address');
-    address.textContent = 'Address: 800 Culver Street, Commerce, TX 75428';
+    address.textContent = '800 Culver Street, Commerce, TX 75428';
     location.appendChild(address);
 
     let map = buildElement('div', '', 'map');

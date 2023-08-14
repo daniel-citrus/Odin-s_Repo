@@ -1,5 +1,6 @@
 #googleMap {
     width: 100%;
+    height: 100%;
 }
 
 #location {
@@ -8,8 +9,14 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
+    font-family: opensansRegular;
+
+    .address {
+        font-size: 1.4rem;
+    }
 
     .map {
+        height: 500px;
         width: 90%;
         max-width: 800px;
     }
