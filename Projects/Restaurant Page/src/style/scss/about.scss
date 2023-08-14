@@ -4,14 +4,11 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
     margin: 0 20px;
-
-    * {
-        font-family: 'Libre Baskerville', serif;
-        font-size: 1.4rem;
-        line-height: 2.4rem;
-    }
+    font-family: opensansRegular, 'Libre Baskerville', serif;
+    font-size: 1.4rem;
+    overflow-x: hidden;
 
     img {
         height: auto;
@@ -21,6 +18,7 @@
 
     .description {
         max-width: 720px;
+        line-height: 1.6rem;
     }
 
 }

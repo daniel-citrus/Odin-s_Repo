@@ -60,7 +60,7 @@ export default () => {
     for (let category of categories) {
         let categoryDiv = buildElement('div', '', 'category', category);
         let categoryName = category.slice(0, 1).toUpperCase() + category.slice(1);
-        let categoryNameDiv = buildElement('div', '', 'category-name', categoryName);
+        let categoryNameDiv = buildElement('h1', '', 'category-name', categoryName);
 
         categoryNameDiv.textContent = categoryName;
         categoryDiv.appendChild(categoryNameDiv);
