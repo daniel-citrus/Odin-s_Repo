@@ -1,5 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
+#hoursTable {
+    text-align: start;
+    white-space: nowrap;
+    border-collapse: collapse;
+    border: 1px solid rgb(41, 41, 41);
+
+    td {
+        border-collapse: collapse;
+        border: 1px solid rgb(41, 41, 41);
+    }
+
+    tr {
+        padding: 20px 0;
+    }
+
+    td:nth-child(2n) {
+        font-size: 1.6rem;
+        border: none;
+    }
+}
+
 #about_description {
     display: flex;
     flex-flow: column nowrap;
