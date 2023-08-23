@@ -1,23 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
+.hoursTitle {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+#hours {
+    width: 100%;
+    max-width: 420px;
+    border: 2px solid black;
+    padding: 20px 10px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+}
+
 #hoursTable {
-    text-align: start;
+    border-collapse: separate;
     white-space: nowrap;
-    border-collapse: collapse;
-    border: 1px solid rgb(41, 41, 41);
+    font-size: 1.2rem;
 
     td {
-        border-collapse: collapse;
-        border: 1px solid rgb(41, 41, 41);
+        padding: 5px 0;
     }
 
     tr {
-        padding: 20px 0;
-    }
+        td:nth-child(1) {
+            text-align: start;
+        }
 
-    td:nth-child(2n) {
-        font-size: 1.6rem;
-        border: none;
+        td:nth-child(2n+1) {
+            font-weight: bold;
+        }
     }
 }
 

@@ -12,18 +12,17 @@ export default () => {
     about.appendChild(description);
 
     let phone = buildElement('div', '', 'phone');
-    phone.textContent = 'Phone: (903) 886-1011';
-    about.appendChild(phone);
-
+    phone.textContent = '(903) 886-1011';
+    
     /* Business Hours */
     let hours = buildElement('div', 'hours', '');
     let hoursTitle = buildElement('div', '', 'hoursTitle');
     hoursTitle.textContent = 'Hours of Operation';
     hours.appendChild(hoursTitle);
-
+    
     let table = buildElement('table', 'hoursTable', '');
     let hoursInfo = [
-        ['Day', 'Open', '', 'Close'],
+        ['', 'Open', '', 'Close'],
         ['Monday', '4:30 AM', 'to', '1:00 PM'],
         ['Tuesday', '4:30 AM', 'to', '1:00 PM'],
         ['Wednesday', '4:30 AM', 'to', '1:00 PM'],
@@ -44,8 +43,11 @@ export default () => {
         }
         table.appendChild(row);
     }
-    about.appendChild(table);
-
+    
+    hours.appendChild(table);
+    hours.appendChild(phone);
+    about.appendChild(hours);
+    
     let donutImg = buildElement('img', '', 'donutShelf');
     donutImg.src = donutShelf;
     about.appendChild(donutImg);

@@ -276,6 +276,15 @@ h1 {
         -moz-appearance: none;
         -webkit-appearance: none;
     }
+
+    button:hover {
+        border-radius: 3px;
+        background: var(--butter);
+        font-family: breeze;
+        font-size: 1.6rem;
+        color: #fd6a77;
+        text-shadow: 2px 2px 0px var(--eggplant);
+    }
 }
 
 #pageTitle {
