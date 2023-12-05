@@ -1,67 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/styling/style.css" />
+    <script src="/assets/scripts/script.js" defer></script>
+    <title>Virtual Library</title>
+  </head>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/assets/styling/style.css">
-        <script src="/assets/scripts/script.js" defer></script>
-        <title>Virtual Library</title>
-    </head>
+  <body>
+    <form class="new-book-form" autocomplete="off">
+      <div class="form-contents">
+        <button
+          type="button"
+          class="cancel"
+          aria-label="Close form"
+          title="Close form"
+        ></button>
+        <div class="form-row">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" maxlength="64" required />
+        </div>
+        <br />
+        <div class="form-row">
+          <label for="author">Author:</label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            maxlength="64"
+            required
+          />
+        </div>
+        <br />
+        <div class="form-row">
+          <label for="published">Publish Year:</label>
+          <input
+            type="text"
+            id="published"
+            name="published"
+            maxlength="4"
+            min="1000"
+            required
+          />
+        </div>
+        <br />
+        <div class="form-row">
+          <label for="pages">Pages:</label>
+          <input
+            type="number"
+            id="pages"
+            name="pages"
+            min="1"
+            value="0"
+            required
+          />
+        </div>
+        <br />
+        <div class="completed-row form-row">
+          <label for="completed">Completed:</label>
+          <input type="checkbox" id="completed" />
+        </div>
+        <br />
+        <div class="form-row form-buttons">
+          <button
+            type="submit"
+            class="add"
+            title="Add book"
+            aria-label="Add book"
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            class="clear"
+            title="Clear form"
+            aria-label="Clear form"
+          >
+            Clear
+          </button>
+          <button
+            type="button"
+            class="populate"
+            title="Populate form"
+            aria-label="Populate form"
+          >
+            Populate
+          </button>
+        </div>
+      </div>
+    </form>
 
-    <body>
-        <form class="new-book-form" autocomplete="off">
-            <div class="form-contents">
-                <button type="button" class="cancel" aria-label="Close form" title="Close form"></button>
-                <div class="form-row">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name='title' maxlength="64" required>
-                </div>
-                <br>
-                <div class="form-row">
-                    <label for="author">Author:</label>
-                    <input type="text" id="author" name='author' maxlength="64" required>
-                </div>
-                <br>
-                <div class="form-row">
-                    <label for="published">Publish Year:</label>
-                    <input type="text" id="published" name='published' maxlength="4"
-                    min="1000" required>
-                </div>
-                <br>
-                <div class="form-row">
-                    <label for="pages">Pages:</label>
-                    <input type="number" id="pages" name='pages' min="0" value="0" required>
-                </div>
-                <br>
-                <div class="completed-row form-row">
-                    <label for="completed">Completed:</label>
-                    <input type="checkbox" id="completed">
-                </div>
-                <br>
-                <div class="form-row form-buttons">
-                    <button type="submit" class="add" title="Add book" aria-label="Add book">Add</button>
-                    <button type="button" class="clear" title="Clear form" aria-label="Clear form">Clear</button>
-                    <button type="button" class="populate" title="Populate form"
-                        aria-label="Populate form">Populate</button>
-                </div>
-            </div>
-        </form>
-
-        <section class="main-window">
-            <header>
-                <div class="title">Virtual Library</div>
-                <button class="new-book" aria-label="new book" title="New book"></button>
-            </header>
-            <div class="library">
-                <button class="new-book" aria-label="new book" title="New book"></button>
-            </div>
-            <div class="footer">
-                Copyright © <span class="year">2022</span>
-            </div>
-        </section>
-
-    </body>
-
+    <section class="main-window">
+      <header>
+        <div class="title">Virtual Library</div>
+        <button
+          class="new-book"
+          aria-label="new book"
+          title="New book"
+        ></button>
+      </header>
+      <div class="library">
+        <button
+          class="new-book"
+          aria-label="new book"
+          title="New book"
+        ></button>
+      </div>
+      <div class="footer">Copyright © <span class="year">2022</span></div>
+    </section>
+  </body>
 </html>
