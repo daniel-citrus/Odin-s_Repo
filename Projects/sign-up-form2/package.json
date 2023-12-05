@@ -1,0 +1,16 @@
+{
+  "name": "sign-up-form2",
+  "version": "1.0.0",
+  "description": "Sign up form with form validation",
+  "main": "index.js",
+  "scripts": {
+    "code": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "Daniel Calvo",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
