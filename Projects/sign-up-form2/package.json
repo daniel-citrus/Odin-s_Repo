@@ -4,12 +4,20 @@
   "description": "Sign up form with form validation",
   "main": "index.js",
   "scripts": {
-    "code": "webpack --mode development",
+    "code": "webpack --watch --mode development",
     "build": "webpack --mode production"
   },
   "author": "Daniel Calvo",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^8.55.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "html-webpack-plugin": "^5.5.3",
+    "prettier": "^3.1.0",
+    "prettier-eslint": "^16.1.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   }

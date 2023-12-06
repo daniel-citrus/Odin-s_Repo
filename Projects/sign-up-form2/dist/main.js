@@ -1,0 +1,1 @@
+var o;o=new function(o){this.stuf=o}("ayo"),console.log(o.stuf);
