@@ -1,5 +1,5 @@
 function Test(stuf) {
-  this.stuf = stuf;
+    this.stuf = stuf;
 }
 
 const textObj = new Test('ayo');
