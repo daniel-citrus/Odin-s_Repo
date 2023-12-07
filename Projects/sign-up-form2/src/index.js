@@ -1,5 +1,6 @@
 import * as zipTools from './zipRegex';
 
+const submitButton = document.querySelector('form button[type="button"]');
 const countrySelect = document.getElementById('country');
 
 function buildCountryOptions() {
@@ -24,4 +25,9 @@ function buildCountryOptions() {
 
 (() => {
     buildCountryOptions();
+
+    submitButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        //validateInputs();
+    });
 })();
