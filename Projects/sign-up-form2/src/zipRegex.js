@@ -698,8 +698,131 @@ const zipRegex = {
     ],
 };
 
-function countryNames = {
-    
+const countryNames = {
+    DZ: 'ALGERIA',
+    AS: 'AMERICAN SAMOA',
+    AD: 'ANDORRA',
+    AR: 'ARGENTINA',
+    AM: 'ARMENIA',
+    AU: 'AUSTRALIA',
+    AT: 'AUSTRIA',
+    AZ: 'AZERBAIJAN',
+    BD: 'BANGLADESH',
+    BY: 'BELARUS',
+    BE: 'BELGIUM',
+    BA: 'BOSNIA AND HERZEGOVINA',
+    BR: 'BRAZIL',
+    BN: 'BRUNEI',
+    BG: 'BULGARIA',
+    KH: 'CAMBODIA',
+    CA: 'CANADA',
+    IC: 'CANARY ISLANDS, THE',
+    CN: 'CHINA, PEOPLES REPUBLIC',
+    CO: 'COLOMBIA',
+    MP: 'COMMONWEALTH NO. MARIANA ISLANDS',
+    HR: 'CROATIA',
+    CU: 'CUBA',
+    CY: 'CYPRUS',
+    CZ: 'CZECH REPUBLIC, THE',
+    DK: 'DENMARK',
+    EC: 'ECUADOR',
+    EE: 'ESTONIA',
+    FO: 'FAROE ISLANDS',
+    FI: 'FINLAND',
+    FR: 'FRANCE',
+    GF: 'FRENCH GUYANA',
+    GE: 'GEORGIA',
+    DE: 'GERMANY',
+    GR: 'GREECE',
+    GL: 'GREENLAND',
+    GP: 'GUADELOUPE',
+    GU: 'GUAM',
+    GG: 'GUERNSEY',
+    HU: 'HUNGARY',
+    IS: 'ICELAND',
+    IN: 'INDIA',
+    ID: 'INDONESIA',
+    IL: 'ISRAEL',
+    IT: 'ITALY',
+    JP: 'JAPAN',
+    JE: 'JERSEY',
+    KZ: 'KAZAKHSTAN',
+    KR: 'KOREA, REPUBLIC OF (SOUTH K.)',
+    KV: 'KOSOVO',
+    KG: 'KYRGYZSTAN',
+    LV: 'LATVIA',
+    LI: 'LIECHTENSTEIN',
+    LT: 'LITHUANIA',
+    LU: 'LUXEMBOURG',
+    MG: 'MADAGASCAR',
+    MY: 'MALAYSIA',
+    MV: 'MALDIVES',
+    MH: 'MARSHALL ISLANDS',
+    MQ: 'MARTINIQUE',
+    YT: 'MAYOTTE',
+    MX: 'MEXICO',
+    FM: 'MICRONESIA, FEDERATED STATES OF',
+    MD: 'MOLDOVA, REPUBLIC OF',
+    MC: 'MONACO',
+    MN: 'MONGOLIA',
+    ME: 'MONTENEGRO, REPUBLIC OF',
+    MA: 'MOROCCO',
+    NL: 'NETHERLANDS, THE',
+    NC: 'NEW CALEDONIA',
+    NZ: 'NEW ZEALAND',
+    MK: 'NORTH MACEDONIA',
+    NO: 'NORWAY',
+    PK: 'PAKISTAN',
+    PW: 'PALAU',
+    PG: 'PAPUA NEW GUINEA',
+    PH: 'PHILIPPINES, THE',
+    PL: 'POLAND',
+    PT: 'PORTUGAL',
+    PR: 'PUERTO RICO',
+    RE: 'REUNION, ISLAND OF',
+    RO: 'ROMANIA',
+    RU: 'RUSSIAN FEDERATION, THE',
+    SH: 'SAINT HELENA',
+    SM: 'SAN MARINO',
+    RS: 'SERBIA, REPUBLIC OF',
+    SG: 'SINGAPORE',
+    SK: 'SLOVAKIA',
+    SI: 'SLOVENIA',
+    ZA: 'SOUTH AFRICA',
+    ES: 'SPAIN',
+    XY: 'ST. BARTHELEMY',
+    SZ: 'SWAZILAND',
+    SE: 'SWEDEN',
+    CH: 'SWITZERLAND',
+    PF: 'TAHITI',
+    TW: 'TAIWAN',
+    TH: 'THAILAND',
+    TN: 'TUNISIA',
+    TR: 'TURKEY',
+    TM: 'TURKMENISTAN',
+    UA: 'UKRAINE',
+    GB: 'UNITED KINGDOM',
+    US: 'UNITED STATES OF AMERICA',
+    UZ: 'UZBEKISTAN',
+    VI: 'VIRGIN ISLANDS (US)',
+};
+
+export function getCountryCodes() {
+    return Object.keys(zipRegex);
+}
+
+export function getCountryName(countryCode) {
+    return countryNames[countryCode];
+}
+
+export function getZipExample(countryCode) {
+    const result = [];
+
+    zipRegex[countryCode].forEach((entry) => {
+        result.push(entry.example);
+    });
+
+    return result;
 }
 
 export function validateZip(countryCode, input) {
@@ -714,16 +837,12 @@ export function validateZip(countryCode, input) {
     return result;
 }
 
-export function getZipExample(countryCode) {
-    const result = [];
+export function countryCodeExists(countryCode) {
+    const result = Object.prototype.hasOwnProperty.call(zipRegex, countryCode);
 
-    zipRegex[countryCode].forEach((entry) => {
-        result.push(entry.example);
-    });
+    if (!result) {
+        return false;
+    }
 
-    return result;
-}
-
-export function getCountryCodes() {
-    return Object.keys(zipRegex);
+    return true;
 }
