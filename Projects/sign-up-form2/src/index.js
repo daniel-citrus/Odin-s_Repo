@@ -1,3 +1,9 @@
-import { validateZip, getZipExample } from './zipRegex';
+import { validateZip, getCountryCodes, getZipExample } from './zipRegex';
 
-console.log(getZipExample('US'));
+(() => {})();
+
+/* function insertCountryOptions() {
+    getCountryCodes.forEach((country) => {
+        
+    })
+} */

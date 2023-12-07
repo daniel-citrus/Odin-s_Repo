@@ -698,6 +698,10 @@ const zipRegex = {
     ],
 };
 
+function countryNames = {
+    
+}
+
 export function validateZip(countryCode, input) {
     let result = false;
 
@@ -718,4 +722,8 @@ export function getZipExample(countryCode) {
     });
 
     return result;
+}
+
+export function getCountryCodes() {
+    return Object.keys(zipRegex);
 }
