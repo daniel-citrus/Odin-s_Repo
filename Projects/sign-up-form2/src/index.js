@@ -1,7 +1,3 @@
-function Test(stuf) {
-    this.stuf = stuf;
-}
+import { validateZip, getZipExample } from './zipRegex';
 
-const textObj = new Test('ayo');
-
-console.log(textObj.stuf);
+console.log(getZipExample('US'));
