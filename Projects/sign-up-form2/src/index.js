@@ -1,4 +1,5 @@
 import * as zipTools from './zipRegex';
+import './style/style.scss';
 
 const submitButton = document.querySelector('form button[type="button"]');
 const emailInput = document.getElementById('email');
