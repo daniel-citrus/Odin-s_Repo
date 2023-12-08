@@ -2,7 +2,6 @@ import * as zipTools from './zipRegex';
 
 const submitButton = document.querySelector('form button[type="button"]');
 const emailInput = document.getElementById('email');
-const emailValidate = document.querySelector('.email .validate');
 const countryInput = document.getElementById('country');
 const postalInput = document.getElementById('postal');
 const passInput = document.getElementById('password');
@@ -28,29 +27,51 @@ function buildCountryOptions() {
     });
 }
 
+// Leaving the message blank will disable the validate message
+function updateValidateMessage(parentContainer, message = '') {
+    const validateElement = document.querySelector(
+        `.${parentContainer} .validate`
+    );
+
+    if (!message) {
+        validateElement.classList.remove('flag');
+    } else {
+        validateElement.classList.add('flag');
+    }
+
+    validateElement.textContent = message;
+}
+
 function validateEmail() {
-    const emailRegex =
-        /^([a-zA-Z0-9]{1,}@[a-zA-Z0-9]{1,}).[a-zA-Z0-9]{1,}(.[a-zA-Z0-9]{1,}(.[a-zA-Z0-9]{1,})?)?$/gm;
+    const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/m;
 
     if (emailRegex.test(emailInput.value)) {
-        emailValidate.classList.remove('flag');
-        emailValidate.textContent = '';
+        updateValidateMessage('email', '');
         return true;
     }
 
-    emailValidate.classList.add('flag');
-    emailValidate.textContent =
-        'Please enter a valid email (e.g. bob@gmail.com)';
+    updateValidateMessage(
+        'email',
+        'Please enter a valid email (e.g. bob@gmail.com)'
+    );
 
     return false;
 }
+
+function validateCountry() {}
+
+function validatePostal() {}
+
+function validatePassword() {}
+
+function validateConfirmPass() {}
 
 function validateInputs() {}
 
 (() => {
     buildCountryOptions();
 
-    const inputEventTypes = ['focusout', 'keyup', 'input'];
+    const inputEventTypes = ['focusout', 'input'];
 
     inputEventTypes.forEach((inputType) => {
         emailInput.addEventListener(inputType, () => {
