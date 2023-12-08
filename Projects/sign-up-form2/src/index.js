@@ -34,7 +34,7 @@ function buildCountryOptions() {
  */
 function updateValidateMessage(parentContainer, message = '') {
     const validateElement = document.querySelector(
-        `.${parentContainer} .validate`
+        `form .${parentContainer} .validate`
     );
 
     if (!message) {
@@ -70,6 +70,10 @@ function validateCountry(countryCode) {
     }
 }
 
+/**
+ * Updates the Postal Code input placeholder with examples(s) of the given country code
+ * @param {*} countryCode
+ */
 function updateZipExample(countryCode) {
     if (zipTools.countryCodeExists(countryCode)) {
         postalInput.placeholder = `e.g. ${zipTools
@@ -102,7 +106,40 @@ function validatePostal() {
         updateValidateMessage('postal', '');
     }
 }
-function validatePassword() {}
+
+function buildPasswordWarning(type, content, ...classNames) {
+    const element = document.createElement(type);
+
+    classNames.forEach((name) => {
+        element.classList.add(name);
+    });
+
+    element.textContent = content;
+
+    return element;
+}
+
+function hasLowerCase(string) {
+    const regex = /.*[a-z]{1,}/m;
+    return regex.test(string);
+}
+
+function hasUpperCase(string) {
+    const regex = /.*[A-Z]{1,}/m;
+    return regex.test(string);
+}
+
+function hasNumber(string) {
+    const regex = /.*\d{1,}/m;
+    return regex.test(string);
+}
+
+function validatePassword() {
+    const regex =
+        /^(?=.+[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/m;
+
+    updateValidateMessage('password', '');
+}
 
 function validateConfirmPass() {}
 
