@@ -27,7 +27,11 @@ function buildCountryOptions() {
     });
 }
 
-// Leaving the message blank will disable the validate message
+/**
+ *
+ * @param {*} parentContainer - parent div containing the validate div
+ * @param {*} message - leaving the message blank will disable the validate message
+ */
 function updateValidateMessage(parentContainer, message = '') {
     const validateElement = document.querySelector(
         `.${parentContainer} .validate`
@@ -45,23 +49,59 @@ function updateValidateMessage(parentContainer, message = '') {
 function validateEmail() {
     const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/m;
 
-    if (emailRegex.test(emailInput.value)) {
+    if (!emailRegex.test(emailInput.value)) {
+        updateValidateMessage(
+            'email',
+            'Please enter a valid email, e.g. bob@gmail.com'
+        );
+    } else {
         updateValidateMessage('email', '');
-        return true;
     }
-
-    updateValidateMessage(
-        'email',
-        'Please enter a valid email (e.g. bob@gmail.com)'
-    );
-
-    return false;
 }
 
-function validateCountry() {}
+function validateCountry(countryCode) {
+    if (!zipTools.countryCodeExists(countryCode)) {
+        updateValidateMessage('country', 'Please use a valid country.');
+        postalInput.classList.add('disabled');
+        updateValidateMessage('postal', '');
+    } else {
+        updateValidateMessage('country', '');
+        postalInput.classList.remove('disabled');
+    }
+}
 
-function validatePostal() {}
+function updateZipExample(countryCode) {
+    if (zipTools.countryCodeExists(countryCode)) {
+        postalInput.placeholder = `e.g. ${zipTools
+            .getZipExample(countryCode)
+            .toString()
+            .replace(',', ' or ')}`;
+    } else {
+        postalInput.placeholder = '';
+    }
+}
 
+function validatePostal() {
+    if (postalInput.classList.contains('disabled')) {
+        updateValidateMessage('postal', '');
+        return;
+    }
+
+    const countryCode = countryInput.value;
+    const postalCode = postalInput.value;
+
+    if (!zipTools.validateZipCode(countryCode, postalCode)) {
+        updateValidateMessage(
+            'postal',
+            `Please enter a valid postal code format e.g. ${zipTools
+                .getZipExample(countryCode)
+                .toString()
+                .replace(',', ' or ')}.`
+        );
+    } else {
+        updateValidateMessage('postal', '');
+    }
+}
 function validatePassword() {}
 
 function validateConfirmPass() {}
@@ -70,6 +110,7 @@ function validateInputs() {}
 
 (() => {
     buildCountryOptions();
+    updateZipExample('US');
 
     const inputEventTypes = ['focusout', 'input'];
 
@@ -77,6 +118,17 @@ function validateInputs() {}
         emailInput.addEventListener(inputType, () => {
             validateEmail();
         });
+
+        postalInput.addEventListener(inputType, () => {
+            validatePostal();
+        });
+    });
+
+    countryInput.addEventListener('change', () => {
+        validateCountry(countryInput.value);
+        updateZipExample(countryInput.value);
+        postalInput.value = '';
+        updateValidateMessage('postal', '');
     });
 
     submitButton.addEventListener('click', (e) => {

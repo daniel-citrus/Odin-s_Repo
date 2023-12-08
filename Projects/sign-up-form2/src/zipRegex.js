@@ -846,3 +846,19 @@ export function countryCodeExists(countryCode) {
 
     return true;
 }
+
+export function validateZipCode(countryCode, zipCode) {
+    if (!countryCodeExists(countryCode)) {
+        return false;
+    }
+
+    const zipObjects = zipRegex[countryCode];
+
+    for (let z = 0; z < zipObjects.length; z += 1) {
+        if (zipObjects[z].regex.test(zipCode)) {
+            return true;
+        }
+    }
+
+    return false;
+}
