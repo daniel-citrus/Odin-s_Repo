@@ -60,17 +60,6 @@ function validateEmail() {
     }
 }
 
-function validateCountry(countryCode) {
-    if (!zipTools.countryCodeExists(countryCode)) {
-        updateValidateMessage('country', 'Please use a valid country.');
-        postalInput.classList.add('disabled');
-        updateValidateMessage('postal', '');
-    } else {
-        updateValidateMessage('country', '');
-        postalInput.classList.remove('disabled');
-    }
-}
-
 /**
  * Updates the Postal Code input placeholder with examples(s) of the given country code
  * @param {*} countryCode
@@ -84,6 +73,21 @@ function updateZipExample(countryCode) {
     } else {
         postalInput.placeholder = '';
     }
+}
+
+function validateCountry() {
+    const countryCode = countryInput.value;
+
+    if (!zipTools.countryCodeExists(countryCode)) {
+        updateValidateMessage('country', 'Please use a valid country.');
+        updateValidateMessage('postal', '');
+        postalInput.readOnly = true;
+    } else {
+        updateValidateMessage('country', '');
+        postalInput.readOnly = false;
+    }
+
+    updateZipExample(countryCode);
 }
 
 function validatePostal() {
@@ -108,18 +112,6 @@ function validatePostal() {
     }
 }
 
-function buildPasswordWarning(type, content, ...classNames) {
-    const element = document.createElement(type);
-
-    classNames.forEach((name) => {
-        element.classList.add(name);
-    });
-
-    element.textContent = content;
-
-    return element;
-}
-
 function hasLowerCase(string) {
     const regex = /.*[a-z]{1,}/m;
     return regex.test(string);
@@ -135,16 +127,77 @@ function hasNumber(string) {
     return regex.test(string);
 }
 
-function validatePassword() {
-    const regex =
-        /^(?=.+[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/m;
-
-    updateValidateMessage('password', '');
+function hasSpecialChar(string) {
+    const regex = /.*[@$!%*?&]/m;
+    return regex.test(string);
 }
 
-function validateConfirmPass() {}
+function validatePassword() {
+    const password = passInput.value;
+    const passValidate = document.querySelector('form .password .validate');
+    const msgLowercase = passValidate.querySelector('.lower');
+    const msgUppercase = passValidate.querySelector('.upper');
+    const msgNumber = passValidate.querySelector('.number');
+    const msgSpecial = passValidate.querySelector('.special');
+    const msgTotal = passValidate.querySelector('.length');
 
-function validateInputs() {}
+    if (!hasLowerCase(password)) {
+        msgLowercase.classList.remove('valid');
+    } else {
+        msgLowercase.classList.add('valid');
+    }
+
+    if (!hasUpperCase(password)) {
+        msgUppercase.classList.remove('valid');
+    } else {
+        msgUppercase.classList.add('valid');
+    }
+
+    if (!hasNumber(password)) {
+        msgNumber.classList.remove('valid');
+    } else {
+        msgNumber.classList.add('valid');
+    }
+
+    if (!hasSpecialChar(password)) {
+        msgSpecial.classList.remove('valid');
+    } else {
+        msgSpecial.classList.add('valid');
+    }
+
+    if (password.length < 8 || password.length > 20) {
+        msgTotal.classList.remove('valid');
+    } else {
+        msgTotal.classList.add('valid');
+    }
+}
+
+function validateConfirmPass() {
+    const password = passInput.value;
+    const confirmPassword = confirmPassInput.value;
+
+    if (password === confirmPassword) {
+        updateValidateMessage('confirmPassword', '');
+    } else {
+        updateValidateMessage(
+            'confirmPassword',
+            'Password confirmation does not match the original password.'
+        );
+    }
+}
+
+function validateInputs() {
+    if (
+        !validateEmail() ||
+        !validatePostal() ||
+        !validatePassword() ||
+        !validateConfirmPass()
+    ) {
+        return false;
+    }
+
+    return true;
+}
 
 (() => {
     buildCountryOptions();
@@ -160,13 +213,19 @@ function validateInputs() {}
         postalInput.addEventListener(inputType, () => {
             validatePostal();
         });
+
+        passInput.addEventListener(inputType, () => {
+            validatePassword();
+        });
+
+        confirmPassInput.addEventListener(inputType, () => {
+            validateConfirmPass();
+        });
     });
 
     countryInput.addEventListener('change', () => {
-        validateCountry(countryInput.value);
-        updateZipExample(countryInput.value);
+        validateCountry();
         postalInput.value = '';
-        updateValidateMessage('postal', '');
     });
 
     submitButton.addEventListener('click', (e) => {

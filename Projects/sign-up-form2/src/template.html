@@ -14,19 +14,40 @@
             </div>
             <div class="country">
                 <label for="country">Country</label>
-                <select name="country" id="country">
-                </select>
+                <select name="country" id="country"></select>
                 <div class="validate"></div>
             </div>
             <div class="postal">
                 <label for="postal">Postal Code</label>
-                <input type="text" name="postal" id="postal" placeholder="" />
+                <input
+                    type="text"
+                    name="postal"
+                    id="postal"
+                    placeholder=""
+                    autocomplete="off"
+                />
                 <div class="validate"></div>
             </div>
             <div class="password">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" />
-                <div class="validate"></div>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    autocomplete="off"
+                />
+                <div class="validate">
+                    <div class="instruction">
+                        Your password must have atleast:
+                    </div>
+                    <ul>
+                        <li class="lower">1 lowercase letter</li>
+                        <li class="upper">1 uppercase letter</li>
+                        <li class="number">1 number</li>
+                        <li class="special">1 special character: @$!%*?&</li>
+                        <li class="length">8 to 20 total characters</li>
+                    </ul>
+                </div>
             </div>
             <div class="confirmPassword">
                 <label for="confirmPassword">Confirm Password</label>
@@ -34,6 +55,7 @@
                     type="password"
                     name="confirmPassword"
                     id="confirmPassword"
+                    autocomplete="off"
                 />
                 <div class="validate"></div>
             </div>
