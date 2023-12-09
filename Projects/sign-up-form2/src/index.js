@@ -49,17 +49,24 @@ function updateValidateMessage(parentContainer, message = '') {
 
 function validateEmail() {
     const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/m;
+    let valid = true;
 
     if (!emailRegex.test(emailInput.value)) {
         updateValidateMessage(
             'email',
             'Please enter a valid email, e.g. bob@gmail.com'
         );
-        return false;
+        emailInput.setCustomValidity(
+            'Please enter a valid email, e.g. bob@gmail.com'
+        );
+        valid = false;
+    } else {
+        updateValidateMessage('email', '');
+        emailInput.setCustomValidity('');
     }
 
-    updateValidateMessage('email', '');
-    return true;
+    emailInput.reportValidity();
+    return valid;
 }
 
 /**
@@ -86,9 +93,11 @@ function validateCountry() {
     if (!zipTools.countryCodeExists(countryCode)) {
         updateValidateMessage('country', 'Please use a valid country.');
         updateValidateMessage('postal', '');
+        countryInput.setCustomValidity('Please use a valid country.');
         postalInput.readOnly = true;
         valid = false;
     } else {
+        countryInput.setCustomValidity('');
         updateValidateMessage('country', '');
         postalInput.readOnly = false;
     }
@@ -100,6 +109,7 @@ function validateCountry() {
 function validatePostal() {
     if (postalInput.classList.contains('disabled')) {
         updateValidateMessage('postal', '');
+        countryInput.setCustomValidity('');
         return true;
     }
 
@@ -115,11 +125,19 @@ function validatePostal() {
                 .toString()
                 .replace(',', ' or ')}.`
         );
+        postalInput.setCustomValidity(
+            `Please enter a valid postal code format e.g. ${zipTools
+                .getZipExample(countryCode)
+                .toString()
+                .replace(',', ' or ')}.`
+        );
         valid = false;
     } else {
+        postalInput.setCustomValidity('');
         updateValidateMessage('postal', '');
     }
 
+    postalInput.reportValidity();
     return valid;
 }
 
@@ -155,37 +173,54 @@ function validatePassword() {
 
     if (!hasLowerCase(password)) {
         msgLowercase.classList.remove('valid');
+        passInput.setCustomValidity(
+            'You password must have a lowercase letter.'
+        );
         valid = false;
     } else {
         msgLowercase.classList.add('valid');
     }
 
     if (!hasUpperCase(password)) {
-        valid = false;
         msgUppercase.classList.remove('valid');
+        passInput.setCustomValidity(
+            'You password must have an uppercase letter.'
+        );
+        valid = false;
     } else {
         msgUppercase.classList.add('valid');
     }
 
     if (!hasNumber(password)) {
-        valid = false;
         msgNumber.classList.remove('valid');
+        passInput.setCustomValidity('You password must have number.');
+        valid = false;
     } else {
         msgNumber.classList.add('valid');
     }
 
     if (!hasSpecialChar(password)) {
-        valid = false;
         msgSpecial.classList.remove('valid');
+        passInput.setCustomValidity(
+            'You password must have a special character.'
+        );
+        valid = false;
     } else {
         msgSpecial.classList.add('valid');
     }
 
     if (password.length < 8 || password.length > 20) {
-        valid = false;
         msgTotal.classList.remove('valid');
+        passInput.setCustomValidity(
+            'You password must be between 8 to 20 characters.'
+        );
+        valid = false;
     } else {
         msgTotal.classList.add('valid');
+    }
+
+    if (valid) {
+        passInput.setCustomValidity('');
     }
 
     return valid;
