@@ -1,7 +1,7 @@
 import * as zipTools from './zipRegex';
 import './style/style.scss';
 
-const submitButton = document.querySelector('form button[type="button"]');
+const submitButton = document.querySelector('form button[type="submit"]');
 const emailInput = document.getElementById('email');
 const countryInput = document.getElementById('country');
 const postalInput = document.getElementById('postal');
@@ -55,9 +55,11 @@ function validateEmail() {
             'email',
             'Please enter a valid email, e.g. bob@gmail.com'
         );
-    } else {
-        updateValidateMessage('email', '');
+        return false;
     }
+
+    updateValidateMessage('email', '');
+    return true;
 }
 
 /**
@@ -65,39 +67,45 @@ function validateEmail() {
  * @param {*} countryCode
  */
 function updateZipExample(countryCode) {
-    if (zipTools.countryCodeExists(countryCode)) {
-        postalInput.placeholder = `e.g. ${zipTools
-            .getZipExample(countryCode)
-            .toString()
-            .replace(',', ' or ')}`;
-    } else {
+    if (!zipTools.countryCodeExists(countryCode)) {
         postalInput.placeholder = '';
+        return false;
     }
+
+    postalInput.placeholder = `e.g. ${zipTools
+        .getZipExample(countryCode)
+        .toString()
+        .replace(',', ' or ')}`;
+    return true;
 }
 
 function validateCountry() {
     const countryCode = countryInput.value;
+    let valid = true;
 
     if (!zipTools.countryCodeExists(countryCode)) {
         updateValidateMessage('country', 'Please use a valid country.');
         updateValidateMessage('postal', '');
         postalInput.readOnly = true;
+        valid = false;
     } else {
         updateValidateMessage('country', '');
         postalInput.readOnly = false;
     }
 
     updateZipExample(countryCode);
+    return valid;
 }
 
 function validatePostal() {
     if (postalInput.classList.contains('disabled')) {
         updateValidateMessage('postal', '');
-        return;
+        return true;
     }
 
     const countryCode = countryInput.value;
     const postalCode = postalInput.value;
+    let valid = true;
 
     if (!zipTools.validateZipCode(countryCode, postalCode)) {
         updateValidateMessage(
@@ -107,9 +115,12 @@ function validatePostal() {
                 .toString()
                 .replace(',', ' or ')}.`
         );
+        valid = false;
     } else {
         updateValidateMessage('postal', '');
     }
+
+    return valid;
 }
 
 function hasLowerCase(string) {
@@ -140,41 +151,50 @@ function validatePassword() {
     const msgNumber = passValidate.querySelector('.number');
     const msgSpecial = passValidate.querySelector('.special');
     const msgTotal = passValidate.querySelector('.length');
+    let valid = true;
 
     if (!hasLowerCase(password)) {
         msgLowercase.classList.remove('valid');
+        valid = false;
     } else {
         msgLowercase.classList.add('valid');
     }
 
     if (!hasUpperCase(password)) {
+        valid = false;
         msgUppercase.classList.remove('valid');
     } else {
         msgUppercase.classList.add('valid');
     }
 
     if (!hasNumber(password)) {
+        valid = false;
         msgNumber.classList.remove('valid');
     } else {
         msgNumber.classList.add('valid');
     }
 
     if (!hasSpecialChar(password)) {
+        valid = false;
         msgSpecial.classList.remove('valid');
     } else {
         msgSpecial.classList.add('valid');
     }
 
     if (password.length < 8 || password.length > 20) {
+        valid = false;
         msgTotal.classList.remove('valid');
     } else {
         msgTotal.classList.add('valid');
     }
+
+    return valid;
 }
 
 function validateConfirmPass() {
     const password = passInput.value;
     const confirmPassword = confirmPassInput.value;
+    let valid = true;
 
     if (password === confirmPassword) {
         updateValidateMessage('confirmPassword', '');
@@ -183,20 +203,32 @@ function validateConfirmPass() {
             'confirmPassword',
             'Password confirmation does not match the original password.'
         );
+        valid = false;
     }
+
+    return valid;
 }
 
 function validateInputs() {
-    if (
-        !validateEmail() ||
-        !validatePostal() ||
-        !validatePassword() ||
-        !validateConfirmPass()
-    ) {
-        return false;
+    let valid = true;
+
+    if (!validateEmail()) {
+        valid = false;
     }
 
-    return true;
+    if (!validatePostal()) {
+        valid = false;
+    }
+
+    if (!validatePassword()) {
+        valid = false;
+    }
+
+    if (!validateConfirmPass()) {
+        valid = false;
+    }
+
+    return valid;
 }
 
 (() => {
@@ -229,7 +261,9 @@ function validateInputs() {
     });
 
     submitButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        validateInputs();
+        if (!validateInputs()) {
+            e.preventDefault();
+            return;
+        }
     });
 })();
