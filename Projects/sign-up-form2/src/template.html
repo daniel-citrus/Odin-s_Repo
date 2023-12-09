@@ -31,6 +31,7 @@
             <div class="password">
                 <label for="password">Password</label><br />
                 <input
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
                     type="password"
                     name="password"
                     id="password"
@@ -60,7 +61,6 @@
                 <div class="validate"></div>
             </div>
             <button type="submit">Submit</button>
-            <br />
             <a class="already" href="">Already have an account?</a>
         </form>
     </body>
